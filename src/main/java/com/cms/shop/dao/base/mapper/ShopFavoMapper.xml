@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cms.shop.dao.base.mapper.ShopFavoMapper" >
+  <resultMap id="BaseResultMap" type="com.cms.shop.model.base.ShopFavo" >
+    <id column="FAVO_ID" property="favoId" jdbcType="INTEGER" />
+    <result column="SHOP_ID" property="shopId" jdbcType="INTEGER" />
+    <result column="SHOP_NAME" property="shopName" jdbcType="VARCHAR" />
+    <result column="DIST_NAME" property="distName" jdbcType="VARCHAR" />
+    <result column="ADD_DATE" property="addDate" jdbcType="TIMESTAMP" />
+    <result column="CUST_ID" property="custId" jdbcType="INTEGER" />
+    <result column="SHOP_STATUS" property="shopStatus" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    FAVO_ID, SHOP_ID, SHOP_NAME, DIST_NAME, ADD_DATE, CUST_ID, SHOP_STATUS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cms.shop.model.base.ShopFavoCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shop_favo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <choose >
+      <when test="limitStart != -1 and limitEnd != -1" >
+        limit ${limitStart} , ${limitEnd}
+      </when>
+      <when test="limitStart != -1" >
+        limit ${limitStart}
+      </when>
+    </choose>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from shop_favo
+    where FAVO_ID = #{favoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from shop_favo
+    where FAVO_ID = #{favoId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cms.shop.model.base.ShopFavoCriteria" >
+    delete from shop_favo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cms.shop.model.base.ShopFavo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="favoId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into shop_favo (SHOP_ID, SHOP_NAME, DIST_NAME, 
+      ADD_DATE, CUST_ID, SHOP_STATUS
+      )
+    values (#{shopId,jdbcType=INTEGER}, #{shopName,jdbcType=VARCHAR}, #{distName,jdbcType=VARCHAR}, 
+      #{addDate,jdbcType=TIMESTAMP}, #{custId,jdbcType=INTEGER}, #{shopStatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cms.shop.model.base.ShopFavo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="favoId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into shop_favo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shopId != null" >
+        SHOP_ID,
+      </if>
+      <if test="shopName != null" >
+        SHOP_NAME,
+      </if>
+      <if test="distName != null" >
+        DIST_NAME,
+      </if>
+      <if test="addDate != null" >
+        ADD_DATE,
+      </if>
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="shopStatus != null" >
+        SHOP_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shopId != null" >
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="shopName != null" >
+        #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="distName != null" >
+        #{distName,jdbcType=VARCHAR},
+      </if>
+      <if test="addDate != null" >
+        #{addDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=INTEGER},
+      </if>
+      <if test="shopStatus != null" >
+        #{shopStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cms.shop.model.base.ShopFavoCriteria" resultType="java.lang.Integer" >
+    select count(*) from shop_favo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update shop_favo
+    <set >
+      <if test="record.favoId != null" >
+        FAVO_ID = #{record.favoId,jdbcType=INTEGER},
+      </if>
+      <if test="record.shopId != null" >
+        SHOP_ID = #{record.shopId,jdbcType=INTEGER},
+      </if>
+      <if test="record.shopName != null" >
+        SHOP_NAME = #{record.shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.distName != null" >
+        DIST_NAME = #{record.distName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addDate != null" >
+        ADD_DATE = #{record.addDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.custId != null" >
+        CUST_ID = #{record.custId,jdbcType=INTEGER},
+      </if>
+      <if test="record.shopStatus != null" >
+        SHOP_STATUS = #{record.shopStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update shop_favo
+    set FAVO_ID = #{record.favoId,jdbcType=INTEGER},
+      SHOP_ID = #{record.shopId,jdbcType=INTEGER},
+      SHOP_NAME = #{record.shopName,jdbcType=VARCHAR},
+      DIST_NAME = #{record.distName,jdbcType=VARCHAR},
+      ADD_DATE = #{record.addDate,jdbcType=TIMESTAMP},
+      CUST_ID = #{record.custId,jdbcType=INTEGER},
+      SHOP_STATUS = #{record.shopStatus,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cms.shop.model.base.ShopFavo" >
+    update shop_favo
+    <set >
+      <if test="shopId != null" >
+        SHOP_ID = #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="shopName != null" >
+        SHOP_NAME = #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="distName != null" >
+        DIST_NAME = #{distName,jdbcType=VARCHAR},
+      </if>
+      <if test="addDate != null" >
+        ADD_DATE = #{addDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="custId != null" >
+        CUST_ID = #{custId,jdbcType=INTEGER},
+      </if>
+      <if test="shopStatus != null" >
+        SHOP_STATUS = #{shopStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where FAVO_ID = #{favoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cms.shop.model.base.ShopFavo" >
+    update shop_favo
+    set SHOP_ID = #{shopId,jdbcType=INTEGER},
+      SHOP_NAME = #{shopName,jdbcType=VARCHAR},
+      DIST_NAME = #{distName,jdbcType=VARCHAR},
+      ADD_DATE = #{addDate,jdbcType=TIMESTAMP},
+      CUST_ID = #{custId,jdbcType=INTEGER},
+      SHOP_STATUS = #{shopStatus,jdbcType=INTEGER}
+    where FAVO_ID = #{favoId,jdbcType=INTEGER}
+  </update>
+</mapper>

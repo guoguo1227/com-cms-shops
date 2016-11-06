@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cms.shop.dao.base.mapper.AdvertMapper" >
+  <resultMap id="BaseResultMap" type="com.cms.shop.model.base.Advert" >
+    <id column="AD_ID" property="adId" jdbcType="INTEGER" />
+    <result column="AD_NAME" property="adName" jdbcType="VARCHAR" />
+    <result column="PIC_NAME" property="picName" jdbcType="VARCHAR" />
+    <result column="NEW_PIC_NAME" property="newPicName" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="AD_STATUS" property="adStatus" jdbcType="INTEGER" />
+    <result column="AUD_STATUS" property="audStatus" jdbcType="INTEGER" />
+    <result column="AD_LOC" property="adLoc" jdbcType="INTEGER" />
+    <result column="CREATER" property="creater" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="edit_Tag" property="editTag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    AD_ID, AD_NAME, PIC_NAME, NEW_PIC_NAME, URL, AD_STATUS, AUD_STATUS, AD_LOC, CREATER, 
+    CREATE_DATE, edit_Tag
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cms.shop.model.base.AdvertCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from advert
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <choose >
+      <when test="limitStart != -1 and limitEnd != -1" >
+        limit ${limitStart} , ${limitEnd}
+      </when>
+      <when test="limitStart != -1" >
+        limit ${limitStart}
+      </when>
+    </choose>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from advert
+    where AD_ID = #{adId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from advert
+    where AD_ID = #{adId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cms.shop.model.base.AdvertCriteria" >
+    delete from advert
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cms.shop.model.base.Advert" >
+    <selectKey resultType="java.lang.Integer" keyProperty="adId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into advert (AD_NAME, PIC_NAME, NEW_PIC_NAME, 
+      URL, AD_STATUS, AUD_STATUS, 
+      AD_LOC, CREATER, CREATE_DATE, 
+      edit_Tag)
+    values (#{adName,jdbcType=VARCHAR}, #{picName,jdbcType=VARCHAR}, #{newPicName,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{adStatus,jdbcType=INTEGER}, #{audStatus,jdbcType=INTEGER}, 
+      #{adLoc,jdbcType=INTEGER}, #{creater,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{editTag,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cms.shop.model.base.Advert" >
+    <selectKey resultType="java.lang.Integer" keyProperty="adId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into advert
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adName != null" >
+        AD_NAME,
+      </if>
+      <if test="picName != null" >
+        PIC_NAME,
+      </if>
+      <if test="newPicName != null" >
+        NEW_PIC_NAME,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="adStatus != null" >
+        AD_STATUS,
+      </if>
+      <if test="audStatus != null" >
+        AUD_STATUS,
+      </if>
+      <if test="adLoc != null" >
+        AD_LOC,
+      </if>
+      <if test="creater != null" >
+        CREATER,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="editTag != null" >
+        edit_Tag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adName != null" >
+        #{adName,jdbcType=VARCHAR},
+      </if>
+      <if test="picName != null" >
+        #{picName,jdbcType=VARCHAR},
+      </if>
+      <if test="newPicName != null" >
+        #{newPicName,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="adStatus != null" >
+        #{adStatus,jdbcType=INTEGER},
+      </if>
+      <if test="audStatus != null" >
+        #{audStatus,jdbcType=INTEGER},
+      </if>
+      <if test="adLoc != null" >
+        #{adLoc,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editTag != null" >
+        #{editTag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cms.shop.model.base.AdvertCriteria" resultType="java.lang.Integer" >
+    select count(*) from advert
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update advert
+    <set >
+      <if test="record.adId != null" >
+        AD_ID = #{record.adId,jdbcType=INTEGER},
+      </if>
+      <if test="record.adName != null" >
+        AD_NAME = #{record.adName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picName != null" >
+        PIC_NAME = #{record.picName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newPicName != null" >
+        NEW_PIC_NAME = #{record.newPicName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null" >
+        URL = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adStatus != null" >
+        AD_STATUS = #{record.adStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.audStatus != null" >
+        AUD_STATUS = #{record.audStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.adLoc != null" >
+        AD_LOC = #{record.adLoc,jdbcType=INTEGER},
+      </if>
+      <if test="record.creater != null" >
+        CREATER = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.editTag != null" >
+        edit_Tag = #{record.editTag,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update advert
+    set AD_ID = #{record.adId,jdbcType=INTEGER},
+      AD_NAME = #{record.adName,jdbcType=VARCHAR},
+      PIC_NAME = #{record.picName,jdbcType=VARCHAR},
+      NEW_PIC_NAME = #{record.newPicName,jdbcType=VARCHAR},
+      URL = #{record.url,jdbcType=VARCHAR},
+      AD_STATUS = #{record.adStatus,jdbcType=INTEGER},
+      AUD_STATUS = #{record.audStatus,jdbcType=INTEGER},
+      AD_LOC = #{record.adLoc,jdbcType=INTEGER},
+      CREATER = #{record.creater,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      edit_Tag = #{record.editTag,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cms.shop.model.base.Advert" >
+    update advert
+    <set >
+      <if test="adName != null" >
+        AD_NAME = #{adName,jdbcType=VARCHAR},
+      </if>
+      <if test="picName != null" >
+        PIC_NAME = #{picName,jdbcType=VARCHAR},
+      </if>
+      <if test="newPicName != null" >
+        NEW_PIC_NAME = #{newPicName,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="adStatus != null" >
+        AD_STATUS = #{adStatus,jdbcType=INTEGER},
+      </if>
+      <if test="audStatus != null" >
+        AUD_STATUS = #{audStatus,jdbcType=INTEGER},
+      </if>
+      <if test="adLoc != null" >
+        AD_LOC = #{adLoc,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null" >
+        CREATER = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editTag != null" >
+        edit_Tag = #{editTag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where AD_ID = #{adId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cms.shop.model.base.Advert" >
+    update advert
+    set AD_NAME = #{adName,jdbcType=VARCHAR},
+      PIC_NAME = #{picName,jdbcType=VARCHAR},
+      NEW_PIC_NAME = #{newPicName,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      AD_STATUS = #{adStatus,jdbcType=INTEGER},
+      AUD_STATUS = #{audStatus,jdbcType=INTEGER},
+      AD_LOC = #{adLoc,jdbcType=INTEGER},
+      CREATER = #{creater,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      edit_Tag = #{editTag,jdbcType=INTEGER}
+    where AD_ID = #{adId,jdbcType=INTEGER}
+  </update>
+</mapper>

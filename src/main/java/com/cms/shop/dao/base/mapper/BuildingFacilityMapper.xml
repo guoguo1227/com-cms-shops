@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cms.shop.dao.base.mapper.BuildingFacilityMapper" >
+  <resultMap id="BaseResultMap" type="com.cms.shop.model.base.BuildingFacility" >
+    <id column="FACIL_ID" property="facilId" jdbcType="INTEGER" />
+    <result column="FACIL_NAME" property="facilName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    FACIL_ID, FACIL_NAME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cms.shop.model.base.BuildingFacilityCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from building_facility
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <choose >
+      <when test="limitStart != -1 and limitEnd != -1" >
+        limit ${limitStart} , ${limitEnd}
+      </when>
+      <when test="limitStart != -1" >
+        limit ${limitStart}
+      </when>
+    </choose>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from building_facility
+    where FACIL_ID = #{facilId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from building_facility
+    where FACIL_ID = #{facilId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cms.shop.model.base.BuildingFacilityCriteria" >
+    delete from building_facility
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cms.shop.model.base.BuildingFacility" >
+    <selectKey resultType="java.lang.Integer" keyProperty="facilId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into building_facility (FACIL_NAME)
+    values (#{facilName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cms.shop.model.base.BuildingFacility" >
+    <selectKey resultType="java.lang.Integer" keyProperty="facilId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into building_facility
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="facilName != null" >
+        FACIL_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="facilName != null" >
+        #{facilName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cms.shop.model.base.BuildingFacilityCriteria" resultType="java.lang.Integer" >
+    select count(*) from building_facility
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update building_facility
+    <set >
+      <if test="record.facilId != null" >
+        FACIL_ID = #{record.facilId,jdbcType=INTEGER},
+      </if>
+      <if test="record.facilName != null" >
+        FACIL_NAME = #{record.facilName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update building_facility
+    set FACIL_ID = #{record.facilId,jdbcType=INTEGER},
+      FACIL_NAME = #{record.facilName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cms.shop.model.base.BuildingFacility" >
+    update building_facility
+    <set >
+      <if test="facilName != null" >
+        FACIL_NAME = #{facilName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where FACIL_ID = #{facilId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cms.shop.model.base.BuildingFacility" >
+    update building_facility
+    set FACIL_NAME = #{facilName,jdbcType=VARCHAR}
+    where FACIL_ID = #{facilId,jdbcType=INTEGER}
+  </update>
+</mapper>

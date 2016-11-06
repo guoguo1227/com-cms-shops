@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cms.shop.dao.base.mapper.QaMapper" >
+  <resultMap id="BaseResultMap" type="com.cms.shop.model.base.Qa" >
+    <id column="QA_ID" property="qaId" jdbcType="INTEGER" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="AUDIT_STATUS" property="auditStatus" jdbcType="INTEGER" />
+    <result column="ASKER_ID" property="askerId" jdbcType="INTEGER" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="REPLY" property="reply" jdbcType="VARCHAR" />
+    <result column="ASKER_NAME" property="askerName" jdbcType="VARCHAR" />
+    <result column="ASKER_LOC" property="askerLoc" jdbcType="VARCHAR" />
+    <result column="ASKER_PHONE" property="askerPhone" jdbcType="VARCHAR" />
+    <result column="ASKER_MAIL" property="askerMail" jdbcType="VARCHAR" />
+    <result column="REPLY_DATE" property="replyDate" jdbcType="TIMESTAMP" />
+    <result column="REPLY_STATUS" property="replyStatus" jdbcType="INTEGER" />
+    <result column="shop_Id" property="shopId" jdbcType="INTEGER" />
+    <result column="user_Id" property="userId" jdbcType="INTEGER" />
+    <result column="audit_Date" property="auditDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    QA_ID, CONTENT, AUDIT_STATUS, ASKER_ID, CREATE_DATE, REPLY, ASKER_NAME, ASKER_LOC, 
+    ASKER_PHONE, ASKER_MAIL, REPLY_DATE, REPLY_STATUS, shop_Id, user_Id, audit_Date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cms.shop.model.base.QaCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from qa
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <choose >
+      <when test="limitStart != -1 and limitEnd != -1" >
+        limit ${limitStart} , ${limitEnd}
+      </when>
+      <when test="limitStart != -1" >
+        limit ${limitStart}
+      </when>
+    </choose>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from qa
+    where QA_ID = #{qaId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from qa
+    where QA_ID = #{qaId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cms.shop.model.base.QaCriteria" >
+    delete from qa
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cms.shop.model.base.Qa" >
+    <selectKey resultType="java.lang.Integer" keyProperty="qaId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into qa (CONTENT, AUDIT_STATUS, ASKER_ID, 
+      CREATE_DATE, REPLY, ASKER_NAME, 
+      ASKER_LOC, ASKER_PHONE, ASKER_MAIL, 
+      REPLY_DATE, REPLY_STATUS, shop_Id, 
+      user_Id, audit_Date)
+    values (#{content,jdbcType=VARCHAR}, #{auditStatus,jdbcType=INTEGER}, #{askerId,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{reply,jdbcType=VARCHAR}, #{askerName,jdbcType=VARCHAR}, 
+      #{askerLoc,jdbcType=VARCHAR}, #{askerPhone,jdbcType=VARCHAR}, #{askerMail,jdbcType=VARCHAR}, 
+      #{replyDate,jdbcType=TIMESTAMP}, #{replyStatus,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{auditDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cms.shop.model.base.Qa" >
+    <selectKey resultType="java.lang.Integer" keyProperty="qaId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into qa
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="content != null" >
+        CONTENT,
+      </if>
+      <if test="auditStatus != null" >
+        AUDIT_STATUS,
+      </if>
+      <if test="askerId != null" >
+        ASKER_ID,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="reply != null" >
+        REPLY,
+      </if>
+      <if test="askerName != null" >
+        ASKER_NAME,
+      </if>
+      <if test="askerLoc != null" >
+        ASKER_LOC,
+      </if>
+      <if test="askerPhone != null" >
+        ASKER_PHONE,
+      </if>
+      <if test="askerMail != null" >
+        ASKER_MAIL,
+      </if>
+      <if test="replyDate != null" >
+        REPLY_DATE,
+      </if>
+      <if test="replyStatus != null" >
+        REPLY_STATUS,
+      </if>
+      <if test="shopId != null" >
+        shop_Id,
+      </if>
+      <if test="userId != null" >
+        user_Id,
+      </if>
+      <if test="auditDate != null" >
+        audit_Date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null" >
+        #{auditStatus,jdbcType=INTEGER},
+      </if>
+      <if test="askerId != null" >
+        #{askerId,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reply != null" >
+        #{reply,jdbcType=VARCHAR},
+      </if>
+      <if test="askerName != null" >
+        #{askerName,jdbcType=VARCHAR},
+      </if>
+      <if test="askerLoc != null" >
+        #{askerLoc,jdbcType=VARCHAR},
+      </if>
+      <if test="askerPhone != null" >
+        #{askerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="askerMail != null" >
+        #{askerMail,jdbcType=VARCHAR},
+      </if>
+      <if test="replyDate != null" >
+        #{replyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyStatus != null" >
+        #{replyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="auditDate != null" >
+        #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cms.shop.model.base.QaCriteria" resultType="java.lang.Integer" >
+    select count(*) from qa
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update qa
+    <set >
+      <if test="record.qaId != null" >
+        QA_ID = #{record.qaId,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null" >
+        CONTENT = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditStatus != null" >
+        AUDIT_STATUS = #{record.auditStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.askerId != null" >
+        ASKER_ID = #{record.askerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.createDate != null" >
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.reply != null" >
+        REPLY = #{record.reply,jdbcType=VARCHAR},
+      </if>
+      <if test="record.askerName != null" >
+        ASKER_NAME = #{record.askerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.askerLoc != null" >
+        ASKER_LOC = #{record.askerLoc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.askerPhone != null" >
+        ASKER_PHONE = #{record.askerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.askerMail != null" >
+        ASKER_MAIL = #{record.askerMail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replyDate != null" >
+        REPLY_DATE = #{record.replyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.replyStatus != null" >
+        REPLY_STATUS = #{record.replyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.shopId != null" >
+        shop_Id = #{record.shopId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_Id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.auditDate != null" >
+        audit_Date = #{record.auditDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update qa
+    set QA_ID = #{record.qaId,jdbcType=INTEGER},
+      CONTENT = #{record.content,jdbcType=VARCHAR},
+      AUDIT_STATUS = #{record.auditStatus,jdbcType=INTEGER},
+      ASKER_ID = #{record.askerId,jdbcType=INTEGER},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      REPLY = #{record.reply,jdbcType=VARCHAR},
+      ASKER_NAME = #{record.askerName,jdbcType=VARCHAR},
+      ASKER_LOC = #{record.askerLoc,jdbcType=VARCHAR},
+      ASKER_PHONE = #{record.askerPhone,jdbcType=VARCHAR},
+      ASKER_MAIL = #{record.askerMail,jdbcType=VARCHAR},
+      REPLY_DATE = #{record.replyDate,jdbcType=TIMESTAMP},
+      REPLY_STATUS = #{record.replyStatus,jdbcType=INTEGER},
+      shop_Id = #{record.shopId,jdbcType=INTEGER},
+      user_Id = #{record.userId,jdbcType=INTEGER},
+      audit_Date = #{record.auditDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cms.shop.model.base.Qa" >
+    update qa
+    <set >
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null" >
+        AUDIT_STATUS = #{auditStatus,jdbcType=INTEGER},
+      </if>
+      <if test="askerId != null" >
+        ASKER_ID = #{askerId,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reply != null" >
+        REPLY = #{reply,jdbcType=VARCHAR},
+      </if>
+      <if test="askerName != null" >
+        ASKER_NAME = #{askerName,jdbcType=VARCHAR},
+      </if>
+      <if test="askerLoc != null" >
+        ASKER_LOC = #{askerLoc,jdbcType=VARCHAR},
+      </if>
+      <if test="askerPhone != null" >
+        ASKER_PHONE = #{askerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="askerMail != null" >
+        ASKER_MAIL = #{askerMail,jdbcType=VARCHAR},
+      </if>
+      <if test="replyDate != null" >
+        REPLY_DATE = #{replyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyStatus != null" >
+        REPLY_STATUS = #{replyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null" >
+        shop_Id = #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_Id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="auditDate != null" >
+        audit_Date = #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where QA_ID = #{qaId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cms.shop.model.base.Qa" >
+    update qa
+    set CONTENT = #{content,jdbcType=VARCHAR},
+      AUDIT_STATUS = #{auditStatus,jdbcType=INTEGER},
+      ASKER_ID = #{askerId,jdbcType=INTEGER},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      REPLY = #{reply,jdbcType=VARCHAR},
+      ASKER_NAME = #{askerName,jdbcType=VARCHAR},
+      ASKER_LOC = #{askerLoc,jdbcType=VARCHAR},
+      ASKER_PHONE = #{askerPhone,jdbcType=VARCHAR},
+      ASKER_MAIL = #{askerMail,jdbcType=VARCHAR},
+      REPLY_DATE = #{replyDate,jdbcType=TIMESTAMP},
+      REPLY_STATUS = #{replyStatus,jdbcType=INTEGER},
+      shop_Id = #{shopId,jdbcType=INTEGER},
+      user_Id = #{userId,jdbcType=INTEGER},
+      audit_Date = #{auditDate,jdbcType=TIMESTAMP}
+    where QA_ID = #{qaId,jdbcType=INTEGER}
+  </update>
+</mapper>

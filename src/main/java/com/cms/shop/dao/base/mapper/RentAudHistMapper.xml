@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cms.shop.dao.base.mapper.RentAudHistMapper" >
+  <resultMap id="BaseResultMap" type="com.cms.shop.model.base.RentAudHist" >
+    <id column="RENT_AUD_ID" property="rentAudId" jdbcType="INTEGER" />
+    <result column="AUD_DATE" property="audDate" jdbcType="TIMESTAMP" />
+    <result column="AUD_OPER" property="audOper" jdbcType="INTEGER" />
+    <result column="AUDITOR_NAME" property="auditorName" jdbcType="VARCHAR" />
+    <result column="audit_Id" property="auditId" jdbcType="INTEGER" />
+    <result column="hist_Id" property="histId" jdbcType="INTEGER" />
+    <result column="AUD_COMMENT" property="audComment" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    RENT_AUD_ID, AUD_DATE, AUD_OPER, AUDITOR_NAME, audit_Id, hist_Id, AUD_COMMENT
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cms.shop.model.base.RentAudHistCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from rent_aud_hist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <choose >
+      <when test="limitStart != -1 and limitEnd != -1" >
+        limit ${limitStart} , ${limitEnd}
+      </when>
+      <when test="limitStart != -1" >
+        limit ${limitStart}
+      </when>
+    </choose>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from rent_aud_hist
+    where RENT_AUD_ID = #{rentAudId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from rent_aud_hist
+    where RENT_AUD_ID = #{rentAudId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cms.shop.model.base.RentAudHistCriteria" >
+    delete from rent_aud_hist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cms.shop.model.base.RentAudHist" >
+    <selectKey resultType="java.lang.Integer" keyProperty="rentAudId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into rent_aud_hist (AUD_DATE, AUD_OPER, AUDITOR_NAME, 
+      audit_Id, hist_Id, AUD_COMMENT
+      )
+    values (#{audDate,jdbcType=TIMESTAMP}, #{audOper,jdbcType=INTEGER}, #{auditorName,jdbcType=VARCHAR}, 
+      #{auditId,jdbcType=INTEGER}, #{histId,jdbcType=INTEGER}, #{audComment,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cms.shop.model.base.RentAudHist" >
+    <selectKey resultType="java.lang.Integer" keyProperty="rentAudId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into rent_aud_hist
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="audDate != null" >
+        AUD_DATE,
+      </if>
+      <if test="audOper != null" >
+        AUD_OPER,
+      </if>
+      <if test="auditorName != null" >
+        AUDITOR_NAME,
+      </if>
+      <if test="auditId != null" >
+        audit_Id,
+      </if>
+      <if test="histId != null" >
+        hist_Id,
+      </if>
+      <if test="audComment != null" >
+        AUD_COMMENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="audDate != null" >
+        #{audDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="audOper != null" >
+        #{audOper,jdbcType=INTEGER},
+      </if>
+      <if test="auditorName != null" >
+        #{auditorName,jdbcType=VARCHAR},
+      </if>
+      <if test="auditId != null" >
+        #{auditId,jdbcType=INTEGER},
+      </if>
+      <if test="histId != null" >
+        #{histId,jdbcType=INTEGER},
+      </if>
+      <if test="audComment != null" >
+        #{audComment,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cms.shop.model.base.RentAudHistCriteria" resultType="java.lang.Integer" >
+    select count(*) from rent_aud_hist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update rent_aud_hist
+    <set >
+      <if test="record.rentAudId != null" >
+        RENT_AUD_ID = #{record.rentAudId,jdbcType=INTEGER},
+      </if>
+      <if test="record.audDate != null" >
+        AUD_DATE = #{record.audDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.audOper != null" >
+        AUD_OPER = #{record.audOper,jdbcType=INTEGER},
+      </if>
+      <if test="record.auditorName != null" >
+        AUDITOR_NAME = #{record.auditorName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditId != null" >
+        audit_Id = #{record.auditId,jdbcType=INTEGER},
+      </if>
+      <if test="record.histId != null" >
+        hist_Id = #{record.histId,jdbcType=INTEGER},
+      </if>
+      <if test="record.audComment != null" >
+        AUD_COMMENT = #{record.audComment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update rent_aud_hist
+    set RENT_AUD_ID = #{record.rentAudId,jdbcType=INTEGER},
+      AUD_DATE = #{record.audDate,jdbcType=TIMESTAMP},
+      AUD_OPER = #{record.audOper,jdbcType=INTEGER},
+      AUDITOR_NAME = #{record.auditorName,jdbcType=VARCHAR},
+      audit_Id = #{record.auditId,jdbcType=INTEGER},
+      hist_Id = #{record.histId,jdbcType=INTEGER},
+      AUD_COMMENT = #{record.audComment,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cms.shop.model.base.RentAudHist" >
+    update rent_aud_hist
+    <set >
+      <if test="audDate != null" >
+        AUD_DATE = #{audDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="audOper != null" >
+        AUD_OPER = #{audOper,jdbcType=INTEGER},
+      </if>
+      <if test="auditorName != null" >
+        AUDITOR_NAME = #{auditorName,jdbcType=VARCHAR},
+      </if>
+      <if test="auditId != null" >
+        audit_Id = #{auditId,jdbcType=INTEGER},
+      </if>
+      <if test="histId != null" >
+        hist_Id = #{histId,jdbcType=INTEGER},
+      </if>
+      <if test="audComment != null" >
+        AUD_COMMENT = #{audComment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RENT_AUD_ID = #{rentAudId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cms.shop.model.base.RentAudHist" >
+    update rent_aud_hist
+    set AUD_DATE = #{audDate,jdbcType=TIMESTAMP},
+      AUD_OPER = #{audOper,jdbcType=INTEGER},
+      AUDITOR_NAME = #{auditorName,jdbcType=VARCHAR},
+      audit_Id = #{auditId,jdbcType=INTEGER},
+      hist_Id = #{histId,jdbcType=INTEGER},
+      AUD_COMMENT = #{audComment,jdbcType=VARCHAR}
+    where RENT_AUD_ID = #{rentAudId,jdbcType=INTEGER}
+  </update>
+</mapper>

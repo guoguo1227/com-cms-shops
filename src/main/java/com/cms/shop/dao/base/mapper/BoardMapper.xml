@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cms.shop.dao.base.mapper.BoardMapper" >
+  <resultMap id="BaseResultMap" type="com.cms.shop.model.base.Board" >
+    <id column="BRD_ID" property="brdId" jdbcType="INTEGER" />
+    <result column="BRD_TYPE" property="brdType" jdbcType="INTEGER" />
+    <result column="BRD_TITLE" property="brdTitle" jdbcType="VARCHAR" />
+    <result column="BRD_CONTENT" property="brdContent" jdbcType="VARCHAR" />
+    <result column="BRD_STATUS" property="brdStatus" jdbcType="INTEGER" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="cre_Id" property="creId" jdbcType="INTEGER" />
+    <result column="edit_Tag" property="editTag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    BRD_ID, BRD_TYPE, BRD_TITLE, BRD_CONTENT, BRD_STATUS, CREATE_DATE, cre_Id, edit_Tag
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cms.shop.model.base.BoardCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from board
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <choose >
+      <when test="limitStart != -1 and limitEnd != -1" >
+        limit ${limitStart} , ${limitEnd}
+      </when>
+      <when test="limitStart != -1" >
+        limit ${limitStart}
+      </when>
+    </choose>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from board
+    where BRD_ID = #{brdId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from board
+    where BRD_ID = #{brdId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cms.shop.model.base.BoardCriteria" >
+    delete from board
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cms.shop.model.base.Board" >
+    <selectKey resultType="java.lang.Integer" keyProperty="brdId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into board (BRD_TYPE, BRD_TITLE, BRD_CONTENT, 
+      BRD_STATUS, CREATE_DATE, cre_Id, 
+      edit_Tag)
+    values (#{brdType,jdbcType=INTEGER}, #{brdTitle,jdbcType=VARCHAR}, #{brdContent,jdbcType=VARCHAR}, 
+      #{brdStatus,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{creId,jdbcType=INTEGER}, 
+      #{editTag,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cms.shop.model.base.Board" >
+    <selectKey resultType="java.lang.Integer" keyProperty="brdId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into board
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="brdType != null" >
+        BRD_TYPE,
+      </if>
+      <if test="brdTitle != null" >
+        BRD_TITLE,
+      </if>
+      <if test="brdContent != null" >
+        BRD_CONTENT,
+      </if>
+      <if test="brdStatus != null" >
+        BRD_STATUS,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="creId != null" >
+        cre_Id,
+      </if>
+      <if test="editTag != null" >
+        edit_Tag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="brdType != null" >
+        #{brdType,jdbcType=INTEGER},
+      </if>
+      <if test="brdTitle != null" >
+        #{brdTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="brdContent != null" >
+        #{brdContent,jdbcType=VARCHAR},
+      </if>
+      <if test="brdStatus != null" >
+        #{brdStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creId != null" >
+        #{creId,jdbcType=INTEGER},
+      </if>
+      <if test="editTag != null" >
+        #{editTag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cms.shop.model.base.BoardCriteria" resultType="java.lang.Integer" >
+    select count(*) from board
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update board
+    <set >
+      <if test="record.brdId != null" >
+        BRD_ID = #{record.brdId,jdbcType=INTEGER},
+      </if>
+      <if test="record.brdType != null" >
+        BRD_TYPE = #{record.brdType,jdbcType=INTEGER},
+      </if>
+      <if test="record.brdTitle != null" >
+        BRD_TITLE = #{record.brdTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brdContent != null" >
+        BRD_CONTENT = #{record.brdContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brdStatus != null" >
+        BRD_STATUS = #{record.brdStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.createDate != null" >
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creId != null" >
+        cre_Id = #{record.creId,jdbcType=INTEGER},
+      </if>
+      <if test="record.editTag != null" >
+        edit_Tag = #{record.editTag,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update board
+    set BRD_ID = #{record.brdId,jdbcType=INTEGER},
+      BRD_TYPE = #{record.brdType,jdbcType=INTEGER},
+      BRD_TITLE = #{record.brdTitle,jdbcType=VARCHAR},
+      BRD_CONTENT = #{record.brdContent,jdbcType=VARCHAR},
+      BRD_STATUS = #{record.brdStatus,jdbcType=INTEGER},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      cre_Id = #{record.creId,jdbcType=INTEGER},
+      edit_Tag = #{record.editTag,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cms.shop.model.base.Board" >
+    update board
+    <set >
+      <if test="brdType != null" >
+        BRD_TYPE = #{brdType,jdbcType=INTEGER},
+      </if>
+      <if test="brdTitle != null" >
+        BRD_TITLE = #{brdTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="brdContent != null" >
+        BRD_CONTENT = #{brdContent,jdbcType=VARCHAR},
+      </if>
+      <if test="brdStatus != null" >
+        BRD_STATUS = #{brdStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creId != null" >
+        cre_Id = #{creId,jdbcType=INTEGER},
+      </if>
+      <if test="editTag != null" >
+        edit_Tag = #{editTag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where BRD_ID = #{brdId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cms.shop.model.base.Board" >
+    update board
+    set BRD_TYPE = #{brdType,jdbcType=INTEGER},
+      BRD_TITLE = #{brdTitle,jdbcType=VARCHAR},
+      BRD_CONTENT = #{brdContent,jdbcType=VARCHAR},
+      BRD_STATUS = #{brdStatus,jdbcType=INTEGER},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      cre_Id = #{creId,jdbcType=INTEGER},
+      edit_Tag = #{editTag,jdbcType=INTEGER}
+    where BRD_ID = #{brdId,jdbcType=INTEGER}
+  </update>
+</mapper>

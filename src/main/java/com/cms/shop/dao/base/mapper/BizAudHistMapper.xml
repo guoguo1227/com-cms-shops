@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cms.shop.dao.base.mapper.BizAudHistMapper" >
+  <resultMap id="BaseResultMap" type="com.cms.shop.model.base.BizAudHist" >
+    <id column="BIZ_AUD_ID" property="bizAudId" jdbcType="INTEGER" />
+    <result column="AUDIT_OPER" property="auditOper" jdbcType="INTEGER" />
+    <result column="AUDIT_DATE" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="biz_Id" property="bizId" jdbcType="INTEGER" />
+    <result column="aud_Id" property="audId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    BIZ_AUD_ID, AUDIT_OPER, AUDIT_DATE, biz_Id, aud_Id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cms.shop.model.base.BizAudHistCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from biz_aud_hist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <choose >
+      <when test="limitStart != -1 and limitEnd != -1" >
+        limit ${limitStart} , ${limitEnd}
+      </when>
+      <when test="limitStart != -1" >
+        limit ${limitStart}
+      </when>
+    </choose>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from biz_aud_hist
+    where BIZ_AUD_ID = #{bizAudId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from biz_aud_hist
+    where BIZ_AUD_ID = #{bizAudId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cms.shop.model.base.BizAudHistCriteria" >
+    delete from biz_aud_hist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cms.shop.model.base.BizAudHist" >
+    <selectKey resultType="java.lang.Integer" keyProperty="bizAudId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into biz_aud_hist (AUDIT_OPER, AUDIT_DATE, biz_Id, 
+      aud_Id)
+    values (#{auditOper,jdbcType=INTEGER}, #{auditDate,jdbcType=TIMESTAMP}, #{bizId,jdbcType=INTEGER}, 
+      #{audId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cms.shop.model.base.BizAudHist" >
+    <selectKey resultType="java.lang.Integer" keyProperty="bizAudId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into biz_aud_hist
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="auditOper != null" >
+        AUDIT_OPER,
+      </if>
+      <if test="auditDate != null" >
+        AUDIT_DATE,
+      </if>
+      <if test="bizId != null" >
+        biz_Id,
+      </if>
+      <if test="audId != null" >
+        aud_Id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="auditOper != null" >
+        #{auditOper,jdbcType=INTEGER},
+      </if>
+      <if test="auditDate != null" >
+        #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bizId != null" >
+        #{bizId,jdbcType=INTEGER},
+      </if>
+      <if test="audId != null" >
+        #{audId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cms.shop.model.base.BizAudHistCriteria" resultType="java.lang.Integer" >
+    select count(*) from biz_aud_hist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update biz_aud_hist
+    <set >
+      <if test="record.bizAudId != null" >
+        BIZ_AUD_ID = #{record.bizAudId,jdbcType=INTEGER},
+      </if>
+      <if test="record.auditOper != null" >
+        AUDIT_OPER = #{record.auditOper,jdbcType=INTEGER},
+      </if>
+      <if test="record.auditDate != null" >
+        AUDIT_DATE = #{record.auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.bizId != null" >
+        biz_Id = #{record.bizId,jdbcType=INTEGER},
+      </if>
+      <if test="record.audId != null" >
+        aud_Id = #{record.audId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update biz_aud_hist
+    set BIZ_AUD_ID = #{record.bizAudId,jdbcType=INTEGER},
+      AUDIT_OPER = #{record.auditOper,jdbcType=INTEGER},
+      AUDIT_DATE = #{record.auditDate,jdbcType=TIMESTAMP},
+      biz_Id = #{record.bizId,jdbcType=INTEGER},
+      aud_Id = #{record.audId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cms.shop.model.base.BizAudHist" >
+    update biz_aud_hist
+    <set >
+      <if test="auditOper != null" >
+        AUDIT_OPER = #{auditOper,jdbcType=INTEGER},
+      </if>
+      <if test="auditDate != null" >
+        AUDIT_DATE = #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bizId != null" >
+        biz_Id = #{bizId,jdbcType=INTEGER},
+      </if>
+      <if test="audId != null" >
+        aud_Id = #{audId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where BIZ_AUD_ID = #{bizAudId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cms.shop.model.base.BizAudHist" >
+    update biz_aud_hist
+    set AUDIT_OPER = #{auditOper,jdbcType=INTEGER},
+      AUDIT_DATE = #{auditDate,jdbcType=TIMESTAMP},
+      biz_Id = #{bizId,jdbcType=INTEGER},
+      aud_Id = #{audId,jdbcType=INTEGER}
+    where BIZ_AUD_ID = #{bizAudId,jdbcType=INTEGER}
+  </update>
+</mapper>

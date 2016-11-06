@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cms.shop.dao.base.mapper.CustomerOtherInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.cms.shop.model.base.CustomerOtherInfo" >
+    <id column="CUST_INFO_ID" property="custInfoId" jdbcType="INTEGER" />
+    <result column="GENDER" property="gender" jdbcType="INTEGER" />
+    <result column="ID_CARD" property="idCard" jdbcType="VARCHAR" />
+    <result column="EXPRC_TAG" property="exprcTag" jdbcType="INTEGER" />
+    <result column="EXPRC_YEARS" property="exprcYears" jdbcType="INTEGER" />
+    <result column="OT_EXPRC" property="otExprc" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="RGST_CPTL" property="rgstCptl" jdbcType="INTEGER" />
+    <result column="RGST_LOC" property="rgstLoc" jdbcType="VARCHAR" />
+    <result column="FND_DATE" property="fndDate" jdbcType="DATE" />
+    <result column="EMP_SCAL" property="empScal" jdbcType="INTEGER" />
+    <result column="SBBPF" property="sbbpf" jdbcType="INTEGER" />
+    <result column="scp_Of_Bus" property="scpOfBus" jdbcType="VARCHAR" />
+    <result column="customer_Id" property="customerId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CUST_INFO_ID, GENDER, ID_CARD, EXPRC_TAG, EXPRC_YEARS, OT_EXPRC, REMARK, RGST_CPTL, 
+    RGST_LOC, FND_DATE, EMP_SCAL, SBBPF, scp_Of_Bus, customer_Id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cms.shop.model.base.CustomerOtherInfoCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from customer_other_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <choose >
+      <when test="limitStart != -1 and limitEnd != -1" >
+        limit ${limitStart} , ${limitEnd}
+      </when>
+      <when test="limitStart != -1" >
+        limit ${limitStart}
+      </when>
+    </choose>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from customer_other_info
+    where CUST_INFO_ID = #{custInfoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from customer_other_info
+    where CUST_INFO_ID = #{custInfoId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cms.shop.model.base.CustomerOtherInfoCriteria" >
+    delete from customer_other_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cms.shop.model.base.CustomerOtherInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="custInfoId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into customer_other_info (GENDER, ID_CARD, EXPRC_TAG, 
+      EXPRC_YEARS, OT_EXPRC, REMARK, 
+      RGST_CPTL, RGST_LOC, FND_DATE, 
+      EMP_SCAL, SBBPF, scp_Of_Bus, 
+      customer_Id)
+    values (#{gender,jdbcType=INTEGER}, #{idCard,jdbcType=VARCHAR}, #{exprcTag,jdbcType=INTEGER}, 
+      #{exprcYears,jdbcType=INTEGER}, #{otExprc,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{rgstCptl,jdbcType=INTEGER}, #{rgstLoc,jdbcType=VARCHAR}, #{fndDate,jdbcType=DATE}, 
+      #{empScal,jdbcType=INTEGER}, #{sbbpf,jdbcType=INTEGER}, #{scpOfBus,jdbcType=VARCHAR}, 
+      #{customerId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cms.shop.model.base.CustomerOtherInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="custInfoId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into customer_other_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gender != null" >
+        GENDER,
+      </if>
+      <if test="idCard != null" >
+        ID_CARD,
+      </if>
+      <if test="exprcTag != null" >
+        EXPRC_TAG,
+      </if>
+      <if test="exprcYears != null" >
+        EXPRC_YEARS,
+      </if>
+      <if test="otExprc != null" >
+        OT_EXPRC,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="rgstCptl != null" >
+        RGST_CPTL,
+      </if>
+      <if test="rgstLoc != null" >
+        RGST_LOC,
+      </if>
+      <if test="fndDate != null" >
+        FND_DATE,
+      </if>
+      <if test="empScal != null" >
+        EMP_SCAL,
+      </if>
+      <if test="sbbpf != null" >
+        SBBPF,
+      </if>
+      <if test="scpOfBus != null" >
+        scp_Of_Bus,
+      </if>
+      <if test="customerId != null" >
+        customer_Id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gender != null" >
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="idCard != null" >
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="exprcTag != null" >
+        #{exprcTag,jdbcType=INTEGER},
+      </if>
+      <if test="exprcYears != null" >
+        #{exprcYears,jdbcType=INTEGER},
+      </if>
+      <if test="otExprc != null" >
+        #{otExprc,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="rgstCptl != null" >
+        #{rgstCptl,jdbcType=INTEGER},
+      </if>
+      <if test="rgstLoc != null" >
+        #{rgstLoc,jdbcType=VARCHAR},
+      </if>
+      <if test="fndDate != null" >
+        #{fndDate,jdbcType=DATE},
+      </if>
+      <if test="empScal != null" >
+        #{empScal,jdbcType=INTEGER},
+      </if>
+      <if test="sbbpf != null" >
+        #{sbbpf,jdbcType=INTEGER},
+      </if>
+      <if test="scpOfBus != null" >
+        #{scpOfBus,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cms.shop.model.base.CustomerOtherInfoCriteria" resultType="java.lang.Integer" >
+    select count(*) from customer_other_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update customer_other_info
+    <set >
+      <if test="record.custInfoId != null" >
+        CUST_INFO_ID = #{record.custInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="record.gender != null" >
+        GENDER = #{record.gender,jdbcType=INTEGER},
+      </if>
+      <if test="record.idCard != null" >
+        ID_CARD = #{record.idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exprcTag != null" >
+        EXPRC_TAG = #{record.exprcTag,jdbcType=INTEGER},
+      </if>
+      <if test="record.exprcYears != null" >
+        EXPRC_YEARS = #{record.exprcYears,jdbcType=INTEGER},
+      </if>
+      <if test="record.otExprc != null" >
+        OT_EXPRC = #{record.otExprc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rgstCptl != null" >
+        RGST_CPTL = #{record.rgstCptl,jdbcType=INTEGER},
+      </if>
+      <if test="record.rgstLoc != null" >
+        RGST_LOC = #{record.rgstLoc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fndDate != null" >
+        FND_DATE = #{record.fndDate,jdbcType=DATE},
+      </if>
+      <if test="record.empScal != null" >
+        EMP_SCAL = #{record.empScal,jdbcType=INTEGER},
+      </if>
+      <if test="record.sbbpf != null" >
+        SBBPF = #{record.sbbpf,jdbcType=INTEGER},
+      </if>
+      <if test="record.scpOfBus != null" >
+        scp_Of_Bus = #{record.scpOfBus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerId != null" >
+        customer_Id = #{record.customerId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update customer_other_info
+    set CUST_INFO_ID = #{record.custInfoId,jdbcType=INTEGER},
+      GENDER = #{record.gender,jdbcType=INTEGER},
+      ID_CARD = #{record.idCard,jdbcType=VARCHAR},
+      EXPRC_TAG = #{record.exprcTag,jdbcType=INTEGER},
+      EXPRC_YEARS = #{record.exprcYears,jdbcType=INTEGER},
+      OT_EXPRC = #{record.otExprc,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      RGST_CPTL = #{record.rgstCptl,jdbcType=INTEGER},
+      RGST_LOC = #{record.rgstLoc,jdbcType=VARCHAR},
+      FND_DATE = #{record.fndDate,jdbcType=DATE},
+      EMP_SCAL = #{record.empScal,jdbcType=INTEGER},
+      SBBPF = #{record.sbbpf,jdbcType=INTEGER},
+      scp_Of_Bus = #{record.scpOfBus,jdbcType=VARCHAR},
+      customer_Id = #{record.customerId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cms.shop.model.base.CustomerOtherInfo" >
+    update customer_other_info
+    <set >
+      <if test="gender != null" >
+        GENDER = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="idCard != null" >
+        ID_CARD = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="exprcTag != null" >
+        EXPRC_TAG = #{exprcTag,jdbcType=INTEGER},
+      </if>
+      <if test="exprcYears != null" >
+        EXPRC_YEARS = #{exprcYears,jdbcType=INTEGER},
+      </if>
+      <if test="otExprc != null" >
+        OT_EXPRC = #{otExprc,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="rgstCptl != null" >
+        RGST_CPTL = #{rgstCptl,jdbcType=INTEGER},
+      </if>
+      <if test="rgstLoc != null" >
+        RGST_LOC = #{rgstLoc,jdbcType=VARCHAR},
+      </if>
+      <if test="fndDate != null" >
+        FND_DATE = #{fndDate,jdbcType=DATE},
+      </if>
+      <if test="empScal != null" >
+        EMP_SCAL = #{empScal,jdbcType=INTEGER},
+      </if>
+      <if test="sbbpf != null" >
+        SBBPF = #{sbbpf,jdbcType=INTEGER},
+      </if>
+      <if test="scpOfBus != null" >
+        scp_Of_Bus = #{scpOfBus,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        customer_Id = #{customerId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where CUST_INFO_ID = #{custInfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cms.shop.model.base.CustomerOtherInfo" >
+    update customer_other_info
+    set GENDER = #{gender,jdbcType=INTEGER},
+      ID_CARD = #{idCard,jdbcType=VARCHAR},
+      EXPRC_TAG = #{exprcTag,jdbcType=INTEGER},
+      EXPRC_YEARS = #{exprcYears,jdbcType=INTEGER},
+      OT_EXPRC = #{otExprc,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      RGST_CPTL = #{rgstCptl,jdbcType=INTEGER},
+      RGST_LOC = #{rgstLoc,jdbcType=VARCHAR},
+      FND_DATE = #{fndDate,jdbcType=DATE},
+      EMP_SCAL = #{empScal,jdbcType=INTEGER},
+      SBBPF = #{sbbpf,jdbcType=INTEGER},
+      scp_Of_Bus = #{scpOfBus,jdbcType=VARCHAR},
+      customer_Id = #{customerId,jdbcType=INTEGER}
+    where CUST_INFO_ID = #{custInfoId,jdbcType=INTEGER}
+  </update>
+</mapper>

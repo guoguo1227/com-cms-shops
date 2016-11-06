@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cms.shop.dao.base.mapper.BusinessMapper" >
+  <resultMap id="BaseResultMap" type="com.cms.shop.model.base.Business" >
+    <id column="biz_Id" property="bizId" jdbcType="INTEGER" />
+    <result column="biz_Name" property="bizName" jdbcType="VARCHAR" />
+    <result column="biz_Content" property="bizContent" jdbcType="VARCHAR" />
+    <result column="biz_Status" property="bizStatus" jdbcType="INTEGER" />
+    <result column="create_Date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="offsell_Date" property="offsellDate" jdbcType="TIMESTAMP" />
+    <result column="edit_Tag" property="editTag" jdbcType="INTEGER" />
+    <result column="file_Name" property="fileName" jdbcType="VARCHAR" />
+    <result column="onsell_Date" property="onsellDate" jdbcType="TIMESTAMP" />
+    <result column="publisher" property="publisher" jdbcType="VARCHAR" />
+    <result column="cre_Id" property="creId" jdbcType="INTEGER" />
+    <result column="aud_Status" property="audStatus" jdbcType="INTEGER" />
+    <result column="file_Name_2" property="fileName2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    biz_Id, biz_Name, biz_Content, biz_Status, create_Date, offsell_Date, edit_Tag, file_Name, 
+    onsell_Date, publisher, cre_Id, aud_Status, file_Name_2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cms.shop.model.base.BusinessCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from business
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <choose >
+      <when test="limitStart != -1 and limitEnd != -1" >
+        limit ${limitStart} , ${limitEnd}
+      </when>
+      <when test="limitStart != -1" >
+        limit ${limitStart}
+      </when>
+    </choose>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from business
+    where biz_Id = #{bizId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from business
+    where biz_Id = #{bizId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cms.shop.model.base.BusinessCriteria" >
+    delete from business
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cms.shop.model.base.Business" >
+    <selectKey resultType="java.lang.Integer" keyProperty="bizId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into business (biz_Name, biz_Content, biz_Status, 
+      create_Date, offsell_Date, edit_Tag, 
+      file_Name, onsell_Date, publisher, 
+      cre_Id, aud_Status, file_Name_2
+      )
+    values (#{bizName,jdbcType=VARCHAR}, #{bizContent,jdbcType=VARCHAR}, #{bizStatus,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{offsellDate,jdbcType=TIMESTAMP}, #{editTag,jdbcType=INTEGER}, 
+      #{fileName,jdbcType=VARCHAR}, #{onsellDate,jdbcType=TIMESTAMP}, #{publisher,jdbcType=VARCHAR}, 
+      #{creId,jdbcType=INTEGER}, #{audStatus,jdbcType=INTEGER}, #{fileName2,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cms.shop.model.base.Business" >
+    <selectKey resultType="java.lang.Integer" keyProperty="bizId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into business
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bizName != null" >
+        biz_Name,
+      </if>
+      <if test="bizContent != null" >
+        biz_Content,
+      </if>
+      <if test="bizStatus != null" >
+        biz_Status,
+      </if>
+      <if test="createDate != null" >
+        create_Date,
+      </if>
+      <if test="offsellDate != null" >
+        offsell_Date,
+      </if>
+      <if test="editTag != null" >
+        edit_Tag,
+      </if>
+      <if test="fileName != null" >
+        file_Name,
+      </if>
+      <if test="onsellDate != null" >
+        onsell_Date,
+      </if>
+      <if test="publisher != null" >
+        publisher,
+      </if>
+      <if test="creId != null" >
+        cre_Id,
+      </if>
+      <if test="audStatus != null" >
+        aud_Status,
+      </if>
+      <if test="fileName2 != null" >
+        file_Name_2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bizName != null" >
+        #{bizName,jdbcType=VARCHAR},
+      </if>
+      <if test="bizContent != null" >
+        #{bizContent,jdbcType=VARCHAR},
+      </if>
+      <if test="bizStatus != null" >
+        #{bizStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="offsellDate != null" >
+        #{offsellDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editTag != null" >
+        #{editTag,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="onsellDate != null" >
+        #{onsellDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publisher != null" >
+        #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="creId != null" >
+        #{creId,jdbcType=INTEGER},
+      </if>
+      <if test="audStatus != null" >
+        #{audStatus,jdbcType=INTEGER},
+      </if>
+      <if test="fileName2 != null" >
+        #{fileName2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cms.shop.model.base.BusinessCriteria" resultType="java.lang.Integer" >
+    select count(*) from business
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update business
+    <set >
+      <if test="record.bizId != null" >
+        biz_Id = #{record.bizId,jdbcType=INTEGER},
+      </if>
+      <if test="record.bizName != null" >
+        biz_Name = #{record.bizName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bizContent != null" >
+        biz_Content = #{record.bizContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bizStatus != null" >
+        biz_Status = #{record.bizStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.createDate != null" >
+        create_Date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.offsellDate != null" >
+        offsell_Date = #{record.offsellDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.editTag != null" >
+        edit_Tag = #{record.editTag,jdbcType=INTEGER},
+      </if>
+      <if test="record.fileName != null" >
+        file_Name = #{record.fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onsellDate != null" >
+        onsell_Date = #{record.onsellDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.publisher != null" >
+        publisher = #{record.publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creId != null" >
+        cre_Id = #{record.creId,jdbcType=INTEGER},
+      </if>
+      <if test="record.audStatus != null" >
+        aud_Status = #{record.audStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.fileName2 != null" >
+        file_Name_2 = #{record.fileName2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update business
+    set biz_Id = #{record.bizId,jdbcType=INTEGER},
+      biz_Name = #{record.bizName,jdbcType=VARCHAR},
+      biz_Content = #{record.bizContent,jdbcType=VARCHAR},
+      biz_Status = #{record.bizStatus,jdbcType=INTEGER},
+      create_Date = #{record.createDate,jdbcType=TIMESTAMP},
+      offsell_Date = #{record.offsellDate,jdbcType=TIMESTAMP},
+      edit_Tag = #{record.editTag,jdbcType=INTEGER},
+      file_Name = #{record.fileName,jdbcType=VARCHAR},
+      onsell_Date = #{record.onsellDate,jdbcType=TIMESTAMP},
+      publisher = #{record.publisher,jdbcType=VARCHAR},
+      cre_Id = #{record.creId,jdbcType=INTEGER},
+      aud_Status = #{record.audStatus,jdbcType=INTEGER},
+      file_Name_2 = #{record.fileName2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cms.shop.model.base.Business" >
+    update business
+    <set >
+      <if test="bizName != null" >
+        biz_Name = #{bizName,jdbcType=VARCHAR},
+      </if>
+      <if test="bizContent != null" >
+        biz_Content = #{bizContent,jdbcType=VARCHAR},
+      </if>
+      <if test="bizStatus != null" >
+        biz_Status = #{bizStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        create_Date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="offsellDate != null" >
+        offsell_Date = #{offsellDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editTag != null" >
+        edit_Tag = #{editTag,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null" >
+        file_Name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="onsellDate != null" >
+        onsell_Date = #{onsellDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publisher != null" >
+        publisher = #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="creId != null" >
+        cre_Id = #{creId,jdbcType=INTEGER},
+      </if>
+      <if test="audStatus != null" >
+        aud_Status = #{audStatus,jdbcType=INTEGER},
+      </if>
+      <if test="fileName2 != null" >
+        file_Name_2 = #{fileName2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where biz_Id = #{bizId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cms.shop.model.base.Business" >
+    update business
+    set biz_Name = #{bizName,jdbcType=VARCHAR},
+      biz_Content = #{bizContent,jdbcType=VARCHAR},
+      biz_Status = #{bizStatus,jdbcType=INTEGER},
+      create_Date = #{createDate,jdbcType=TIMESTAMP},
+      offsell_Date = #{offsellDate,jdbcType=TIMESTAMP},
+      edit_Tag = #{editTag,jdbcType=INTEGER},
+      file_Name = #{fileName,jdbcType=VARCHAR},
+      onsell_Date = #{onsellDate,jdbcType=TIMESTAMP},
+      publisher = #{publisher,jdbcType=VARCHAR},
+      cre_Id = #{creId,jdbcType=INTEGER},
+      aud_Status = #{audStatus,jdbcType=INTEGER},
+      file_Name_2 = #{fileName2,jdbcType=VARCHAR}
+    where biz_Id = #{bizId,jdbcType=INTEGER}
+  </update>
+</mapper>

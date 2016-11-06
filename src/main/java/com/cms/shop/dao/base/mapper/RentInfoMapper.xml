@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cms.shop.dao.base.mapper.RentInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.cms.shop.model.base.RentInfo" >
+    <id column="RENT_INFO_ID" property="rentInfoId" jdbcType="INTEGER" />
+    <result column="SQUARE" property="square" jdbcType="INTEGER" />
+    <result column="FLOOR" property="floor" jdbcType="INTEGER" />
+    <result column="PRICE" property="price" jdbcType="INTEGER" />
+    <result column="FACIL" property="facil" jdbcType="VARCHAR" />
+    <result column="DIST_NAME" property="distName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    RENT_INFO_ID, SQUARE, FLOOR, PRICE, FACIL, DIST_NAME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cms.shop.model.base.RentInfoCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from rent_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <choose >
+      <when test="limitStart != -1 and limitEnd != -1" >
+        limit ${limitStart} , ${limitEnd}
+      </when>
+      <when test="limitStart != -1" >
+        limit ${limitStart}
+      </when>
+    </choose>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from rent_info
+    where RENT_INFO_ID = #{rentInfoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from rent_info
+    where RENT_INFO_ID = #{rentInfoId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cms.shop.model.base.RentInfoCriteria" >
+    delete from rent_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cms.shop.model.base.RentInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="rentInfoId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into rent_info (SQUARE, FLOOR, PRICE, 
+      FACIL, DIST_NAME)
+    values (#{square,jdbcType=INTEGER}, #{floor,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, 
+      #{facil,jdbcType=VARCHAR}, #{distName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cms.shop.model.base.RentInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="rentInfoId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into rent_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="square != null" >
+        SQUARE,
+      </if>
+      <if test="floor != null" >
+        FLOOR,
+      </if>
+      <if test="price != null" >
+        PRICE,
+      </if>
+      <if test="facil != null" >
+        FACIL,
+      </if>
+      <if test="distName != null" >
+        DIST_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="square != null" >
+        #{square,jdbcType=INTEGER},
+      </if>
+      <if test="floor != null" >
+        #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="facil != null" >
+        #{facil,jdbcType=VARCHAR},
+      </if>
+      <if test="distName != null" >
+        #{distName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cms.shop.model.base.RentInfoCriteria" resultType="java.lang.Integer" >
+    select count(*) from rent_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update rent_info
+    <set >
+      <if test="record.rentInfoId != null" >
+        RENT_INFO_ID = #{record.rentInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="record.square != null" >
+        SQUARE = #{record.square,jdbcType=INTEGER},
+      </if>
+      <if test="record.floor != null" >
+        FLOOR = #{record.floor,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null" >
+        PRICE = #{record.price,jdbcType=INTEGER},
+      </if>
+      <if test="record.facil != null" >
+        FACIL = #{record.facil,jdbcType=VARCHAR},
+      </if>
+      <if test="record.distName != null" >
+        DIST_NAME = #{record.distName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update rent_info
+    set RENT_INFO_ID = #{record.rentInfoId,jdbcType=INTEGER},
+      SQUARE = #{record.square,jdbcType=INTEGER},
+      FLOOR = #{record.floor,jdbcType=INTEGER},
+      PRICE = #{record.price,jdbcType=INTEGER},
+      FACIL = #{record.facil,jdbcType=VARCHAR},
+      DIST_NAME = #{record.distName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cms.shop.model.base.RentInfo" >
+    update rent_info
+    <set >
+      <if test="square != null" >
+        SQUARE = #{square,jdbcType=INTEGER},
+      </if>
+      <if test="floor != null" >
+        FLOOR = #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="facil != null" >
+        FACIL = #{facil,jdbcType=VARCHAR},
+      </if>
+      <if test="distName != null" >
+        DIST_NAME = #{distName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RENT_INFO_ID = #{rentInfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cms.shop.model.base.RentInfo" >
+    update rent_info
+    set SQUARE = #{square,jdbcType=INTEGER},
+      FLOOR = #{floor,jdbcType=INTEGER},
+      PRICE = #{price,jdbcType=INTEGER},
+      FACIL = #{facil,jdbcType=VARCHAR},
+      DIST_NAME = #{distName,jdbcType=VARCHAR}
+    where RENT_INFO_ID = #{rentInfoId,jdbcType=INTEGER}
+  </update>
+</mapper>

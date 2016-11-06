@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cms.shop.dao.base.mapper.PartnerMapper" >
+  <resultMap id="BaseResultMap" type="com.cms.shop.model.base.Partner" >
+    <id column="PARTNER_ID" property="partnerId" jdbcType="INTEGER" />
+    <result column="PARTNER_NAME" property="partnerName" jdbcType="VARCHAR" />
+    <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="EDIT_TAG" property="editTag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PARTNER_ID, PARTNER_NAME, FILE_NAME, URL, STATUS, EDIT_TAG
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cms.shop.model.base.PartnerCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from partner
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <choose >
+      <when test="limitStart != -1 and limitEnd != -1" >
+        limit ${limitStart} , ${limitEnd}
+      </when>
+      <when test="limitStart != -1" >
+        limit ${limitStart}
+      </when>
+    </choose>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from partner
+    where PARTNER_ID = #{partnerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from partner
+    where PARTNER_ID = #{partnerId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cms.shop.model.base.PartnerCriteria" >
+    delete from partner
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cms.shop.model.base.Partner" >
+    <selectKey resultType="java.lang.Integer" keyProperty="partnerId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into partner (PARTNER_NAME, FILE_NAME, URL, 
+      STATUS, EDIT_TAG)
+    values (#{partnerName,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{editTag,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cms.shop.model.base.Partner" >
+    <selectKey resultType="java.lang.Integer" keyProperty="partnerId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into partner
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="partnerName != null" >
+        PARTNER_NAME,
+      </if>
+      <if test="fileName != null" >
+        FILE_NAME,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="editTag != null" >
+        EDIT_TAG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="partnerName != null" >
+        #{partnerName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="editTag != null" >
+        #{editTag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cms.shop.model.base.PartnerCriteria" resultType="java.lang.Integer" >
+    select count(*) from partner
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update partner
+    <set >
+      <if test="record.partnerId != null" >
+        PARTNER_ID = #{record.partnerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.partnerName != null" >
+        PARTNER_NAME = #{record.partnerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileName != null" >
+        FILE_NAME = #{record.fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null" >
+        URL = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.editTag != null" >
+        EDIT_TAG = #{record.editTag,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update partner
+    set PARTNER_ID = #{record.partnerId,jdbcType=INTEGER},
+      PARTNER_NAME = #{record.partnerName,jdbcType=VARCHAR},
+      FILE_NAME = #{record.fileName,jdbcType=VARCHAR},
+      URL = #{record.url,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=INTEGER},
+      EDIT_TAG = #{record.editTag,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cms.shop.model.base.Partner" >
+    update partner
+    <set >
+      <if test="partnerName != null" >
+        PARTNER_NAME = #{partnerName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="editTag != null" >
+        EDIT_TAG = #{editTag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where PARTNER_ID = #{partnerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cms.shop.model.base.Partner" >
+    update partner
+    set PARTNER_NAME = #{partnerName,jdbcType=VARCHAR},
+      FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=INTEGER},
+      EDIT_TAG = #{editTag,jdbcType=INTEGER}
+    where PARTNER_ID = #{partnerId,jdbcType=INTEGER}
+  </update>
+</mapper>

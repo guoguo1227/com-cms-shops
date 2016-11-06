@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cms.shop.dao.base.mapper.CustomerMapper" >
+  <resultMap id="BaseResultMap" type="com.cms.shop.model.base.Customer" >
+    <id column="CUSTOMER_ID" property="customerId" jdbcType="INTEGER" />
+    <result column="LOCATION" property="location" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_NAME" property="customerName" jdbcType="VARCHAR" />
+    <result column="BIRTHDAY" property="birthday" jdbcType="DATE" />
+    <result column="CELLPHONE" property="cellphone" jdbcType="VARCHAR" />
+    <result column="TEL" property="tel" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="OCC" property="occ" jdbcType="VARCHAR" />
+    <result column="LINKMAN_NAME" property="linkmanName" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_PWD" property="userPwd" jdbcType="VARCHAR" />
+    <result column="customer_Status" property="customerStatus" jdbcType="INTEGER" />
+    <result column="register_Date" property="registerDate" jdbcType="TIMESTAMP" />
+    <result column="type_Id" property="typeId" jdbcType="INTEGER" />
+    <result column="edit_Tag" property="editTag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CUSTOMER_ID, LOCATION, CUSTOMER_NAME, BIRTHDAY, CELLPHONE, TEL, EMAIL, OCC, LINKMAN_NAME, 
+    USER_NAME, USER_PWD, customer_Status, register_Date, type_Id, edit_Tag
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cms.shop.model.base.CustomerCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <choose >
+      <when test="limitStart != -1 and limitEnd != -1" >
+        limit ${limitStart} , ${limitEnd}
+      </when>
+      <when test="limitStart != -1" >
+        limit ${limitStart}
+      </when>
+    </choose>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from customer
+    where CUSTOMER_ID = #{customerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from customer
+    where CUSTOMER_ID = #{customerId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cms.shop.model.base.CustomerCriteria" >
+    delete from customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cms.shop.model.base.Customer" >
+    <selectKey resultType="java.lang.Integer" keyProperty="customerId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into customer (LOCATION, CUSTOMER_NAME, BIRTHDAY, 
+      CELLPHONE, TEL, EMAIL, 
+      OCC, LINKMAN_NAME, USER_NAME, 
+      USER_PWD, customer_Status, register_Date, 
+      type_Id, edit_Tag)
+    values (#{location,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, 
+      #{cellphone,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{occ,jdbcType=VARCHAR}, #{linkmanName,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{userPwd,jdbcType=VARCHAR}, #{customerStatus,jdbcType=INTEGER}, #{registerDate,jdbcType=TIMESTAMP}, 
+      #{typeId,jdbcType=INTEGER}, #{editTag,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cms.shop.model.base.Customer" >
+    <selectKey resultType="java.lang.Integer" keyProperty="customerId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="location != null" >
+        LOCATION,
+      </if>
+      <if test="customerName != null" >
+        CUSTOMER_NAME,
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY,
+      </if>
+      <if test="cellphone != null" >
+        CELLPHONE,
+      </if>
+      <if test="tel != null" >
+        TEL,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="occ != null" >
+        OCC,
+      </if>
+      <if test="linkmanName != null" >
+        LINKMAN_NAME,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="userPwd != null" >
+        USER_PWD,
+      </if>
+      <if test="customerStatus != null" >
+        customer_Status,
+      </if>
+      <if test="registerDate != null" >
+        register_Date,
+      </if>
+      <if test="typeId != null" >
+        type_Id,
+      </if>
+      <if test="editTag != null" >
+        edit_Tag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="cellphone != null" >
+        #{cellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="occ != null" >
+        #{occ,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanName != null" >
+        #{linkmanName,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null" >
+        #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="customerStatus != null" >
+        #{customerStatus,jdbcType=INTEGER},
+      </if>
+      <if test="registerDate != null" >
+        #{registerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="editTag != null" >
+        #{editTag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cms.shop.model.base.CustomerCriteria" resultType="java.lang.Integer" >
+    select count(*) from customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update customer
+    <set >
+      <if test="record.customerId != null" >
+        CUSTOMER_ID = #{record.customerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.location != null" >
+        LOCATION = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerName != null" >
+        CUSTOMER_NAME = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthday != null" >
+        BIRTHDAY = #{record.birthday,jdbcType=DATE},
+      </if>
+      <if test="record.cellphone != null" >
+        CELLPHONE = #{record.cellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tel != null" >
+        TEL = #{record.tel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        EMAIL = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.occ != null" >
+        OCC = #{record.occ,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkmanName != null" >
+        LINKMAN_NAME = #{record.linkmanName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null" >
+        USER_NAME = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPwd != null" >
+        USER_PWD = #{record.userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerStatus != null" >
+        customer_Status = #{record.customerStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.registerDate != null" >
+        register_Date = #{record.registerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.typeId != null" >
+        type_Id = #{record.typeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.editTag != null" >
+        edit_Tag = #{record.editTag,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update customer
+    set CUSTOMER_ID = #{record.customerId,jdbcType=INTEGER},
+      LOCATION = #{record.location,jdbcType=VARCHAR},
+      CUSTOMER_NAME = #{record.customerName,jdbcType=VARCHAR},
+      BIRTHDAY = #{record.birthday,jdbcType=DATE},
+      CELLPHONE = #{record.cellphone,jdbcType=VARCHAR},
+      TEL = #{record.tel,jdbcType=VARCHAR},
+      EMAIL = #{record.email,jdbcType=VARCHAR},
+      OCC = #{record.occ,jdbcType=VARCHAR},
+      LINKMAN_NAME = #{record.linkmanName,jdbcType=VARCHAR},
+      USER_NAME = #{record.userName,jdbcType=VARCHAR},
+      USER_PWD = #{record.userPwd,jdbcType=VARCHAR},
+      customer_Status = #{record.customerStatus,jdbcType=INTEGER},
+      register_Date = #{record.registerDate,jdbcType=TIMESTAMP},
+      type_Id = #{record.typeId,jdbcType=INTEGER},
+      edit_Tag = #{record.editTag,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cms.shop.model.base.Customer" >
+    update customer
+    <set >
+      <if test="location != null" >
+        LOCATION = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="cellphone != null" >
+        CELLPHONE = #{cellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        TEL = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="occ != null" >
+        OCC = #{occ,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanName != null" >
+        LINKMAN_NAME = #{linkmanName,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null" >
+        USER_PWD = #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="customerStatus != null" >
+        customer_Status = #{customerStatus,jdbcType=INTEGER},
+      </if>
+      <if test="registerDate != null" >
+        register_Date = #{registerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="typeId != null" >
+        type_Id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="editTag != null" >
+        edit_Tag = #{editTag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where CUSTOMER_ID = #{customerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cms.shop.model.base.Customer" >
+    update customer
+    set LOCATION = #{location,jdbcType=VARCHAR},
+      CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR},
+      BIRTHDAY = #{birthday,jdbcType=DATE},
+      CELLPHONE = #{cellphone,jdbcType=VARCHAR},
+      TEL = #{tel,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      OCC = #{occ,jdbcType=VARCHAR},
+      LINKMAN_NAME = #{linkmanName,jdbcType=VARCHAR},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      USER_PWD = #{userPwd,jdbcType=VARCHAR},
+      customer_Status = #{customerStatus,jdbcType=INTEGER},
+      register_Date = #{registerDate,jdbcType=TIMESTAMP},
+      type_Id = #{typeId,jdbcType=INTEGER},
+      edit_Tag = #{editTag,jdbcType=INTEGER}
+    where CUSTOMER_ID = #{customerId,jdbcType=INTEGER}
+  </update>
+</mapper>

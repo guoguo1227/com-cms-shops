@@ -1,0 +1,963 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cms.shop.dao.base.mapper.ShopMapper" >
+  <resultMap id="BaseResultMap" type="com.cms.shop.model.base.Shop" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SHOP_NAME" property="shopName" jdbcType="VARCHAR" />
+    <result column="SHOP_NO" property="shopNo" jdbcType="VARCHAR" />
+    <result column="LOCATION" property="location" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="FLOOR" property="floor" jdbcType="VARCHAR" />
+    <result column="SQUARE_METRES" property="squareMetres" jdbcType="DECIMAL" />
+    <result column="TRAFFIC" property="traffic" jdbcType="VARCHAR" />
+    <result column="FACILITY" property="facility" jdbcType="VARCHAR" />
+    <result column="MONTH_DEPOSIT" property="monthDeposit" jdbcType="INTEGER" />
+    <result column="PRICE" property="price" jdbcType="VARCHAR" />
+    <result column="PRICE_SE" property="priceSe" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+    <result column="REMOVE_DATE" property="removeDate" jdbcType="DATE" />
+    <result column="ONSELL_DATE" property="onsellDate" jdbcType="DATE" />
+    <result column="OFFSELL_DATE" property="offsellDate" jdbcType="DATE" />
+    <result column="AUDIT_LEVEL" property="auditLevel" jdbcType="INTEGER" />
+    <result column="AUDIT_STATUS" property="auditStatus" jdbcType="INTEGER" />
+    <result column="EDIT_TAG" property="editTag" jdbcType="INTEGER" />
+    <result column="SHOP_STATUS" property="shopStatus" jdbcType="INTEGER" />
+    <result column="district_Id" property="districtId" jdbcType="INTEGER" />
+    <result column="archi_Id" property="archiId" jdbcType="INTEGER" />
+    <result column="ocpy_Id" property="ocpyId" jdbcType="INTEGER" />
+    <result column="LINKMAN_NAME" property="linkmanName" jdbcType="VARCHAR" />
+    <result column="LINKMAN_PHONE" property="linkmanPhone" jdbcType="VARCHAR" />
+    <result column="LINKMAN_EMAIL" property="linkmanEmail" jdbcType="VARCHAR" />
+    <result column="LINKMAN_MOBILE" property="linkmanMobile" jdbcType="VARCHAR" />
+    <result column="LINKMAN_NAME_SE" property="linkmanNameSe" jdbcType="VARCHAR" />
+    <result column="LINKMAN_PHONE_SE" property="linkmanPhoneSe" jdbcType="VARCHAR" />
+    <result column="LINKMAN_EMAIL_SE" property="linkmanEmailSe" jdbcType="VARCHAR" />
+    <result column="LINKMAN_MOBILE_SE" property="linkmanMobileSe" jdbcType="VARCHAR" />
+    <result column="type_Id" property="typeId" jdbcType="INTEGER" />
+    <result column="finishing_Id" property="finishingId" jdbcType="INTEGER" />
+    <result column="PRICE_TYPE" property="priceType" jdbcType="INTEGER" />
+    <result column="PUBLISHER" property="publisher" jdbcType="VARCHAR" />
+    <result column="street_Id" property="streetId" jdbcType="INTEGER" />
+    <result column="hot_Id" property="hotId" jdbcType="INTEGER" />
+    <result column="browsers" property="browsers" jdbcType="INTEGER" />
+    <result column="lng" property="lng" jdbcType="DECIMAL" />
+    <result column="lat" property="lat" jdbcType="DECIMAL" />
+    <result column="zoom" property="zoom" jdbcType="INTEGER" />
+    <result column="flrHeight" property="flrheight" jdbcType="INTEGER" />
+    <result column="office_Square" property="officeSquare" jdbcType="DECIMAL" />
+    <result column="factory_Square" property="factorySquare" jdbcType="DECIMAL" />
+    <result column="warehouse_Square" property="warehouseSquare" jdbcType="DECIMAL" />
+    <result column="yard_Square" property="yardSquare" jdbcType="DECIMAL" />
+    <result column="shop_Square" property="shopSquare" jdbcType="DECIMAL" />
+    <result column="rent_Type" property="rentType" jdbcType="INTEGER" />
+    <result column="ontop" property="ontop" jdbcType="INTEGER" />
+    <result column="DEPOSIT_TYPE" property="depositType" jdbcType="INTEGER" />
+    <result column="PRICE2" property="price2" jdbcType="INTEGER" />
+    <result column="PRICE_SE2" property="priceSe2" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, SHOP_NAME, SHOP_NO, LOCATION, DESCRIPTION, FLOOR, SQUARE_METRES, TRAFFIC, FACILITY, 
+    MONTH_DEPOSIT, PRICE, PRICE_SE, CREATE_DATE, REMOVE_DATE, ONSELL_DATE, OFFSELL_DATE, 
+    AUDIT_LEVEL, AUDIT_STATUS, EDIT_TAG, SHOP_STATUS, district_Id, archi_Id, ocpy_Id, 
+    LINKMAN_NAME, LINKMAN_PHONE, LINKMAN_EMAIL, LINKMAN_MOBILE, LINKMAN_NAME_SE, LINKMAN_PHONE_SE, 
+    LINKMAN_EMAIL_SE, LINKMAN_MOBILE_SE, type_Id, finishing_Id, PRICE_TYPE, PUBLISHER, 
+    street_Id, hot_Id, browsers, lng, lat, zoom, flrHeight, office_Square, factory_Square, 
+    warehouse_Square, yard_Square, shop_Square, rent_Type, ontop, DEPOSIT_TYPE, PRICE2, 
+    PRICE_SE2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cms.shop.model.base.ShopCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <choose >
+      <when test="limitStart != -1 and limitEnd != -1" >
+        limit ${limitStart} , ${limitEnd}
+      </when>
+      <when test="limitStart != -1" >
+        limit ${limitStart}
+      </when>
+    </choose>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from shop
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from shop
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cms.shop.model.base.ShopCriteria" >
+    delete from shop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cms.shop.model.base.Shop" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into shop (SHOP_NAME, SHOP_NO, LOCATION, 
+      DESCRIPTION, FLOOR, SQUARE_METRES, 
+      TRAFFIC, FACILITY, MONTH_DEPOSIT, 
+      PRICE, PRICE_SE, CREATE_DATE, 
+      REMOVE_DATE, ONSELL_DATE, OFFSELL_DATE, 
+      AUDIT_LEVEL, AUDIT_STATUS, EDIT_TAG, 
+      SHOP_STATUS, district_Id, archi_Id, 
+      ocpy_Id, LINKMAN_NAME, LINKMAN_PHONE, 
+      LINKMAN_EMAIL, LINKMAN_MOBILE, LINKMAN_NAME_SE, 
+      LINKMAN_PHONE_SE, LINKMAN_EMAIL_SE, LINKMAN_MOBILE_SE, 
+      type_Id, finishing_Id, PRICE_TYPE, 
+      PUBLISHER, street_Id, hot_Id, 
+      browsers, lng, lat, 
+      zoom, flrHeight, office_Square, 
+      factory_Square, warehouse_Square, yard_Square, 
+      shop_Square, rent_Type, ontop, 
+      DEPOSIT_TYPE, PRICE2, PRICE_SE2
+      )
+    values (#{shopName,jdbcType=VARCHAR}, #{shopNo,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{floor,jdbcType=VARCHAR}, #{squareMetres,jdbcType=DECIMAL}, 
+      #{traffic,jdbcType=VARCHAR}, #{facility,jdbcType=VARCHAR}, #{monthDeposit,jdbcType=INTEGER}, 
+      #{price,jdbcType=VARCHAR}, #{priceSe,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, 
+      #{removeDate,jdbcType=DATE}, #{onsellDate,jdbcType=DATE}, #{offsellDate,jdbcType=DATE}, 
+      #{auditLevel,jdbcType=INTEGER}, #{auditStatus,jdbcType=INTEGER}, #{editTag,jdbcType=INTEGER}, 
+      #{shopStatus,jdbcType=INTEGER}, #{districtId,jdbcType=INTEGER}, #{archiId,jdbcType=INTEGER}, 
+      #{ocpyId,jdbcType=INTEGER}, #{linkmanName,jdbcType=VARCHAR}, #{linkmanPhone,jdbcType=VARCHAR}, 
+      #{linkmanEmail,jdbcType=VARCHAR}, #{linkmanMobile,jdbcType=VARCHAR}, #{linkmanNameSe,jdbcType=VARCHAR}, 
+      #{linkmanPhoneSe,jdbcType=VARCHAR}, #{linkmanEmailSe,jdbcType=VARCHAR}, #{linkmanMobileSe,jdbcType=VARCHAR}, 
+      #{typeId,jdbcType=INTEGER}, #{finishingId,jdbcType=INTEGER}, #{priceType,jdbcType=INTEGER}, 
+      #{publisher,jdbcType=VARCHAR}, #{streetId,jdbcType=INTEGER}, #{hotId,jdbcType=INTEGER}, 
+      #{browsers,jdbcType=INTEGER}, #{lng,jdbcType=DECIMAL}, #{lat,jdbcType=DECIMAL}, 
+      #{zoom,jdbcType=INTEGER}, #{flrheight,jdbcType=INTEGER}, #{officeSquare,jdbcType=DECIMAL}, 
+      #{factorySquare,jdbcType=DECIMAL}, #{warehouseSquare,jdbcType=DECIMAL}, #{yardSquare,jdbcType=DECIMAL}, 
+      #{shopSquare,jdbcType=DECIMAL}, #{rentType,jdbcType=INTEGER}, #{ontop,jdbcType=INTEGER}, 
+      #{depositType,jdbcType=INTEGER}, #{price2,jdbcType=INTEGER}, #{priceSe2,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cms.shop.model.base.Shop" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into shop
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shopName != null" >
+        SHOP_NAME,
+      </if>
+      <if test="shopNo != null" >
+        SHOP_NO,
+      </if>
+      <if test="location != null" >
+        LOCATION,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="floor != null" >
+        FLOOR,
+      </if>
+      <if test="squareMetres != null" >
+        SQUARE_METRES,
+      </if>
+      <if test="traffic != null" >
+        TRAFFIC,
+      </if>
+      <if test="facility != null" >
+        FACILITY,
+      </if>
+      <if test="monthDeposit != null" >
+        MONTH_DEPOSIT,
+      </if>
+      <if test="price != null" >
+        PRICE,
+      </if>
+      <if test="priceSe != null" >
+        PRICE_SE,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="removeDate != null" >
+        REMOVE_DATE,
+      </if>
+      <if test="onsellDate != null" >
+        ONSELL_DATE,
+      </if>
+      <if test="offsellDate != null" >
+        OFFSELL_DATE,
+      </if>
+      <if test="auditLevel != null" >
+        AUDIT_LEVEL,
+      </if>
+      <if test="auditStatus != null" >
+        AUDIT_STATUS,
+      </if>
+      <if test="editTag != null" >
+        EDIT_TAG,
+      </if>
+      <if test="shopStatus != null" >
+        SHOP_STATUS,
+      </if>
+      <if test="districtId != null" >
+        district_Id,
+      </if>
+      <if test="archiId != null" >
+        archi_Id,
+      </if>
+      <if test="ocpyId != null" >
+        ocpy_Id,
+      </if>
+      <if test="linkmanName != null" >
+        LINKMAN_NAME,
+      </if>
+      <if test="linkmanPhone != null" >
+        LINKMAN_PHONE,
+      </if>
+      <if test="linkmanEmail != null" >
+        LINKMAN_EMAIL,
+      </if>
+      <if test="linkmanMobile != null" >
+        LINKMAN_MOBILE,
+      </if>
+      <if test="linkmanNameSe != null" >
+        LINKMAN_NAME_SE,
+      </if>
+      <if test="linkmanPhoneSe != null" >
+        LINKMAN_PHONE_SE,
+      </if>
+      <if test="linkmanEmailSe != null" >
+        LINKMAN_EMAIL_SE,
+      </if>
+      <if test="linkmanMobileSe != null" >
+        LINKMAN_MOBILE_SE,
+      </if>
+      <if test="typeId != null" >
+        type_Id,
+      </if>
+      <if test="finishingId != null" >
+        finishing_Id,
+      </if>
+      <if test="priceType != null" >
+        PRICE_TYPE,
+      </if>
+      <if test="publisher != null" >
+        PUBLISHER,
+      </if>
+      <if test="streetId != null" >
+        street_Id,
+      </if>
+      <if test="hotId != null" >
+        hot_Id,
+      </if>
+      <if test="browsers != null" >
+        browsers,
+      </if>
+      <if test="lng != null" >
+        lng,
+      </if>
+      <if test="lat != null" >
+        lat,
+      </if>
+      <if test="zoom != null" >
+        zoom,
+      </if>
+      <if test="flrheight != null" >
+        flrHeight,
+      </if>
+      <if test="officeSquare != null" >
+        office_Square,
+      </if>
+      <if test="factorySquare != null" >
+        factory_Square,
+      </if>
+      <if test="warehouseSquare != null" >
+        warehouse_Square,
+      </if>
+      <if test="yardSquare != null" >
+        yard_Square,
+      </if>
+      <if test="shopSquare != null" >
+        shop_Square,
+      </if>
+      <if test="rentType != null" >
+        rent_Type,
+      </if>
+      <if test="ontop != null" >
+        ontop,
+      </if>
+      <if test="depositType != null" >
+        DEPOSIT_TYPE,
+      </if>
+      <if test="price2 != null" >
+        PRICE2,
+      </if>
+      <if test="priceSe2 != null" >
+        PRICE_SE2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shopName != null" >
+        #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="shopNo != null" >
+        #{shopNo,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="floor != null" >
+        #{floor,jdbcType=VARCHAR},
+      </if>
+      <if test="squareMetres != null" >
+        #{squareMetres,jdbcType=DECIMAL},
+      </if>
+      <if test="traffic != null" >
+        #{traffic,jdbcType=VARCHAR},
+      </if>
+      <if test="facility != null" >
+        #{facility,jdbcType=VARCHAR},
+      </if>
+      <if test="monthDeposit != null" >
+        #{monthDeposit,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="priceSe != null" >
+        #{priceSe,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=DATE},
+      </if>
+      <if test="removeDate != null" >
+        #{removeDate,jdbcType=DATE},
+      </if>
+      <if test="onsellDate != null" >
+        #{onsellDate,jdbcType=DATE},
+      </if>
+      <if test="offsellDate != null" >
+        #{offsellDate,jdbcType=DATE},
+      </if>
+      <if test="auditLevel != null" >
+        #{auditLevel,jdbcType=INTEGER},
+      </if>
+      <if test="auditStatus != null" >
+        #{auditStatus,jdbcType=INTEGER},
+      </if>
+      <if test="editTag != null" >
+        #{editTag,jdbcType=INTEGER},
+      </if>
+      <if test="shopStatus != null" >
+        #{shopStatus,jdbcType=INTEGER},
+      </if>
+      <if test="districtId != null" >
+        #{districtId,jdbcType=INTEGER},
+      </if>
+      <if test="archiId != null" >
+        #{archiId,jdbcType=INTEGER},
+      </if>
+      <if test="ocpyId != null" >
+        #{ocpyId,jdbcType=INTEGER},
+      </if>
+      <if test="linkmanName != null" >
+        #{linkmanName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanPhone != null" >
+        #{linkmanPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanEmail != null" >
+        #{linkmanEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanMobile != null" >
+        #{linkmanMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanNameSe != null" >
+        #{linkmanNameSe,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanPhoneSe != null" >
+        #{linkmanPhoneSe,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanEmailSe != null" >
+        #{linkmanEmailSe,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanMobileSe != null" >
+        #{linkmanMobileSe,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="finishingId != null" >
+        #{finishingId,jdbcType=INTEGER},
+      </if>
+      <if test="priceType != null" >
+        #{priceType,jdbcType=INTEGER},
+      </if>
+      <if test="publisher != null" >
+        #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="streetId != null" >
+        #{streetId,jdbcType=INTEGER},
+      </if>
+      <if test="hotId != null" >
+        #{hotId,jdbcType=INTEGER},
+      </if>
+      <if test="browsers != null" >
+        #{browsers,jdbcType=INTEGER},
+      </if>
+      <if test="lng != null" >
+        #{lng,jdbcType=DECIMAL},
+      </if>
+      <if test="lat != null" >
+        #{lat,jdbcType=DECIMAL},
+      </if>
+      <if test="zoom != null" >
+        #{zoom,jdbcType=INTEGER},
+      </if>
+      <if test="flrheight != null" >
+        #{flrheight,jdbcType=INTEGER},
+      </if>
+      <if test="officeSquare != null" >
+        #{officeSquare,jdbcType=DECIMAL},
+      </if>
+      <if test="factorySquare != null" >
+        #{factorySquare,jdbcType=DECIMAL},
+      </if>
+      <if test="warehouseSquare != null" >
+        #{warehouseSquare,jdbcType=DECIMAL},
+      </if>
+      <if test="yardSquare != null" >
+        #{yardSquare,jdbcType=DECIMAL},
+      </if>
+      <if test="shopSquare != null" >
+        #{shopSquare,jdbcType=DECIMAL},
+      </if>
+      <if test="rentType != null" >
+        #{rentType,jdbcType=INTEGER},
+      </if>
+      <if test="ontop != null" >
+        #{ontop,jdbcType=INTEGER},
+      </if>
+      <if test="depositType != null" >
+        #{depositType,jdbcType=INTEGER},
+      </if>
+      <if test="price2 != null" >
+        #{price2,jdbcType=INTEGER},
+      </if>
+      <if test="priceSe2 != null" >
+        #{priceSe2,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cms.shop.model.base.ShopCriteria" resultType="java.lang.Integer" >
+    select count(*) from shop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update shop
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.shopName != null" >
+        SHOP_NAME = #{record.shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shopNo != null" >
+        SHOP_NO = #{record.shopNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.location != null" >
+        LOCATION = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floor != null" >
+        FLOOR = #{record.floor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.squareMetres != null" >
+        SQUARE_METRES = #{record.squareMetres,jdbcType=DECIMAL},
+      </if>
+      <if test="record.traffic != null" >
+        TRAFFIC = #{record.traffic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.facility != null" >
+        FACILITY = #{record.facility,jdbcType=VARCHAR},
+      </if>
+      <if test="record.monthDeposit != null" >
+        MONTH_DEPOSIT = #{record.monthDeposit,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null" >
+        PRICE = #{record.price,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priceSe != null" >
+        PRICE_SE = #{record.priceSe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        CREATE_DATE = #{record.createDate,jdbcType=DATE},
+      </if>
+      <if test="record.removeDate != null" >
+        REMOVE_DATE = #{record.removeDate,jdbcType=DATE},
+      </if>
+      <if test="record.onsellDate != null" >
+        ONSELL_DATE = #{record.onsellDate,jdbcType=DATE},
+      </if>
+      <if test="record.offsellDate != null" >
+        OFFSELL_DATE = #{record.offsellDate,jdbcType=DATE},
+      </if>
+      <if test="record.auditLevel != null" >
+        AUDIT_LEVEL = #{record.auditLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.auditStatus != null" >
+        AUDIT_STATUS = #{record.auditStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.editTag != null" >
+        EDIT_TAG = #{record.editTag,jdbcType=INTEGER},
+      </if>
+      <if test="record.shopStatus != null" >
+        SHOP_STATUS = #{record.shopStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.districtId != null" >
+        district_Id = #{record.districtId,jdbcType=INTEGER},
+      </if>
+      <if test="record.archiId != null" >
+        archi_Id = #{record.archiId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ocpyId != null" >
+        ocpy_Id = #{record.ocpyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.linkmanName != null" >
+        LINKMAN_NAME = #{record.linkmanName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkmanPhone != null" >
+        LINKMAN_PHONE = #{record.linkmanPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkmanEmail != null" >
+        LINKMAN_EMAIL = #{record.linkmanEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkmanMobile != null" >
+        LINKMAN_MOBILE = #{record.linkmanMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkmanNameSe != null" >
+        LINKMAN_NAME_SE = #{record.linkmanNameSe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkmanPhoneSe != null" >
+        LINKMAN_PHONE_SE = #{record.linkmanPhoneSe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkmanEmailSe != null" >
+        LINKMAN_EMAIL_SE = #{record.linkmanEmailSe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkmanMobileSe != null" >
+        LINKMAN_MOBILE_SE = #{record.linkmanMobileSe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeId != null" >
+        type_Id = #{record.typeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.finishingId != null" >
+        finishing_Id = #{record.finishingId,jdbcType=INTEGER},
+      </if>
+      <if test="record.priceType != null" >
+        PRICE_TYPE = #{record.priceType,jdbcType=INTEGER},
+      </if>
+      <if test="record.publisher != null" >
+        PUBLISHER = #{record.publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="record.streetId != null" >
+        street_Id = #{record.streetId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hotId != null" >
+        hot_Id = #{record.hotId,jdbcType=INTEGER},
+      </if>
+      <if test="record.browsers != null" >
+        browsers = #{record.browsers,jdbcType=INTEGER},
+      </if>
+      <if test="record.lng != null" >
+        lng = #{record.lng,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lat != null" >
+        lat = #{record.lat,jdbcType=DECIMAL},
+      </if>
+      <if test="record.zoom != null" >
+        zoom = #{record.zoom,jdbcType=INTEGER},
+      </if>
+      <if test="record.flrheight != null" >
+        flrHeight = #{record.flrheight,jdbcType=INTEGER},
+      </if>
+      <if test="record.officeSquare != null" >
+        office_Square = #{record.officeSquare,jdbcType=DECIMAL},
+      </if>
+      <if test="record.factorySquare != null" >
+        factory_Square = #{record.factorySquare,jdbcType=DECIMAL},
+      </if>
+      <if test="record.warehouseSquare != null" >
+        warehouse_Square = #{record.warehouseSquare,jdbcType=DECIMAL},
+      </if>
+      <if test="record.yardSquare != null" >
+        yard_Square = #{record.yardSquare,jdbcType=DECIMAL},
+      </if>
+      <if test="record.shopSquare != null" >
+        shop_Square = #{record.shopSquare,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rentType != null" >
+        rent_Type = #{record.rentType,jdbcType=INTEGER},
+      </if>
+      <if test="record.ontop != null" >
+        ontop = #{record.ontop,jdbcType=INTEGER},
+      </if>
+      <if test="record.depositType != null" >
+        DEPOSIT_TYPE = #{record.depositType,jdbcType=INTEGER},
+      </if>
+      <if test="record.price2 != null" >
+        PRICE2 = #{record.price2,jdbcType=INTEGER},
+      </if>
+      <if test="record.priceSe2 != null" >
+        PRICE_SE2 = #{record.priceSe2,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update shop
+    set ID = #{record.id,jdbcType=INTEGER},
+      SHOP_NAME = #{record.shopName,jdbcType=VARCHAR},
+      SHOP_NO = #{record.shopNo,jdbcType=VARCHAR},
+      LOCATION = #{record.location,jdbcType=VARCHAR},
+      DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      FLOOR = #{record.floor,jdbcType=VARCHAR},
+      SQUARE_METRES = #{record.squareMetres,jdbcType=DECIMAL},
+      TRAFFIC = #{record.traffic,jdbcType=VARCHAR},
+      FACILITY = #{record.facility,jdbcType=VARCHAR},
+      MONTH_DEPOSIT = #{record.monthDeposit,jdbcType=INTEGER},
+      PRICE = #{record.price,jdbcType=VARCHAR},
+      PRICE_SE = #{record.priceSe,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=DATE},
+      REMOVE_DATE = #{record.removeDate,jdbcType=DATE},
+      ONSELL_DATE = #{record.onsellDate,jdbcType=DATE},
+      OFFSELL_DATE = #{record.offsellDate,jdbcType=DATE},
+      AUDIT_LEVEL = #{record.auditLevel,jdbcType=INTEGER},
+      AUDIT_STATUS = #{record.auditStatus,jdbcType=INTEGER},
+      EDIT_TAG = #{record.editTag,jdbcType=INTEGER},
+      SHOP_STATUS = #{record.shopStatus,jdbcType=INTEGER},
+      district_Id = #{record.districtId,jdbcType=INTEGER},
+      archi_Id = #{record.archiId,jdbcType=INTEGER},
+      ocpy_Id = #{record.ocpyId,jdbcType=INTEGER},
+      LINKMAN_NAME = #{record.linkmanName,jdbcType=VARCHAR},
+      LINKMAN_PHONE = #{record.linkmanPhone,jdbcType=VARCHAR},
+      LINKMAN_EMAIL = #{record.linkmanEmail,jdbcType=VARCHAR},
+      LINKMAN_MOBILE = #{record.linkmanMobile,jdbcType=VARCHAR},
+      LINKMAN_NAME_SE = #{record.linkmanNameSe,jdbcType=VARCHAR},
+      LINKMAN_PHONE_SE = #{record.linkmanPhoneSe,jdbcType=VARCHAR},
+      LINKMAN_EMAIL_SE = #{record.linkmanEmailSe,jdbcType=VARCHAR},
+      LINKMAN_MOBILE_SE = #{record.linkmanMobileSe,jdbcType=VARCHAR},
+      type_Id = #{record.typeId,jdbcType=INTEGER},
+      finishing_Id = #{record.finishingId,jdbcType=INTEGER},
+      PRICE_TYPE = #{record.priceType,jdbcType=INTEGER},
+      PUBLISHER = #{record.publisher,jdbcType=VARCHAR},
+      street_Id = #{record.streetId,jdbcType=INTEGER},
+      hot_Id = #{record.hotId,jdbcType=INTEGER},
+      browsers = #{record.browsers,jdbcType=INTEGER},
+      lng = #{record.lng,jdbcType=DECIMAL},
+      lat = #{record.lat,jdbcType=DECIMAL},
+      zoom = #{record.zoom,jdbcType=INTEGER},
+      flrHeight = #{record.flrheight,jdbcType=INTEGER},
+      office_Square = #{record.officeSquare,jdbcType=DECIMAL},
+      factory_Square = #{record.factorySquare,jdbcType=DECIMAL},
+      warehouse_Square = #{record.warehouseSquare,jdbcType=DECIMAL},
+      yard_Square = #{record.yardSquare,jdbcType=DECIMAL},
+      shop_Square = #{record.shopSquare,jdbcType=DECIMAL},
+      rent_Type = #{record.rentType,jdbcType=INTEGER},
+      ontop = #{record.ontop,jdbcType=INTEGER},
+      DEPOSIT_TYPE = #{record.depositType,jdbcType=INTEGER},
+      PRICE2 = #{record.price2,jdbcType=INTEGER},
+      PRICE_SE2 = #{record.priceSe2,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cms.shop.model.base.Shop" >
+    update shop
+    <set >
+      <if test="shopName != null" >
+        SHOP_NAME = #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="shopNo != null" >
+        SHOP_NO = #{shopNo,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        LOCATION = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="floor != null" >
+        FLOOR = #{floor,jdbcType=VARCHAR},
+      </if>
+      <if test="squareMetres != null" >
+        SQUARE_METRES = #{squareMetres,jdbcType=DECIMAL},
+      </if>
+      <if test="traffic != null" >
+        TRAFFIC = #{traffic,jdbcType=VARCHAR},
+      </if>
+      <if test="facility != null" >
+        FACILITY = #{facility,jdbcType=VARCHAR},
+      </if>
+      <if test="monthDeposit != null" >
+        MONTH_DEPOSIT = #{monthDeposit,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="priceSe != null" >
+        PRICE_SE = #{priceSe,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=DATE},
+      </if>
+      <if test="removeDate != null" >
+        REMOVE_DATE = #{removeDate,jdbcType=DATE},
+      </if>
+      <if test="onsellDate != null" >
+        ONSELL_DATE = #{onsellDate,jdbcType=DATE},
+      </if>
+      <if test="offsellDate != null" >
+        OFFSELL_DATE = #{offsellDate,jdbcType=DATE},
+      </if>
+      <if test="auditLevel != null" >
+        AUDIT_LEVEL = #{auditLevel,jdbcType=INTEGER},
+      </if>
+      <if test="auditStatus != null" >
+        AUDIT_STATUS = #{auditStatus,jdbcType=INTEGER},
+      </if>
+      <if test="editTag != null" >
+        EDIT_TAG = #{editTag,jdbcType=INTEGER},
+      </if>
+      <if test="shopStatus != null" >
+        SHOP_STATUS = #{shopStatus,jdbcType=INTEGER},
+      </if>
+      <if test="districtId != null" >
+        district_Id = #{districtId,jdbcType=INTEGER},
+      </if>
+      <if test="archiId != null" >
+        archi_Id = #{archiId,jdbcType=INTEGER},
+      </if>
+      <if test="ocpyId != null" >
+        ocpy_Id = #{ocpyId,jdbcType=INTEGER},
+      </if>
+      <if test="linkmanName != null" >
+        LINKMAN_NAME = #{linkmanName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanPhone != null" >
+        LINKMAN_PHONE = #{linkmanPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanEmail != null" >
+        LINKMAN_EMAIL = #{linkmanEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanMobile != null" >
+        LINKMAN_MOBILE = #{linkmanMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanNameSe != null" >
+        LINKMAN_NAME_SE = #{linkmanNameSe,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanPhoneSe != null" >
+        LINKMAN_PHONE_SE = #{linkmanPhoneSe,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanEmailSe != null" >
+        LINKMAN_EMAIL_SE = #{linkmanEmailSe,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmanMobileSe != null" >
+        LINKMAN_MOBILE_SE = #{linkmanMobileSe,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        type_Id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="finishingId != null" >
+        finishing_Id = #{finishingId,jdbcType=INTEGER},
+      </if>
+      <if test="priceType != null" >
+        PRICE_TYPE = #{priceType,jdbcType=INTEGER},
+      </if>
+      <if test="publisher != null" >
+        PUBLISHER = #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="streetId != null" >
+        street_Id = #{streetId,jdbcType=INTEGER},
+      </if>
+      <if test="hotId != null" >
+        hot_Id = #{hotId,jdbcType=INTEGER},
+      </if>
+      <if test="browsers != null" >
+        browsers = #{browsers,jdbcType=INTEGER},
+      </if>
+      <if test="lng != null" >
+        lng = #{lng,jdbcType=DECIMAL},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=DECIMAL},
+      </if>
+      <if test="zoom != null" >
+        zoom = #{zoom,jdbcType=INTEGER},
+      </if>
+      <if test="flrheight != null" >
+        flrHeight = #{flrheight,jdbcType=INTEGER},
+      </if>
+      <if test="officeSquare != null" >
+        office_Square = #{officeSquare,jdbcType=DECIMAL},
+      </if>
+      <if test="factorySquare != null" >
+        factory_Square = #{factorySquare,jdbcType=DECIMAL},
+      </if>
+      <if test="warehouseSquare != null" >
+        warehouse_Square = #{warehouseSquare,jdbcType=DECIMAL},
+      </if>
+      <if test="yardSquare != null" >
+        yard_Square = #{yardSquare,jdbcType=DECIMAL},
+      </if>
+      <if test="shopSquare != null" >
+        shop_Square = #{shopSquare,jdbcType=DECIMAL},
+      </if>
+      <if test="rentType != null" >
+        rent_Type = #{rentType,jdbcType=INTEGER},
+      </if>
+      <if test="ontop != null" >
+        ontop = #{ontop,jdbcType=INTEGER},
+      </if>
+      <if test="depositType != null" >
+        DEPOSIT_TYPE = #{depositType,jdbcType=INTEGER},
+      </if>
+      <if test="price2 != null" >
+        PRICE2 = #{price2,jdbcType=INTEGER},
+      </if>
+      <if test="priceSe2 != null" >
+        PRICE_SE2 = #{priceSe2,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cms.shop.model.base.Shop" >
+    update shop
+    set SHOP_NAME = #{shopName,jdbcType=VARCHAR},
+      SHOP_NO = #{shopNo,jdbcType=VARCHAR},
+      LOCATION = #{location,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      FLOOR = #{floor,jdbcType=VARCHAR},
+      SQUARE_METRES = #{squareMetres,jdbcType=DECIMAL},
+      TRAFFIC = #{traffic,jdbcType=VARCHAR},
+      FACILITY = #{facility,jdbcType=VARCHAR},
+      MONTH_DEPOSIT = #{monthDeposit,jdbcType=INTEGER},
+      PRICE = #{price,jdbcType=VARCHAR},
+      PRICE_SE = #{priceSe,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=DATE},
+      REMOVE_DATE = #{removeDate,jdbcType=DATE},
+      ONSELL_DATE = #{onsellDate,jdbcType=DATE},
+      OFFSELL_DATE = #{offsellDate,jdbcType=DATE},
+      AUDIT_LEVEL = #{auditLevel,jdbcType=INTEGER},
+      AUDIT_STATUS = #{auditStatus,jdbcType=INTEGER},
+      EDIT_TAG = #{editTag,jdbcType=INTEGER},
+      SHOP_STATUS = #{shopStatus,jdbcType=INTEGER},
+      district_Id = #{districtId,jdbcType=INTEGER},
+      archi_Id = #{archiId,jdbcType=INTEGER},
+      ocpy_Id = #{ocpyId,jdbcType=INTEGER},
+      LINKMAN_NAME = #{linkmanName,jdbcType=VARCHAR},
+      LINKMAN_PHONE = #{linkmanPhone,jdbcType=VARCHAR},
+      LINKMAN_EMAIL = #{linkmanEmail,jdbcType=VARCHAR},
+      LINKMAN_MOBILE = #{linkmanMobile,jdbcType=VARCHAR},
+      LINKMAN_NAME_SE = #{linkmanNameSe,jdbcType=VARCHAR},
+      LINKMAN_PHONE_SE = #{linkmanPhoneSe,jdbcType=VARCHAR},
+      LINKMAN_EMAIL_SE = #{linkmanEmailSe,jdbcType=VARCHAR},
+      LINKMAN_MOBILE_SE = #{linkmanMobileSe,jdbcType=VARCHAR},
+      type_Id = #{typeId,jdbcType=INTEGER},
+      finishing_Id = #{finishingId,jdbcType=INTEGER},
+      PRICE_TYPE = #{priceType,jdbcType=INTEGER},
+      PUBLISHER = #{publisher,jdbcType=VARCHAR},
+      street_Id = #{streetId,jdbcType=INTEGER},
+      hot_Id = #{hotId,jdbcType=INTEGER},
+      browsers = #{browsers,jdbcType=INTEGER},
+      lng = #{lng,jdbcType=DECIMAL},
+      lat = #{lat,jdbcType=DECIMAL},
+      zoom = #{zoom,jdbcType=INTEGER},
+      flrHeight = #{flrheight,jdbcType=INTEGER},
+      office_Square = #{officeSquare,jdbcType=DECIMAL},
+      factory_Square = #{factorySquare,jdbcType=DECIMAL},
+      warehouse_Square = #{warehouseSquare,jdbcType=DECIMAL},
+      yard_Square = #{yardSquare,jdbcType=DECIMAL},
+      shop_Square = #{shopSquare,jdbcType=DECIMAL},
+      rent_Type = #{rentType,jdbcType=INTEGER},
+      ontop = #{ontop,jdbcType=INTEGER},
+      DEPOSIT_TYPE = #{depositType,jdbcType=INTEGER},
+      PRICE2 = #{price2,jdbcType=INTEGER},
+      PRICE_SE2 = #{priceSe2,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

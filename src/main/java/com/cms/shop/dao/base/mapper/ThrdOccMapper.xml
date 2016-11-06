@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cms.shop.dao.base.mapper.ThrdOccMapper" >
+  <resultMap id="BaseResultMap" type="com.cms.shop.model.base.ThrdOcc" >
+    <id column="THRD_OCC_ID" property="thrdOccId" jdbcType="INTEGER" />
+    <result column="THRD_OCC_NAME" property="thrdOccName" jdbcType="VARCHAR" />
+    <result column="sub_Occ_Id" property="subOccId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    THRD_OCC_ID, THRD_OCC_NAME, sub_Occ_Id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cms.shop.model.base.ThrdOccCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from thrd_occ
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <choose >
+      <when test="limitStart != -1 and limitEnd != -1" >
+        limit ${limitStart} , ${limitEnd}
+      </when>
+      <when test="limitStart != -1" >
+        limit ${limitStart}
+      </when>
+    </choose>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from thrd_occ
+    where THRD_OCC_ID = #{thrdOccId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from thrd_occ
+    where THRD_OCC_ID = #{thrdOccId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cms.shop.model.base.ThrdOccCriteria" >
+    delete from thrd_occ
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cms.shop.model.base.ThrdOcc" >
+    <selectKey resultType="java.lang.Integer" keyProperty="thrdOccId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into thrd_occ (THRD_OCC_NAME, sub_Occ_Id)
+    values (#{thrdOccName,jdbcType=VARCHAR}, #{subOccId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cms.shop.model.base.ThrdOcc" >
+    <selectKey resultType="java.lang.Integer" keyProperty="thrdOccId" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into thrd_occ
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="thrdOccName != null" >
+        THRD_OCC_NAME,
+      </if>
+      <if test="subOccId != null" >
+        sub_Occ_Id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="thrdOccName != null" >
+        #{thrdOccName,jdbcType=VARCHAR},
+      </if>
+      <if test="subOccId != null" >
+        #{subOccId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cms.shop.model.base.ThrdOccCriteria" resultType="java.lang.Integer" >
+    select count(*) from thrd_occ
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update thrd_occ
+    <set >
+      <if test="record.thrdOccId != null" >
+        THRD_OCC_ID = #{record.thrdOccId,jdbcType=INTEGER},
+      </if>
+      <if test="record.thrdOccName != null" >
+        THRD_OCC_NAME = #{record.thrdOccName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subOccId != null" >
+        sub_Occ_Id = #{record.subOccId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update thrd_occ
+    set THRD_OCC_ID = #{record.thrdOccId,jdbcType=INTEGER},
+      THRD_OCC_NAME = #{record.thrdOccName,jdbcType=VARCHAR},
+      sub_Occ_Id = #{record.subOccId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cms.shop.model.base.ThrdOcc" >
+    update thrd_occ
+    <set >
+      <if test="thrdOccName != null" >
+        THRD_OCC_NAME = #{thrdOccName,jdbcType=VARCHAR},
+      </if>
+      <if test="subOccId != null" >
+        sub_Occ_Id = #{subOccId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where THRD_OCC_ID = #{thrdOccId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cms.shop.model.base.ThrdOcc" >
+    update thrd_occ
+    set THRD_OCC_NAME = #{thrdOccName,jdbcType=VARCHAR},
+      sub_Occ_Id = #{subOccId,jdbcType=INTEGER}
+    where THRD_OCC_ID = #{thrdOccId,jdbcType=INTEGER}
+  </update>
+</mapper>
