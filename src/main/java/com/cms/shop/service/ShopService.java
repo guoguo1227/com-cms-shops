@@ -1,4 +1,4 @@
-package com.cms.shop.service.impl;
+package com.cms.shop.service;
 
 import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.model.ext.ShopVo;

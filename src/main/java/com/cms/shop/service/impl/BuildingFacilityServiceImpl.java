@@ -47,6 +47,13 @@ public class BuildingFacilityServiceImpl implements BuildingFacilityService{
 
     @Override
     public boolean deleteById(Integer id) {
-        return false;
+        boolean success = false;
+        if(null != id){
+            int i = buildingFacilityMapper.deleteByPrimaryKey(id);
+            if(i>0){
+                success = true;
+            }
+        }
+        return success;
     }
 }

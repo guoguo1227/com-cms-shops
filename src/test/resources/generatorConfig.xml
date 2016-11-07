@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <plugin type="mybatis.plugin.MyPlus"/>
+
+        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+            <property name="searchString" value="Example$"/>
+            <property name="replaceString" value="Criteria"/>
+        </plugin>
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://115.29.104.4:3306/youneverdiedbtest" userId="root" password="123456">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- generate Model -->
+        <javaModelGenerator targetPackage="com.cms.shop.model.base"
+                            targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- generate xml -->
+        <sqlMapGenerator targetPackage="com.cms.shop.dao.base.mapper"
+                         targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- generate Mapper -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.cms.shop.dao.base.mapper"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table schema="" tableName="ad_aud_hist" domainObjectName="AdAudHist">
+            <generatedKey column="AD_AUD_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="advert" domainObjectName="Advert">
+            <generatedKey column="AD_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="architecture" domainObjectName="Architecture">
+            <generatedKey column="ARCHI_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="audit_history" domainObjectName="AuditHistory">
+            <generatedKey column="AUDIT_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="biz_aud_hist" domainObjectName="BizAudHist">
+            <generatedKey column="BIZ_AUD_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="biz_img" domainObjectName="BizImg">
+            <generatedKey column="img_Id" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="biz_report_data" domainObjectName="BizReportData">
+            <generatedKey column="id" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="bizqa" domainObjectName="Bizqa">
+            <generatedKey column="qa_Id" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="bizqa_reply" domainObjectName="BizqaReply">
+            <generatedKey column="REPLY_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="board" domainObjectName="Board">
+            <generatedKey column="BRD_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="brd_aud_hist" domainObjectName="BrdAudHist">
+            <generatedKey column="BRD_AUD_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="brd_img" domainObjectName="BrdImg">
+            <generatedKey column="img_Id" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="building_facility" domainObjectName="BuildingFacility">
+            <generatedKey column="FACIL_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="building_finishing" domainObjectName="BuildingFinishing">
+            <generatedKey column="finishing_Id" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="building_occupancy" domainObjectName="BuildingOccupancy">
+            <generatedKey column="OCPY_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="business" domainObjectName="Business">
+            <generatedKey column="biz_Id" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="contract" domainObjectName="Contract">
+            <generatedKey column="contract_Id" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="cust_aud_hist" domainObjectName="CustAudHist">
+            <generatedKey column="CUST_AUD_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="customer" domainObjectName="Customer">
+            <generatedKey column="CUSTOMER_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="customer_file" domainObjectName="CustomerFile">
+            <generatedKey column="FILE_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="customer_other_info" domainObjectName="CustomerOtherInfo">
+            <generatedKey column="CUST_INFO_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="customer_type" domainObjectName="CustomerType">
+            <generatedKey column="CUST_TYPE_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="district" domainObjectName="District">
+            <generatedKey column="DISTRICT_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="flash" domainObjectName="Flash">
+            <generatedKey column="id" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="friend" domainObjectName="Friend">
+            <generatedKey column="FRIEND_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="hotcategory" domainObjectName="Hotcategory">
+            <generatedKey column="hot_Id" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="message" domainObjectName="Message">
+            <generatedKey column="MSG_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="message_type" domainObjectName="MessageType">
+            <generatedKey column="MSG_TYPE_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="occupation" domainObjectName="Occupation">
+            <generatedKey column="OCC_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="partner" domainObjectName="Partner">
+            <generatedKey column="PARTNER_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="qa" domainObjectName="Qa">
+            <generatedKey column="QA_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="qa_reply" domainObjectName="QaReply">
+            <generatedKey column="REPLY_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="rent_aud_hist" domainObjectName="RentAudHist">
+            <generatedKey column="RENT_AUD_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="rent_history" domainObjectName="RentHistory">
+            <generatedKey column="RENT_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="rent_info" domainObjectName="RentInfo">
+            <generatedKey column="RENT_INFO_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="shop" domainObjectName="Shop">
+            <generatedKey column="ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="shop_favo" domainObjectName="ShopFavo">
+            <generatedKey column="FAVO_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="shop_img" domainObjectName="ShopImg">
+            <generatedKey column="IMG_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="shop_type" domainObjectName="ShopType">
+            <generatedKey column="type_Id" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="street" domainObjectName="Street">
+            <generatedKey column="STREET_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="sub_occ" domainObjectName="SubOcc">
+            <generatedKey column="SUB_OCC_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="sys_user" domainObjectName="SysUser">
+            <generatedKey column="USER_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+        <table schema="" tableName="thrd_occ" domainObjectName="ThrdOcc">
+            <generatedKey column="THRD_OCC_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>

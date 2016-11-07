@@ -45,7 +45,7 @@ function propertyCtrl($scope,$http,angularMeta,lgDataTableService){
         pageData = $scope.formatUserPageData(pageData);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="删除" class="btn bg-blue btn-xs lagou-margin-top-3" ng-click="$table.openDetail($row)">删除</a>';
+            pg.action =  '<a title="删除" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">删除</a>';
             return pg;
         }), ['typeName','action']);
     };

@@ -3,7 +3,7 @@ package com.cms.shop.controller;
 import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.model.ext.RequestResult;
 import com.cms.shop.model.ext.ShopVo;
-import com.cms.shop.service.impl.ShopService;
+import com.cms.shop.service.ShopService;
 import com.cms.shop.utils.Page;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;

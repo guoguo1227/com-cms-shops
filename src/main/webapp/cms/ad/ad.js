@@ -16,7 +16,7 @@ function adCtrl($scope,$http,angularMeta,lgDataTableService){
         $scope.searchLoad();
     }
     $scope.searchLoad = function(){
-        $http.post("/shop/ad.json",$scope.search,angularMeta.postCfg)
+        $http.post("/advert/page.json",$scope.search,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
                     $scope.pagesNumber = data.data.totalPage;
@@ -39,16 +39,19 @@ function adCtrl($scope,$http,angularMeta,lgDataTableService){
             }
         };
 
-        var headerArray = ['商铺名称','所属地区','所在楼层','租赁面积','装修情况','发布日期','发布人','基本操作'];
+        var headerArray = ['广告名称','广告链接','广告状态','广告位置','创建人','创建时间','操作'];
         lgDataTableService.setWidth($scope.tableData, undefined, [4,8],true);
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
-        pageData = $scope.formatUserPageData(pageData);
+        pageData = $scope.formatPageData(pageData);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="查看" class="btn bg-blue btn-xs lagou-margin-top-3" ng-click="$table.openDetail($row)">查看</a>'+
-                '<a title="置顶" class="btn bg-green btn-xs lagou-margin-top-3" ng-click="$table.delete($row)">置顶</a>';
+            pg.action =  '<a title="查看" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">查看</a>'+
+                '<a title="编辑" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.delete($row)">编辑</a>'+
+            '<a title="删除" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>'+
+            '<a title="提交" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.delete($row)">提交</a>';
+            ;
             return pg;
-        }), ['shop.shopName','districtStr','shop.floor','shopSquareStr','buildingFinishing','shop.onsellDate','shop.publisher','action']);
+        }), ['adName','url','audStatusStr','shopSquareStr','adLocStr','creater','createDate','action']);
     };
 
     //切换页面
@@ -63,16 +66,25 @@ function adCtrl($scope,$http,angularMeta,lgDataTableService){
     }
 
     //格式化表格数据
-    $scope.formatUserPageData = function(pageData){
+    $scope.formatPageData = function(pageData){
 
         if(pageData != undefined && pageData != "" && pageData.length>0){
             for(var i in pageData){
                 //注册账号激活状态
-                if(pageData[i].shop){
-                    pageData[i].shopSquareStr = "";
-                    if(pageData[i].shop.shopSquare){
-                        pageData[i].shopSquareStr = pageData[i].shop.shopSquare+"平米";
-                    }
+                pageData[i].audStatusStr = "";
+                if(pageData[i].audStatus){
+                   if(pageData[i].audStatus == 0){
+                       pageData[i].audStatusStr = "未审核";
+                   }else if(pageData[i].audStatus == 1){
+                       pageData[i].audStatusStr = "<span style='color: green'>已审核</span>";
+                   }else if(pageData[i].audStatus == 2){
+                       pageData[i].audStatusStr = "<span style='color: red'>审核未通过</span>";
+
+                   }
+                }
+                pageData[i].adLocStr = "";
+                if(pageData[i].adLoc){
+                    pageData[i].adLocStr = "位置"+pageData[i].adLoc;
                 }
             }
         }

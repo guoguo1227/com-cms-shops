@@ -1,4 +1,4 @@
-package com.cms.shop.service;
+package com.cms.shop.service.impl;
 
 import com.cms.shop.dao.base.mapper.BuildingFinishingMapper;
 import com.cms.shop.dao.base.mapper.DistrictMapper;
@@ -9,17 +9,14 @@ import com.cms.shop.model.base.Shop;
 import com.cms.shop.model.base.ShopCriteria;
 import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.model.ext.ShopVo;
-import com.cms.shop.service.impl.ShopService;
-import com.cms.shop.utils.BeanUtilExt;
+import com.cms.shop.service.ShopService;
 import com.cms.shop.utils.Page;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +27,7 @@ import java.util.List;
  */
 
 @Service
-public class ShopServiceImpl implements ShopService{
+public class ShopServiceImpl implements ShopService {
 
     private static final Logger logger = LoggerFactory.getLogger(ShopServiceImpl.class);
 

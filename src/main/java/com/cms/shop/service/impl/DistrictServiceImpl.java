@@ -55,6 +55,13 @@ public class DistrictServiceImpl implements DistrictService {
 
     @Override
     public boolean deleteDistrictById(Integer id) {
-        return false;
+        boolean success = false;
+        if(null != id){
+            int i = districtMapper.deleteByPrimaryKey(id);
+            if(i>0){
+                success = true;
+            }
+        }
+        return success;
     }
 }

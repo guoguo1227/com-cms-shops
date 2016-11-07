@@ -50,6 +50,13 @@ public class ShopTypeServiceImpl implements ShopTypeService{
 
     @Override
     public boolean deleteById(Integer id) {
-        return false;
+        boolean success = false;
+        if(null != id){
+            int i = shopTypeMapper.deleteByPrimaryKey(id);
+            if(i>0){
+                success = true;
+            }
+        }
+        return success;
     }
 }

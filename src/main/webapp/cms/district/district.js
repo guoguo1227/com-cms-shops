@@ -44,9 +44,9 @@ function districtCtrl($scope,$http,angularMeta,lgDataTableService){
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="上移" class="btn bg-blue btn-xs lagou-margin-top-3" ng-click="$table.openDetail($row)">上移</a>'+
-            '<a title="下移" class="btn bg-green btn-xs lagou-margin-top-3" ng-click="$table.delete($row)">下移</a>'+
-                '<a title="删除" class="btn bg-green btn-xs lagou-margin-top-3" ng-click="$table.delete($row)">删除</a>';
+            pg.action =  '<a title="上移" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">上移</a>'+
+            '<a title="下移" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.delete($row)">下移</a>'+
+                '<a title="删除" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>';
             return pg;
         }), ['districtName','priority','action']);
     };

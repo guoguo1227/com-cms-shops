@@ -46,6 +46,13 @@ public class BuildingFinishingServiceImpl implements BuildingFinishingService{
 
     @Override
     public boolean deleteById(Integer id) {
-        return false;
+        boolean success = false;
+        if(null != id){
+            int i = buildingFinishingMapper.deleteByPrimaryKey(id);
+            if(i>0){
+                success = true;
+            }
+        }
+        return success;
     }
 }

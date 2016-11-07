@@ -49,6 +49,13 @@ public class HotcategoryServiceImpl implements HotcategoryService{
 
     @Override
     public boolean deleteById(Integer id) {
-        return false;
+        boolean success = false;
+        if(null != id){
+            int i = hotcategoryMapper.deleteByPrimaryKey(id);
+            if(i>0){
+                success = true;
+            }
+        }
+        return success;
     }
 }

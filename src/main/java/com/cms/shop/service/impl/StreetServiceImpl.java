@@ -3,7 +3,6 @@ package com.cms.shop.service.impl;
 import com.cms.shop.dao.base.mapper.DistrictMapper;
 import com.cms.shop.dao.base.mapper.StreetMapper;
 import com.cms.shop.model.base.District;
-import com.cms.shop.model.base.DistrictCriteria;
 import com.cms.shop.model.base.Street;
 import com.cms.shop.model.base.StreetCriteria;
 import com.cms.shop.model.condition.SearchCondition;
@@ -98,6 +97,13 @@ public class StreetServiceImpl implements StreetService{
 
     @Override
     public boolean deleteById(Integer id) {
-        return false;
+        boolean success = false;
+        if(null != id){
+            int i = streetMapper.deleteByPrimaryKey(id);
+            if(i>0){
+                success = true;
+            }
+        }
+        return success;
     }
 }

@@ -129,8 +129,8 @@ angular.module('lg.layout', ['lg.sidebar']).
                     '<div class="pull-right">' +
                         '<b>Version</b>&nbsp;0.0.1' +
                     '</div>' +
-                    '<strong>Copyright&nbsp;<i class="fa fa-copyright"></i>&nbsp;2015.11' +
-                    '<a href="http://www.lagou.com">&nbsp;Lagou.com</a>' +
+                    '<strong>Copyright&nbsp;<i class="fa fa-copyright"></i>&nbsp;2016.11' +
+                    '<a href="http://www.beiyishops.com/">&nbsp;beiyishops.com</a>' +
                     '</strong>' +
                     '.&nbsp;All rights reserved' +
                 '</div>' +
