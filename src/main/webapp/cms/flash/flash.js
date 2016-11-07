@@ -2,9 +2,9 @@
  * Created by samuel on 15-12-25.
  */
 var app = angular.module('flashApp',['angular-constants']);
-app.controller('flashCtrl',commentCtrl);
+app.controller('flashCtrl',flashCtrl);
 
-function commentCtrl($scope,$http,angularMeta,lgDataTableService){
+function flashCtrl($scope,$http,angularMeta,lgDataTableService){
     //初始化table
     $scope.init = function() {
         $scope.ready();

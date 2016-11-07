@@ -2,9 +2,9 @@
  * Created by samuel on 15-12-25.
  */
 var app = angular.module('supportApp',['angular-constants']);
-app.controller('supportCtrl',commentCtrl);
+app.controller('supportCtrl',supportCtrl);
 
-function commentCtrl($scope,$http,angularMeta,lgDataTableService){
+function supportCtrl($scope,$http,angularMeta,lgDataTableService){
     //初始化table
     $scope.init = function() {
         $scope.ready();
@@ -16,7 +16,7 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService){
         $scope.searchLoad();
     }
     $scope.searchLoad = function(){
-        $http.post("/shop/page.json",$scope.search,angularMeta.postCfg)
+        $http.post("/shopmanage/buildFaciPage.json",$scope.search,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
                     $scope.pagesNumber = data.data.totalPage;
@@ -39,16 +39,14 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService){
             }
         };
 
-        var headerArray = ['商铺名称','所属地区','所在楼层','租赁面积','装修情况','发布日期','发布人','基本操作'];
+        var headerArray = ['设施名称','操作'];
         lgDataTableService.setWidth($scope.tableData, undefined, [4,8],true);
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
-        pageData = $scope.formatUserPageData(pageData);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="查看" class="btn bg-blue btn-xs lagou-margin-top-3" ng-click="$table.openDetail($row)">查看</a>'+
-                '<a title="置顶" class="btn bg-green btn-xs lagou-margin-top-3" ng-click="$table.delete($row)">置顶</a>';
+            pg.action =  '<a title="删除" class="btn bg-blue btn-xs lagou-margin-top-3" ng-click="$table.openDetail($row)">删除</a>';
             return pg;
-        }), ['shop.shopName','districtStr','shop.floor','shopSquareStr','buildingFinishing','shop.onsellDate','shop.publisher','action']);
+        }), ['facilName','action']);
     };
 
     //切换页面
@@ -60,22 +58,5 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService){
     $scope.onChangePageEntry = function(entry){
         $scope.search.limit = entry;
         $scope.searchLoad();
-    }
-
-    //格式化表格数据
-    $scope.formatUserPageData = function(pageData){
-
-        if(pageData != undefined && pageData != "" && pageData.length>0){
-            for(var i in pageData){
-                //注册账号激活状态
-                if(pageData[i].shop){
-                    pageData[i].shopSquareStr = "";
-                    if(pageData[i].shop.shopSquare){
-                        pageData[i].shopSquareStr = pageData[i].shop.shopSquare+"平米";
-                    }
-                }
-            }
-        }
-        return pageData;
     }
 }

@@ -147,8 +147,8 @@ public class NavigationController extends BaseController{
 
         JSONObject  object4 = new JSONObject();
         object4.put("id","4");
-        object4.put("dir","shoptype");
-        object4.put("html","shoptype.html");
+        object4.put("dir","hotcat");
+        object4.put("html","hotcat.html");
 
         JSONObject  object5 = new JSONObject();
         object5.put("id","5");

@@ -2,9 +2,9 @@
  * Created by samuel on 15-12-25.
  */
 var app = angular.module('adApp',['angular-constants']);
-app.controller('adCtrl',commentCtrl);
+app.controller('adCtrl',adCtrl);
 
-function commentCtrl($scope,$http,angularMeta,lgDataTableService){
+function adCtrl($scope,$http,angularMeta,lgDataTableService){
     //初始化table
     $scope.init = function() {
         $scope.ready();
@@ -16,7 +16,7 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService){
         $scope.searchLoad();
     }
     $scope.searchLoad = function(){
-        $http.post("/shop/page.json",$scope.search,angularMeta.postCfg)
+        $http.post("/shop/ad.json",$scope.search,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
                     $scope.pagesNumber = data.data.totalPage;

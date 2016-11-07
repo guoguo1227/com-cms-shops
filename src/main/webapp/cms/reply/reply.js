@@ -2,9 +2,9 @@
  * Created by samuel on 15-12-25.
  */
 var app = angular.module('replyApp',['angular-constants']);
-app.controller('replyCtrl',commentCtrl);
+app.controller('replyCtrl',replyCtrl);
 
-function commentCtrl($scope,$http,angularMeta,lgDataTableService){
+function replyCtrl($scope,$http,angularMeta,lgDataTableService){
     //初始化table
     $scope.init = function() {
         $scope.ready();

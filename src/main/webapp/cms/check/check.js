@@ -2,9 +2,9 @@
  * Created by samuel on 15-12-25.
  */
 var app = angular.module('checkApp',['angular-constants']);
-app.controller('checkCtrl',commentCtrl);
+app.controller('checkCtrl',checkCtrl);
 
-function commentCtrl($scope,$http,angularMeta,lgDataTableService){
+function checkCtrl($scope,$http,angularMeta,lgDataTableService){
     //初始化table
     $scope.init = function() {
         $scope.ready();

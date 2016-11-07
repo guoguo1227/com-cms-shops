@@ -2,9 +2,9 @@
  * Created by samuel on 15-12-25.
  */
 var app = angular.module('investmentApp',['angular-constants']);
-app.controller('investmentCtrl',commentCtrl);
+app.controller('investmentCtrl',investmentCtrl);
 
-function commentCtrl($scope,$http,angularMeta,lgDataTableService){
+function investmentCtrl($scope,$http,angularMeta,lgDataTableService){
     //初始化table
     $scope.init = function() {
         $scope.ready();

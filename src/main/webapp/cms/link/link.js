@@ -2,9 +2,9 @@
  * Created by samuel on 15-12-25.
  */
 var app = angular.module('linkApp',['angular-constants']);
-app.controller('linkCtrl',commentCtrl);
+app.controller('linkCtrl',linkCtrl);
 
-function commentCtrl($scope,$http,angularMeta,lgDataTableService){
+function linkCtrl($scope,$http,angularMeta,lgDataTableService){
     //初始化table
     $scope.init = function() {
         $scope.ready();

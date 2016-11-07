@@ -2,9 +2,9 @@
  * Created by samuel on 15-12-25.
  */
 var app = angular.module('reportApp',['angular-constants']);
-app.controller('reportCtrl',commentCtrl);
+app.controller('reportCtrl',reportCtrl);
 
-function commentCtrl($scope,$http,angularMeta,lgDataTableService){
+function reportCtrl($scope,$http,angularMeta,lgDataTableService){
     //初始化table
     $scope.init = function() {
         $scope.ready();

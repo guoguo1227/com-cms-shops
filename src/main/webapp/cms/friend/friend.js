@@ -2,9 +2,9 @@
  * Created by samuel on 15-12-25.
  */
 var app = angular.module('friendApp',['angular-constants']);
-app.controller('friendCtrl',commentCtrl);
+app.controller('friendCtrl',friendCtrl);
 
-function commentCtrl($scope,$http,angularMeta,lgDataTableService){
+function friendCtrl($scope,$http,angularMeta,lgDataTableService){
     //初始化table
     $scope.init = function() {
         $scope.ready();
