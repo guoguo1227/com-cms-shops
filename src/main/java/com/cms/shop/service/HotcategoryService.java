@@ -4,6 +4,8 @@ import com.cms.shop.model.base.Hotcategory;
 import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.utils.Page;
 
+import java.util.List;
+
 /**
  * @author : samuel
  * @Description :商铺类型服务
@@ -12,6 +14,8 @@ import com.cms.shop.utils.Page;
 public interface HotcategoryService {
 
     Page<Hotcategory> queryPageByCondition(SearchCondition condition);
+
+    List<Hotcategory> queryAll();
 
     boolean deleteById(Integer id);
 }

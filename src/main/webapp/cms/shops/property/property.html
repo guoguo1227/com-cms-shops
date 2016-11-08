@@ -9,12 +9,22 @@
         </div>
     </form>
 
-    <lg-data-table table-data="tableData"></lg-data-table>
-    <lg-paginator   on-change="onChangePage(page)"
-                    total-pages="pagesNumber"
-                    visible-pages="10"
-                    total-entries="totalEntries">
-    </lg-paginator>
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">物业性质列表</h3>
+            <div class="col-xs-1 shop-fright">
+                <button type="button" class="btn ng-scope btn-info lagou-searchBut btn-sm" ng-click="addShopBtn()">添加</button>
+            </div>
+        </div>
+        <div class="box-body">
+            <lg-data-table table-data="tableData"></lg-data-table>
+            <lg-paginator   on-change="onChangePage(page)"
+                            total-pages="pagesNumber"
+                            visible-pages="10"
+                            total-entries="totalEntries">
+            </lg-paginator>
+        </div>
+    </div>
 
     <lg-modal open = "commentFlagObj.showDetail">
         <div class="modal-header">

@@ -134,3 +134,4 @@
 .shop-default-border{
     border: 1px solid #DCD6D6;
 }
+#allmap {width: 400px;;height: 400px;overflow: hidden;margin:0;font-family:"微软雅黑";}

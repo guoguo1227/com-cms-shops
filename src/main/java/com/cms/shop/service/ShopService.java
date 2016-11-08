@@ -13,4 +13,6 @@ import com.cms.shop.utils.Page;
 public interface ShopService {
 
     Page<ShopVo> queryListBySearchCondition(SearchCondition condition);
+
+    Page<ShopVo> queryCheckListBySearchCondition(SearchCondition condition);
 }

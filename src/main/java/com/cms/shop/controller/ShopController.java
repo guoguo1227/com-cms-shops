@@ -38,4 +38,25 @@ public class ShopController extends BaseController{
         }
         return gson.toJson(result);
     }
+
+    /**
+     * 审核列表
+     * @param condition
+     * @return
+     */
+    @RequestMapping("checkPage")
+    @ResponseBody
+    public String queryCheckPage(SearchCondition condition){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != condition){
+            Page<ShopVo> page =  shopService.queryListBySearchCondition(condition);
+            if(null != page && CollectionUtils.isNotEmpty(page.getPageData())){
+                result.setSuccess(true);
+                result.setData(page);
+            }
+        }
+        return gson.toJson(result);
+    }
 }

@@ -51,7 +51,7 @@ function adCtrl($scope,$http,angularMeta,lgDataTableService){
             '<a title="提交" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.delete($row)">提交</a>';
             ;
             return pg;
-        }), ['adName','url','audStatusStr','shopSquareStr','adLocStr','creater','createDate','action']);
+        }), ['adName','url','audStatusStr','adLocStr','creater','createDate','action']);
     };
 
     //切换页面

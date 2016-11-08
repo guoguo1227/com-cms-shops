@@ -1,0 +1,363 @@
+<div class="col-xs-12" id="shopApp"  ng-app="shopApp"  ng-controller="shopCtrl" ng-init="init()">
+    <div class="box-body" ng-show="shopFlagObj.shopListFlag">
+        <div class="box-body">
+            <div class="input-group row input-group-sm">
+                <!-- 问题状态 -->
+                <div class="col-xs-3" style="width:16%">
+                    <div class="input-group input-group-sm">
+                        <div class="input-group-btn">
+                            <button title="问题状态" type="button" class="btn btn-default">问题状态</button>
+                        </div>
+                        <select class="form-control" name = "model" ng-model="search.status" ng-change="searchLoad(0)">
+                            <option value="">全部</option>
+                            <option value="待审核">待审核</option>
+                            <option value="审核通过">审核通过</option>
+                            <option value="审核未通过">审核未通过</option>
+                            <option value="已关闭">已关闭</option>
+                            <option value="已删除">已删除</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- 热门 -->
+                <div class="col-xs-3" style="width: 12%">
+                    <div class="input-group input-group-sm">
+                        <div class="input-group-btn">
+                            <button title="热门" type="button" class="btn btn-default">热门</button>
+                        </div>
+                        <select class="form-control" name = "model" ng-model="search.hotStatus" ng-change="searchLoad(0)">
+                            <option value="">全部</option>
+                            <option value="未开始">未开始</option>
+                            <option value="进行中">进行中</option>
+                            <option value="已结束">已结束</option>
+                            <option value="-">-</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- 置顶 -->
+                <div class="col-xs-3" style="width: 16%">
+                    <div class="input-group input-group-sm">
+                        <div class="input-group-btn">
+                            <button title="置顶/置底" type="button" class="btn btn-default">置顶/置底</button>
+                        </div>
+                        <select class="form-control" name = "model" ng-model="search.topStatus" ng-change="searchLoad(0)">
+                            <option value="">全部</option>
+                            <option value="置顶">[置顶]</option>
+                            <option value="置顶未开始">[置顶]未开始</option>
+                            <option value="置顶进行中">[置顶]进行中</option>
+                            <option value="置顶已结束">[置顶]已结束</option>
+                            <option value="置底">[置底]</option>
+                            <option value="置底未开始">[置底]未开始</option>
+                            <option value="置底进行中">[置底]进行中</option>
+                            <option value="置底已结束">[置底]已结束</option>
+                            <option value="-">--</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- 热门 -->
+                <div class="col-xs-3" style="width: 12%">
+                    <div class="input-group input-group-sm">
+                        <select class="form-control" name = "questionType" ng-model="search.questionType" ng-change="searchLoad(0)">
+                            <option value="">问题类型</option>
+                            <option value="DEBATE">辩论问题</option>
+                            <option value="SINGLE_VOTE">单选投票</option>
+                            <option value="MULTI_VOTE">多选投票</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- 条件查询 -->
+                <div class="col-xs-1" style="width: 12%">
+                    <select class="form-control" name = "typeSearch" ng-model="search.type">
+                        <option value="1">话题名称</option>
+                        <option value="2">问题名称</option>
+                        <option value="3">问题补充</option>
+                        <option value="4">创建人ID</option>
+                        <option value="5">创建人昵称</option>
+                        <option value="11">创建人账号</option>
+                        <option value="12">问题ID</option>
+                    </select>
+                </div>
+                <div class="col-xs-2" style="margin-left: -30px;">
+                    <input type="text" class="form-control btn-sm" name="cname" placeholder="选择左侧查询条件，再输入搜索内容" ng-model="search.searchContent" ng-change="searchLoad(0)">
+                </div>
+                <div class="col-xs-1">
+                    <button type="button" class="btn ng-scope btn-info lagou-searchBut btn-sm" ng-click="searchLoad(0)">搜索</button>
+                </div>
+            </div>
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">商铺基本信息列表</h3>
+                    <div class="col-xs-1 shop-fright">
+                        <button type="button" class="btn ng-scope btn-info lagou-searchBut btn-sm" ng-click="addShopBtn()">添加</button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <lg-data-table table-data="tableData"></lg-data-table>
+                    <lg-paginator   on-change="onChangePage(page)"
+                                    total-pages="pagesNumber"
+                                    visible-pages="10"
+                                    total-entries="totalEntries">
+                    </lg-paginator>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box-body" ng-show="!shopFlagObj.shopListFlag">
+        <div class="box-body">
+            <div class="input-group row input-group-sm">
+                <!-- 问题状态 -->
+                <div class="col-xs-3" style="width:16%">
+                    <div class="input-group input-group-sm">
+                        <div class="input-group-btn">
+                            <button title="问题状态" type="button" class="btn btn-default">问题状态</button>
+                        </div>
+                        <select class="form-control" name = "model" ng-model="search.status" ng-change="searchLoad(0)">
+                            <option value="">全部</option>
+                            <option value="待审核">待审核</option>
+                            <option value="审核通过">审核通过</option>
+                            <option value="审核未通过">审核未通过</option>
+                            <option value="已关闭">已关闭</option>
+                            <option value="已删除">已删除</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- 热门 -->
+                <div class="col-xs-3" style="width: 12%">
+                    <div class="input-group input-group-sm">
+                        <div class="input-group-btn">
+                            <button title="热门" type="button" class="btn btn-default">热门</button>
+                        </div>
+                        <select class="form-control" name = "model" ng-model="search.hotStatus" ng-change="searchLoad(0)">
+                            <option value="">全部</option>
+                            <option value="未开始">未开始</option>
+                            <option value="进行中">进行中</option>
+                            <option value="已结束">已结束</option>
+                            <option value="-">-</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- 置顶 -->
+                <div class="col-xs-3" style="width: 16%">
+                    <div class="input-group input-group-sm">
+                        <div class="input-group-btn">
+                            <button title="置顶/置底" type="button" class="btn btn-default">置顶/置底</button>
+                        </div>
+                        <select class="form-control" name = "model" ng-model="search.topStatus" ng-change="searchLoad(0)">
+                            <option value="">全部</option>
+                            <option value="置顶">[置顶]</option>
+                            <option value="置顶未开始">[置顶]未开始</option>
+                            <option value="置顶进行中">[置顶]进行中</option>
+                            <option value="置顶已结束">[置顶]已结束</option>
+                            <option value="置底">[置底]</option>
+                            <option value="置底未开始">[置底]未开始</option>
+                            <option value="置底进行中">[置底]进行中</option>
+                            <option value="置底已结束">[置底]已结束</option>
+                            <option value="-">--</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- 热门 -->
+                <div class="col-xs-3" style="width: 12%">
+                    <div class="input-group input-group-sm">
+                        <select class="form-control" name = "questionType" ng-model="search.questionType" ng-change="searchLoad(0)">
+                            <option value="">问题类型</option>
+                            <option value="DEBATE">辩论问题</option>
+                            <option value="SINGLE_VOTE">单选投票</option>
+                            <option value="MULTI_VOTE">多选投票</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- 条件查询 -->
+                <div class="col-xs-1" style="width: 12%">
+                    <select class="form-control" name = "typeSearch" ng-model="search.type">
+                        <option value="1">话题名称</option>
+                        <option value="2">问题名称</option>
+                        <option value="3">问题补充</option>
+                        <option value="4">创建人ID</option>
+                        <option value="5">创建人昵称</option>
+                        <option value="11">创建人账号</option>
+                        <option value="12">问题ID</option>
+                    </select>
+                </div>
+                <div class="col-xs-2" style="margin-left: -30px;">
+                    <input type="text" class="form-control btn-sm" name="cname" placeholder="选择左侧查询条件，再输入搜索内容" ng-model="search.searchContent" ng-change="searchLoad(0)">
+                </div>
+                <div class="col-xs-1">
+                    <button type="button" class="btn ng-scope btn-info lagou-searchBut btn-sm" ng-click="searchLoad(0)">搜索</button>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="box-body">
+                    <div class="box-body lagou-fleft shop-default-border width100">
+                        <!-- 左边 -->
+                        <div class="box-body width40 shop-fleft shop-default-border">
+                            <div class="form-group">
+                                <div class="form-group" style="display: none">
+                                    <label class="col-sm-5 control-label">公司ID</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" ng-model="companyVo.id" readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label">公司全称</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" ng-model="companyVo.companyname">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label">公司简称</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" ng-model="companyVo.companyshortname">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label">一句话介绍</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" ng-model="companyVo.companyfeatures">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label">地点</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" ng-model="companyVo.city">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label">阶段</label>
+                                    <div class="col-sm-5">
+                                        <select class="form-control" name="financestage" ng-model="companyVo.financestage">
+                                            <option value="少于15人">不需要融资</option>
+                                            <option value="15-50人">未融资</option>
+                                            <option value="50-150人">天使轮</option>
+                                            <option value="150-500人">A轮</option>
+                                            <option value="500-2000人">B轮</option>
+                                            <option value="2000人以上">C轮</option>
+                                            <option value="2000人以上">D轮及以上</option>
+                                            <option value="2000人以上">上市公司</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--右边-->
+                        <div class="box-body width60 shop-fleft shop-default-border ">
+                            <label class="col-md-8 ">公司logo</label>
+                            <div class="text-center">
+                                <img class="img-thumbnail" id="companyLogo" style="max-height: 250px; min-height: 100px; min-width: 100px;" ng-src="{{companyVo.logo}}" alt="logo">
+                            </div>
+                            <div class="form-group row">
+                                <div class="width80 lagou-margin-left-30">
+                                    <div>
+                                        <input type="file" id="companyLogoFile" name="file" data-url="/fileUploadController/upload.json" data-form-data='{"oldfile": "{{companyVo.logo}}"}'>
+                                        <p class="help-block">(请上传 .jpg、.gif、.jpeg、.png 格式的文件)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 21px;">
+                                <label class="col-sm-3 control-label">规模</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name="companySize" ng-model="companyVo.companySize">
+                                        <option value="少于15人">少于15人</option>
+                                        <option value="15-50人">15-50人</option>
+                                        <option value="50-150人">50-150人</option>
+                                        <option value="150-500人">150-500人</option>
+                                        <option value="500-2000人">500-2000人</option>
+                                        <option value="2000人以上">2000人以上</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 行业领域面板 -->
+                    <div class="box-body lagou-default-border width100">
+                        <div class="form-group width100">
+                            <label class="col-sm-3 control-label">行业领域</label>
+                            <button ng-if="industryfieldArray.length >0" class="btn bg-green btn-xs  ng-scope lagou-margin-top-5 lagou-margin-left-5" ng-repeat="field in industryfieldArray" ng-model="field" ng-click="chooseIndustryfield(field)">{{field}}</button>
+                            <button ng-if="industryfieldArray.length <1" class="btn bg-red btn-xs  ng-scope lagou-margin-top-5　lagou-margin-left-5"  ng-model="field">暂无行业领域</button>
+
+                        </div>
+                        <div class="form-group width80 lagou-fright">
+                                <span  ng-repeat="fieldLabel in industryfieldLabelArray" >
+                                    <button class="btn btn-default btn-xs  ng-scope lagou-margin-top-5 lagou-margin-left-5" ng-click="addIndustryfield(fieldLabel)">{{fieldLabel}}</button>
+                                </span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" ng-click="saveCompanyCancle()">取消</button>
+                        <button class="btn btn-primary pull-right" ng-click="saveCompany()">保存</button>
+                    </div>
+                </div>
+                <table class="table table-hover">
+                    <tr>
+                        <td class="">
+                            <label class="col-sm-3 control-label">商铺名称</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" ng-model="addshop.shopName" readonly="readonly">
+                            </div>
+                        </td>
+                        <td class="">
+                            <div class="form-group" style="margin-bottom: 21px;">
+                                <label class="col-sm-3 control-label">所属商铺类型</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name = "typeSearch" ng-model="addshop.hotcateId">
+                                        <option value="">请选择类型</option>
+                                        <option value="{{type.hotId}}" ng-repeat="type in shopFlagObj.hotcateArr" >{{type.hotName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="">
+                            <label class="col-sm-3 control-label">商铺编号</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" ng-model="addshop.shopNo">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="">
+                            <div class="form-group" style="margin-bottom: 21px;">
+                                <label class="col-sm-3 control-label">所在地区</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name = "typeSearch" ng-model="addshop.districtId">
+                                        <option value="">请选择地区</option>
+                                        <option value="{{type.districtId}}" ng-repeat="type in shopFlagObj.districtArr" >{{type.districtName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="">
+                            <div class="form-group" style="margin-bottom: 21px;">
+                                <label class="col-sm-3 control-label">所属街道</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" name = "typeSearch" ng-model="addshop.hotcateId">
+                                        <option value="">请选择街道</option>
+                                        <option value="{{type.streetId}}" ng-repeat="type in shopFlagObj.streetArr" >{{type.streetName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="">
+                            <label class="col-sm-3 control-label">发布人</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" ng-model="addshop.publisher">
+                            </div>
+                        </td>
+                        <td class="">
+                            <label class="col-sm-3 control-label">发布人</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" ng-model="addshop.publisher">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div id="allmap"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

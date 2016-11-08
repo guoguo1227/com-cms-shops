@@ -96,6 +96,14 @@ public class StreetServiceImpl implements StreetService{
     }
 
     @Override
+    public List<Street> queryAll() {
+        StreetCriteria criteria = new StreetCriteria();
+        List<Street> streetList = streetMapper.selectByExample(criteria);
+
+        return streetList;
+    }
+
+    @Override
     public boolean deleteById(Integer id) {
         boolean success = false;
         if(null != id){

@@ -402,7 +402,7 @@
                                     <div class="friend">
                                         <div class="mr_frbox">
                                             <div class="mr_frUl col-xs-12">
-                                                <img class="mr_frBtnL prev" src="images/mfrl.gif" />
+                                                <img class="mr_frBtnL prev" src="/static/ui/images/mfrl.gif" />
                                                 <div class="col-xs-10" style="margin-left: -10px;">
                                                     <ul id="mr_fu">
                                                         <li><a href="http://www.17sucai.com/">
@@ -469,60 +469,33 @@
                 <div id="myCarousel" class="carousel slide pad_010 b_k" data-ride="carousel">
                     <!-- 轮播（Carousel）指标 -->
                     <ol class="carousel-indicators">
-                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#myCarousel" data-slide-to="1"></li>
-                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                        #set( $partner_count = 0 )
+                        #foreach($partner in $partnerList)
+                          #if($!velocityCount == 1)
+                          <li data-target="#myCarousel" data-slide-to="$!{partner_count}" class="active"></li>
+                          #else
+                          <li data-target="#myCarousel" data-slide-to="$!{partner_count}"></li>
+                          #end
+                          #set($partner_count = $partner_count+1)
+                        #end
                     </ol>
                     <!-- 轮播（Carousel）项目 -->
                     <div class="carousel-inner bor_btm">
-                        <div class="item active" >
+                        #foreach($partner in $partnerList)
+                          #if($!velocityCount == 1)
+                          <div class="item active" >
+                              <div class="col-sm-12 col-lg-12">
+                                  <img src="$!partner.fileName" style="height: 300px;">
+                              </div>
+                          </div>
+                          #else
+                          <div class="item" >
                             <div class="col-sm-12 col-lg-12">
-                                <div class="col-lg-3 col-sm-3 ">
-                                    <img src="/static/ui/images/1.jpg" >
-                                </div>
-                                <div class="col-lg-3 col-sm-3 ">
-                                    <img src="/static/ui/images/1.jpg" >
-                                </div>
-                                <div class="col-lg-3 col-sm-3 ">
-                                    <img src="/static/ui/images/1.jpg" >
-                                </div>
-                                <div class="col-lg-3 col-sm-3 ">
-                                    <img src="/static/ui/images/1.jpg" >
-                                </div>
+                                <img src="$!partner.fileName" style="height: 300px;">
                             </div>
-                        </div>
-                        <div class="item">
-                            <div class="col-sm-12 col-lg-12">
-                                <div class="col-lg-3 col-sm-3 ">
-                                    <img src="/static/ui/images/2.jpg" >
-                                </div>
-                                <div class="col-lg-3 col-sm-3 ">
-                                    <img src="/static/ui/images/2.jpg" >
-                                </div>
-                                <div class="col-lg-3 col-sm-3 ">
-                                    <img src="/static/ui/images/2.jpg" >
-                                </div>
-                                <div class="col-lg-3 col-sm-3 ">
-                                    <img src="/static/ui/images/2.jpg" >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="col-sm-12 col-lg-12">
-                                <div class="col-lg-3 col-sm-3 ">
-                                    <img src="/static/ui/images/3.jpg" >
-                                </div>
-                                <div class="col-lg-3 col-sm-3 ">
-                                    <img src="/static/ui/images/3.jpg" >
-                                </div>
-                                <div class="col-lg-3 col-sm-3 ">
-                                    <img src="/static/ui/images/3.jpg" >
-                                </div>
-                                <div class="col-lg-3 col-sm-3 ">
-                                    <img src="/static/ui/images/3.jpg" >
-                                </div>
-                            </div>
-                        </div>
+                          </div>
+                          #end
+                        #end
                     </div>
                     <!-- 轮播（Carousel）导航 -->
                     <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>

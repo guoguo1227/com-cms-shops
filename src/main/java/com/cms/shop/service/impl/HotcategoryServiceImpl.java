@@ -48,6 +48,13 @@ public class HotcategoryServiceImpl implements HotcategoryService{
     }
 
     @Override
+    public List<Hotcategory> queryAll() {
+        HotcategoryCriteria criteria = new HotcategoryCriteria();
+        List<Hotcategory> hotcategoryList= hotcategoryMapper.selectByExample(criteria);
+        return hotcategoryList;
+    }
+
+    @Override
     public boolean deleteById(Integer id) {
         boolean success = false;
         if(null != id){

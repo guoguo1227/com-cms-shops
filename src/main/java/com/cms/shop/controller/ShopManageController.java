@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 /**
  * @author : samuel
  * @Description :
@@ -45,6 +47,12 @@ public class ShopManageController extends BaseController{
 
     @Autowired
     private ShopTypeService shopTypeService;
+
+    @Autowired
+    private FriendService friendService;
+
+    @Autowired
+    private PartnerService partnerService;
 
     @RequestMapping("architPage")
     @ResponseBody
@@ -127,6 +135,20 @@ public class ShopManageController extends BaseController{
         return gson.toJson(result);
     }
 
+    /**
+     * 查询所有地区
+     * @return
+     */
+    @RequestMapping("district-all")
+    @ResponseBody
+    public String queryAllDistrict(){
+        RequestResult result = new RequestResult();
+        result.setSuccess(true);
+        List<District> list = districtService.queryAll();
+        result.setData(list);
+        return gson.toJson(result);
+    }
+
     @RequestMapping("hotcatePage")
     @ResponseBody
     public String queryHotcatePage(SearchCondition condition){
@@ -140,6 +162,22 @@ public class ShopManageController extends BaseController{
                 result.setData(page);
             }
         }
+        return gson.toJson(result);
+    }
+
+    /**
+     * 查询所有的所属商铺类型
+     * @return
+     */
+    @RequestMapping("hotcate-all")
+    @ResponseBody
+    public String queryAllHotcate(){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(true);
+        List<Hotcategory> list =  hotcategoryService.queryAll();
+
+        result.setData(list);
         return gson.toJson(result);
     }
 
@@ -174,4 +212,57 @@ public class ShopManageController extends BaseController{
         }
         return gson.toJson(result);
     }
+
+    /**
+     * 获取所有街道
+     * @return
+     */
+    @RequestMapping("street-all")
+    @ResponseBody
+    public String queryStreetAll(){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(true);
+        List<Street> list = streetService.queryAll();
+        result.setData(list);
+        return gson.toJson(result);
+    }
+
+    @RequestMapping("friendPage")
+    @ResponseBody
+    public String queryFriendPage(SearchCondition condition){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != condition){
+            Page<Friend> page =  friendService.queryListByCondition(condition);
+            if(null != page && CollectionUtils.isNotEmpty(page.getPageData())){
+                result.setSuccess(true);
+                result.setData(page);
+            }
+        }
+        return gson.toJson(result);
+    }
+
+    /**
+     * 获取合作伙伴列表
+     * @param condition
+     * @return
+     */
+    @RequestMapping("partnerPage")
+    @ResponseBody
+    public String queryPartnerPage(SearchCondition condition){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != condition){
+            Page<Partner> page =  partnerService.queryPageByCondition(condition);
+            if(null != page && CollectionUtils.isNotEmpty(page.getPageData())){
+                result.setSuccess(true);
+                result.setData(page);
+            }
+        }
+        return gson.toJson(result);
+    }
+
 }

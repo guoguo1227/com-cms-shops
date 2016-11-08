@@ -2,7 +2,7 @@
  * Created by samuel on 15-12-30.
  */
 
-var forbidSystem  = {
+var shopSystem  = {
 
     /**
      * @Description : 将日期对象转换成字符串

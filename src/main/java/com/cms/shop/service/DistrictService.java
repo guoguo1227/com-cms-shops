@@ -15,6 +15,8 @@ public interface DistrictService {
 
     Page<District> queryListByCondition(SearchCondition condition);
 
+    List<District> queryAll();
+
     /**
      * 上移下移
      * @param id

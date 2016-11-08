@@ -28,7 +28,7 @@
 
     <servlet-mapping>
         <servlet-name>footFront</servlet-name>
-        <url-pattern>*.html</url-pattern>
+        <url-pattern>*.action</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -58,4 +58,7 @@
         <error-code>401</error-code>
         <location>/401</location>
     </error-page>
+    <welcome-file-list>
+        <welcome-file>index.action</welcome-file>
+    </welcome-file-list>
 </web-app>

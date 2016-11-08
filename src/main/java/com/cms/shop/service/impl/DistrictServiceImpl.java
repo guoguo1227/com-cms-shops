@@ -49,6 +49,13 @@ public class DistrictServiceImpl implements DistrictService {
     }
 
     @Override
+    public List<District> queryAll() {
+        DistrictCriteria criteria = new DistrictCriteria();
+        List<District> districtList = districtMapper.selectByExample(criteria);
+        return districtList;
+    }
+
+    @Override
     public boolean updatePriority(Integer id, boolean upflag) {
         return false;
     }

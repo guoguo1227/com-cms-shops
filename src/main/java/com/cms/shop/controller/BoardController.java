@@ -1,8 +1,8 @@
 package com.cms.shop.controller;
 
-import com.cms.shop.model.base.Advert;
 import com.cms.shop.model.base.Board;
 import com.cms.shop.model.condition.SearchCondition;
+import com.cms.shop.model.ext.BoardVo;
 import com.cms.shop.model.ext.RequestResult;
 import com.cms.shop.service.BoardService;
 import com.cms.shop.utils.Page;
@@ -35,7 +35,7 @@ public class BoardController extends BaseController{
         RequestResult result = new RequestResult();
         result.setSuccess(false);
         if(null != condition){
-            Page<Board> page =  boardService.queryPageByCondition(condition);
+            Page<BoardVo> page =  boardService.queryPageByCondition(condition);
             if(null != page && CollectionUtils.isNotEmpty(page.getPageData())){
                 result.setSuccess(true);
                 result.setData(page);

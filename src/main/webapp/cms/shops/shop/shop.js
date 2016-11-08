@@ -8,11 +8,12 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService){
     //初始化table
     $scope.init = function() {
         $scope.ready();
+        $scope.addShopBtn();
     };
 
     $scope.ready = function(){
         $scope.search = {limit:15, currentPage:0,searchContent:''};
-        $scope.commentFlagObj = {showDetail:false};
+        $scope.shopFlagObj = {shopListFlag:false};
         $scope.searchLoad();
     }
     $scope.searchLoad = function(){
@@ -77,5 +78,50 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService){
             }
         }
         return pageData;
+    }
+
+    //添加商铺按钮
+    $scope.addShopBtn = function(){
+        $scope.shopFlagObj.shopListFlag = false;
+        // 百度地图API功能
+        var map = new BMap.Map("allmap");
+        var point = new BMap.Point(116.331398,39.897445);
+        map.centerAndZoom(point,12);
+        // 创建地址解析器实例
+        var myGeo = new BMap.Geocoder();
+        // 将地址解析结果显示在地图上,并调整地图视野
+        myGeo.getPoint("北京市海淀区上地10街", function(point){
+            if (point) {
+                map.centerAndZoom(point, 16);
+                map.addOverlay(new BMap.Marker(point));
+            }else{
+                alert("您选择地址没有解析到结果!");
+            }
+        }, "北京市");
+
+        $http.post("/shopmanage/hotcate-all.json",{},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    if(data.data && Array.isArray(data.data)){
+                        $scope.shopFlagObj.hotcateArr = data.data;
+                    }
+                }
+            });
+        $http.post("/shopmanage/district-all.json",{},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    if(data.data && Array.isArray(data.data)){
+                        $scope.shopFlagObj.districtArr = data.data;
+                    }
+                }
+            });
+        $http.post("/shopmanage/street-all.json",{},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    if(data.data && Array.isArray(data.data)){
+                        $scope.shopFlagObj.streetArr = data.data;
+                    }
+                }
+            });
     }
 }

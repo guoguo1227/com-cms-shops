@@ -38,6 +38,7 @@ public class AdvertServiceImpl implements AdvertService{
 
             AdvertCriteria criteria = new AdvertCriteria();
             int count = advertMapper.countByExample(criteria);
+            criteria.setOrderByClause(" CREATE_DATE desc ");
             if(count>0){
                 criteria.setLimitStart(condition.getOffset());
                 criteria.setLimitEnd(condition.getLimit());

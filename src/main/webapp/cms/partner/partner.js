@@ -1,13 +1,17 @@
 /**
  * Created by samuel on 15-12-25.
  */
-var app = angular.module('checkApp',['angular-constants']);
-app.controller('checkCtrl',checkCtrl);
+var app = angular.module('partnerApp',['angular-constants']);
+app.controller('partnerCtrl',partnerCtrl);
 
-function checkCtrl($scope,$http,angularMeta,lgDataTableService){
+function partnerCtrl($scope,$http,angularMeta,lgDataTableService){
     //初始化table
     $scope.init = function() {
         $scope.ready();
+        $(".fancybox").fancybox({
+            openEffect	: 'none',
+            closeEffect	: 'none'
+        });
     };
 
     $scope.ready = function(){
@@ -16,7 +20,7 @@ function checkCtrl($scope,$http,angularMeta,lgDataTableService){
         $scope.searchLoad();
     }
     $scope.searchLoad = function(){
-        $http.post("/shop/checkPage.json",$scope.search,angularMeta.postCfg)
+        $http.post("/shopmanage/partnerPage.json",$scope.search,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
                     $scope.pagesNumber = data.data.totalPage;
@@ -39,16 +43,17 @@ function checkCtrl($scope,$http,angularMeta,lgDataTableService){
             }
         };
 
-        var headerArray = ['商铺名称','所属地区','所在楼层','租赁面积','装修情况','发布日期','发布人','基本操作'];
+        var headerArray = ['伙伴名称','伙伴图片','状态','操作'];
         lgDataTableService.setWidth($scope.tableData, undefined, [4,8],true);
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
-        pageData = $scope.formatPageData(pageData);
+        pageData = $scope.formatUserPageData(pageData);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="查看" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">查看</a>'+
-                '<a title="置顶" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.delete($row)">置顶</a>';
+            pg.imgurl = "<a class='fancybox' rel='group' href={{$row.fileName}}><img src={{$row.fileName}} style='width:300px;height: 100px;' /></a>";
+
+            pg.action =  '<a title="下架" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">下架</a>';
             return pg;
-        }), ['shop.shopName','districtStr','shop.floor','shopSquareStr','buildingFinishing','shop.onsellDate','shop.publisher','action']);
+        }), ['partnerName','imgurl','statusStr','action']);
     };
 
     //切换页面
@@ -63,11 +68,20 @@ function checkCtrl($scope,$http,angularMeta,lgDataTableService){
     }
 
     //格式化表格数据
-    $scope.formatPageData = function(pageData){
+    $scope.formatUserPageData = function(pageData){
 
         if(pageData != undefined && pageData != "" && pageData.length>0){
             for(var i in pageData){
-
+                pageData[i].statusStr = "";
+                if(pageData[i].status){
+                    if(pageData[i].status == 0){
+                        pageData[i].statusStr = "未上架";
+                    }else if(pageData[i].status == 1){
+                        pageData[i].statusStr = "上架";
+                    }else if(pageData[i].status == 2){
+                        pageData[i].statusStr = "下架";
+                    }
+                }
             }
         }
         return pageData;
