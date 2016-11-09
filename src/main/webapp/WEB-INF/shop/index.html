@@ -11,6 +11,7 @@
 		<link href="/static/plugins/font-awesome/css/font-awesome.css" rel="stylesheet">
 		<link href="/static/ui/css/style.css" rel="stylesheet">
 		<link href="/static/ui/css/ui.css" rel="stylesheet">
+		<link href="/cms/common/shop-constants.css" rel="stylesheet">
 
         <script src="/static/plugins/jQuery/jQuery-2.1.4.min.js"></script>
         <script type="text/javascript" src="/static/ui/js/jquery.SuperSlide2.js"></script>
@@ -289,59 +290,72 @@
                                     </div>
                                 </div>
                                 <!-- 热招旺铺 -->
-                                <div class="row">
+                                <div class="row" style="height: 400px;">
                                     <center><h3>热招旺铺</h3></center>
                                     <center>预购从速 - 过期不候</center>
                                     <br>
-                                    <div class="col-sm-12 col-lg-6 ">
+                                    <div class="col-sm-12 col-lg-12 ">
                                         <div class="row">
-                                            <div class="col-lg-6 col-sm-6 ">
+                                            <div class="col-lg-4 col-sm-10" style="height: 300px;">
+                                            #foreach($hotShop in $!goodShopList)
+                                              #if($velocityCount == 1)
+                                                <!--<div class="thumbnail" style="padding: 0px;">
+                                                    <img src="$!hotShop.filePath" alt="" style="height: 180px;">
+                                                    &lt;!&ndash;<div class="mr_zhe_p">
+                                                    </div>&ndash;&gt;
+                                                    <div class="caption mr_zhe_p col-sm-8 col-md-offset-2">
+                                                        <span>$!{hotShop.shopType}  $!{hotShop.shop.squareMetres}平米</span><span class="shop-fright shop-color-red shop-font18">$!{hotShop.districtStr}</span>
+                                                    </div>
+                                                </div>-->
                                                 <div class="thumbnail">
-                                                    <img src="/static/ui/images/5.jpg" alt="">
-                                                    <div class="caption">
-                                                        <h3>Heading</h3>
-                                                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                                                    <img src="$!hotShop.filePath" alt="">
+                                                    <div class="caption mr_zhe_p">
+                                                        <span>$!{hotShop.districtStr}</span>
+                                                        <span class="shop-fright">$!{hotShop.shop.squareMetres}平米</span>
                                                     </div>
                                                 </div>
+                                              #end
+                                            #end
                                             </div>
-                                            <div class="col-lg-6 col-sm-6 ">
-                                                <a href="#" class="thumbnail">
-                                                    <img src="/static/ui/images/1.jpg" alt="">
-                                                </a>
-                                                <a href="#" class="thumbnail">
-                                                    <img src="/static/ui/images/2.jpg" alt="">
-                                                </a>
+
+                                            <div class="col-lg-4 col-sm-12 ">
+                                            #foreach($hotShop in $!goodShopList)
+                                              #if($velocityCount > 1 && $velocityCount !=6)
+                                                  <div class="col-lg-6 thumbnail" style="height: 100px;">
+                                                      <a href="#" class="height100">
+                                                          <img src="$!hotShop.filePath" alt="" class="shop-img-responsive " style="height: 100%;">
+                                                      </a>
+                                                      <div class="caption mr_zhe_p2">
+                                                          <span>$!{hotShop.districtStr}</span>
+                                                          <span class="shop-fright">$!{hotShop.shop.squareMetres}平米</span>
+                                                      </div>
+                                                  </div>
+                                                #end
+                                            #end
+                                            </div>
+
+                                            <div class="col-lg-4 col-sm-10 ">
+                                            #foreach($hotShop in $!goodShopList)
+                                              #if($velocityCount == 6)
+                                                <div class="thumbnail">
+                                                    <img src="$!hotShop.filePath">
+                                                    <div class="caption mr_zhe_p">
+                                                        <span>$!{hotShop.districtStr}</span>
+                                                        <span class="shop-fright">$!{hotShop.shop.squareMetres}平米</span>
+                                                    </div>
+                                                </div>
+                                              #end
+                                            #end
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-lg-6 ">
-                                        <div class="row">
-                                            <div class="col-lg-6 col-sm-6 ">
-                                                <a href="#" class="thumbnail">
-                                                    <img src="/static/ui/images/3.jpg" alt="">
-                                                </a>
-                                                <a href="#" class="thumbnail">
-                                                    <img src="/static/ui/images/4.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="col-lg-6 col-sm-6 ">
-                                                <div class="thumbnail">
-                                                    <img src="/static/ui/images/6.jpg" alt="">
-                                                    <div class="caption">
-                                                        <h3>Heading</h3>
-                                                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
 
                     </div>
                     <!-- 精选好铺 panel-->
-
                     <div class="row col-xs-10 col-md-offset-1">
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -349,45 +363,18 @@
                                 <center>好地段！好价格！好人流！</center>
                                 <br>
                                 <div class="row">
+                                    #foreach($goodShop in $!goodShopList)
                                     <div class="col-lg-4">
                                         <div class="panel panel-default">
-                                            <!-- <div class="panel-heading">Headings</div> -->
                                             <div class="panel-body">
                                                 <a href="#" class="thumbnail">
-                                                    <img src="/static/ui/images/1.jpg" alt="">
+                                                    <img src="$!goodShop.filePath" alt="" style="height: 175px;">
                                                 </a>
-                                                <a href="#" class="thumbnail">
-                                                    <img src="/static/ui/images/1.jpg" alt="">
-                                                </a>
+                                                <span>$!{goodShop.shopType}  $!{goodShop.shop.squareMetres}平米</span><span class="shop-fright shop-color-red shop-font18">$!{goodShop.districtStr}</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <div class="panel panel-default">
-                                            <!-- <div class="panel-heading">Paragraphs</div> -->
-                                            <div class="panel-body">
-                                                <a href="#" class="thumbnail">
-                                                    <img src="/static/ui/images/2.jpg" alt="">
-                                                </a>
-                                                <a href="#" class="thumbnail">
-                                                    <img src="/static/ui/images/2.jpg" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="panel panel-default">
-                                            <!-- <div class="panel-heading">Emphasis Classes</div> -->
-                                            <div class="panel-body">
-                                                <a href="#" class="thumbnail">
-                                                    <img src="/static/ui/images/3.jpg" alt="">
-                                                </a>
-                                                <a href="#" class="thumbnail">
-                                                    <img src="/static/ui/images/3.jpg" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    #end
                                 </div>
                             </div>
                         </div>
@@ -405,46 +392,26 @@
                                                 <img class="mr_frBtnL prev" src="/static/ui/images/mfrl.gif" />
                                                 <div class="col-xs-10" style="margin-left: -10px;">
                                                     <ul id="mr_fu">
-                                                        <li><a href="http://www.17sucai.com/">
-                                                            <img src="/static/ui/images/i.jpg" />
-                                                        </a>
-                                                        </li>
-                                                        <li><a href="http://www.17sucai.com/">
-                                                            <img src="/static/ui/images/i2.jpg" />
-                                                        </a>
-                                                        </li>
-                                                        <li><a href="http://www.17sucai.com/">
-                                                            <img src="/static/ui/images/i3.jpg" />
-                                                        </a>
-                                                        </li>
-                                                        <li><a href="http://www.17sucai.com/">
-                                                            <img src="/static/ui/images/i4.jpg" />
-                                                        </a>
-                                                        </li>
-                                                        <li><a href="http://www.17sucai.com/">
-                                                            <img src="/static/ui/images/i.jpg" />
-                                                        </a>
-                                                        </li>
-                                                        <li><a href="http://www.17sucai.com/">
-                                                            <img src="/static/ui/images/i2.jpg" />
-                                                        </a>
-                                                        </li>
-                                                        <li><a href="http://www.17sucai.com/">
-                                                            <img src="/static/ui/images/i3.jpg" />
-                                                        </a>
-                                                        </li>
-                                                        <li><a href="http://www.17sucai.com/">
-                                                            <img src="/static/ui/images/i.jpg" />
-                                                        </a>
-                                                        </li>
-                                                        <li><a href="http://www.17sucai.com/">
-                                                            <img src="/static/ui/images/i2.jpg" />
-                                                        </a>
-                                                        </li>
-                                                        <li><a href="http://www.17sucai.com/">
-                                                            <img src="/static/ui/images/i3.jpg" />
-                                                        </a>
-                                                        </li>
+                                                        #foreach($business in $businessList)
+                                                           <li><a href="#">
+                                                            <img src="$!business.fileName"/> </a>
+                                                            <div class="mr_zhe">
+                                                                #set($bizName = $business.bizName)
+                                                                #set($bizContent=$business.bizContent)
+
+                                                                #if($!business.bizName.length()>10)
+                                                                  #set($bizName=$bizName.substring(0,9))
+                                                                #end
+                                                                #if($!business.bizName.length()>30)
+                                                                  #set($bizContent=$bizContent.substring(0,29))
+                                                                #end
+                                                                <span>$!{bizName}</span>
+<!--
+                                                                <p>$!{bizContent}</p>
+-->
+
+                                                            </div>
+                                                        #end
                                                     </ul>
                                                 </div>
                                                 <div class="col-xs-1">

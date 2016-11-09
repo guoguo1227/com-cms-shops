@@ -59,4 +59,13 @@ public class ShopTypeServiceImpl implements ShopTypeService{
         }
         return success;
     }
+
+    @Override
+    public ShopType queryShopTypeById(Integer id) {
+        ShopType shopType = null;
+        if(null != id){
+            shopType = shopTypeMapper.selectByPrimaryKey(id);
+        }
+        return shopType;
+    }
 }

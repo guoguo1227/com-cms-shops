@@ -14,4 +14,6 @@ public interface ShopTypeService {
     Page<ShopType> queryPageByCondition(SearchCondition condition);
 
     boolean deleteById(Integer id);
+
+    ShopType queryShopTypeById(Integer id);
 }

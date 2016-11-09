@@ -54,6 +54,9 @@ public class ShopManageController extends BaseController{
     @Autowired
     private PartnerService partnerService;
 
+    @Autowired
+    private BusinessService businessService;
+
     @RequestMapping("architPage")
     @ResponseBody
     public String queryArchitPage(SearchCondition condition){
@@ -264,5 +267,27 @@ public class ShopManageController extends BaseController{
         }
         return gson.toJson(result);
     }
+
+    /**
+     * 获取招商项目列表
+     * @param condition
+     * @return
+     */
+    @RequestMapping("businessPage")
+    @ResponseBody
+    public String queryBusinessPage(SearchCondition condition){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != condition){
+            Page<Business> page =  businessService.queryPageByCondition(condition);
+            if(null != page && CollectionUtils.isNotEmpty(page.getPageData())){
+                result.setSuccess(true);
+                result.setData(page);
+            }
+        }
+        return gson.toJson(result);
+    }
+
 
 }

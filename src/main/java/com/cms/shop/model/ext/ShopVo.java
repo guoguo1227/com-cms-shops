@@ -15,6 +15,26 @@ public class ShopVo{
 
     private String buildingFinishing ;//装修情况
 
+    private String filePath; //图片路径
+
+    private String shopType;//物业性质
+
+    public String getShopType() {
+        return shopType;
+    }
+
+    public void setShopType(String shopType) {
+        this.shopType = shopType;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
     public Shop getShop() {
         return shop;
     }

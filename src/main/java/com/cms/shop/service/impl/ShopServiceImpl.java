@@ -1,17 +1,17 @@
 package com.cms.shop.service.impl;
 
+import com.cms.shop.constants.ShopConstant;
 import com.cms.shop.dao.base.mapper.BuildingFinishingMapper;
 import com.cms.shop.dao.base.mapper.DistrictMapper;
 import com.cms.shop.dao.base.mapper.ShopMapper;
-import com.cms.shop.enums.CheckStatusEnum;
-import com.cms.shop.enums.ShopStatusEnum;
-import com.cms.shop.model.base.BuildingFinishing;
-import com.cms.shop.model.base.District;
-import com.cms.shop.model.base.Shop;
-import com.cms.shop.model.base.ShopCriteria;
+import com.cms.shop.enums.*;
+import com.cms.shop.model.base.*;
 import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.model.ext.ShopVo;
+import com.cms.shop.service.ShopImgService;
 import com.cms.shop.service.ShopService;
+import com.cms.shop.service.ShopTypeService;
+import com.cms.shop.utils.BeanUtilExt;
 import com.cms.shop.utils.Page;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +42,12 @@ public class ShopServiceImpl implements ShopService {
 
     @Autowired
     private DistrictMapper districtMapper;
+
+    @Autowired
+    private ShopImgService shopImgService;
+
+    @Autowired
+    private ShopTypeService shopTypeService;
 
     @Override
     public Page<ShopVo> queryListBySearchCondition(SearchCondition condition) {
@@ -106,5 +113,48 @@ public class ShopServiceImpl implements ShopService {
         Page<ShopVo> page = queryListBySearchCondition(condition);
 
         return page;
+    }
+
+    @Override
+    public List<ShopVo> getOnList(ShopTypeEnum type) {
+
+        List<ShopVo> voList = new ArrayList<>();
+        ShopCriteria criteria = new ShopCriteria();
+        criteria.createCriteria().andAuditStatusEqualTo(CheckStatusEnum.PASS.getKey()).andEditTagEqualTo(ShopConstant.EDIT_TAG_LOCK)
+                .andShopStatusEqualTo(OnlineStatusEnum.ONLINE.getKey());
+        criteria.setOrderByClause(" ID desc ");
+        criteria.setLimitStart(0);
+        criteria.setLimitEnd(6);
+        List<Shop> shopList = shopMapper.selectByExample(criteria);
+        if(CollectionUtils.isNotEmpty(shopList)){
+            for(Shop shop : shopList) {
+                ShopVo vo = new ShopVo();
+                vo.setShop(shop);
+                //图片
+                ShopImg img = shopImgService.getImgByShopId(shop.getId());
+                if(null != img){
+                    vo.setFilePath(ImageType.SHOPPIC.getImagePath()+img.getNewImgName());
+                }
+                if(null != shop.getDistrictId()){
+                    District district = districtMapper.selectByPrimaryKey(shop.getDistrictId());
+                    if(null != district){
+                        vo.setDistrictStr(district.getDistrictName());
+                    }
+                }
+                if(null != shop.getFinishingId()){
+                    BuildingFinishing buildingFinishing = buildingFinishingMapper.selectByPrimaryKey(shop.getFinishingId());
+                    if(null != buildingFinishing){
+                        vo.setBuildingFinishing(buildingFinishing.getFinishingName());
+                    }
+                }
+                if(null != shop.getTypeId()){
+                    ShopType shopType = shopTypeService.queryShopTypeById(shop.getTypeId());
+                    vo.setShopType(shopType.getTypeName());
+                }
+
+                voList.add(vo);
+            }
+        }
+        return voList;
     }
 }

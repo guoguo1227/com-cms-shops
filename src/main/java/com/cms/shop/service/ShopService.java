@@ -1,8 +1,12 @@
 package com.cms.shop.service;
 
+import com.cms.shop.enums.ShopTypeEnum;
+import com.cms.shop.model.base.Business;
 import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.model.ext.ShopVo;
 import com.cms.shop.utils.Page;
+
+import java.util.List;
 
 
 /**
@@ -15,4 +19,7 @@ public interface ShopService {
     Page<ShopVo> queryListBySearchCondition(SearchCondition condition);
 
     Page<ShopVo> queryCheckListBySearchCondition(SearchCondition condition);
+
+    List<ShopVo> getOnList(ShopTypeEnum type);
+
 }

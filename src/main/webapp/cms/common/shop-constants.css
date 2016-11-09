@@ -125,6 +125,12 @@
 .width100{
     width:100%;
 }
+.height100{
+    height: 100%;
+}
+.height50{
+    height: 50%;
+}
 .shop-fleft{
     float:left;
 }
@@ -133,5 +139,11 @@
 }
 .shop-default-border{
     border: 1px solid #DCD6D6;
+}
+.shop-color-red{
+    color:red;
+}
+.shop-font18{
+    font-size: 18px;
 }
 #allmap {width: 400px;;height: 400px;overflow: hidden;margin:0;font-family:"微软雅黑";}
