@@ -1,6 +1,8 @@
 package com.cms.shop.service.impl;
 
 import com.cms.shop.dao.base.mapper.BoardMapper;
+import com.cms.shop.enums.BoardTypeEnum;
+import com.cms.shop.enums.CheckStatusEnum;
 import com.cms.shop.model.base.Board;
 import com.cms.shop.model.base.BoardCriteria;
 import com.cms.shop.model.base.SysUser;
@@ -149,5 +151,19 @@ public class BoardServiceImpl implements BoardService{
         result.setMessage(message);
         result.setSuccess(success);
         return result;
+    }
+
+    @Override
+    public List<Board> queryOnList(BoardTypeEnum typeEnum) {
+        BoardCriteria criteria = new BoardCriteria();
+        criteria.createCriteria().andBrdTypeEqualTo(typeEnum.getKey()).andBrdStatusEqualTo(CheckStatusEnum.PASS.getKey());
+
+        criteria.setOrderByClause(" BRD_ID desc ");
+
+        criteria.setLimitStart(0);
+        criteria.setLimitEnd(6);
+        List<Board> list = boardMapper.selectByExample(criteria);
+
+        return list;
     }
 }

@@ -2,6 +2,8 @@ package com.cms.shop.service;
 
 import com.cms.shop.enums.ShopTypeEnum;
 import com.cms.shop.model.base.Business;
+import com.cms.shop.model.base.Shop;
+import com.cms.shop.model.base.ShopImg;
 import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.model.ext.ShopVo;
 import com.cms.shop.utils.Page;
@@ -22,4 +24,5 @@ public interface ShopService {
 
     List<ShopVo> getOnList(ShopTypeEnum type);
 
+    Shop queryShopById(Integer id);
 }

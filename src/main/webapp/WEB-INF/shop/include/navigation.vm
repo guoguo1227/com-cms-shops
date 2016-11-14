@@ -1,0 +1,45 @@
+<div class="container">
+    <!-- 北翼商铺网 -->
+    <div class="smart-body">
+        <div class="row">
+            <div class="col-xs-3 col-md-offset-1">
+                <a href="#" class="shop-top-title">北翼商铺网</a>
+            </div>
+        </div>
+    </div>
+    <!-- 导航栏 -->
+    <div class="row" style="margin-top: -26px;">
+        <div class="col-sm-8 col-md-offset-2 ">
+            <nav class="navbar navbar-default open-hover shop-hide-border shop-margin-top15" role="navigation">
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse ">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">宝山区 <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">子区域1</a></li>
+                                <li><a href="#">子区域2</a></li>
+                                <li><a href="#">子区域3</a></li>
+                                <li><a href="#">子区域4</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">主页</a></li>
+                        <li><a href="#">热销旺铺</a></li>
+                        <li><a href="#">精选好铺</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">电子商务 <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">子项目1</a></li>
+                                <li><a href="#">子项目2</a></li>
+                                <li><a href="#">子项目3</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">北翼资讯</a></li>
+                        <li><a href="#">物业管理</a></li>
+                        <li><a href="#">关于我们</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </nav>
+        </div>
+    </div>
+</div>

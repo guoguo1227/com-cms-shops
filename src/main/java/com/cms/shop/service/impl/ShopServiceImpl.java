@@ -1,25 +1,26 @@
 package com.cms.shop.service.impl;
 
 import com.cms.shop.constants.ShopConstant;
-import com.cms.shop.dao.base.mapper.BuildingFinishingMapper;
-import com.cms.shop.dao.base.mapper.DistrictMapper;
-import com.cms.shop.dao.base.mapper.ShopMapper;
+import com.cms.shop.dao.base.mapper.*;
 import com.cms.shop.enums.*;
 import com.cms.shop.model.base.*;
 import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.model.ext.ShopVo;
+import com.cms.shop.service.HotcategoryService;
 import com.cms.shop.service.ShopImgService;
 import com.cms.shop.service.ShopService;
 import com.cms.shop.service.ShopTypeService;
 import com.cms.shop.utils.BeanUtilExt;
 import com.cms.shop.utils.Page;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +50,15 @@ public class ShopServiceImpl implements ShopService {
     @Autowired
     private ShopTypeService shopTypeService;
 
+    @Autowired
+    private HotcategoryMapper hotcategoryMapper;
+
+    @Autowired
+    private BuildingFacilityMapper buildingFacilityMapper;
+
+    @Autowired
+    private BuildingOccupancyMapper buildingOccupancyMapper;
+
     @Override
     public Page<ShopVo> queryListBySearchCondition(SearchCondition condition) {
         Page<ShopVo> page = null;
@@ -68,6 +78,38 @@ public class ShopServiceImpl implements ShopService {
                 cri.andShopStatusEqualTo(condition.getStatus());
             }
 
+            //区域
+            if(null != condition.getDistrictId()){
+                cri.andDistrictIdEqualTo(condition.getDistrictId());
+            }
+            //商铺类型
+            if(null != condition.getHotId()){
+                cri.andHotIdEqualTo(condition.getHotId());
+            }
+            //商铺面积
+            if(null != condition.getAreaId()){
+                AreaRangeEnum rangeEnum = AreaRangeEnum.getEnumByKey(condition.getAreaId());
+                if(null != rangeEnum){
+                    if(!rangeEnum.getMinNumber().equals(BigDecimal.ZERO)){
+                        cri.andSquareMetresGreaterThanOrEqualTo(rangeEnum.getMinNumber());
+                    }
+                    if(!rangeEnum.getMinNumber().equals(BigDecimal.ZERO)){
+                        cri.andSquareMetresLessThanOrEqualTo(rangeEnum.getMaxNumber());
+                    }
+                }
+            }
+            //层数
+            if(null != condition.getFloor()){
+                cri.andFloorEqualTo(condition.getFloor());
+            }
+            //商铺名称
+            if(!StringUtils.isBlank(condition.getName())){
+                cri.andShopNameLike(condition.getName());
+            }
+            //id
+            if(null != condition.getId()){
+                cri.andIdEqualTo(condition.getId());
+            }
             //排序
             criteria.setOrderByClause(" ID desc ");
             int count = shopMapper.countByExample(criteria);
@@ -89,6 +131,43 @@ public class ShopServiceImpl implements ShopService {
                             District district = districtMapper.selectByPrimaryKey(shop.getDistrictId());
                             if(null != district){
                                 shopVo.setDistrictStr(district.getDistrictName());
+                            }
+                        }
+                        //配套设施
+                        StringBuilder facilityStr = new StringBuilder();
+                        if(!StringUtils.isBlank(shop.getFacility())){
+                            String [] facilityArr = shop.getFacility().split(",");
+                            if(facilityArr.length>0){
+                                for(String str : facilityArr){
+                                    if(!StringUtils.isBlank(str)){
+                                        try {
+                                            Integer facilityId = Integer.parseInt(str);
+                                            BuildingFacility buildingFacility = buildingFacilityMapper.selectByPrimaryKey(facilityId);
+                                            if(null != buildingFacility){
+                                                if(facilityStr.length()>0){
+                                                   facilityStr.append(",").append(buildingFacility.getFacilName());
+                                                }else{
+                                                    facilityStr.append(buildingFacility.getFacilName());
+                                                }
+                                            }
+
+                                        }catch (NumberFormatException e){
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        shopVo.setFacility(facilityStr.toString());
+                        //图片
+                        ShopImg img = shopImgService.getImgByShopId(shop.getId());
+                        if(null != img){
+                            shopVo.setFilePath(ImageType.SHOPPIC.getImagePath()+img.getNewImgName());
+                        }
+                        if(null != shop.getOcpyId()){
+                            BuildingOccupancy buildingOccupancy = buildingOccupancyMapper.selectByPrimaryKey(shop.getOcpyId());
+                            if(null != buildingOccupancy){
+                                shopVo.setBuildingOccupancy(buildingOccupancy.getOcpyName());
                             }
                         }
                         shopVoList.add(shopVo);
@@ -133,7 +212,7 @@ public class ShopServiceImpl implements ShopService {
                 //图片
                 ShopImg img = shopImgService.getImgByShopId(shop.getId());
                 if(null != img){
-                    vo.setFilePath(ImageType.SHOPPIC.getImagePath()+img.getNewImgName());
+                    vo.setFilePath(img.getNewImgName());
                 }
                 if(null != shop.getDistrictId()){
                     District district = districtMapper.selectByPrimaryKey(shop.getDistrictId());
@@ -156,5 +235,14 @@ public class ShopServiceImpl implements ShopService {
             }
         }
         return voList;
+    }
+
+    @Override
+    public Shop queryShopById(Integer id) {
+        Shop shop = null;
+        if(null != id){
+            shop = shopMapper.selectByPrimaryKey(id);
+        }
+        return shop;
     }
 }

@@ -57,6 +57,9 @@ public class ShopManageController extends BaseController{
     @Autowired
     private BusinessService businessService;
 
+    @Autowired
+    private FlashService flashService;
+
     @RequestMapping("architPage")
     @ResponseBody
     public String queryArchitPage(SearchCondition condition){
@@ -105,6 +108,18 @@ public class ShopManageController extends BaseController{
         return gson.toJson(result);
     }
 
+    @RequestMapping("buildFinish-all")
+    @ResponseBody
+    public String queryAllBuildFinish(){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        List<BuildingFinishing> list =  buildingFinishingService.queryAll();
+        result.setSuccess(true);
+        result.setData(list);
+        return gson.toJson(result);
+    }
+
     @RequestMapping("buildOccupPage")
     @ResponseBody
     public String queryBuildOccupPage(SearchCondition condition){
@@ -121,7 +136,17 @@ public class ShopManageController extends BaseController{
         return gson.toJson(result);
     }
 
+    @RequestMapping("buildOccup-all")
+    @ResponseBody
+    public String queryAllOccupPage(){
 
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        List<BuildingOccupancy> list =  buildingOccupancyService.queryAll();
+        result.setSuccess(true);
+        result.setData(list);
+        return gson.toJson(result);
+    }
     @RequestMapping("districtPage")
     @ResponseBody
     public String queryDistrictPage(SearchCondition condition){
@@ -289,5 +314,24 @@ public class ShopManageController extends BaseController{
         return gson.toJson(result);
     }
 
+    /**
+     * 获取Flash列表
+     * @param condition
+     * @return
+     */
+    @RequestMapping("flashPage")
+    @ResponseBody
+    public String queryFlashPage(SearchCondition condition){
 
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != condition){
+            Page<Flash> page =  flashService.queryListByCondition(condition);
+            if(null != page && CollectionUtils.isNotEmpty(page.getPageData())){
+                result.setSuccess(true);
+                result.setData(page);
+            }
+        }
+        return gson.toJson(result);
+    }
 }

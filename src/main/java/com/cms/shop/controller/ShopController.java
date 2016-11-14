@@ -1,5 +1,6 @@
 package com.cms.shop.controller;
 
+import com.cms.shop.model.base.Shop;
 import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.model.ext.RequestResult;
 import com.cms.shop.model.ext.ShopVo;
@@ -38,6 +39,28 @@ public class ShopController extends BaseController{
         }
         return gson.toJson(result);
     }
+
+    /**
+     * 根据id查询商铺
+     * @param id
+     * @return
+     */
+    @RequestMapping("byId")
+    @ResponseBody
+    public String queryShopById(Integer id){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != id){
+            Shop shop = shopService.queryShopById(id);
+            if(null != shop){
+                result.setSuccess(true);
+                result.setData(shop);
+            }
+        }
+        return gson.toJson(result);
+    }
+
 
     /**
      * 审核列表

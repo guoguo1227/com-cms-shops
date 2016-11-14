@@ -8,13 +8,54 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService){
     //初始化table
     $scope.init = function() {
         $scope.ready();
-        $scope.addShopBtn();
     };
 
     $scope.ready = function(){
         $scope.search = {limit:15, currentPage:0,searchContent:''};
-        $scope.shopFlagObj = {shopListFlag:false};
+        $scope.shopFlagObj = {};
+        $scope.shopListFlag = true;
         $scope.searchLoad();
+
+        $http.post("/shopmanage/hotcate-all.json",{},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    if(data.data && Array.isArray(data.data)){
+                        $scope.shopFlagObj.hotcateArr = data.data;
+                    }
+                }
+            });
+        $http.post("/shopmanage/district-all.json",{},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    if(data.data && Array.isArray(data.data)){
+                        $scope.shopFlagObj.districtArr = data.data;
+                    }
+                }
+            });
+        $http.post("/shopmanage/street-all.json",{},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    if(data.data && Array.isArray(data.data)){
+                        $scope.shopFlagObj.streetArr = data.data;
+                    }
+                }
+            });
+        $http.post("/shopmanage/buildOccup-all.json",{},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    if(data.data && Array.isArray(data.data)){
+                        $scope.shopFlagObj.buildOccupArr = data.data;
+                    }
+                }
+            });
+        $http.post("/shopmanage/buildFinish-all.json",{},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    if(data.data && Array.isArray(data.data)){
+                        $scope.shopFlagObj.buildFinishArr = data.data;
+                    }
+                }
+            });
     }
     $scope.searchLoad = function(){
         $http.post("/shop/page.json",$scope.search,angularMeta.postCfg)
@@ -82,7 +123,7 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService){
 
     //添加商铺按钮
     $scope.addShopBtn = function(){
-        $scope.shopFlagObj.shopListFlag = false;
+        $scope.shopListFlag = false;
         // 百度地图API功能
         var map = new BMap.Map("allmap");
         var point = new BMap.Point(116.331398,39.897445);
@@ -98,30 +139,5 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService){
                 alert("您选择地址没有解析到结果!");
             }
         }, "北京市");
-
-        $http.post("/shopmanage/hotcate-all.json",{},angularMeta.postCfg)
-            .success(function(data){
-                if(data.success){
-                    if(data.data && Array.isArray(data.data)){
-                        $scope.shopFlagObj.hotcateArr = data.data;
-                    }
-                }
-            });
-        $http.post("/shopmanage/district-all.json",{},angularMeta.postCfg)
-            .success(function(data){
-                if(data.success){
-                    if(data.data && Array.isArray(data.data)){
-                        $scope.shopFlagObj.districtArr = data.data;
-                    }
-                }
-            });
-        $http.post("/shopmanage/street-all.json",{},angularMeta.postCfg)
-            .success(function(data){
-                if(data.success){
-                    if(data.data && Array.isArray(data.data)){
-                        $scope.shopFlagObj.streetArr = data.data;
-                    }
-                }
-            });
     }
 }

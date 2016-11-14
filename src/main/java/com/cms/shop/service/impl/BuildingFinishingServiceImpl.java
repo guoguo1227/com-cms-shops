@@ -55,4 +55,12 @@ public class BuildingFinishingServiceImpl implements BuildingFinishingService{
         }
         return success;
     }
+
+    @Override
+    public List<BuildingFinishing> queryAll() {
+        BuildingFinishingCriteria criteria = new BuildingFinishingCriteria();
+        List<BuildingFinishing> buildingFinishingList= buildingFinishingMapper.selectByExample(criteria);
+
+        return buildingFinishingList;
+    }
 }

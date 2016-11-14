@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+    #parse("\include\header.vm")
+
+<html lang="en">
+<body>
+
+<div class="content">
+    #parse("\include\navigation.vm")
+    #parse("\include\topScroller.vm")
+    <!-- START PANEL -->
+    <!-- END PANEL -->
+    <!-- 商铺列表 -->
+    <div class="row col-xs-10 col-md-offset-1">
+        <div class="panel panel-default">
+            <ul class="breadcrumb">
+                <li><a>查询结果</a></li>
+            </ul>
+            <div class="panel-heading">
+                <!-- 三个广告位 -->
+                <div class="row">
+                    <div class="col-lg-8 panel panel-default">
+                        <div class="box">
+                            <table class="table table-bordered">
+                                <tbody>
+                                #foreach($shop in $shopList)
+                                <tr>
+                                    <td style="width: 200px;height: 175px;">
+                                        <a href="/front/detail.action?id=$!shop.shop.id"  class="thumbnail"><img src="$!shop.filePath" alt="" style="width: 200px;height: 175px;"></a></td>
+                                    <td>
+                                        <p><h4>$!{shop.shop.shopName}</h4></p>
+                                        <p>$!{shop.shopType} | $!{shop.shop.squareMetres}m² | 整租 | $!{shop.facility} |</p>
+                                        <p>联系人:$!{shop.shop.linkmanPhone}</p>
+                                    </td>
+                                </tr>
+                                #end
+                                </tbody>
+                            </table>
+                            <div class="box-footer clearfix">
+                                <ul class="pagination pagination-sm no-margin pull-right">
+                                    <li><a href="#">«</a></li>
+                                    <li><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">»</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 panel panel-default">
+                        <div class="panel-heading">广告位2</div>
+                        <div class="panel-body">
+                            <a href="#" class="thumbnail">
+                                <img src="/static/ui/images/2.jpg" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- 商铺列表 -->
+
+</div>
+<footer id="footer">
+    <hr>
+    <div class="shop-foot">
+        <p>上海北冀（集团）有限公司 地址:上海市宝山梅林路768号  邮编:201901 电话:02166150172</p>
+        <p>Cdfsdfdsfdasdfsfsafddddddddasfdfeaffaefaaaaaaaaaaaaaaaaaaaa</p>
+    </div>
+</footer>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+&lt;!&ndash; Include all compiled plugins (below), or include individual files as needed &ndash;&gt;
+<script src="js/jquery-1.11.1.js"></script>-->
+<script src="/static/bootstrap/js/bootstrap.js"></script>
+<script src="/static/plugins/slimScroll/jquery.slimscroll.js"></script>
+
+<script src="/static/plugins/angular/angular.js"></script>
+<script src="/cms/common/angular-constants.js"></script>
+
+<script src="/cms/common/shopIndex.js"></script>
+
+<!--<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script src="/static/ui/js/gmaps.js"></script>
+<script src="/static/ui/js/main.js"></script>-->
+<!-- 滚动图片栏 for 精品项目-->
+<script type="text/javascript" src="/static/ui/js/jcarousellite_1.0.1.min.js"></script>
+<script type="text/javascript" src="/static/ui/js/projectCarousel.js"></script>
+</body>
+</html>

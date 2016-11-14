@@ -1,6 +1,7 @@
 package com.cms.shop.service.impl;
 
 import com.cms.shop.dao.base.mapper.ShopImgMapper;
+import com.cms.shop.enums.ImageType;
 import com.cms.shop.model.base.ShopImg;
 import com.cms.shop.model.base.ShopImgCriteria;
 import com.cms.shop.service.ShopImgService;
@@ -25,13 +26,28 @@ public class ShopImgServiceIMpl implements ShopImgService{
     public ShopImg getImgByShopId(Integer id) {
         ShopImg shopImg = null;
         if(null != id){
-            ShopImgCriteria criteria = new ShopImgCriteria();
-            criteria.createCriteria().andShopIdEqualTo(id);
-            List<ShopImg> list = shopImgMapper.selectByExample(criteria);
+            List<ShopImg> list = getImgListByShopId(id);
             if(CollectionUtils.isNotEmpty(list)){
                 shopImg = list.get(0);
             }
         }
         return shopImg;
     }
+
+    @Override
+    public List<ShopImg> getImgListByShopId(Integer id) {
+        List<ShopImg> list = null;
+        if(null != id){
+            ShopImgCriteria criteria = new ShopImgCriteria();
+            criteria.createCriteria().andShopIdEqualTo(id);
+            list= shopImgMapper.selectByExample(criteria);
+            if(CollectionUtils.isNotEmpty(list)){
+                for(ShopImg img:list){
+                    img.setNewImgName(ImageType.SHOPPIC.getImagePath()+img.getNewImgName());
+                }
+            }
+        }
+        return list;
+    }
+
 }

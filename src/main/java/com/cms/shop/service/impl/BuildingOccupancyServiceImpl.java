@@ -1,10 +1,7 @@
 package com.cms.shop.service.impl;
 
 import com.cms.shop.dao.base.mapper.BuildingOccupancyMapper;
-import com.cms.shop.model.base.Architecture;
-import com.cms.shop.model.base.ArchitectureCriteria;
-import com.cms.shop.model.base.BuildingOccupancy;
-import com.cms.shop.model.base.BuildingOccupancyCriteria;
+import com.cms.shop.model.base.*;
 import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.service.BuildingOccupancyService;
 import com.cms.shop.utils.Page;
@@ -29,7 +26,7 @@ public class BuildingOccupancyServiceImpl implements BuildingOccupancyService {
     public Page<BuildingOccupancy> queryPageByCondition(SearchCondition condition) {
         Page<BuildingOccupancy> page = null;
         if(null != condition){
-            page = new Page();
+            page = new Page<>();
             page.setPageSize(condition.getLimit());
 
             BuildingOccupancyCriteria criteria = new BuildingOccupancyCriteria();
@@ -58,5 +55,13 @@ public class BuildingOccupancyServiceImpl implements BuildingOccupancyService {
             }
         }
         return success;
+    }
+
+    @Override
+    public List<BuildingOccupancy> queryAll() {
+        List<BuildingOccupancy> buildingOccupancyList = null;
+        BuildingOccupancyCriteria criteria = new BuildingOccupancyCriteria();
+        buildingOccupancyList = buildingOccupancyMapper.selectByExample(criteria);
+        return buildingOccupancyList;
     }
 }

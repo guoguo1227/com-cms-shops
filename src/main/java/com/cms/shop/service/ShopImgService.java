@@ -2,6 +2,8 @@ package com.cms.shop.service;
 
 import com.cms.shop.model.base.ShopImg;
 
+import java.util.List;
+
 /**
  * @author : samuel
  * @Description : 商铺图片服务接口
@@ -10,4 +12,6 @@ import com.cms.shop.model.base.ShopImg;
 public interface ShopImgService {
 
     public ShopImg getImgByShopId(Integer id);
+
+    public List<ShopImg> getImgListByShopId(Integer id);
 }

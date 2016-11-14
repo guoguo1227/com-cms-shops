@@ -15,9 +15,29 @@ public class ShopVo{
 
     private String buildingFinishing ;//装修情况
 
+    private String buildingOccupancy;
+
     private String filePath; //图片路径
 
     private String shopType;//物业性质
+
+    private String facility; //配套设施
+
+    public String getBuildingOccupancy() {
+        return buildingOccupancy;
+    }
+
+    public void setBuildingOccupancy(String buildingOccupancy) {
+        this.buildingOccupancy = buildingOccupancy;
+    }
+
+    public String getFacility() {
+        return facility;
+    }
+
+    public void setFacility(String facility) {
+        this.facility = facility;
+    }
 
     public String getShopType() {
         return shopType;

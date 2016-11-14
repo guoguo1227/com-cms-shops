@@ -1,0 +1,230 @@
+<!-- 广告位 panel-->
+<div class="row col-xs-10 col-md-offset-1">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <!-- 三个广告位 -->
+            <div class="row">
+                <div class="col-lg-4 panel panel-default">
+                    <div class="panel-heading">广告位1</div>
+                    <div class="panel-body">
+                        <a href="#" class="thumbnail">
+                            <img src="/static/ui/images/1.jpg" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 panel panel-default">
+                    <div class="panel-heading">广告位2</div>
+                    <div class="panel-body">
+                        <a href="#" class="thumbnail">
+                            <img src="/static/ui/images/2.jpg" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 panel panel-default">
+                    <div class="panel-heading">广告位3</div>
+                    <div class="panel-body">
+                        <a href="#" class="thumbnail">
+                            <img src="/static/ui/images/3.jpg" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- 三个详情栏 -->
+            <div class="row">
+                <div class="col-lg-4 panel panel-default" style="height:330px;">
+                    <div class="panel-body">
+                        <div id="boardCarousel" class="carousel slide pad_010 b_k" data-ride="carousel">
+                            <!-- 轮播（Carousel）指标 -->
+                            <ol class="carousel-indicators">
+                                #set( $partner_count = 0 )
+                                #foreach($partner in $partnerList)
+                                    #if($!velocityCount == 1)
+                                        <li data-target="#boardCarousel" data-slide-to="$!{partner_count}" class="active"></li>
+                                    #else
+                                        <li data-target="#boardCarousel" data-slide-to="$!{partner_count}"></li>
+                                    #end
+                                    #set($partner_count = $partner_count+1)
+                                #end
+                            </ol>
+                            <!-- 轮播（Carousel）项目 -->
+                            <div class="carousel-inner bor_btm">
+                                #foreach($partner in $partnerList)
+                                    #if($!velocityCount == 1)
+                                        <div class="item active" >
+                                            <div class="col-sm-12 col-lg-12">
+                                                <img src="$!partner.fileName" style="height: 300px;">
+                                            </div>
+                                        </div>
+                                    #else
+                                        <div class="item" >
+                                            <div class="col-sm-12 col-lg-12">
+                                                <img src="$!partner.fileName" style="height: 300px;">
+                                            </div>
+                                        </div>
+                                    #end
+                                #end
+                            </div>
+                            <!-- 轮播（Carousel）导航 -->
+                            <a class="carousel-control left" href="#boardCarousel" data-slide="prev">&lsaquo;</a>
+                            <a class="carousel-control right" href="#boardCarousel" data-slide="next">&rsaquo;</a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 panel panel-default shop-margin-left-10" style="height:330px;width: 32%;">
+                    <div class="panel-body">
+                        <div class="shop-panel-heading"><h4>北冀要闻</h4></div>
+                        <ul class="breadcrumb">
+                            <li><a href="#" contenteditable="true">11-09</a></li>
+                            <li><a href="#" contenteditable="true">更多</a></li>
+                        </ul>
+                        <ul class="">
+                            #foreach($news in $!newsBoardList)
+                                <li><a href="" target="_blank">${news.brdTitle}</a></li>
+                            #end
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 panel panel-default shop-margin-left-10" style="height:330px;width: 32%;">
+                    <!-- <div class="panel-heading">广告位3</div> -->
+                    <div class="panel-body panel-default">
+                        <div class="shop-panel-heading"><h4>最新动态</h4></div>
+                        <ul class="breadcrumb">
+                            <li><a href="#" contenteditable="true">11-09</a></li>
+                            <li><a href="#" contenteditable="true">更多</a></li>
+                        </ul>
+                        <ul class="">
+                            #foreach($business in $!businessBoardList)
+                                <li><a href="" target="_blank">$!{business.brdTitle}</a></li>
+                            #end
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 热招旺铺 -->
+            <div class="row" style="height: 400px;">
+                <center><h3>热招旺铺</h3></center>
+                <center>预购从速 - 过期不候</center>
+                <br>
+                <div class="col-sm-12 col-lg-12 ">
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-10" style="height: 300px;">
+                            #foreach($hotShop in $!goodShopList)
+                                #if($velocityCount == 1)
+                                    <div class="thumbnail">
+                                        <a href="/front/search-shop.action?areaId=$hotShop.id" target="_blank"><img src="$!hotShop.filePath" alt=""></a>
+                                        <div class="caption mr_zhe_p">
+                                            <span>$!{hotShop.districtStr}</span>
+                                            <span class="shop-fright">$!{hotShop.shop.squareMetres}平米</span>
+                                        </div>
+                                    </div>
+                                #end
+                            #end
+                        </div>
+
+                        <div class="col-lg-4 col-sm-12 ">
+                            #foreach($hotShop in $!goodShopList)
+                                #if($velocityCount > 1 && $velocityCount !=6)
+                                    <div class="col-lg-6 thumbnail" style="height: 100px;">
+                                        <a href="/front/search-shop.action?areaId=$hotShop.id" target="_blank" class="height100">
+                                            <img src="$!hotShop.filePath" alt="" class="shop-img-responsive " style="height: 100%;">
+                                        </a>
+                                        <div class="caption mr_zhe_p2">
+                                            <span>$!{hotShop.districtStr}</span>
+                                            <span class="shop-fright">$!{hotShop.shop.squareMetres}平米</span>
+                                        </div>
+                                    </div>
+                                #end
+                            #end
+                        </div>
+
+                        <div class="col-lg-4 col-sm-10 ">
+                            #foreach($hotShop in $!goodShopList)
+                                #if($velocityCount == 6)
+                                    <div class="thumbnail">
+                                        <a href="/front/search-shop.action?areaId=$hotShop.id"><img src="$!hotShop.filePath"></a>
+                                        <div class="caption mr_zhe_p">
+                                            <span>$!{hotShop.districtStr}</span>
+                                            <span class="shop-fright">$!{hotShop.shop.squareMetres}平米</span>
+                                        </div>
+                                    </div>
+                                #end
+                            #end
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- 精选好铺 panel-->
+<div class="row col-xs-10 col-md-offset-1">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <center><h3>精选好铺</h3></center>
+            <center>好地段！好价格！好人流！</center>
+            <br>
+            <div class="row">
+                #foreach($goodShop in $!goodShopList)
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <a href="/front/search-shop.action?areaId=$hotShop.id" target="_blank" class="thumbnail">
+                                    <img src="$!goodShop.filePath" alt="" style="height: 175px;">
+                                </a>
+                                <span>$!{goodShop.shopType}  $!{goodShop.shop.squareMetres}平米</span><span class="shop-fright shop-color-red shop-font18">$!{goodShop.districtStr}</span>
+                            </div>
+                        </div>
+                    </div>
+                #end
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--精品项目-->
+<div class="row col-xs-10 col-md-offset-1">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <center><h3>精品项目</h3></center>
+            <div class="row">
+                <div class="friend">
+                    <div class="mr_frbox">
+                        <div class="mr_frUl col-xs-12">
+                            <img class="mr_frBtnL prev" src="/static/ui/images/mfrl.gif" />
+                            <div class="col-xs-10" style="margin-left: -10px;">
+                                <ul id="mr_fu">
+                                    #foreach($business in $businessList)
+                                    <li><a href="#" target="_blank">
+                                        <img src="$!business.fileName"/> </a>
+                                        <div class="mr_zhe">
+                                            #set($bizName = $business.bizName)
+                                            #set($bizContent=$business.bizContent)
+
+                                            #if($!business.bizName.length()>10)
+                                                #set($bizName=$bizName.substring(0,9))
+                                            #end
+                                            #if($!business.bizName.length()>30)
+                                                #set($bizContent=$bizContent.substring(0,29))
+                                            #end
+                                            <span>$!{bizName}</span>
+                                            <!--
+                                                                <p>$!{bizContent}</p>
+-->
+
+                                        </div>
+                                    #end
+                                </ul>
+                            </div>
+                            <div class="col-xs-1">
+                                <img class="mr_frBtnR next" src="/static/ui/images/mfrr.gif" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

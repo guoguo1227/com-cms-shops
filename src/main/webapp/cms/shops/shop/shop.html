@@ -1,107 +1,106 @@
 <div class="col-xs-12" id="shopApp"  ng-app="shopApp"  ng-controller="shopCtrl" ng-init="init()">
-    <div class="box-body" ng-show="shopFlagObj.shopListFlag">
-        <div class="box-body">
-            <div class="input-group row input-group-sm">
-                <!-- 问题状态 -->
+    <div class="box-body" ng-show="shopListFlag" >
+        <form role="form">
+            <div class="form-group row input-group-sm">
+                <!-- 所在区域 -->
                 <div class="col-xs-3" style="width:16%">
                     <div class="input-group input-group-sm">
                         <div class="input-group-btn">
-                            <button title="问题状态" type="button" class="btn btn-default">问题状态</button>
+                            <button title="所在区域" type="button" class="btn btn-default">所在区域</button>
                         </div>
-                        <select class="form-control" name = "model" ng-model="search.status" ng-change="searchLoad(0)">
-                            <option value="">全部</option>
-                            <option value="待审核">待审核</option>
-                            <option value="审核通过">审核通过</option>
-                            <option value="审核未通过">审核未通过</option>
-                            <option value="已关闭">已关闭</option>
-                            <option value="已删除">已删除</option>
+                        <select class="form-control" name = "district" ng-model="search.districtId">
+                            <option value="">请选择</option>
+                            <option value="{{type.districtId}}" ng-repeat="type in shopFlagObj.districtArr" >{{type.districtName}}</option>
                         </select>
                     </div>
                 </div>
-                <!-- 热门 -->
-                <div class="col-xs-3" style="width: 12%">
+                <!-- 物业性质 -->
+                <div class="col-xs-3" style="width: 22%">
                     <div class="input-group input-group-sm">
                         <div class="input-group-btn">
-                            <button title="热门" type="button" class="btn btn-default">热门</button>
+                            <button title="物业性质" type="button" class="btn btn-default">物业性质</button>
                         </div>
-                        <select class="form-control" name = "model" ng-model="search.hotStatus" ng-change="searchLoad(0)">
-                            <option value="">全部</option>
-                            <option value="未开始">未开始</option>
-                            <option value="进行中">进行中</option>
-                            <option value="已结束">已结束</option>
-                            <option value="-">-</option>
+                        <select class="form-control" name = "hotcate" ng-model="search.hotId">
+                            <option value="">请选择</option>
+                            <option value="{{type.hotId}}" ng-repeat="type in shopFlagObj.hotcateArr" >{{type.hotName}}</option>
                         </select>
                     </div>
                 </div>
-                <!-- 置顶 -->
+                <!-- 适宜业态 -->
+                <div class="col-xs-3" style="width: 22%">
+                    <div class="input-group input-group-sm">
+                        <div class="input-group-btn">
+                            <button title="适宜业态" type="button" class="btn btn-default">适宜业态</button>
+                        </div>
+                        <select class="form-control" name = "typeSearch" ng-model="search.hotId">
+                            <option value="">请选择</option>
+                            <option value="{{type.hotId}}" ng-repeat="type in shopFlagObj.hotcateArr" >{{type.hotName}}</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- 装修情况-->
                 <div class="col-xs-3" style="width: 16%">
                     <div class="input-group input-group-sm">
                         <div class="input-group-btn">
-                            <button title="置顶/置底" type="button" class="btn btn-default">置顶/置底</button>
+                            <button title="装修情况" type="button" class="btn btn-default">装修情况</button>
                         </div>
-                        <select class="form-control" name = "model" ng-model="search.topStatus" ng-change="searchLoad(0)">
-                            <option value="">全部</option>
-                            <option value="置顶">[置顶]</option>
-                            <option value="置顶未开始">[置顶]未开始</option>
-                            <option value="置顶进行中">[置顶]进行中</option>
-                            <option value="置顶已结束">[置顶]已结束</option>
-                            <option value="置底">[置底]</option>
-                            <option value="置底未开始">[置底]未开始</option>
-                            <option value="置底进行中">[置底]进行中</option>
-                            <option value="置底已结束">[置底]已结束</option>
-                            <option value="-">--</option>
+                        <select class="form-control" name = "builFinish" ng-model="search.buildFinishId">
+                            <option value="">请选择</option>
+                            <option value="{{type.finishingId}}" ng-repeat="type in shopFlagObj.buildFinishArr" >{{type.finishingName}}</option>
                         </select>
                     </div>
                 </div>
-                <!-- 热门 -->
-                <div class="col-xs-3" style="width: 12%">
+                <!-- 商铺面积 -->
+                <div class="col-xs-3" style="width: 16%">
                     <div class="input-group input-group-sm">
-                        <select class="form-control" name = "questionType" ng-model="search.questionType" ng-change="searchLoad(0)">
-                            <option value="">问题类型</option>
-                            <option value="DEBATE">辩论问题</option>
-                            <option value="SINGLE_VOTE">单选投票</option>
-                            <option value="MULTI_VOTE">多选投票</option>
+                        <div class="input-group-btn">
+                            <button title="商铺面积" type="button" class="btn btn-default">商铺面积</button>
+                        </div>
+                        <select class="form-control" name = "areaRange" ng-model="search.topStatus" ng-change="searchLoad(0)">
+                            <option value="">请选择</option>
+                            <option value="8">50㎡以下</option>
+                            <option value="7">50㎡~100㎡</option>
+                            <option value="6">100㎡~150㎡</option>
+                            <option value="5">150㎡~200㎡</option>
+                            <option value="4">200㎡~300㎡</option>
+                            <option value="3">300㎡~400㎡</option>
+                            <option value="2">400㎡~500㎡</option>
+                            <option value="1">大于500㎡</option>
                         </select>
                     </div>
                 </div>
-                <!-- 条件查询 -->
-                <div class="col-xs-1" style="width: 12%">
-                    <select class="form-control" name = "typeSearch" ng-model="search.type">
-                        <option value="1">话题名称</option>
-                        <option value="2">问题名称</option>
-                        <option value="3">问题补充</option>
-                        <option value="4">创建人ID</option>
-                        <option value="5">创建人昵称</option>
-                        <option value="11">创建人账号</option>
-                        <option value="12">问题ID</option>
-                    </select>
+            </div>
+            <div class="form-group row input-group-sm">
+                <div class="col-xs-1">
+                    <button  title="商铺名称" type="button" class="btn btn-default">商铺名称</button>
                 </div>
-                <div class="col-xs-2" style="margin-left: -30px;">
-                    <input type="text" class="form-control btn-sm" name="cname" placeholder="选择左侧查询条件，再输入搜索内容" ng-model="search.searchContent" ng-change="searchLoad(0)">
+                <div class="col-xs-4" style="margin-left: -22px;">
+                    <input type="text" class="form-control btn-sm col-xs-3" name="cname" placeholder="请输入商铺名称,进行搜索" ng-model="search.name">
                 </div>
                 <div class="col-xs-1">
                     <button type="button" class="btn ng-scope btn-info lagou-searchBut btn-sm" ng-click="searchLoad(0)">搜索</button>
                 </div>
             </div>
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title">商铺基本信息列表</h3>
-                    <div class="col-xs-1 shop-fright">
-                        <button type="button" class="btn ng-scope btn-info lagou-searchBut btn-sm" ng-click="addShopBtn()">添加</button>
-                    </div>
-                </div>
-                <div class="box-body">
-                    <lg-data-table table-data="tableData"></lg-data-table>
-                    <lg-paginator   on-change="onChangePage(page)"
-                                    total-pages="pagesNumber"
-                                    visible-pages="10"
-                                    total-entries="totalEntries">
-                    </lg-paginator>
+        </form>
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">商铺基本信息列表</h3>
+                <div class="col-xs-1 shop-fright">
+                    <button type="button" class="btn ng-scope btn-info lagou-searchBut btn-sm" ng-click="addShopBtn()">添加</button>
                 </div>
             </div>
+            <div class="box-body">
+                <lg-data-table table-data="tableData"></lg-data-table>
+                <lg-paginator   on-change="onChangePage(page)"
+                                total-pages="pagesNumber"
+                                visible-pages="10"
+                                total-entries="totalEntries">
+                </lg-paginator>
+            </div>
+        </div>
         </div>
     </div>
-    <div class="box-body" ng-show="!shopFlagObj.shopListFlag">
+    <div class="box-body" ng-show="!shopListFlag">
         <div class="box-body">
             <div class="input-group row input-group-sm">
                 <!-- 问题状态 -->

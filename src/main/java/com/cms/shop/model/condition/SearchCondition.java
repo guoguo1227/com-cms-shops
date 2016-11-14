@@ -31,6 +31,46 @@ public class SearchCondition extends BaseSearchCondition {
 
     private Integer checkStatus; //审核状态
 
+    private Integer districtId; //所在区域id
+
+    private Integer hotId; //商铺类型
+
+    private Integer areaId; //面积大小
+
+    private String floor ; //层数
+
+    public Integer getAreaId() {
+        return areaId;
+    }
+
+    public String getFloor() {
+        return floor;
+    }
+
+    public void setFloor(String floor) {
+        this.floor = floor;
+    }
+
+    public void setAreaId(Integer areaId) {
+        this.areaId = areaId;
+    }
+
+    public Integer getHotId() {
+        return hotId;
+    }
+
+    public void setHotId(Integer hotId) {
+        this.hotId = hotId;
+    }
+
+    public Integer getDistrictId() {
+        return districtId;
+    }
+
+    public void setDistrictId(Integer districtId) {
+        this.districtId = districtId;
+    }
+
     public String getSearchContent() {
         return searchContent;
     }

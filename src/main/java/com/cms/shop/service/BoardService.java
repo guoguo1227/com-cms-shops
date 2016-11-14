@@ -1,10 +1,13 @@
 package com.cms.shop.service;
 
+import com.cms.shop.enums.BoardTypeEnum;
 import com.cms.shop.model.base.Board;
 import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.model.ext.BoardVo;
 import com.cms.shop.model.ext.RequestResult;
 import com.cms.shop.utils.Page;
+
+import java.util.List;
 
 /**
  * @author : samuel
@@ -22,5 +25,7 @@ public interface BoardService {
     RequestResult queryBoardById(Integer id);
 
     RequestResult updateBoard(Board board);
+
+    List<Board> queryOnList(BoardTypeEnum typeEnum);
 
 }

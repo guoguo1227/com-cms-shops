@@ -16,7 +16,7 @@ function flashCtrl($scope,$http,angularMeta,lgDataTableService){
         $scope.searchLoad();
     }
     $scope.searchLoad = function(){
-        $http.post("/shop/page.json",$scope.search,angularMeta.postCfg)
+        $http.post("/shopmanage/flashPage.json",$scope.search,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
                     $scope.pagesNumber = data.data.totalPage;
@@ -39,16 +39,15 @@ function flashCtrl($scope,$http,angularMeta,lgDataTableService){
             }
         };
 
-        var headerArray = ['商铺名称','所属地区','所在楼层','租赁面积','装修情况','发布日期','发布人','基本操作'];
+        var headerArray = ['Flash文件名','显示文件','操作'];
         lgDataTableService.setWidth($scope.tableData, undefined, [4,8],true);
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
-        pageData = $scope.formatUserPageData(pageData);
-
+        $scope.formatPageData(pageData);
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="查看" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">查看</a>'+
-                '<a title="置顶" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.delete($row)">置顶</a>';
+
+            pg.action =  '<a title="下架" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">下架</a>';
             return pg;
-        }), ['shop.shopName','districtStr','shop.floor','shopSquareStr','buildingFinishing','shop.onsellDate','shop.publisher','action']);
+        }), ['oldName','imgurl','action']);
     };
 
     //切换页面
@@ -61,19 +60,17 @@ function flashCtrl($scope,$http,angularMeta,lgDataTableService){
         $scope.search.limit = entry;
         $scope.searchLoad();
     }
-
     //格式化表格数据
-    $scope.formatUserPageData = function(pageData){
+    $scope.formatPageData = function(pageData){
 
         if(pageData != undefined && pageData != "" && pageData.length>0){
             for(var i in pageData){
-                //注册账号激活状态
-                if(pageData[i].shop){
-                    pageData[i].shopSquareStr = "";
-                    if(pageData[i].shop.shopSquare){
-                        pageData[i].shopSquareStr = pageData[i].shop.shopSquare+"平米";
-                    }
+                pageData[i].imgurl = "";
+                if(pageData[i].flashName){
+                    pageData[i].imgurl = "<embed src="+pageData[i].flashName+" style='width:300px;height: 100px;'></embed>";
+
                 }
+
             }
         }
         return pageData;
