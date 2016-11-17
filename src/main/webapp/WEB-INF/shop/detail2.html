@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+    #parse("\include\header.vm")
+
+<html lang="en">
+<body>
+
+<div class="content">
+    #parse("\include\navigation.vm")
+    #parse("\include\topScroller.vm")
+
+    <!-- START PANEL -->
+    <!-- END PANEL -->
+    <!-- 商铺列表 -->
+    <div class="row col-xs-12" ng-app="shopDetailApp" ng-controller="shopDetailAppCtrl" ng-init="init()">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <!-- 广告位 -->
+               <!-- <div class="row">
+                    <div class="col-lg-12 panel panel-default">
+                        <div class="panel-heading">广告位2</div>
+                        <div class="panel-body">
+                            <a href="#" class="thumbnail">
+                                <img src="/static/ui/images/2.jpg" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>-->
+                <div class="row">
+                    <div class="col-lg-8 panel panel-default">
+                        <div class="box">
+                            <table class="table table-bordered">
+                                <tbody>
+                                <tr>
+                                    <td>商铺名称</td><td>$!{shop.shop.shopName}</td>
+                                </tr>
+                                <tr><td>所在地区</td><td>$!{shop.districtStr}</td></tr>
+                                <tr><td>商铺地址</td><td>$!{shop.shop.location}</td></tr>
+                                <tr><td>交通线路</td><td ng-model="traffic">$!{shop.shop.traffic}</td></tr>
+                                <tr><td>适宜业态</td><td>$!{shop.buildingOccupancy}</td></tr>
+                                <tr><td>所在楼层</td><td>$!{shop.shop.floor}</td></tr>
+                                <tr><td>商铺面积</td><td>$!{shop.shop.squareMetres}平米</td></tr>
+                                <tr><td>装修情况</td><td>$!{shop.buildingFinishing}</td></tr>
+                                <tr><td>配套设施</td><td>$!{shop.facility}</td></tr>
+                                <tr><td>价格</td><td>$!{shop.shop.price}</td></tr>
+                                <tr><td>联系人姓名</td><td>$!{shop.shop.linkmanName}</td></tr>
+                                <tr><td>联系人电话</td><td>$!{shop.shop.linkmanMobile}</td></tr>
+                                <tr><td>联系电话</td><td>$!{shop.shop.linkmanPhone} $!{shop.shop.linkmanEmail}</td></tr>
+                                <tr><td>发布日期</td><td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!shop.shop.createDate)</td></tr>
+                                <tr><td>其他说明</td><td>$!{shop.shop.description}</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 panel panel-default">
+                        <!-- 轮播（Carousel）项目 -->
+                        #if($!imgList)
+                        <div class="carousel-inner bor_btm" style="height: 250px;">
+                            #foreach($shopImg in $!imgList)
+                            #if($!velocityCount == 1)
+                            <div class="item active" style="height: 250px;">
+                                <div class="col-sm-12 col-lg-12">
+                                    <img src="$!shopImg.newImgName" style="height: 300px;" style="height: 250px;">
+                                </div>
+                            </div>
+                            #else
+                            <div class="item" >
+                                <div class="col-sm-12 col-lg-12">
+                                    <img src="$!shopImg.newImgName" style="height: 250px;">
+                                </div>
+                            </div>
+                            #end
+                            #end
+                        </div>
+                        #end
+                        <div class="carousel-inner bor_btm">
+                            <div id="allmap"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- 商铺列表 -->
+
+</div>
+
+<footer id="footer">
+    <hr>
+    <div class="shop-foot">
+        <p>上海北冀（集团）有限公司 地址:上海市宝山梅林路768号  邮编:201901 电话:02166150172</p>
+        <p>Cdfsdfdsfdasdfsfsafddddddddasfdfeaffaefaaaaaaaaaaaaaaaaaaaa</p>
+    </div>
+</footer>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+&lt;!&ndash; Include all compiled plugins (below), or include individual files as needed &ndash;&gt;
+<script src="js/jquery-1.11.1.js"></script>-->
+<script src="/static/bootstrap/js/bootstrap.js"></script>
+<script src="/static/plugins/slimScroll/jquery.slimscroll.js"></script>
+
+<script src="/static/plugins/angular/angular.js"></script>
+<script src="/cms/common/angular-constants.js"></script>
+
+<script src="/cms/common/shopIndex.js"></script>
+
+<!--<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script src="/static/ui/js/gmaps.js"></script>
+<script src="/static/ui/js/main.js"></script>-->
+<!-- 滚动图片栏 for 精品项目-->
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=eo2HevBrnqtp4XE2nWROwTQtQG1AGWeN"></script>
+<script type="text/javascript" src="/static/ui/js/projectCarousel.js"></script>
+<script type="text/javascript" src="/cms/common/shopDetail.js"></script>
+
+</body>
+</html>

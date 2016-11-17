@@ -57,6 +57,7 @@ public class IndexController extends BaseController{
 
         List<Business> businessList = businessService.getOnList();
         List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD);
+        List<ShopVo> fireShopList = shopService.getOnList(ShopTypeEnum.FIRE);
 
         List<Board> newsBoardList = boardService.queryOnList(BoardTypeEnum.NOTICE);
         List<Board> businessBoardList = boardService.queryOnList(BoardTypeEnum.SHOPABIT);
@@ -67,6 +68,7 @@ public class IndexController extends BaseController{
         modelMap.addAttribute("partnerList",partnerList); //合作伙伴
         modelMap.addAttribute("businessList",businessList); //招商项目
         modelMap.addAttribute("goodShopList",goodShopList); //精选好铺
+        modelMap.addAttribute("fireShopList",fireShopList); //精选旺铺
         modelMap.addAttribute("newsBoardList",newsBoardList); //北冀要闻
         modelMap.addAttribute("businessBoardList",businessBoardList); //商家动态
         modelMap.addAttribute("hotcategoryList",hotcategoryList);//商铺类型

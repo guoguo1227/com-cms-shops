@@ -9,10 +9,10 @@
     </div>
     <!-- 导航栏 -->
     <div class="row" style="margin-top: -26px;">
-        <div class="col-sm-8 col-md-offset-2 ">
+        <div class="col-sm-10 col-md-offset-1 ">
             <nav class="navbar navbar-default open-hover shop-hide-border shop-margin-top15" role="navigation">
                 <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse navbar-ex1-collapse ">
+                <div class="collapse navbar-collapse navbar-ex1-collapse shop-nav">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">宝山区 <b class="caret"></b></a>

@@ -5,8 +5,9 @@ package com.cms.shop.enums;
  */
 public enum ShopTypeEnum {
 
-    GOOD(-1, "好铺"),
-    FIRE(0, "旺铺");
+    COMMON(1,"普通"),
+    GOOD(2, "好铺"),
+    FIRE(3, "旺铺");
 
     private Integer key;
     private String description;

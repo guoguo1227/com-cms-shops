@@ -1,0 +1,17 @@
+<!-- 搜索栏 -->
+<nav class="navbar navbar-default open-hover" role="navigation">
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+                <input type="text" style="width: 500px;" class="form-control" placeholder="Search">
+                <button type="button" class="btn btn-danger btn-flat" ng-click="searchLoad()">搜索</button>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                热门搜索&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                热词1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                热词2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+        </form>
+    </div><!-- /.navbar-collapse -->
+</nav>

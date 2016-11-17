@@ -3,6 +3,7 @@ package com.cms.shop.service;
 import com.cms.shop.model.base.District;
 import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.utils.Page;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.util.List;
 
@@ -31,4 +32,6 @@ public interface DistrictService {
      * @return
      */
     public boolean deleteDistrictById(Integer id);
+
+    public boolean addDistrict(District district);
 }

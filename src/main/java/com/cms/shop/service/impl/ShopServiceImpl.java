@@ -162,7 +162,7 @@ public class ShopServiceImpl implements ShopService {
                         //图片
                         ShopImg img = shopImgService.getImgByShopId(shop.getId());
                         if(null != img){
-                            shopVo.setFilePath(ImageType.SHOPPIC.getImagePath()+img.getNewImgName());
+                            shopVo.setFilePath(img.getNewImgName());
                         }
                         if(null != shop.getOcpyId()){
                             BuildingOccupancy buildingOccupancy = buildingOccupancyMapper.selectByPrimaryKey(shop.getOcpyId());
@@ -170,6 +170,18 @@ public class ShopServiceImpl implements ShopService {
                                 shopVo.setBuildingOccupancy(buildingOccupancy.getOcpyName());
                             }
                         }
+                        //保证金
+                        String despositStr= "0";
+                        if(null != shop.getDepositType() && !StringUtils.isBlank(shop.getPriceSe())){
+                            try {
+                                Integer price = Integer.parseInt(shop.getPriceSe());
+                                Integer sum = shop.getDepositType()*price;
+                                despositStr = ""+sum;
+                            }catch (NumberFormatException e){
+                                e.printStackTrace();
+                            }
+                        }
+                        shopVo.setDeposit(despositStr);
                         shopVoList.add(shopVo);
                     }
                     page.setPageData(shopVoList);
@@ -200,7 +212,7 @@ public class ShopServiceImpl implements ShopService {
         List<ShopVo> voList = new ArrayList<>();
         ShopCriteria criteria = new ShopCriteria();
         criteria.createCriteria().andAuditStatusEqualTo(CheckStatusEnum.PASS.getKey()).andEditTagEqualTo(ShopConstant.EDIT_TAG_LOCK)
-                .andShopStatusEqualTo(OnlineStatusEnum.ONLINE.getKey());
+                .andShopStatusEqualTo(OnlineStatusEnum.ONLINE.getKey()).andTypeEqualTo(type.getKey());
         criteria.setOrderByClause(" ID desc ");
         criteria.setLimitStart(0);
         criteria.setLimitEnd(6);

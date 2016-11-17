@@ -71,4 +71,16 @@ public class DistrictServiceImpl implements DistrictService {
         }
         return success;
     }
+
+    @Override
+    public boolean addDistrict(District district) {
+        boolean success = false;
+        if(null != district){
+            int i = districtMapper.insertSelective(district);
+            if(i>0){
+                success = true;
+            }
+        }
+        return success;
+    }
 }

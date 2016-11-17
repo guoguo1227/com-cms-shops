@@ -43,7 +43,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table schema="" tableName="ad_aud_hist" domainObjectName="AdAudHist">
+       <!-- <table schema="" tableName="ad_aud_hist" domainObjectName="AdAudHist">
             <generatedKey column="AD_AUD_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
         </table>
         <table schema="" tableName="advert" domainObjectName="Advert">
@@ -171,6 +171,9 @@
         </table>
         <table schema="" tableName="thrd_occ" domainObjectName="ThrdOcc">
             <generatedKey column="THRD_OCC_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>-->
+        <table schema="" tableName="shop" domainObjectName="Shop">
+            <generatedKey column="ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
         </table>
     </context>
 </generatorConfiguration>

@@ -1,5 +1,5 @@
 <!-- 广告位 panel-->
-<div class="row col-xs-10 col-md-offset-1">
+<div class="row col-xs-12">
     <div class="panel panel-default">
         <div class="panel-heading">
             <!-- 三个广告位 -->
@@ -109,13 +109,13 @@
                 <div class="col-sm-12 col-lg-12 ">
                     <div class="row">
                         <div class="col-lg-4 col-sm-10" style="height: 300px;">
-                            #foreach($hotShop in $!goodShopList)
+                            #foreach($firShop in $!fireShopList)
                                 #if($velocityCount == 1)
                                     <div class="thumbnail">
-                                        <a href="/front/search-shop.action?areaId=$hotShop.id" target="_blank"><img src="$!hotShop.filePath" alt=""></a>
+                                        <a href="/front/search-shop.action?areaId=$firShop.id" target="_blank"><img src="$!firShop.filePath" alt=""></a>
                                         <div class="caption mr_zhe_p">
-                                            <span>$!{hotShop.districtStr}</span>
-                                            <span class="shop-fright">$!{hotShop.shop.squareMetres}平米</span>
+                                            <span>$!{firShop.districtStr}</span>
+                                            <span class="shop-fright">$!{firShop.shop.squareMetres}平米</span>
                                         </div>
                                     </div>
                                 #end
@@ -123,15 +123,15 @@
                         </div>
 
                         <div class="col-lg-4 col-sm-12 ">
-                            #foreach($hotShop in $!goodShopList)
+                            #foreach($firShop in $!fireShopList)
                                 #if($velocityCount > 1 && $velocityCount !=6)
                                     <div class="col-lg-6 thumbnail" style="height: 100px;">
-                                        <a href="/front/search-shop.action?areaId=$hotShop.id" target="_blank" class="height100">
-                                            <img src="$!hotShop.filePath" alt="" class="shop-img-responsive " style="height: 100%;">
+                                        <a href="/front/search-shop.action?areaId=$firShop.id" target="_blank" class="height100">
+                                            <img src="$!firShop.filePath" alt="" class="shop-img-responsive " style="height: 100%;">
                                         </a>
                                         <div class="caption mr_zhe_p2">
-                                            <span>$!{hotShop.districtStr}</span>
-                                            <span class="shop-fright">$!{hotShop.shop.squareMetres}平米</span>
+                                            <span>$!{firShop.districtStr}</span>
+                                            <span class="shop-fright">$!{firShop.shop.squareMetres}平米</span>
                                         </div>
                                     </div>
                                 #end
@@ -139,13 +139,13 @@
                         </div>
 
                         <div class="col-lg-4 col-sm-10 ">
-                            #foreach($hotShop in $!goodShopList)
+                            #foreach($firShop in $!fireShopList)
                                 #if($velocityCount == 6)
                                     <div class="thumbnail">
-                                        <a href="/front/search-shop.action?areaId=$hotShop.id"><img src="$!hotShop.filePath"></a>
+                                        <a href="/front/search-shop.action?areaId=$firShop.id"><img src="$!firShop.filePath"></a>
                                         <div class="caption mr_zhe_p">
-                                            <span>$!{hotShop.districtStr}</span>
-                                            <span class="shop-fright">$!{hotShop.shop.squareMetres}平米</span>
+                                            <span>$!{firShop.districtStr}</span>
+                                            <span class="shop-fright">$!{firShop.shop.squareMetres}平米</span>
                                         </div>
                                     </div>
                                 #end
@@ -160,7 +160,7 @@
 
 </div>
 <!-- 精选好铺 panel-->
-<div class="row col-xs-10 col-md-offset-1">
+<div class="row col-xs-12">
     <div class="panel panel-default">
         <div class="panel-heading">
             <center><h3>精选好铺</h3></center>
@@ -185,7 +185,7 @@
 </div>
 
 <!--精品项目-->
-<div class="row col-xs-10 col-md-offset-1">
+<div class="row col-xs-12">
     <div class="panel panel-default">
         <div class="panel-heading">
             <center><h3>精品项目</h3></center>
@@ -194,10 +194,10 @@
                     <div class="mr_frbox">
                         <div class="mr_frUl col-xs-12">
                             <img class="mr_frBtnL prev" src="/static/ui/images/mfrl.gif" />
-                            <div class="col-xs-10" style="margin-left: -10px;">
+                            <div class="col-xs-11" style="margin-left: -10px;">
                                 <ul id="mr_fu">
                                     #foreach($business in $businessList)
-                                    <li><a href="#" target="_blank">
+                                    <li><a href="/front/project.action?id=$business.bizId" target="_blank">
                                         <img src="$!business.fileName"/> </a>
                                         <div class="mr_zhe">
                                             #set($bizName = $business.bizName)

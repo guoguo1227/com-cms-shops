@@ -23,10 +23,10 @@
 }
 .friend{height:230px;margin:0 auto;overflow:hidden;}
 .mr_frbox{height:220px;padding:24px 0px 0px;}
-.mr_frBtnL{cursor:pointer;display:inline;float:left;height:46px;margin:80px 0px 0px -20px;width:18px;}
-.mr_frUl{float:left;height:202px;width:1047px;margin-left:10px;}
-.mr_frBtnR{float:right;margin-top:80px;cursor:pointer;width:18px;height:46px;margin-right: 23px}
-.mr_frUl ul li{display:inline;float:left;margin-left: 10px;/*height:389px;*/width:130px;overflow:hidden;position:relative;}
+.mr_frBtnL{cursor:pointer;display:inline;float:left;height:46px;margin:63px 0px 0px -20px;width:18px;}
+.mr_frUl{float:left;height:202px;width:1047px;margin-left:25px;}
+.mr_frBtnR{float:right;margin-top:55px;cursor:pointer;width:18px;height:46px;margin-right: -60px;}
+.mr_frUl ul li{display:inline;float:left;margin-left: 18px;/*height:389px;*/width:150px;overflow:hidden;position:relative;}
 .mr_frUl ul li a img{/*display:block;*/width:100%;height:150px;}
 .mr_zhe span{
     font-size: 12px;

@@ -56,6 +56,12 @@ public class BusinessServiceImpl implements BusinessService {
             page.setPageSize(condition.getLimit());
 
             BusinessCriteria criteria = new BusinessCriteria();
+
+            BusinessCriteria.Criteria cri = criteria.createCriteria();
+            //id
+            if(null != condition.getId()){
+                cri.andBizIdEqualTo(condition.getId());
+            }
             //排序
             criteria.setOrderByClause(" biz_Id desc ");
             int count = businessMapper.countByExample(criteria);

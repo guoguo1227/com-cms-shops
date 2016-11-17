@@ -152,5 +152,28 @@
 .shop-font18{
     font-size: 18px;
 }
-#allmap {width: 400px;height: 400px;overflow: hidden;margin:0;font-family:"微软雅黑";}
+.shop-font24{
+    font-size: 24px;
+}
+.shop-nav ul li a{
+    font-size: 16px;
+}
+.shop-border-none{
+    border: none;
+}
+.shop-detail-tb tbody tr td{
+    border: none;
+}
+.shop-detail-tb tbody tr td span{
+    font-size: 18px;
+}
+.shop-search-btn{
+    position:absolute;
+    width:80px;
+    height:40px;
+    zoom:0.35;
+    background-size:cover;
+    background-image:url("../../static/ui/images/search.png")
+}
+#allmap {width: 400px;height: 300px;overflow: hidden;margin:0;font-family:"微软雅黑";}
 #detailmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}

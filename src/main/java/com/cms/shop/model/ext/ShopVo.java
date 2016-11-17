@@ -23,6 +23,16 @@ public class ShopVo{
 
     private String facility; //配套设施
 
+    private String deposit; //保证金
+
+    public String getDeposit() {
+        return deposit;
+    }
+
+    public void setDeposit(String deposit) {
+        this.deposit = deposit;
+    }
+
     public String getBuildingOccupancy() {
         return buildingOccupancy;
     }

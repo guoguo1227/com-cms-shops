@@ -1,6 +1,9 @@
 package com.cms.shop.front;
 
 import com.cms.shop.controller.BaseController;
+import com.cms.shop.enums.ShopTypeEnum;
+import com.cms.shop.model.base.Business;
+import com.cms.shop.model.base.District;
 import com.cms.shop.model.base.Hotcategory;
 import com.cms.shop.model.base.ShopImg;
 import com.cms.shop.model.condition.SearchCondition;
@@ -47,13 +50,16 @@ public class ForntController extends BaseController{
     @Autowired
     private ShopImgService shopImgService;
 
+    @Autowired
+    private DistrictService districtService;
+
     /**
      * 多条件搜索商铺
      * @return
      */
     @RequestMapping("search-shop")
     public String search(SearchCondition condition,ModelMap modelMap){
-
+        condition.setLimit(20); //每页20
         List<ShopVo> list = new ArrayList<>();
         int total = 0;
         int totalPage = 0;
@@ -64,13 +70,15 @@ public class ForntController extends BaseController{
             totalPage = shopVoPage.getTotalPage();
         }
         List<Hotcategory> hotcategoryList = hotcategoryService.queryAll();
+        List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD);
 
         modelMap.addAttribute("total",total);
         modelMap.addAttribute("pageSize",totalPage);
         modelMap.addAttribute("shopList",list);
+        modelMap.addAttribute("goodShopList",goodShopList);
         modelMap.addAttribute("hotcategoryList",hotcategoryList);//商铺类型
 
-        return "shopList";
+        return "search";
     }
 
     /**
@@ -92,9 +100,36 @@ public class ForntController extends BaseController{
 
             imgList = shopImgService.getImgListByShopId(condition.getId());
         }
+        List<Hotcategory> hotcategoryList = hotcategoryService.queryAll();
+        List<District> districtList = districtService.queryAll();
 
         modelMap.addAttribute("shop",vo);
         modelMap.addAttribute("imgList",imgList);
+        modelMap.addAttribute("hotcategoryList",hotcategoryList);//商铺类型
+        modelMap.addAttribute("districtList",districtList);//地区
+
         return "detail";
+    }
+
+    /**
+     * 精品项目
+     * @param condition
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping("project")
+    public String project(SearchCondition condition,ModelMap modelMap){
+
+        Business business = null;
+        Page<Business> page = businessService.queryPageByCondition(condition);
+        if(null != page && CollectionUtils.isNotEmpty(page.getPageData())){
+            business = page.getPageData().get(0);
+        }
+        List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD);
+
+        modelMap.addAttribute("business",business);
+        modelMap.addAttribute("goodShopList",goodShopList);
+
+        return "project";
     }
 }

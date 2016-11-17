@@ -110,6 +110,8 @@ public class Shop implements BaseBean {
 
     private Integer priceSe2;
 
+    private Integer type;
+
     public Integer getId() {
         return id;
     }
@@ -526,6 +528,14 @@ public class Shop implements BaseBean {
         this.priceSe2 = priceSe2;
     }
 
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
     /** 
      * 拷贝，将对象中的字段全部拷贝到子对象中
      * @param bean 接收对象的子类
@@ -584,6 +594,7 @@ public class Shop implements BaseBean {
         bean.setDepositType(getDepositType());
         bean.setPrice2(getPrice2());
         bean.setPriceSe2(getPriceSe2());
+        bean.setType(getType());
         return bean;
     }
 
@@ -645,6 +656,7 @@ public class Shop implements BaseBean {
         	", depositType:" + getDepositType() + 
         	", price2:" + getPrice2() + 
         	", priceSe2:" + getPriceSe2() + 
+        	", type:" + getType() + 
         "}";
     }
 }
