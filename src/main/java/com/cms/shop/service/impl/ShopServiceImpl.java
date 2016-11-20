@@ -104,11 +104,19 @@ public class ShopServiceImpl implements ShopService {
             }
             //商铺名称
             if(!StringUtils.isBlank(condition.getName())){
-                cri.andShopNameLike(condition.getName());
+                cri.andShopNameLike("%"+condition.getName()+"%");
+            }
+            //搜索
+            if(!StringUtils.isBlank(condition.getSearchContent())){
+                cri.andShopNameLike("%"+condition.getSearchContent()+"%");
             }
             //id
             if(null != condition.getId()){
                 cri.andIdEqualTo(condition.getId());
+            }
+            //热门类型
+            if(null != condition.getType()){
+                cri.andTypeEqualTo(condition.getType());
             }
             //排序
             criteria.setOrderByClause(" ID desc ");

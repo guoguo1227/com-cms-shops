@@ -59,10 +59,13 @@ public class StreetServiceImpl implements StreetService{
         Page<StreetVo> page = null;
         List<StreetVo> voList = new ArrayList<>();
         if(null != condition){
-            page = new Page();
+            page = new Page<>();
             page.setPageSize(condition.getLimit());
 
             StreetCriteria criteria = new StreetCriteria();
+            if(null != condition.getDistrictId()){
+                criteria.createCriteria().andDistrictIdEqualTo(condition.getDistrictId());
+            }
             int count = streetMapper.countByExample(criteria);
             if(count>0){
                 criteria.setLimitStart(condition.getOffset());
@@ -98,9 +101,7 @@ public class StreetServiceImpl implements StreetService{
     @Override
     public List<Street> queryAll() {
         StreetCriteria criteria = new StreetCriteria();
-        List<Street> streetList = streetMapper.selectByExample(criteria);
-
-        return streetList;
+        return streetMapper.selectByExample(criteria);
     }
 
     @Override

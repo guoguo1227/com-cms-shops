@@ -172,7 +172,7 @@
         <table schema="" tableName="thrd_occ" domainObjectName="ThrdOcc">
             <generatedKey column="THRD_OCC_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
         </table>-->
-        <table schema="" tableName="shop" domainObjectName="Shop">
+        <table schema="" tableName="keyword" domainObjectName="Keyword">
             <generatedKey column="ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
         </table>
     </context>

@@ -2,6 +2,7 @@ package com.cms.shop.service;
 
 import com.cms.shop.model.base.SysUser;
 import com.cms.shop.model.base.SysUserCriteria;
+import com.cms.shop.model.ext.RequestResult;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface SysUserService {
     List<SysUser> queryListByExample(SysUserCriteria criteria);
 
     SysUser queryUserById(Integer id);
+
+    RequestResult login(String username,String password);
 }

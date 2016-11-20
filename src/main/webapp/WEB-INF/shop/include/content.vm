@@ -105,6 +105,7 @@
             <div class="row" style="height: 400px;">
                 <center><h3>热招旺铺</h3></center>
                 <center>预购从速 - 过期不候</center>
+                <span class="shop-fright shop-margin-right-10"><a href="/front/search-shop.action?type=3" target="_blank">更多商铺</a></span>
                 <br>
                 <div class="col-sm-12 col-lg-12 ">
                     <div class="row">
@@ -112,7 +113,7 @@
                             #foreach($firShop in $!fireShopList)
                                 #if($velocityCount == 1)
                                     <div class="thumbnail">
-                                        <a href="/front/search-shop.action?areaId=$firShop.id" target="_blank"><img src="$!firShop.filePath" alt=""></a>
+                                        <a href="/front/detail.action?id=$!firShop.shop.id" target="_blank"><img src="$!firShop.filePath" alt=""></a>
                                         <div class="caption mr_zhe_p">
                                             <span>$!{firShop.districtStr}</span>
                                             <span class="shop-fright">$!{firShop.shop.squareMetres}平米</span>
@@ -126,7 +127,7 @@
                             #foreach($firShop in $!fireShopList)
                                 #if($velocityCount > 1 && $velocityCount !=6)
                                     <div class="col-lg-6 thumbnail" style="height: 100px;">
-                                        <a href="/front/search-shop.action?areaId=$firShop.id" target="_blank" class="height100">
+                                        <a href="/front/detail.action?id=$!firShop.shop.id" target="_blank" class="height100">
                                             <img src="$!firShop.filePath" alt="" class="shop-img-responsive " style="height: 100%;">
                                         </a>
                                         <div class="caption mr_zhe_p2">
@@ -142,7 +143,7 @@
                             #foreach($firShop in $!fireShopList)
                                 #if($velocityCount == 6)
                                     <div class="thumbnail">
-                                        <a href="/front/search-shop.action?areaId=$firShop.id"><img src="$!firShop.filePath"></a>
+                                        <a href="/front/detail.action?id=$!firShop.shop.id"><img src="$!firShop.filePath"></a>
                                         <div class="caption mr_zhe_p">
                                             <span>$!{firShop.districtStr}</span>
                                             <span class="shop-fright">$!{firShop.shop.squareMetres}平米</span>
@@ -165,13 +166,14 @@
         <div class="panel-heading">
             <center><h3>精选好铺</h3></center>
             <center>好地段！好价格！好人流！</center>
+            <span class="shop-fright"><a href="/front/search-shop.action?type=2" target="_blank">更多商铺</a></span>
             <br>
             <div class="row">
                 #foreach($goodShop in $!goodShopList)
                     <div class="col-lg-4">
                         <div class="panel panel-default">
                             <div class="panel-body">
-                                <a href="/front/search-shop.action?areaId=$hotShop.id" target="_blank" class="thumbnail">
+                                <a href="/front/detail.action?id=$!goodShop.shop.id" target="_blank" class="thumbnail">
                                     <img src="$!goodShop.filePath" alt="" style="height: 175px;">
                                 </a>
                                 <span>$!{goodShop.shopType}  $!{goodShop.shop.squareMetres}平米</span><span class="shop-fright shop-color-red shop-font18">$!{goodShop.districtStr}</span>
@@ -197,7 +199,7 @@
                             <div class="col-xs-11" style="margin-left: -10px;">
                                 <ul id="mr_fu">
                                     #foreach($business in $businessList)
-                                    <li><a href="/front/project.action?id=$business.bizId" target="_blank">
+                                    <li><a href="/front/project.action" target="_blank">
                                         <img src="$!business.fileName"/> </a>
                                         <div class="mr_zhe">
                                             #set($bizName = $business.bizName)

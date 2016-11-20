@@ -76,6 +76,19 @@ public class ShopManageController extends BaseController{
         return gson.toJson(result);
     }
 
+    @RequestMapping("archit-all")
+    @ResponseBody
+    public String queryArchitAll(SearchCondition condition){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        List<Architecture> list = architectureService.queryAll();
+        if(CollectionUtils.isNotEmpty(list)){
+            result.setSuccess(true);
+            result.setData(list);
+        }
+        return gson.toJson(result);
+    }
     @RequestMapping("buildFaciPage")
     @ResponseBody
     public String queryBuildFaciPage(SearchCondition condition){
@@ -91,7 +104,22 @@ public class ShopManageController extends BaseController{
         }
         return gson.toJson(result);
     }
+    @RequestMapping("buildFaciAll")
+    @ResponseBody
+    public String queryBuildFaciAll(SearchCondition condition){
 
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != condition){
+
+            List<BuildingFacility> list = buildingFacilityService.queryAll();
+            if(CollectionUtils.isNotEmpty(list)){
+                result.setSuccess(true);
+                result.setData(list);
+            }
+        }
+        return gson.toJson(result);
+    }
     @RequestMapping("buildFinishPage")
     @ResponseBody
     public String queryBuildFinishPage(SearchCondition condition){
@@ -225,6 +253,21 @@ public class ShopManageController extends BaseController{
         return gson.toJson(result);
     }
 
+    @RequestMapping("shopType-all")
+    @ResponseBody
+    public String queryShopTypeAll(SearchCondition condition){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != condition){
+            List<ShopType> list = shopTypeService.queryAll();
+            if(CollectionUtils.isNotEmpty(list)){
+                result.setData(list);
+                result.setSuccess(true);
+            }
+        }
+        return gson.toJson(result);
+    }
     @RequestMapping("streetPage")
     @ResponseBody
     public String queryStreetPage(SearchCondition condition){
@@ -236,6 +279,22 @@ public class ShopManageController extends BaseController{
             if(null != page && CollectionUtils.isNotEmpty(page.getPageData())){
                 result.setSuccess(true);
                 result.setData(page);
+            }
+        }
+        return gson.toJson(result);
+    }
+
+    @RequestMapping("street-list")
+    @ResponseBody
+    public String queryStreetList(SearchCondition condition){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != condition){
+            Page<StreetVo> page =  streetService.queryVoByCondtion(condition);
+            if(null != page && CollectionUtils.isNotEmpty(page.getPageData())){
+                result.setSuccess(true);
+                result.setData(page.getPageData());
             }
         }
         return gson.toJson(result);

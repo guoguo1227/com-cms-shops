@@ -56,6 +56,7 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService){
                     }
                 }
             });
+
     }
     $scope.searchLoad = function(){
         $http.post("/shop/page.json",$scope.search,angularMeta.postCfg)
@@ -124,6 +125,68 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService){
     //添加商铺按钮
     $scope.addShopBtn = function(){
         $scope.shopListFlag = false;
+        $scope.addshop = {};
+        $('#datetimepickerStart').datepicker({
+            format: 'yyyy-mm-dd',
+            language:'zh-CN',
+            clearBtn: true,
+            todayHighlight: true,
+            autoclose:true
+        });
+        $('#datetimepickerEnd').datepicker({
+            format: 'yyyy-mm-dd',
+            language:'zh-CN',
+            clearBtn: true,
+            todayHighlight: true,
+            autoclose:true
+        });
+
+        //                ue.setContent(template.content);
+        $http.post("/shopmanage/shopType-all.json",{},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    if(data.data && Array.isArray(data.data)){
+                        $scope.shopFlagObj.shoptypeArr = data.data;
+                    }
+                }
+            });
+        $http.post("/shopmanage/archit-all.json",{},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    if(data.data && Array.isArray(data.data)){
+                        $scope.shopFlagObj.architArr = data.data;
+                    }
+                }
+            });
+        $http.post("/shopmanage/buildFaciAll.json",{},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    if(data.data && Array.isArray(data.data)){
+                        $scope.shopFlagObj.buildFaciArr = data.data;
+                    }
+                }
+            });
+        $scope.initUE();
+
+        $scope.createMap();
+    }
+
+    $scope.goback = function(){
+        $scope.shopListFlag = true;
+    }
+
+    $scope.initUE = function(){
+        //实例化编辑器
+        var ue = UE.getEditor('shopContent', {
+            toolbars: [
+                ['fullscreen','source','undo','redo','formatmatch','indent','justifyleft','justifyright','justifycenter','justifyjustify','background', 'link',  'fontfamily','fontsize','forecolor','bold','backcolor','italic','underline','inserttable','deletetable','insertrow','insertcol','simpleupload','insertimage','charts']
+            ],
+            autoHeightEnabled: true,
+            autoFloatEnabled: true
+        });
+    }
+
+    $scope.createMap = function(){
         // 百度地图API功能
         var map = new BMap.Map("allmap");
         var point = new BMap.Point(116.331398,39.897445);
@@ -139,5 +202,21 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService){
                 alert("您选择地址没有解析到结果!");
             }
         }, "北京市");
+    }
+
+    /**
+     * 选择地区
+     */
+    $scope.changeDistrict = function(){
+        $http.post("/shopmanage/street-list.json",{districtId:$scope.addshop.districtId},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    if(data.data && Array.isArray(data.data)){
+                        $scope.shopFlagObj.addStreetArr = data.data;
+                    }else{
+                        $scope.shopFlagObj.addStreetArr =[];
+                    }
+                }
+            });
     }
 }

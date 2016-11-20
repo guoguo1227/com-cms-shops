@@ -1272,39 +1272,24 @@ angular.module('lg.layout', ['lg.sidebar', 'lg.router']).
             restrict: 'E',
             replace: true,
             template: '<header class="lg-headbar">' +
-            '<a class="logo logo-{{getState()}}"></a>' +
+            '<a class="logo logo-{{getState()}}"><font color="white" style="margin-left:10px;margin-top:10px;font-size: 24px;">北冀集团</font></a>' +
             '<nav class="navbar">' +
             '<a lg-slider><i class="fa fa-bars"></i></a>' +
 
             '<ul class="nav navbar-nav">' +
             '<li>' +
             '<a><i class="fa fa-user"></i>{{user.email}}</a>' +
-            '<ul class="drop">' +
+            '<ul class="drop" ng-app="userLoginApp" ng-controller="userLoginCtrl">' +
             '<li><a ng-click="onLogout({user: user})">退出登录</a></li>' +
             '</ul>' +
             '</li>' +
 
-            '<li class="dropdown tasks-menu"  ng-app="webSocketApp" ng-controller="webSocketCtrl" ng-init="init()">' +
+            '<li class="dropdown tasks-menu">' +
             '<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
             '<i class="fa fa-flag-o"></i>' +
             '<span class="label label-danger">{{socketNewsArray.length}}</span>' +
             '</a>' +
-            '<ul class="dropdown-menu" style="position: absolute;right: 0;left: auto;">' +
-            '<li class="header">您有 {{socketNewsArray.length}} 条新消息</li>' +
-            '<li>' +
-            '<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><ul class="menu" style="overflow: hidden; width: 100%; height: 200px;">' +
-            '<li ng-if="socketNewsArray != null && socketNewsArray.length>0" ng-repeat="socketNews in socketNewsArray">' +
-            '<a href="#">' +
-            '<h3>' +
-            '{{socketNews.newsType}}:{{socketNews.newsdetail}}' +
-            '<small class="pull-right">{{socketNews.createTime}}</small>' +
-            '</h3>' +
-            '</a>' +
-            '</li><!-- end task item -->' +
-            '</ul><div class="slimScrollBar" style="width: 3px; position: absolute; top: 11px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 188.679px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>' +
-            '</li>' +
-            '<li class="footer">' +
-            '<a href="#">查看更多</a>' +
+            '<div class="slimScrollBar" style="width: 3px; position: absolute; top: 11px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 188.679px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>' +
             '</li>' +
             '</ul>' +
             '</li>' +
@@ -1374,10 +1359,10 @@ angular.module('lg.layout', ['lg.sidebar', 'lg.router']).
             '<div class="pull-right">' +
             '<b>Version</b>&nbsp;0.0.1' +
             '</div>' +
-            '<strong>Copyright&nbsp;<i class="fa fa-copyright"></i>&nbsp;2015.11' +
-            '<a href="https://www.xgtravels.com">&nbsp;xgtravels.com</a>' +
+            '<strong>北冀商铺&nbsp;<i class="fa fa-copyright"></i>&nbsp;2016.11' +
+            '<a href="http://www.beiyishops.com">&nbsp;http://www.beiyishops.com/</a>' +
             '</strong>' +
-            '.&nbsp;All rights reserved' +
+            '.&nbsp;' +
             '</div>' +
             '</footer>',
             link: function (scope, element) {

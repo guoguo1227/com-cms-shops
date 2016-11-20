@@ -21,5 +21,4 @@ function myCtrl($scope,$http,angularMeta){
                 }
             });
     }
-
 }

@@ -44,12 +44,17 @@ public class BoardServiceImpl implements BoardService{
         Page<BoardVo> page = null;
         List<BoardVo> boardVoList = new ArrayList<>();
         if(null != condition){
-            page = new Page();
+            page = new Page<>();
             page.setPageSize(condition.getLimit());
 
             BoardCriteria criteria = new BoardCriteria();
-            int count = boardMapper.countByExample(criteria);
             criteria.setOrderByClause(" CREATE_DATE desc ");
+            //id
+            if(null != condition.getId()){
+                criteria.createCriteria().andBrdIdEqualTo(condition.getId());
+            }
+            int count = boardMapper.countByExample(criteria);
+
             if(count>0){
                 criteria.setLimitStart(condition.getOffset());
                 criteria.setLimitEnd(condition.getLimit());

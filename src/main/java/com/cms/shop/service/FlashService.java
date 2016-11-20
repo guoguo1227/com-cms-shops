@@ -14,6 +14,8 @@ public interface FlashService {
 
     Page<Flash> queryListByCondition(SearchCondition condition);
 
+    Flash queryFlash();
+
     RequestResult offlineFlash(Integer id);
 
     RequestResult onlineFlash(Integer id);

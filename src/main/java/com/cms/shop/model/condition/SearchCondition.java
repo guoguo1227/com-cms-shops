@@ -39,6 +39,16 @@ public class SearchCondition extends BaseSearchCondition {
 
     private String floor ; //层数
 
+    private Integer type; //热门类型
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
     public Integer getAreaId() {
         return areaId;
     }

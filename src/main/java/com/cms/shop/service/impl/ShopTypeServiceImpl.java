@@ -29,7 +29,7 @@ public class ShopTypeServiceImpl implements ShopTypeService{
     public Page<ShopType> queryPageByCondition(SearchCondition condition) {
         Page<ShopType> page = null;
         if(null != condition){
-            page = new Page();
+            page = new Page<>();
             page.setPageSize(condition.getLimit());
 
             ShopTypeCriteria criteria = new ShopTypeCriteria();
@@ -67,5 +67,11 @@ public class ShopTypeServiceImpl implements ShopTypeService{
             shopType = shopTypeMapper.selectByPrimaryKey(id);
         }
         return shopType;
+    }
+
+    @Override
+    public List<ShopType> queryAll() {
+        ShopTypeCriteria criteria = new ShopTypeCriteria();
+        return shopTypeMapper.selectByExample(criteria);
     }
 }

@@ -57,6 +57,20 @@ public class FlashServiceImpl implements FlashService{
     }
 
     @Override
+    public Flash queryFlash() {
+
+        Flash flash = null;
+        FlashCriteria cri = new FlashCriteria();
+        cri.createCriteria().andStatusEqualTo(1);
+        cri.setOrderByClause(" id desc ");
+        List<Flash> list = flashMapper.selectByExample(cri);
+        if(CollectionUtils.isNotEmpty(list)){
+            flash = list.get(0);
+        }
+        return flash;
+    }
+
+    @Override
     public RequestResult offlineFlash(Integer id) {
         RequestResult result = new RequestResult();
         boolean success = false;

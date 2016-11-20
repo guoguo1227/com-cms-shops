@@ -15,17 +15,16 @@
                 <div class="collapse navbar-collapse navbar-ex1-collapse shop-nav">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">宝山区 <b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">地区 <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">子区域1</a></li>
-                                <li><a href="#">子区域2</a></li>
-                                <li><a href="#">子区域3</a></li>
-                                <li><a href="#">子区域4</a></li>
+                                #foreach($discrict in $!districtList)
+                                    <li><a href="/front/search-shop.action?districtId=$!discrict.districtId" target="_blank">$!{discrict.districtName}</a></li>
+                                #end
                             </ul>
                         </li>
                         <li><a href="#">主页</a></li>
-                        <li><a href="#">热销旺铺</a></li>
-                        <li><a href="#">精选好铺</a></li>
+                        <li><a href="/front/search-shop.action?type=3" target="_blank">热招旺铺</a></li>
+                        <li><a href="/front/search-shop.action?type=2" target="_blank">精选好铺</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">电子商务 <b class="caret"></b></a>
                             <ul class="dropdown-menu">
@@ -34,10 +33,11 @@
                                 <li><a href="#">子项目3</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">北翼资讯</a></li>
+                        <li><a href="/front/boardList.action" target="_blank">北翼资讯</a></li>
                         <li><a href="#">物业管理</a></li>
                         <li><a href="#">关于我们</a></li>
                     </ul>
+                    <div><img src="/static/ui/images/shoplogo.png" style="height:80px;margin-top:-40px;"></div>
                 </div><!-- /.navbar-collapse -->
             </nav>
         </div>

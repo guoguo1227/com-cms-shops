@@ -3,7 +3,12 @@ package com.cms.shop.controller;
 import com.cms.shop.enums.ImageType;
 import com.cms.shop.model.ext.RequestResult;
 import com.cms.shop.upload.Repository;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang.StringUtils;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +25,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -96,5 +102,36 @@ public class UploadController extends BaseController{
         object.put("uploadPath",fileUrl);
         result.setData(object);
         return  gson.toJson(result);
+    }
+
+    public static String uEditorUpload(HttpServletRequest request){
+        String action = request.getParameter("action");
+        if(!StringUtils.isEmpty(action)&&action.equalsIgnoreCase("uploadimage")){
+            try {
+                DiskFileItemFactory factory = new DiskFileItemFactory();
+                ServletFileUpload upload = new ServletFileUpload(factory);
+                List<FileItem> fileItems = upload.parseRequest(request);
+                for(FileItem item : fileItems){
+                    if(item.getName()!=null){
+                        String fileName = item.getName();
+                        String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toUpperCase();
+                        File destFile = File.createTempFile("/tmp/"+System.currentTimeMillis() + "", "." + fileExt);
+                        item.write(destFile);
+                        String fileURL = "" ;
+                        return "{\"original\":\""+fileName+"\",\"name\":\""+fileURL+"\",\"url\":\""+"http://www.lagou.com"+"/"+fileURL+"\",\"size\":\""+item.getSize()+"\",\"type\":\""+fileExt+"\",\"state\":\"SUCCESS\"}";
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            catch (FileUploadException e) {
+                e.printStackTrace();
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        return "{\"imageActionName\":\"uploadimage\",\"imageFieldName\":\"upfile\",\"imageMaxSize\":2048000,\"imageAllowFiles\":[\".png\",\".jpg\",\".jpeg\",\".gif\",\".bmp\"],\"imageCompressEnable\":true,\"imageCompressBorder\":1600,\"imageInsertAlign\":\"none\",\"imageUrlPrefix\":\"\",\"imagePathFormat\":\"\\/server\\/ueditor\\/upload\\/image\\/{yyyy}{mm}{dd}\\/{time}{rand:6}\",\"scrawlActionName\":\"uploadscrawl\",\"scrawlFieldName\":\"upfile\",\"scrawlPathFormat\":\"\\/server\\/ueditor\\/upload\\/image\\/{yyyy}{mm}{dd}\\/{time}{rand:6}\",\"scrawlMaxSize\":2048000,\"scrawlUrlPrefix\":\"\",\"scrawlInsertAlign\":\"none\",\"snapscreenActionName\":\"uploadimage\",\"snapscreenPathFormat\":\"\\/server\\/ueditor\\/upload\\/image\\/{yyyy}{mm}{dd}\\/{time}{rand:6}\",\"snapscreenUrlPrefix\":\"\",\"snapscreenInsertAlign\":\"none\",\"catcherLocalDomain\":[\"127.0.0.1\",\"localhost\",\"img.baidu.com\"],\"catcherActionName\":\"catchimage\",\"catcherFieldName\":\"source\",\"catcherPathFormat\":\"\\/server\\/ueditor\\/upload\\/image\\/{yyyy}{mm}{dd}\\/{time}{rand:6}\",\"catcherUrlPrefix\":\"\",\"catcherMaxSize\":2048000,\"catcherAllowFiles\":[\".png\",\".jpg\",\".jpeg\",\".gif\",\".bmp\"],\"videoActionName\":\"uploadvideo\",\"videoFieldName\":\"upfile\",\"videoPathFormat\":\"\\/server\\/ueditor\\/upload\\/video\\/{yyyy}{mm}{dd}\\/{time}{rand:6}\",\"videoUrlPrefix\":\"\",\"videoMaxSize\":102400000,\"videoAllowFiles\":[\".flv\",\".swf\",\".mkv\",\".avi\",\".rm\",\".rmvb\",\".mpeg\",\".mpg\",\".ogg\",\".ogv\",\".mov\",\".wmv\",\".mp4\",\".webm\",\".mp3\",\".wav\",\".mid\"],\"fileActionName\":\"uploadfile\",\"fileFieldName\":\"upfile\",\"filePathFormat\":\"\\/server\\/ueditor\\/upload\\/file\\/{yyyy}{mm}{dd}\\/{time}{rand:6}\",\"fileUrlPrefix\":\"\",\"fileMaxSize\":51200000,\"fileAllowFiles\":[\".png\",\".jpg\",\".jpeg\",\".gif\",\".bmp\",\".flv\",\".swf\",\".mkv\",\".avi\",\".rm\",\".rmvb\",\".mpeg\",\".mpg\",\".ogg\",\".ogv\",\".mov\",\".wmv\",\".mp4\",\".webm\",\".mp3\",\".wav\",\".mid\",\".rar\",\".zip\",\".tar\",\".gz\",\".7z\",\".bz2\",\".cab\",\".iso\",\".doc\",\".docx\",\".xls\",\".xlsx\",\".ppt\",\".pptx\",\".pdf\",\".txt\",\".md\",\".xml\"],\"imageManagerActionName\":\"listimage\",\"imageManagerListPath\":\"\\/server\\/ueditor\\/upload\\/image\\/\",\"imageManagerListSize\":20,\"imageManagerUrlPrefix\":\"\",\"imageManagerInsertAlign\":\"none\",\"imageManagerAllowFiles\":[\".png\",\".jpg\",\".jpeg\",\".gif\",\".bmp\"],\"fileManagerActionName\":\"listfile\",\"fileManagerListPath\":\"\\/server\\/ueditor\\/upload\\/file\\/\",\"fileManagerUrlPrefix\":\"\",\"fileManagerListSize\":20,\"fileManagerAllowFiles\":[\".png\",\".jpg\",\".jpeg\",\".gif\",\".bmp\",\".flv\",\".swf\",\".mkv\",\".avi\",\".rm\",\".rmvb\",\".mpeg\",\".mpg\",\".ogg\",\".ogv\",\".mov\",\".wmv\",\".mp4\",\".webm\",\".mp3\",\".wav\",\".mid\",\".rar\",\".zip\",\".tar\",\".gz\",\".7z\",\".bz2\",\".cab\",\".iso\",\".doc\",\".docx\",\".xls\",\".xlsx\",\".ppt\",\".pptx\",\".pdf\",\".txt\",\".md\",\".xml\"]}";
     }
 }

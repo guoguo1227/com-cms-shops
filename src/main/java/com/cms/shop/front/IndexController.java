@@ -3,10 +3,7 @@ package com.cms.shop.front;
 import com.cms.shop.controller.BaseController;
 import com.cms.shop.enums.BoardTypeEnum;
 import com.cms.shop.enums.ShopTypeEnum;
-import com.cms.shop.model.base.Board;
-import com.cms.shop.model.base.Business;
-import com.cms.shop.model.base.Hotcategory;
-import com.cms.shop.model.base.Partner;
+import com.cms.shop.model.base.*;
 import com.cms.shop.model.ext.ShopVo;
 import com.cms.shop.service.*;
 import org.slf4j.Logger;
@@ -46,6 +43,15 @@ public class IndexController extends BaseController{
     @Autowired
     private HotcategoryService hotcategoryService;
 
+    @Autowired
+    private DistrictService districtService;
+
+    @Autowired
+    private FlashService flashService;
+
+    @Autowired
+    private KeywordService keywordService;
+
     /**
      * 首页
      * @return
@@ -64,7 +70,11 @@ public class IndexController extends BaseController{
 
         List<Hotcategory> hotcategoryList = hotcategoryService.queryAll();
 
-        modelMap.addAttribute("test","test");
+        List<District> districtList = districtService.queryAll();
+
+        Flash flash = flashService.queryFlash();
+
+        List<Keyword> keywordList = keywordService.queryHotKeyWord();
         modelMap.addAttribute("partnerList",partnerList); //合作伙伴
         modelMap.addAttribute("businessList",businessList); //招商项目
         modelMap.addAttribute("goodShopList",goodShopList); //精选好铺
@@ -72,6 +82,9 @@ public class IndexController extends BaseController{
         modelMap.addAttribute("newsBoardList",newsBoardList); //北冀要闻
         modelMap.addAttribute("businessBoardList",businessBoardList); //商家动态
         modelMap.addAttribute("hotcategoryList",hotcategoryList);//商铺类型
+        modelMap.addAttribute("districtList",districtList);//地区
+        modelMap.addAttribute("flash",flash);
+        modelMap.addAttribute("keywordList",keywordList);
         return "index";
     }
 

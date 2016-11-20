@@ -4,6 +4,8 @@ import com.cms.shop.model.base.ShopType;
 import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.utils.Page;
 
+import java.util.List;
+
 /**
  * @author : samuel
  * @Description :物业性质服务
@@ -16,4 +18,6 @@ public interface ShopTypeService {
     boolean deleteById(Integer id);
 
     ShopType queryShopTypeById(Integer id);
+
+    List<ShopType> queryAll();
 }

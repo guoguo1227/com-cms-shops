@@ -47,6 +47,12 @@ public class ArchitectureServiceImpl implements ArchitectureService{
     }
 
     @Override
+    public List<Architecture> queryAll() {
+        ArchitectureCriteria criteria = new ArchitectureCriteria();
+        return architectureMapper.selectByExample(criteria);
+    }
+
+    @Override
     public boolean deleteById(Integer id) {
         boolean success = false;
         if(null != id){

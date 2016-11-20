@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-    #parse("\include\header.vm")
+#parse("\include\header.vm")
 
 <html lang="en">
 <body>
 
-<div class="content" >
+<div class="content" ng-app="shopDetailApp" ng-controller="shopDetailAppCtrl" ng-init="init()">
     #parse("\include\navigation.vm")
     <div class="container">
         <div class="row col-xs-12" style="height: 200px;">
@@ -57,17 +57,15 @@
                         <div class="col-lg-9 panel panel-default">
                             <div class="box">
                                 <div class="row box" style="border-bottom: 5px solid red;">
-                                    <center><h3>启动项目</h3></center>
+                                    <center><h3>$!{business.bizName}</h3></center>
                                 </div>
-                                #foreach($business in $!businessList)
                                 <div class="row box">
-                                    <div class="row col-xs-12 panel panel-default">
-                                        <img src="$!business.fileName" style="height: 500px;width: 100%;">
-                                    </div>
-                                    <div class="row col-xs-12 panel panel-default" style="margin-top: -20px;">
-                                        <div style="position:absolute; z-index:2;height: 60px;background-color: darkorange;margin-top: -30px;font-size: 35px;">
-                                            　$!{business.bizName}
+                                    <div class="col-xs-12 panel panel-default">
+                                        <div class="panel-body">
+                                            <img src="$!business.fileName" style="height: 500px;width: 100%;">
                                         </div>
+                                    </div>
+                                    <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <div class="modal-footer">
                                                 <span>$!{business.bizContent}</span>
@@ -75,7 +73,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                #end
                                 <div class="row box" style="border-top: 5px solid red;">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
@@ -107,6 +104,8 @@
                                                             <input type="text" name="email" ng-model="comment.email"  class="form-control">
                                                                 <span style="color:red" ng-show="addCommentForm.email.$dirty && addCommentForm.email.$invalid">
                                                                 <span ng-show="addCommentForm.email.$error.email">邮箱是必须的。</span></span>
+                                                            <span ng-show="addCommentForm.email.$error.email">邮箱是必须的。</span>
+                                                            <span class="col-sm-2" ng-show="addCommentForm.email.$error.email">邮箱是必须的。</span>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -126,7 +125,9 @@
 
                                     </div>
                                 </div>
+                            </div>
                         </div>
+
                     </div>
 
                 </div>
@@ -136,15 +137,13 @@
         </div>
 
     </div>
-
-    </div>
     <div class="container">
         <div class="row col-xs-12" style="height: 200px;">
             <img src="/static/ui/images/footer.png" style="height: 200px;width:100%;" />
         </div>
     </div>
 
-   </div>
+</div>
 <footer id="footer">
     <hr>
     <div class="shop-foot">
@@ -152,7 +151,10 @@
         <p>Cdfsdfdsfdasdfsfsafddddddddasfdfeaffaefaaaaaaaaaaaaaaaaaaaa</p>
     </div>
 </footer>
-
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+&lt;!&ndash; Include all compiled plugins (below), or include individual files as needed &ndash;&gt;
+<script src="js/jquery-1.11.1.js"></script>-->
 <script src="/static/bootstrap/js/bootstrap.js"></script>
 <script src="/static/plugins/slimScroll/jquery.slimscroll.js"></script>
 
@@ -162,7 +164,9 @@
 <script src="/cms/common/shopIndex.js"></script>
 <script src="/cms/common/search.js"></script>
 
-
+<!--<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script src="/static/ui/js/gmaps.js"></script>
+<script src="/static/ui/js/main.js"></script>-->
 <!-- 滚动图片栏 for 精品项目-->
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=eo2HevBrnqtp4XE2nWROwTQtQG1AGWeN"></script>
 <script type="text/javascript" src="/static/ui/js/projectCarousel.js"></script>

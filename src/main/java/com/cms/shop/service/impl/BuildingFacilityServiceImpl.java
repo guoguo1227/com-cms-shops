@@ -46,6 +46,12 @@ public class BuildingFacilityServiceImpl implements BuildingFacilityService{
     }
 
     @Override
+    public List<BuildingFacility> queryAll() {
+        BuildingFacilityCriteria criteria = new BuildingFacilityCriteria();
+        return buildingFacilityMapper.selectByExample(criteria);
+    }
+
+    @Override
     public boolean deleteById(Integer id) {
         boolean success = false;
         if(null != id){

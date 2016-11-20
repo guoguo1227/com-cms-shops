@@ -1,9 +1,13 @@
 package com.cms.shop.service.impl;
 
 import com.cms.shop.dao.base.mapper.SysUserMapper;
+import com.cms.shop.model.base.Flash;
 import com.cms.shop.model.base.SysUser;
 import com.cms.shop.model.base.SysUserCriteria;
+import com.cms.shop.model.ext.RequestResult;
 import com.cms.shop.service.SysUserService;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,4 +41,32 @@ public class SysUserServiceImpl implements SysUserService{
         }
         return sysUser;
     }
+
+    @Override
+    public RequestResult login(String username, String password) {
+        String message = "";
+        boolean success = false;
+        RequestResult result = new RequestResult();
+        if(!StringUtils.isBlank(username)){
+            SysUserCriteria cri = new SysUserCriteria();
+            cri.createCriteria().andUserNameEqualTo(username);
+            List<SysUser> userList = sysUserMapper.selectByExample(cri);
+            if(CollectionUtils.isNotEmpty(userList)){
+                SysUser sysUser = userList.get(0);
+                if(!StringUtils.isBlank(password)){
+                    if(password.equals(sysUser.getUserPwd())){
+                        success = true;
+                    }else{
+                        message = "密码错误";
+                    }
+                }
+            }else{
+                message = "用户名不存在";
+            }
+        }
+        result.setSuccess(success);
+        result.setMessage(message);
+        return result;
+    }
+
 }

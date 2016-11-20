@@ -20,7 +20,7 @@
         <property name="properties" ref="configProperties" />
     </bean>
 
-    <aop:config>
+   <!-- <aop:config>
         <aop:pointcut id="perform" expression="execution(* com.cms.shop.service.impl.*.*(..))"></aop:pointcut>
         <aop:aspect ref="transaction">
             <aop:before method="beginTransaction" pointcut-ref="perform"></aop:before>
@@ -30,6 +30,6 @@
             <aop:around method="aroundMethod" pointcut-ref="perform"/>
         </aop:aspect>
 
-    </aop:config>
+    </aop:config>-->
 
 </beans>
