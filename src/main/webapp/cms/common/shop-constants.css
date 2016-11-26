@@ -22,6 +22,9 @@
 .shop-margin-top-3{
     margin-top: 3px;
 }
+.shop-margin-top-2{
+    margin-top: 2px;
+}
 
 .shop-margin-top-5{
     margin-top: 5px;
@@ -44,6 +47,9 @@
 /* 下边距 */
 .shop-margin-bottom-3{
     margin-bottom: 3px;
+}
+.shop-margin-bottom-2{
+    margin-bottom: 2px;
 }
 
 .shop-margin-bottom-5{
@@ -106,7 +112,13 @@
     margin-top : -10px;
 }
 .shop-panel-heading{
-    border-bottom: 1px solid #F00;
+    border-bottom: 4px solid #F00;
+}
+.shop-border-left{
+    border-left: 4px solid #f00000;
+}
+.shop-back-white{
+    background-color: white;
 }
 
 /* 内边距 */
@@ -149,6 +161,15 @@
 .shop-color-red{
     color:red;
 }
+.shop-color-gray{
+    color : #777;
+}
+.shop-font16{
+    font-size: 16px;
+}
+.shop-font14{
+    font-size: 14px;
+}
 .shop-font18{
     font-size: 18px;
 }
@@ -166,6 +187,17 @@
 }
 .shop-detail-tb tbody tr td span{
     font-size: 18px;
+}
+.shop-filter-btn a button{
+    font-size: 14px;
+    color:#777;
+}
+.shop-list-title{
+    background-color: #DBD8D8;
+}
+.shop-list-title p{
+    margin-bottom: 5px;
+    margin-left:5px;
 }
 .shop-search-btn{
     position:absolute;

@@ -22,51 +22,25 @@
         <!-- 商铺列表 -->
         <div class="row col-xs-12">
             <div class="panel panel-default">
-                <ul class="breadcrumb">
-                    <li><a>查询到$!{total}条结果</a></li>
-                </ul>
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-lg-3 panel panel-default">
-                            <div class="panel-heading">北冀商铺网</div>
-                            <div class="row panel-body">
-                                <div class="panel panel-default">
-                                    <div class="item active" style="height: 250px;">
-                                        <div class="col-sm-12 col-lg-12">
-                                            <p class="shop-margin-left-30"><font color="red" style="font-size: 20px;">北&nbsp;&nbsp;&nbsp;&nbsp;翼&nbsp;&nbsp;&nbsp;&nbsp;商&nbsp;&nbsp;&nbsp;&nbsp;铺</font></p>
-                                            <p class="shop-margin-left-30" style="margin-top:-15px;"><font color="red" style="font-size: 20px;">创&nbsp;&nbsp;&nbsp;&nbsp;造&nbsp;&nbsp;&nbsp;&nbsp;财&nbsp;&nbsp;&nbsp;&nbsp;富</font></p>
-                                        </div>
-                                        <div class="col-sm-12 col-lg-12" style="margin-top:-5px;">
-                                            <img  class="shop-margin-left-30" src="/static/ui/images/qrcode.png" style="height: 160px;">
-                                        </div>
-                                        <div class="col-sm-12 col-lg-12 shop-margin-left-30">
-                                            <span style="font-size: 18px;"><font>北&nbsp;&nbsp;&nbsp;翼&nbsp;&nbsp;&nbsp;商&nbsp;&nbsp;&nbsp;&nbsp;铺&nbsp;&nbsp;&nbsp;&nbsp;网</font></span>
-                                        </div>
-                                    </div>
-                                </div>
+                <div class="panel-box">
+                    <div class="panel-box">
+                        <div class="row">
+                            <div class="col-lg-3 panel-body">
+                                #parse("\include\qrcode.vm")
+                                #parse("\include\goodshop.vm")
                             </div>
-                            <div class="row">
-                                <div class="panel-body">
-                                    #foreach($goodShop in $!goodShopList)
-                                    <div class="panel panel-default">
-                                        <a href="/front/search-shop.action?areaId=$hotShop.id" target="_blank" class="thumbnail">
-                                            <img src="$!goodShop.filePath" alt="" style="height: 175px;">
-                                        </a>
-                                        <span>$!{goodShop.shopType}  $!{goodShop.shop.squareMetres}平米</span><span class="shop-fright shop-color-red shop-font18">$!{goodShop.districtStr}</span>
-                                    </div>
-                                    #end
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-9 panel panel-default">
-                            <div class="box">
-                                <div class="row box">
-                                    <div class="panel panel-default">
-                                        <div class="shop-panel-heading"><h4>$!{board.brdTitle}</h4></div>
+                            <div class="col-lg-9 panel-body">
+                                <div class="box">
+                                    <div class="row box">
                                         <div class="panel-body">
-                                            <div>
-                                                <span>$!{board.brdContent}</span>
-                                                <p class="shop-fright">$!date.format('yyyy-MM-dd HH:mm:ss ',$!board.createDate)</p>
+                                            <div class="shop-panel-heading">
+                                                <center><h3>$!{board.brdTitle}</h3></center>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div>
+                                                    <span>$!{board.brdContent}</span>
+                                                    <p class="shop-fright">$!date.format('yyyy-MM-dd HH:mm:ss ',$!board.createDate)</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -75,29 +49,18 @@
                         </div>
                     </div>
 
-                </div>
+                    #parse("\include\footer.vm")
 
+                </div>
             </div>
 
         </div>
+
         <!-- 商铺列表 -->
-    </div>
-    <!-- START PANEL -->
-    <!-- END PANEL -->
-    <div class="container">
-        <div class="row col-xs-12" style="height: 200px;">
-            <img src="/static/ui/images/footer.png" style="height: 200px;width:100%;" />
-        </div>
     </div>
 
 </div>
-<footer id="footer">
-    <hr>
-    <div class="shop-foot">
-        <p>上海北冀（集团）有限公司 地址:上海市宝山梅林路768号  邮编:201901 电话:02166150172</p>
-        <p>Cdfsdfdsfdasdfsfsafddddddddasfdfeaffaefaaaaaaaaaaaaaaaaaaaa</p>
-    </div>
-</footer>
+
 
 <script src="/static/bootstrap/js/bootstrap.js"></script>
 <script src="/static/plugins/slimScroll/jquery.slimscroll.js"></script>

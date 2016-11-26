@@ -4,8 +4,11 @@ import com.cms.shop.controller.BaseController;
 import com.cms.shop.enums.BoardTypeEnum;
 import com.cms.shop.enums.ShopTypeEnum;
 import com.cms.shop.model.base.*;
+import com.cms.shop.model.condition.SearchCondition;
+import com.cms.shop.model.ext.BoardVo;
 import com.cms.shop.model.ext.ShopVo;
 import com.cms.shop.service.*;
+import org.apache.log4j.helpers.AbsoluteTimeDateFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -65,8 +69,14 @@ public class IndexController extends BaseController{
         List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD);
         List<ShopVo> fireShopList = shopService.getOnList(ShopTypeEnum.FIRE);
 
-        List<Board> newsBoardList = boardService.queryOnList(BoardTypeEnum.NOTICE);
-        List<Board> businessBoardList = boardService.queryOnList(BoardTypeEnum.SHOPABIT);
+        SearchCondition brdCondition = new SearchCondition();
+        brdCondition.setLimit(6);
+        List<Board> newsBoardList = boardService.queryOnList(BoardTypeEnum.NOTICE,brdCondition);
+        List<Board> businessBoardList = boardService.queryOnList(BoardTypeEnum.SHOPABIT,brdCondition);
+
+        SearchCondition brdImgCondition = new SearchCondition();
+        brdImgCondition.setLimit(3);
+        List<BoardVo> imgBoardList = boardService.queryVoOnList(BoardTypeEnum.POLICY, brdImgCondition);
 
         List<Hotcategory> hotcategoryList = hotcategoryService.queryAll();
 
@@ -81,10 +91,12 @@ public class IndexController extends BaseController{
         modelMap.addAttribute("fireShopList",fireShopList); //精选旺铺
         modelMap.addAttribute("newsBoardList",newsBoardList); //北冀要闻
         modelMap.addAttribute("businessBoardList",businessBoardList); //商家动态
+        modelMap.addAttribute("imgBoardList",imgBoardList); //商家动态
         modelMap.addAttribute("hotcategoryList",hotcategoryList);//商铺类型
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("flash",flash);
         modelMap.addAttribute("keywordList",keywordList);
+        modelMap.addAttribute("today",new Date());
         return "index";
     }
 

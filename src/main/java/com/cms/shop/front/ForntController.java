@@ -70,8 +70,8 @@ public class ForntController extends BaseController{
         try {
             String searchContent = new String(request.getParameter("searchContent").getBytes("ISO8859-1"), "UTF-8");
             condition.setSearchContent(searchContent);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        } catch (Exception e){
+           logger.info("无搜索词");
         }
 
         //添加搜索词
@@ -220,5 +220,59 @@ public class ForntController extends BaseController{
         modelMap.addAttribute("board",board);
         modelMap.addAttribute("goodShopList",goodShopList);
         return "boardDetail";
+    }
+
+    /**
+     * 关于我们
+     * @param condition
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping("aboutme")
+    public String aboutme(SearchCondition condition,ModelMap modelMap){
+
+        List<Business> businessList = new ArrayList<>();
+        Page<Business> page = businessService.queryPageByCondition(condition);
+        if(null != page && CollectionUtils.isNotEmpty(page.getPageData())){
+            businessList = page.getPageData();
+        }
+        List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD);
+        List<District> districtList = districtService.queryAll();
+        List<Keyword> keywordList = keywordService.queryHotKeyWord();
+
+        modelMap.addAttribute("districtList",districtList);//地区
+        modelMap.addAttribute("keywordList",keywordList);
+
+        modelMap.addAttribute("businessList",businessList);
+        modelMap.addAttribute("goodShopList",goodShopList);
+
+        return "aboutme";
+    }
+
+    /**
+     * 精品项目
+     * @param condition
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping("manage")
+    public String manage(SearchCondition condition,ModelMap modelMap){
+
+        List<Business> businessList = new ArrayList<>();
+        Page<Business> page = businessService.queryPageByCondition(condition);
+        if(null != page && CollectionUtils.isNotEmpty(page.getPageData())){
+            businessList = page.getPageData();
+        }
+        List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD);
+        List<District> districtList = districtService.queryAll();
+        List<Keyword> keywordList = keywordService.queryHotKeyWord();
+
+        modelMap.addAttribute("districtList",districtList);//地区
+        modelMap.addAttribute("keywordList",keywordList);
+
+        modelMap.addAttribute("businessList",businessList);
+        modelMap.addAttribute("goodShopList",goodShopList);
+
+        return "manage";
     }
 }

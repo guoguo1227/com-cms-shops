@@ -1,0 +1,13 @@
+<!-- 精选好铺 -->
+<div class="panel-body" style="margin-top:-25px;">
+    #foreach($goodShop in $!goodShopList)
+        <div class="thumbnail">
+            <a href="/front/search-shop.action?areaId=$hotShop.id" target="_blank">
+                <img src="$!goodShop.filePath" alt="" style="height: 175px;">
+            </a>
+            <div class="caption" style="background-color:#F5CF8A">
+                <span>$!{goodShop.shopType}  $!{goodShop.shop.squareMetres}平米</span><span class="shop-fright shop-color-red shop-font18">$!{goodShop.districtStr}</span>
+            </div>
+        </div>
+    #end
+</div>

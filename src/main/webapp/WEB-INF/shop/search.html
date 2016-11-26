@@ -22,82 +22,71 @@
         <!-- 商铺列表 -->
         <div class="row col-xs-12">
             <div class="panel panel-default">
-                <ul class="breadcrumb">
-                    <li><a>根据您的搜索条件,查询到$!{total}条结果</a></li>
-                </ul>
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-lg-9 panel panel-default" style="border-right: 5px solid red;">
-                            <div class="box">
-                                <div class="row">
+                <div class="panel-box">
+                    <div class="breadcrumb">
+                        <p class="shop-font-18 shop-color-gray">根据您的搜索条件,查询到$!{total}条结果</p>
+                    </div>
+                    <div class="row panel-box">
+                        <div class="col-lg-9 panel-body" style="border-right: 5px solid red;margin-top:-25px;">
+                            <div class="panel-body">
+                                <div class="row box">
                                     #foreach($shop in $shopList)
-                                    <div class="col-lg-3 panel panel-default">
-                                        <div class="panel-body">
-                                            <a href="/front/detail.action?id=$!shop.shop.id" target="_blank" class="thumbnail">
-                                                <img src="$!shop.filePath" alt="" style="height: 125px;">
-                                            </a>
-                                            #set($location = $!{shop.shop.location})
+                                    <div class="col-lg-3 thumbnail">
+                                        <a href="/front/detail.action?id=$!shop.shop.id" target="_blank">
+                                            <img src="$!shop.filePath" alt="" style="height: 125px;">
+                                        </a>
+                                        #set($location = $!{shop.shop.location})
 
-                                            #if($location.length()>10)
-                                            #set($location=$location.substring(0,9))
-                                            #end
-
-                                            <span>地址:$!{location}</span>
-                                            <span>分类:$!{shop.buildingOccupancy}</span>
-                                            <span>面积:$!{shop.shop.squareMetres}平米</span>
+                                        #if($location.length()>10)
+                                        #set($location=$location.substring(0,6))
+                                        #end
+                                        <div class="caption shop-list-title">
+                                            <p>地址:$!{location}</p>
+                                            <p>分类:$!{shop.buildingOccupancy}</p>
+                                            <p>面积:$!{shop.shop.squareMetres}平米</p>
                                         </div>
                                     </div>
                                     #end
                                 </div>
-                                <div class="box-footer clearfix">
-                                    <ul class="pagination pagination-sm no-margin pull-right">
-                                        <li><a href="#">«</a></li>
-                                        <li><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">»</a></li>
-                                    </ul>
-                                </div>
+                            </div>
+                            <div class="box-footer clearfix">
+                                <ul class="pagination pagination-sm no-margin pull-right">
+                                    <li><a href="#">«</a></li>
+                                    <li><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">»</a></li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="col-lg-3 panel panel-default">
-                            <div class="panel-heading"><h4><font color="red">精选好铺</font></h4></div>
-                            <div class="panel-body">
+                        <div class="col-lg-3 panel-box">
+                            <div class="panel-heading" style="background-color: white;marigin-top:-20px;"><h3><font color="red">精选好铺</font></h3></div>
+                            <div class="panel-body" style="margin-top:-25px;">
                                 #foreach($goodShop in $!goodShopList)
-                                <div class="panel panel-default">
-                                    <a href="/front/search-shop.action?areaId=$hotShop.id" target="_blank" class="thumbnail">
+                                <div class="thumbnail">
+                                    <a href="/front/search-shop.action?areaId=$hotShop.id" target="_blank">
                                         <img src="$!goodShop.filePath" alt="" style="height: 175px;">
                                     </a>
-                                    <span>$!{goodShop.shopType}  $!{goodShop.shop.squareMetres}平米</span><span class="shop-fright shop-color-red shop-font18">$!{goodShop.districtStr}</span>
+                                    <div class="caption" style="background-color:#F5CF8A">
+                                        <span>$!{goodShop.shopType}  $!{goodShop.shop.squareMetres}平米</span><span class="shop-fright shop-color-red shop-font18">$!{goodShop.districtStr}</span>
+                                    </div>
                                 </div>
                                 #end
                             </div>
                         </div>
                     </div>
-
                 </div>
 
+                #parse("\include\footer.vm")
             </div>
 
         </div>
         <!-- 商铺列表 -->
     </div>
-    <!-- START PANEL -->
-    <!-- END PANEL -->
-    <div class="container">
-        <div class="row col-xs-12" style="height: 200px;">
-            <img src="/static/ui/images/footer.png" style="height: 200px;width:100%;" />
-        </div>
-    </div>
+
 
 </div>
-<footer id="footer">
-    <hr>
-    <div class="shop-foot">
-        <p>上海北冀（集团）有限公司 地址:上海市宝山梅林路768号  邮编:201901 电话:02166150172</p>
-        <p>Cdfsdfdsfdasdfsfsafddddddddasfdfeaffaefaaaaaaaaaaaaaaaaaaaa</p>
-    </div>
-</footer>
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 &lt;!&ndash; Include all compiled plugins (below), or include individual files as needed &ndash;&gt;

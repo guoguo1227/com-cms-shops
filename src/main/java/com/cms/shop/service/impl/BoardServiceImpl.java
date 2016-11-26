@@ -1,11 +1,12 @@
 package com.cms.shop.service.impl;
 
+import com.cms.shop.dao.base.ext.BrdImgExtMapper;
 import com.cms.shop.dao.base.mapper.BoardMapper;
+import com.cms.shop.dao.base.mapper.BrdImgMapper;
 import com.cms.shop.enums.BoardTypeEnum;
 import com.cms.shop.enums.CheckStatusEnum;
-import com.cms.shop.model.base.Board;
-import com.cms.shop.model.base.BoardCriteria;
-import com.cms.shop.model.base.SysUser;
+import com.cms.shop.enums.ImageType;
+import com.cms.shop.model.base.*;
 import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.model.ext.BoardVo;
 import com.cms.shop.model.ext.RequestResult;
@@ -14,6 +15,7 @@ import com.cms.shop.service.SysUserService;
 import com.cms.shop.utils.BeanUtilExt;
 import com.cms.shop.utils.Page;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author : samuel
@@ -39,6 +42,12 @@ public class BoardServiceImpl implements BoardService{
     @Autowired
     private SysUserService sysUserService;
 
+    @Autowired
+    private BrdImgMapper brdImgMapper;
+
+    @Autowired
+    private BrdImgExtMapper brdImgExtMapper;
+
     @Override
     public Page<BoardVo> queryPageByCondition(SearchCondition condition) {
         Page<BoardVo> page = null;
@@ -48,10 +57,15 @@ public class BoardServiceImpl implements BoardService{
             page.setPageSize(condition.getLimit());
 
             BoardCriteria criteria = new BoardCriteria();
+            BoardCriteria.Criteria cri = criteria.createCriteria();
             criteria.setOrderByClause(" CREATE_DATE desc ");
             //id
             if(null != condition.getId()){
-                criteria.createCriteria().andBrdIdEqualTo(condition.getId());
+                cri.andBrdIdEqualTo(condition.getId());
+            }
+            //类型
+            if(null != condition.getType()){
+                cri.andBrdTypeEqualTo(condition.getType());
             }
             int count = boardMapper.countByExample(criteria);
 
@@ -159,7 +173,26 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public List<Board> queryOnList(BoardTypeEnum typeEnum) {
+    public List<Board> queryOnList(BoardTypeEnum typeEnum,SearchCondition condition) {
+        BoardCriteria criteria = new BoardCriteria();
+        criteria.createCriteria().andBrdTypeEqualTo(typeEnum.getKey()).andBrdStatusEqualTo(CheckStatusEnum.PASS.getKey());
+
+        criteria.setOrderByClause(" BRD_ID desc ");
+        criteria.setLimitStart(0);
+        criteria.setLimitEnd(6);
+        if (null != condition){
+            criteria.setLimitEnd(condition.getLimit());
+        }
+
+        List<Board> list = boardMapper.selectByExample(criteria);
+
+        return list;
+    }
+
+    @Override
+    public List<BoardVo> queryVoOnList(BoardTypeEnum typeEnum,SearchCondition condition) {
+
+        List<BoardVo> list = new ArrayList<>();
         BoardCriteria criteria = new BoardCriteria();
         criteria.createCriteria().andBrdTypeEqualTo(typeEnum.getKey()).andBrdStatusEqualTo(CheckStatusEnum.PASS.getKey());
 
@@ -167,8 +200,29 @@ public class BoardServiceImpl implements BoardService{
 
         criteria.setLimitStart(0);
         criteria.setLimitEnd(6);
-        List<Board> list = boardMapper.selectByExample(criteria);
+        if (null != condition){
+            criteria.setLimitEnd(condition.getLimit());
+        }
+        List<Board> boardList = boardMapper.selectByExample(criteria);
 
+        if(CollectionUtils.isNotEmpty(boardList)){
+            for(Board b : boardList){
+                BoardVo vo = new BoardVo();
+                try {
+                    BeanUtilExt.copyProperties(vo,b);
+
+                    String img = brdImgExtMapper.selectImgByBrdId(b.getBrdId());
+                    if(!StringUtils.isBlank(img)){
+                        vo.setImg(ImageType.BOARD.getImagePath()+img);
+                        list.add(vo);
+                    }
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         return list;
     }
 }

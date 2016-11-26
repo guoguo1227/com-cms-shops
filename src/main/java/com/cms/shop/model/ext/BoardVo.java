@@ -11,6 +11,16 @@ public class BoardVo extends Board{
 
     private String userName ; //用户名称
 
+    private String img;
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
     public String getUserName() {
         return userName;
     }

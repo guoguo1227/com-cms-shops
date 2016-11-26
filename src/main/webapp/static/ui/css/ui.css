@@ -40,11 +40,21 @@
     height: 100%;
 }
 .mr_zhe_p{
-    background: #6FBB0D;
+    background: rgba(111, 187, 13, 0.8);
 }
 .mr_zhe_p2{
-    background: #CC0000;
+    background: rgb(255, 0, 120);
 }
+.mr_zhe_p3{
+    background: rgb(255, 0, 120);
+}
+.mr_zhe_p4{
+    background: rgb(151, 239, 38);
+}
+.mr_zhe_p5{
+    background: rgba(255, 137, 0, 0.67);
+}
+
 
 /*
 .mr_zhe_i h1{text-align:center;font-size:182px;height:138px;line-height:138px;margin-top:72px;margin-bottom:64px;font-weight:bold;color:#fff;}

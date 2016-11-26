@@ -1,0 +1,50 @@
+<!-- 留言板 -->
+<div class="modal-body">
+    <form class="form-horizontal" name = "addCommentForm" novalidate>
+        <div class="box-body">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">企业/个人名称</label>
+                <div class="col-sm-8">
+                    <input type="text" name="company" ng-model="comment.company"  class="form-control" required>
+                    <!--<span style="color:red" ng-show="addCommentForm.company.$dirty && addCommentForm.company.$invalid">
+                                    <span ng-show="addCommentForm.company.$error.required">企业/个人名称是必须的。</span></span>-->
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">地址</label>
+                <div class="col-sm-8">
+                    <input type="text" name="name" ng-model="comment.address"  class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">联系电话/手机</label>
+                <div class="col-sm-8">
+                    <input type="text" name="name" ng-model="comment.phone"  class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">邮箱</label>
+                <div class="col-sm-8">
+                    <input type="text" name="email" ng-model="comment.email"  class="form-control">
+                    <!--<span style="color:red" ng-show="addCommentForm.email.$dirty && addCommentForm.email.$invalid">
+                                    <span ng-show="addCommentForm.email.$error.email">邮箱是必须的。</span></span>
+                                    <span class="col-sm-2" ng-show="addCommentForm.email.$error.email">邮箱是必须的。</span>-->
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">内容留言</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control" rows="3" placeholder="" ng-model="comment.content"></textarea>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default"
+                data-dismiss="modal">关闭
+        </button>
+        <button type="button" class="btn btn-default" ng-click="addComment()">
+            提交
+        </button>
+    </div>
+</div>

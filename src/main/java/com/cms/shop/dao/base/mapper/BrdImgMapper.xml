@@ -106,18 +106,17 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cms.shop.model.base.BrdImg" >
-    <selectKey resultType="java.lang.Integer" keyProperty="imgId" order="AFTER" >
-      SELECT @@IDENTITY
-    </selectKey>
-    insert into brd_img (file_Name, brd_Id)
-    values (#{fileName,jdbcType=VARCHAR}, #{brdId,jdbcType=INTEGER})
+    insert into brd_img (img_Id, file_Name, brd_Id
+      )
+    values (#{imgId,jdbcType=INTEGER}, #{fileName,jdbcType=VARCHAR}, #{brdId,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.cms.shop.model.base.BrdImg" >
-    <selectKey resultType="java.lang.Integer" keyProperty="imgId" order="AFTER" >
-      SELECT @@IDENTITY
-    </selectKey>
     insert into brd_img
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="imgId != null" >
+        img_Id,
+      </if>
       <if test="fileName != null" >
         file_Name,
       </if>
@@ -126,6 +125,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="imgId != null" >
+        #{imgId,jdbcType=INTEGER},
+      </if>
       <if test="fileName != null" >
         #{fileName,jdbcType=VARCHAR},
       </if>
