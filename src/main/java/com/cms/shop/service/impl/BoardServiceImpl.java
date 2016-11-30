@@ -82,6 +82,10 @@ public class BoardServiceImpl implements BoardService{
                             if(null != user){
                                 vo.setUserName(user.getInfoName());
                             }
+                            String img = brdImgExtMapper.selectImgByBrdId(board.getBrdId());
+                            if(!StringUtils.isBlank(img)){
+                                vo.setImg(ImageType.BOARD.getImagePath()+img);
+                            }
                             boardVoList.add(vo);
                         } catch (InvocationTargetException e) {
                             e.printStackTrace();

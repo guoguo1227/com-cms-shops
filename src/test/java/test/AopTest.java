@@ -1,4 +1,4 @@
-package mybatis;
+package test;
 
 import com.cms.shop.model.base.District;
 import com.cms.shop.service.DistrictService;

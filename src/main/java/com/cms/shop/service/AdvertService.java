@@ -5,6 +5,8 @@ import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.model.ext.RequestResult;
 import com.cms.shop.utils.Page;
 
+import java.util.List;
+
 /**
  * @author : samuel
  * @Description :广告服务接口
@@ -21,4 +23,6 @@ public interface AdvertService {
     RequestResult queryAdvertById(Integer id);
 
     RequestResult updateAdvert(Advert advert);
+
+    List<Advert> queryOnlineList(SearchCondition condition);
 }

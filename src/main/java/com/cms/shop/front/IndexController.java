@@ -56,6 +56,9 @@ public class IndexController extends BaseController{
     @Autowired
     private KeywordService keywordService;
 
+    @Autowired
+    private AdvertService advertService;
+
     /**
      * 首页
      * @return
@@ -69,18 +72,20 @@ public class IndexController extends BaseController{
         List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD);
         List<ShopVo> fireShopList = shopService.getOnList(ShopTypeEnum.FIRE);
 
-        SearchCondition brdCondition = new SearchCondition();
-        brdCondition.setLimit(6);
-        List<Board> newsBoardList = boardService.queryOnList(BoardTypeEnum.NOTICE,brdCondition);
-        List<Board> businessBoardList = boardService.queryOnList(BoardTypeEnum.SHOPABIT,brdCondition);
+        SearchCondition condition = new SearchCondition();
+        condition.setLimit(6);
+        List<Board> newsBoardList = boardService.queryOnList(BoardTypeEnum.NOTICE,condition);
+        List<Board> businessBoardList = boardService.queryOnList(BoardTypeEnum.SHOPABIT,condition);
 
-        SearchCondition brdImgCondition = new SearchCondition();
-        brdImgCondition.setLimit(3);
-        List<BoardVo> imgBoardList = boardService.queryVoOnList(BoardTypeEnum.POLICY, brdImgCondition);
+        condition.setLimit(3);
+        List<BoardVo> imgBoardList = boardService.queryVoOnList(BoardTypeEnum.POLICY, condition);
 
         List<Hotcategory> hotcategoryList = hotcategoryService.queryAll();
 
         List<District> districtList = districtService.queryAll();
+
+        condition.setLimit(3);
+        List<Advert> advertList = advertService.queryOnlineList(condition);
 
         Flash flash = flashService.queryFlash();
 
@@ -97,6 +102,7 @@ public class IndexController extends BaseController{
         modelMap.addAttribute("flash",flash);
         modelMap.addAttribute("keywordList",keywordList);
         modelMap.addAttribute("today",new Date());
+        modelMap.addAttribute("advertList",advertList); //广告
         return "index";
     }
 

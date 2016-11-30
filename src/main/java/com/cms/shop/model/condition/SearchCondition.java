@@ -39,7 +39,7 @@ public class SearchCondition extends BaseSearchCondition {
 
     private String floor ; //层数
 
-    private Integer type; //热门类型
+    private Integer type; //热门类型,广告类型
 
     public Integer getType() {
         return type;

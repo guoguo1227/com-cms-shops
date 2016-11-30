@@ -5,40 +5,44 @@
             #*<div class="col-xs-3 col-md-offset-1">
                 <a href="#" class="shop-top-title">北翼商铺网</a>
             </div>*#
-            <a href="#" class="shop-top-title shop-margin-left-10">北翼商铺网</a>
+            #*<a href="#" class="shop-top-title shop-margin-left-10">北翼商铺网</a>*#
+
         </div>
     </div>
     <!-- 导航栏 -->
     <div class="row" style="margin-top: -35px;margin-left:-30px;">
-        <div class="col-sm-10 col-md-offset-1 ">
+        <div class="col-sm-12">
             <nav class="navbar navbar-default open-hover shop-hide-border shop-margin-top15" role="navigation">
                 <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse navbar-ex1-collapse shop-nav">
-                    <ul class="nav navbar-nav">
+
+                <div class="collapse navbar-collapse navbar-ex1-collapse shop-nav shop-margin-top-15">
+                    <ul class="col-lg-12 nav navbar-nav shop-nav-ul">
+                        <div class="col-xs-2">
+                            <img src="/static/ui/images/shoplogo.png" style="margin-left:50px;height:80px;margin-top:-5px;">
+                        </div>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">地&nbsp;区 <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>地区 </span><b class="caret"></b></a>
+                            <ul class="dropdown-menu shop-son-ul">
                                 #foreach($discrict in $!districtList)
-                                    <li><a href="/front/search-shop.action?districtId=$!discrict.districtId" target="_blank">$!{discrict.districtName}</a></li>
+                                    <li><a href="/front/search-shop.action?districtId=$!discrict.districtId" target="_blank"><span>$!{discrict.districtName}</span></a></li>
                                 #end
                             </ul>
                         </li>
-                        <li><a href="#"><font color="red">主&nbsp;页</font></a></li>
-                        <li><a href="/front/search-shop.action?type=3" target="_blank">热&nbsp;招&nbsp;旺&nbsp;铺</a></li>
-                        <li><a href="/front/search-shop.action?type=2" target="_blank">精&nbsp;选&nbsp;好&nbsp;铺</a></li>
+                        <li><a href="/index.action"><span style="color:red;">主页</span></a></li>
+                        <li><a href="/front/search-shop.action?type=3" target="_blank"><span>热招旺铺</span></a></li>
+                        <li><a href="/front/search-shop.action?type=2" target="_blank"><span>精选好铺</span></a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">电&nbsp;子&nbsp;商&nbsp;务 <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">源味门</a></li>
-                                <li><a href="#">北冀国大</a></li>
-                                <li><a href="#">健康家园</a></li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>电子商务</span> <b class="caret"></b></a>
+                            <ul class="dropdown-menu shop-son-ul">
+                                <li><a href="#"><span>源味门</span></a></li>
+                                <li><a href="#"><span>北冀国大</span></a></li>
+                                <li><a href="#"><span>健康家园</span></a></li>
                             </ul>
                         </li>
-                        <li><a href="/front/boardList.action" target="_blank">北&nbsp;翼&nbsp;资&nbsp;讯</a></li>
-                        <li><a href="/front/manage.action" target="_blank">物&nbsp;&nbsp;管&nbsp;理</a></li>
-                        <li><a href="/front/aboutme.action" target="_blank">关&nbsp;于&nbsp;我&nbsp;们</a></li>
+                        <li><a href="/front/boardList.action" target="_blank"><span>北翼资讯</span></a></li>
+                        <li><a href="/front/manage.action" target="_blank"><span>物业管理</span></a></li>
+                        <li><a href="/front/aboutme.action" target="_blank"><span>关于我们</span></a></li>
                     </ul>
-                    <div><img src="/static/ui/images/shoplogo.png" style="margin-left:50px;height:80px;margin-top:-40px;"></div>
                 </div><!-- /.navbar-collapse -->
             </nav>
         </div>

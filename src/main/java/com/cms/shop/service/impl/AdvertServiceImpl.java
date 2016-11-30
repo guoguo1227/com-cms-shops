@@ -1,6 +1,9 @@
 package com.cms.shop.service.impl;
 
 import com.cms.shop.dao.base.mapper.AdvertMapper;
+import com.cms.shop.enums.CheckStatusEnum;
+import com.cms.shop.enums.ImageType;
+import com.cms.shop.enums.OnlineStatusEnum;
 import com.cms.shop.model.base.Advert;
 import com.cms.shop.model.base.AdvertCriteria;
 import com.cms.shop.model.condition.SearchCondition;
@@ -124,5 +127,27 @@ public class AdvertServiceImpl implements AdvertService{
         result.setMessage(message);
         result.setSuccess(success);
         return result;
+    }
+
+    @Override
+    public List<Advert> queryOnlineList(SearchCondition condition) {
+        AdvertCriteria criteria = new AdvertCriteria();
+        AdvertCriteria.Criteria cri = criteria.createCriteria();
+        cri.andAudStatusEqualTo(CheckStatusEnum.PASS.getKey()).andAdStatusEqualTo(OnlineStatusEnum.ONLINE.getKey());
+        //广告位置
+        if(null != condition.getType()){
+            cri.andAdLocEqualTo(condition.getType());
+        }
+
+        criteria.setLimitStart(condition.getOffset());
+        criteria.setLimitEnd(condition.getLimit());
+
+        List<Advert> list = advertMapper.selectByExample(criteria);
+        if(CollectionUtils.isNotEmpty(list)){
+            for(Advert ad : list){
+                ad.setNewPicName(ImageType.ADVERT.getImagePath()+ad.getNewPicName());
+            }
+        }
+        return list;
     }
 }

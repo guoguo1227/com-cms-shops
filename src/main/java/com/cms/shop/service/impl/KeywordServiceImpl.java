@@ -28,7 +28,7 @@ public class KeywordServiceImpl implements KeywordService{
         KeywordCriteria cri = new KeywordCriteria();
         cri.setOrderByClause(" count desc ");
         cri.setLimitStart(0);
-        cri.setLimitEnd(3);
+        cri.setLimitEnd(2);
         List<Keyword> list = keywordMapper.selectByExample(cri);
 
         return list;

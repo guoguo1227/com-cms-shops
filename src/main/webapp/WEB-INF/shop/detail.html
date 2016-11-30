@@ -31,7 +31,8 @@
                             #foreach($district in $!districtList)
                             <button class="btn btn-block btn-default disabled shop-font18" style="border-right: 5px solid red;">$!{district.districtName}</button>
                             #end
-                            <div class="row">
+
+                            <div class="row panel panel-default thumbnail" style="margin-bottom: 4px;">
                                 <div class="carousel-inner bor_btm">
                                     <div id="allmap"></div>
                                 </div>
@@ -40,24 +41,24 @@
                         <div class="col-lg-9 panel panel-default">
                             <div class="box">
                                 <div class="row box">
-                                    <center><h3>$!{shop.shop.shopName}</h3></center>
+                                    <center><h3><span id="shopName">$!{shop.shop.shopName}</span></h3></center>
                                 </div>
-                                <div class="row box">
+                                <div class="row box" style="border-top: 15px solid red;border-bottom: 15px solid red;">
                                     #foreach($shopImg in $!imgList)
                                       #if($!velocityCount <3)
-                                        <div class="col-xs-12 panel panel-default">
-                                          <img src="$!shopImg.newImgName" style="height: 250px;width: 100%;">
+                                        <div class="col-xs-6 thumbnail">
+                                          <img src="$!shopImg.newImgName" style="height: auto;width: 100%;">
                                         </div>
                                       #end
                                     #end
                                 </div>
-                                <div class="row box" style="border-top: 15px solid red;">
+                                <div class="row box">
                                         <div class="panel panel-default">
                                             <div class="panel-body">
                                                 <table class="table table-bordered shop-detail-tb">
                                                 <tbody>
                                                     <tr><td><span>所在地区:  $!{shop.districtStr}</span><td><span>保证金:  $!{shop.deposit}</span></td></tr>
-                                                    <tr><td><span>商铺地址:  $!{shop.shop.location}</span></td><td><span>租金:  $!{shop.priceSe}</span></td></tr>
+                                                    <tr><td><span id="shopLoc">商铺地址:  $!{shop.shop.location}</span></td><td><span>租金:  $!{shop.priceSe}</span></td></tr>
                                                     <tr><td><span>适宜业态:  $!{shop.buildingOccupancy}</span></td><td><span>招商电话:  $!{shop.shop.linkmanPhone}</span></td></tr>
                                                     <tr><td><span>所在楼层:  $!{shop.shop.floor}</span></td></tr>
                                                     <tr><td><span>发布日期:  $!date.format('yyyy-MM-dd HH:mm:ss ',$!shop.shop.createDate)</span></td></tr>
@@ -68,6 +69,9 @@
                                 </div>
                                 <div class="row box" style="border-top: 15px solid red;">
                                     <div class="col-xs-2 panel panel-default shop-border-none">
+                                        <input type="hidden" id="lng" value="$!{shop.shop.lng}"/>
+                                        <input type="hidden" id="lat" value="$!{shop.shop.lat}"/>
+                                        <input type="hidden" id="zoom" value="$!{shop.shop.zoom}"/>
                                         <span class="shop-font18">其他说明:</span>
                                     </div>
                                     <div class="col-xs-8 panel panel-default shop-border-none">
@@ -121,7 +125,6 @@
 
 <script src="/cms/common/shopIndex.js"></script>
 <script src="/cms/common/search.js"></script>
-
 <!--<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script src="/static/ui/js/gmaps.js"></script>
 <script src="/static/ui/js/main.js"></script>-->

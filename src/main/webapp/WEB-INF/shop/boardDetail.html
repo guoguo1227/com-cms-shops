@@ -36,6 +36,13 @@
                                             <div class="shop-panel-heading">
                                                 <center><h3>$!{board.brdTitle}</h3></center>
                                             </div>
+                                            #if($board.img)
+                                            <div class="panel-body">
+                                                <div class="panel-body thumbnail">
+                                                    <img src="$!board.img" style="height: 350px;width: 100%;">
+                                                </div>
+                                            </div>
+                                            #end
                                             <div class="panel-body">
                                                 <div>
                                                     <span>$!{board.brdContent}</span>
