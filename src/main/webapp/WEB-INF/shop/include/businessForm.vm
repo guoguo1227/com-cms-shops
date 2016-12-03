@@ -1,0 +1,25 @@
+<!-- 招商热线 -->
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                    aria-hidden="true">×
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+                招商热线
+            </h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" name = "businessForm" novalidate>
+                <div class="box-body">
+                    <div class="form-group">
+                        <div class="col-sm-8">
+                           <p><span>招商电话:02166150172</span></p>
+                           <p><span>地址:上海市宝山梅林路768号 </span></p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

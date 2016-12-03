@@ -19,29 +19,44 @@
                 #parse("\include\search.vm")
             </div>
         </div>
-        <div class="row col-xs-12">
+        <div class="row col-xs-12 shop-detail-table" style="margin-top:-48px;">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-lg-3 panel panel-default">
-                            #foreach($hotcat in $!hotcategoryList)
-                            <button class="btn btn-block btn-default disabled shop-font18" style="border-right: 5px solid red;">$!{hotcat.hotName}</button>
-                            #end
-                            <hr>
-                            #foreach($district in $!districtList)
-                            <button class="btn btn-block btn-default disabled shop-font18" style="border-right: 5px solid red;">$!{district.districtName}</button>
-                            #end
+                        <div class="col-lg-3 panel panel-default shop-border-none">
+                            <div>
+                                <ul class="nav navbar-nav shop-detail-btn">
+                                    #foreach($hotcat in $!hotcategoryList)
+                                    <li class="shop-margin-top-15" >
+                                        <a href="/front/search-shop.action?hotId=$!hotcat.hotId" target="_blank">
+                                            $!{hotcat.hotName}
+                                        </a>
+                                    </li>
+                                    #end
+                                    <li style="border: none;">
+                                        <hr style="border-bottom: 3px solid #eee;">
+                                    </li>
+                                    #foreach($district in $!districtList)
+                                    <li class="shop-margin-top-15">
+                                        <a href="/front/search-shop.action?districtId=$!district.districtId" target="_blank">
+                                            $!{district.districtName}
+                                        </a>
+                                    </li>
+                                    #end
+                                    <li style="border:none;height: 50px;"></li>
+                                </ul>
+                            </div>
 
-                            <div class="row panel panel-default thumbnail" style="margin-bottom: 4px;">
-                                <div class="carousel-inner bor_btm">
+                            <div class="row panel panel-default thumbnail shop-border-none shop-margin-top-20" style="margin-bottom: 4px;">
+                                <div class="carousel-inner bor_btm" style="border:1px solid #9f9f9f">
                                     <div id="allmap"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-9 panel panel-default">
-                            <div class="box">
-                                <div class="row box">
-                                    <center><h3><span id="shopName">$!{shop.shop.shopName}</span></h3></center>
+                        <div class="col-lg-9 panel panel-default shop-border-none">
+                            <div class="box ">
+                                <div class="row box" style="height: 85px;text-align: center;">
+                                    <p id="shopName" class="shop-detail-title">$!{shop.shop.shopName}</p>
                                 </div>
                                 <div class="row box" style="border-top: 15px solid red;border-bottom: 15px solid red;">
                                     #foreach($shopImg in $!imgList)
@@ -52,27 +67,27 @@
                                       #end
                                     #end
                                 </div>
-                                <div class="row box">
-                                        <div class="panel panel-default">
-                                            <div class="panel-body">
-                                                <table class="table table-bordered shop-detail-tb">
+                                <div class="row box ">
+                                        <div class="panel panel-default shop-border-none">
+                                            <div class="panel-body ">
+                                                <table class="table table-bordered shop-detail-tb shop-border-none">
                                                 <tbody>
-                                                    <tr><td><span>所在地区:  $!{shop.districtStr}</span><td><span>保证金:  $!{shop.deposit}</span></td></tr>
-                                                    <tr><td><span id="shopLoc">商铺地址:  $!{shop.shop.location}</span></td><td><span>租金:  $!{shop.priceSe}</span></td></tr>
-                                                    <tr><td><span>适宜业态:  $!{shop.buildingOccupancy}</span></td><td><span>招商电话:  $!{shop.shop.linkmanPhone}</span></td></tr>
-                                                    <tr><td><span>所在楼层:  $!{shop.shop.floor}</span></td></tr>
-                                                    <tr><td><span>发布日期:  $!date.format('yyyy-MM-dd HH:mm:ss ',$!shop.shop.createDate)</span></td></tr>
+                                                    <tr><td><span style="font-size: 22px;">所在地区:</span><span> $!{shop.districtStr}</span><td><span style="font-size: 22px;">保证金: </span><span> $!{shop.deposit}</span></td></tr>
+                                                    <tr><td><span id="shopLoc" style="font-size: 24px;">商铺地址:</span><span>  $!{shop.shop.location}</span></td><td><span style="font-size: 22px;">租金:</span><span>  $!{shop.priceSe}</span></td></tr>
+                                                    <tr><td><span style="font-size: 22px;">适宜业态:</span><span>  $!{shop.buildingOccupancy}</span></td><td><span style="font-size: 22px;">招商电话:</span><span>  $!{shop.shop.linkmanPhone}</span></td></tr>
+                                                    <tr><td><span style="font-size: 22px;">所在楼层:</span><span>  $!{shop.shop.floor}</span></td></tr>
+                                                    <tr><td><span style="font-size: 22px;">发布日期:</span><span> $!date.format('yyyy-MM-dd HH:mm:ss ',$!shop.shop.createDate)</span></td></tr>
                                                 </tbody>
                                                 </table>
                                             </div>
                                         </div>
                                 </div>
-                                <div class="row box" style="border-top: 15px solid red;">
+                                <div class="row box" style="border-top: 15px solid red;min-height: 100px;">
                                     <div class="col-xs-2 panel panel-default shop-border-none">
                                         <input type="hidden" id="lng" value="$!{shop.shop.lng}"/>
                                         <input type="hidden" id="lat" value="$!{shop.shop.lat}"/>
                                         <input type="hidden" id="zoom" value="$!{shop.shop.zoom}"/>
-                                        <span class="shop-font18">其他说明:</span>
+                                        <span class="shop-font22 shop-border-none" >其他说明:</span>
                                     </div>
                                     <div class="col-xs-8 panel panel-default shop-border-none">
                                         <span><h4>$!{shop.shop.description}</h4></span>
@@ -80,8 +95,8 @@
 
                                 </div>
                                 <div class="row box" style="border-top: 5px solid red;">
-                                    <div class="panel panel-default">
-                                        <div class="panel-box">
+                                    <div class="panel panel-default shop-border-none">
+                                        <div class="panel-box shop-border-none">
                                             #parse("\include\commet.vm")
                                         </div>
 

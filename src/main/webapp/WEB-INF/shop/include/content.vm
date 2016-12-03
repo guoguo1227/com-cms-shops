@@ -50,17 +50,23 @@
 
                 <div class="col-lg-4 panel panel-default shop-margin-left-10" style="height:330px;width: 32%;">
                     <div class="panel-body">
-                        <div class="shop-panel-heading" style="background-color: white;"><span class="shop-font-news">北冀要闻</span></div>
+                        <div class="shop-panel-heading" style="background-color: white;line-height: 2"><span class="shop-font-news shop-margin-bottom-5">北冀要闻</span></div>
                         <div class="col-lg-4 shop-margin-top-30" style="height:25px;">
-                            <a class="shop-font-time" href="#" style="margin-left: -4px;">$!date.format('MM月dd日',$!today)</a>
+                            <a class="shop-font-time" href="#" style="margin-left: 2px;">$!date.format('MM月dd日',$!today)</a>
                         </div>
-                        <div class="col-lg-8 shop-margin-top-15" style="height:40px;background-size:100% 100%;background-image: url('/static/ui/images/more1.png')" >
+                        <div class="col-lg-8 shop-margin-top-15" style="height:40px;margin-left:-17px;width:71%;background-size:100% 100%;background-image: url('/static/ui/images/more1.png')" >
                             <a href="/front/boardList.action?type=1" target="_blank" class="shop-margin-top-10 shop-fright"><font color="white">more</font></a>
                         </div>
-                        <div class="row col-lg-12 shop-margin-top-5">
-                            <ul class="shop-news">
+                        <div class="row col-lg-12 shop-margin-top-10" style="width:115%;">
+                            <ul class="shop-news shop-margin-top-10">
                                 #foreach($news in $!newsBoardList)
-                                    <li class="shop-margin-bottom-2"><a class="shop-color-gray" href="/front/boardDetail.action?id=$news.brdId" target="_blank">${news.brdTitle}</a></li>
+                                    #set($brdTitle=$news.brdTitle)
+
+                                    #if($!brdTitle.length()>18)
+                                        #set($brdTitle=$brdTitle.substring(0,17))
+                                    #end
+
+                                    <li class="shop-margin-bottom-10"><a href="/front/boardDetail.action?id=$news.brdId" target="_blank">$!{brdTitle}</a></li>
                                 #end
                             </ul>
                         </div>
@@ -69,17 +75,22 @@
                 <div class="col-lg-4 panel panel-default shop-margin-left-10" style="height:330px;width: 32%;">
                     <!-- <div class="panel-heading">广告位3</div> -->
                     <div class="panel-body panel-default">
-                        <div class="shop-panel-heading" style="background-color: white;"><span class="shop-font-news">最新动态</span></div>
+                        <div class="shop-panel-heading" style="background-color: white;line-height: 2"><span class="shop-font-news">最新动态</span></div>
                             <div class="col-lg-4 shop-margin-top-30" style="height:25px;">
-                                <a class="shop-font-time" href="#" style="margin-left: -4px;">$!date.format('MM月dd日',$!today)</a>
+                                <a class="shop-font-time" href="#" style="margin-left: 2px;">$!date.format('MM月dd日',$!today)</a>
                             </div>
-                            <div class="col-lg-8 shop-margin-top-15" style="height:40px;background-size:100% 100%;background-image: url('/static/ui/images/more1.png')" >
+                            <div class="col-lg-8 shop-margin-top-15" style="height:40px;margin-left:-17px;width:71%;background-size:100% 100%;background-image: url('/static/ui/images/more1.png')" >
                                 <a href="/front/boardList.action?type=2" target="_blank" class="shop-margin-top-10 shop-fright"><font color="white">more</font></a>
                             </div>
-                            <div class="row col-lg-12 shop-margin-top-5">
-                                <ul class="shop-news">
+                            <div class="row col-lg-12 shop-margin-top-5" style="width:115%;">
+                                <ul class="shop-news shop-margin-top-10">
                                     #foreach($business in $!businessBoardList)
-                                        <li class="shop-margin-bottom-2 "><a class="shop-color-gray" href="/front/boardDetail.action?id=$business.brdId" target="_blank">$!{business.brdTitle}</a></li>
+                                        #set($brdTitle=$business.brdTitle)
+
+                                        #if($!brdTitle.length()>18)
+                                            #set($brdTitle=$brdTitle.substring(0,17))
+                                        #end
+                                        <li class="shop-margin-bottom-10"><a class="shop-color-gray" href="/front/boardDetail.action?id=$business.brdId" target="_blank">$!{brdTitle}</a></li>
                                     #end
                                 </ul>
                             </div>
@@ -164,13 +175,27 @@
                 <center class="shop-model-content">优先掌握 · 抢占先机</center>
                 <span class="shop-fright"><a class="shop-model-content shop-margin-right-5" href="/front/search-shop.action?type=2" target="_blank">更多商铺</a></span>
                 <br>
-                <div class="row">
+                <div class="row col-lg-12" style="width:106%;">
                     #foreach($goodShop in $!goodShopList)
-                        <div class="col-lg-4 thumbnail shop-margin-left-10" style="width:32%">
-                            <a href="/front/detail.action?id=$!goodShop.shop.id" target="_blank" class="thumbnail">
+                        <div class="col-lg-4 thumbnail shop-margin-left-2 shop-border-none shop-good-list" style="width:32%;">
+                            <a href="/front/detail.action?id=$!goodShop.shop.id" target="_blank" class="thumbnail shop-margin-bottom-10 shop-border-none">
                                 <img src="$!goodShop.filePath" alt="">
                             </a>
-                            <span class="shop-goods-black">$!{goodShop.shopType}  $!{goodShop.shop.squareMetres}平米</span><span class="shop-fright shop-goods-red">$!{goodShop.districtStr}</span>
+                            <span>
+                                <span class="shop-goods-black">$!{goodShop.shopType} &nbsp;&nbsp; $!{goodShop.shop.squareMetres}平米</span><span class="shop-fright shop-goods-red">$!{goodShop.districtStr}</span>
+                            </span>
+
+                            #set($distribe = $!goodShop.shop.description)
+
+                            <p style="font-size: 18px;">
+                                <span>$!{goodShop.shop.shopName}</span>
+                               #* #if($!distribe.length()>26)
+                                    #set($distribe=$distribe.substring(0,25))
+                                    <span>$!{distribe}</span>
+                                #end*#
+                            </p>
+                            <a href="/front/detail.action?id=$!goodShop.shop.id" target="_blank" class="now">&nbsp;</a>
+
                         </div>
                     #end
                 </div>

@@ -2,7 +2,7 @@
 <div class="panel-body" style="margin-top:-25px;">
     #foreach($goodShop in $!goodShopList)
         <div class="thumbnail">
-            <a href="/front/detail.action?id=$goodShop.id" target="_blank">
+            <a href="/front/detail.action?id=$goodShop.shop.id" target="_blank">
                 <img src="$!goodShop.filePath" alt="" style="height: 175px;">
             </a>
             <div class="caption" style="background-color:#F5CF8A">
