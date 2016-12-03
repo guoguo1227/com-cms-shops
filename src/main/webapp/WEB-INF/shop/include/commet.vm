@@ -5,7 +5,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">企业/个人名称</label>
                 <div class="col-sm-8">
-                    <input type="text" name="company" ng-model="comment.company"  class="form-control" required>
+                    <input type="text" name="askerName" ng-model="comment.askerName"  class="form-control" required>
                     <!--<span style="color:red" ng-show="addCommentForm.company.$dirty && addCommentForm.company.$invalid">
                                     <span ng-show="addCommentForm.company.$error.required">企业/个人名称是必须的。</span></span>-->
                 </div>
@@ -13,19 +13,19 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">地址</label>
                 <div class="col-sm-8">
-                    <input type="text" name="name" ng-model="comment.address"  class="form-control">
+                    <input type="text" name="askerLoc" ng-model="comment.askerLoc"  class="form-control">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">联系电话/手机</label>
                 <div class="col-sm-8">
-                    <input type="text" name="name" ng-model="comment.phone"  class="form-control">
+                    <input type="text" name="askerPhone" ng-model="comment.askerPhone"  class="form-control">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">邮箱</label>
                 <div class="col-sm-8">
-                    <input type="text" name="email" ng-model="comment.email"  class="form-control">
+                    <input type="text" name="askerMail" ng-model="comment.askerMail"  class="form-control">
                     <!--<span style="color:red" ng-show="addCommentForm.email.$dirty && addCommentForm.email.$invalid">
                                     <span ng-show="addCommentForm.email.$error.email">邮箱是必须的。</span></span>
                                     <span class="col-sm-2" ng-show="addCommentForm.email.$error.email">邮箱是必须的。</span>-->
@@ -47,3 +47,4 @@
         </button>
     </div>
 </div>
+<script src="/static/plugins/toastr/toastr2.js"></script>

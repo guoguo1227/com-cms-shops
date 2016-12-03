@@ -83,4 +83,13 @@ public class DistrictServiceImpl implements DistrictService {
         }
         return success;
     }
+
+    @Override
+    public District queryDistrictById(Integer id) {
+        District district = null;
+        if(null != id){
+            district = districtMapper.selectByPrimaryKey(id);
+        }
+        return district;
+    }
 }

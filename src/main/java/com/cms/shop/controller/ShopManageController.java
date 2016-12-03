@@ -2,6 +2,7 @@ package com.cms.shop.controller;
 
 import com.cms.shop.model.base.*;
 import com.cms.shop.model.condition.SearchCondition;
+import com.cms.shop.model.ext.QaVo;
 import com.cms.shop.model.ext.RequestResult;
 import com.cms.shop.model.ext.StreetVo;
 import com.cms.shop.service.*;
@@ -59,6 +60,9 @@ public class ShopManageController extends BaseController{
 
     @Autowired
     private FlashService flashService;
+
+    @Autowired
+    private QAService qaService;
 
     @RequestMapping("architPage")
     @ResponseBody
@@ -386,6 +390,27 @@ public class ShopManageController extends BaseController{
         result.setSuccess(false);
         if(null != condition){
             Page<Flash> page =  flashService.queryListByCondition(condition);
+            if(null != page && CollectionUtils.isNotEmpty(page.getPageData())){
+                result.setSuccess(true);
+                result.setData(page);
+            }
+        }
+        return gson.toJson(result);
+    }
+
+    /**
+     * 获取留言列表
+     * @param condition
+     * @return
+     */
+    @RequestMapping("qaPage")
+    @ResponseBody
+    public String queryQaPage(SearchCondition condition){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != condition){
+            Page<QaVo> page =  qaService.queryQAPageByCondition(condition);
             if(null != page && CollectionUtils.isNotEmpty(page.getPageData())){
                 result.setSuccess(true);
                 result.setData(page);

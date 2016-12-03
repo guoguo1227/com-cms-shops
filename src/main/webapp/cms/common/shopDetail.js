@@ -21,6 +21,12 @@ function shopDetailAppCtrl($scope,$http,angularMeta){
                 }
             });
     }
+    //搜索
+    $scope.searchLoad = function(){
+        $scope.searchContent = $("input#searchContent").val();
+        window.location.href=encodeURI("/front/search-shop.action?searchContent="+$scope.searchContent);
+    }
+
 
     $scope.createMap = function(){
 

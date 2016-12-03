@@ -2,7 +2,7 @@
 <nav class="navbar navbar-default open-hover shop-border-none " role="navigation">
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
-        <form class="navbar-form navbar-left" role="search" ng-app="searchApp" ng-controller="searchCtrl">
+        <form class="navbar-form navbar-left" role="search">
             <div class="form-group">
                 <input type="text" style="width: 618px;margin-left:-30px;" class="form-control shop-font" id="searchContent" placeholder="请输入关键字" value="$!{searchContent}">
                 <button type="button" style="margin-left:-4px;width:100px;border-radius:3px;background-color: #dd2418" class="btn btn-danger btn-flat" ng-click="searchLoad()">搜索</button>

@@ -4,7 +4,7 @@
 <html lang="en">
 <body>
 
-<div class="content">
+<div class="content" ng-app="myApp" ng-controller="myCtrl" ng-init="init()">
     #parse("\include\navigation.vm")
     <div class="container">
         <div class="row col-xs-12" style="height: 200px;">
@@ -76,7 +76,9 @@
 <script src="/cms/common/angular-constants.js"></script>
 
 <script src="/cms/common/shopIndex.js"></script>
+<!--
 <script src="/cms/common/search.js"></script>
+-->
 
 
 <script type="text/javascript" src="/static/ui/js/projectCarousel.js"></script>

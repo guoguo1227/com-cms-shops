@@ -16,7 +16,7 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService){
         $scope.searchLoad();
     }
     $scope.searchLoad = function(){
-        $http.post("/shop/page.json",$scope.search,angularMeta.postCfg)
+        $http.post("/shopmanage/qaPage.json",$scope.search,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
                     $scope.pagesNumber = data.data.totalPage;
@@ -39,16 +39,20 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService){
             }
         };
 
-        var headerArray = ['商铺名称','所属地区','所在楼层','租赁面积','装修情况','发布日期','发布人','基本操作'];
-        lgDataTableService.setWidth($scope.tableData, undefined, [4,8],true);
+        var headerArray = ['商铺名称','所属地区','留言人','留言日期','留言内容','留言人手机','留言人邮箱','留言人地址','操作'];
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
-        pageData = $scope.formatUserPageData(pageData);
 
+        lgDataTableService.config($scope.tableData,{
+            noscroll : true,
+            nowrap : false,
+            noexpand:[],
+            width:{shopName:'10%',distruct:'30px','qa.content':'40%'}
+
+        });
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="查看" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">查看</a>'+
-                '<a title="置顶" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.delete($row)">置顶</a>';
+            pg.action =  '<a title="查看" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">审核</a>';
             return pg;
-        }), ['shop.shopName','districtStr','shop.floor','shopSquareStr','buildingFinishing','shop.onsellDate','shop.publisher','action']);
+        }), ['shopName','distruct','qa.askerName','qa.createDate','qa.content','qa.askerPhone','qa.askerMail','qa.askerLoc','action']);
     };
 
     //切换页面
