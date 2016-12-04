@@ -29,11 +29,12 @@ public class HotcategoryServiceImpl implements HotcategoryService{
     public Page<Hotcategory> queryPageByCondition(SearchCondition condition) {
         Page<Hotcategory> page = null;
         if(null != condition){
-            page = new Page();
+            page = new Page<>();
             page.setPageSize(condition.getLimit());
 
             HotcategoryCriteria criteria = new HotcategoryCriteria();
             int count = hotcategoryMapper.countByExample(criteria);
+            criteria.setOrderByClause(" hot_Id desc ");
             if(count>0){
                 criteria.setLimitStart(condition.getOffset());
                 criteria.setLimitEnd(condition.getLimit());
@@ -59,6 +60,18 @@ public class HotcategoryServiceImpl implements HotcategoryService{
         boolean success = false;
         if(null != id){
             int i = hotcategoryMapper.deleteByPrimaryKey(id);
+            if(i>0){
+                success = true;
+            }
+        }
+        return success;
+    }
+
+    @Override
+    public boolean addHotcate(Hotcategory hotcategory) {
+        boolean success = true;
+        if(null != hotcategory){
+            int i = hotcategoryMapper.insertSelective(hotcategory);
             if(i>0){
                 success = true;
             }

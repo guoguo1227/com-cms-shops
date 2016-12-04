@@ -31,6 +31,7 @@ public class BuildingFacilityServiceImpl implements BuildingFacilityService{
             page.setPageSize(condition.getLimit());
 
             BuildingFacilityCriteria criteria = new BuildingFacilityCriteria();
+            criteria.setOrderByClause(" FACIL_ID desc ");
             int count = buildingFacilityMapper.countByExample(criteria);
             if(count>0){
                 criteria.setLimitStart(condition.getOffset());
@@ -56,6 +57,18 @@ public class BuildingFacilityServiceImpl implements BuildingFacilityService{
         boolean success = false;
         if(null != id){
             int i = buildingFacilityMapper.deleteByPrimaryKey(id);
+            if(i>0){
+                success = true;
+            }
+        }
+        return success;
+    }
+
+    @Override
+    public boolean addBuildingFacility(BuildingFacility buildingFacility) {
+        boolean success = false;
+        if(null != buildingFacility){
+            int i = buildingFacilityMapper.insertSelective(buildingFacility);
             if(i>0){
                 success = true;
             }

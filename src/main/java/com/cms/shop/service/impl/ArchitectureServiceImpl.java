@@ -32,6 +32,7 @@ public class ArchitectureServiceImpl implements ArchitectureService{
 
             ArchitectureCriteria criteria = new ArchitectureCriteria();
             //排序
+            criteria.setOrderByClause(" ARCHI_ID desc ");
             int count = architectureMapper.countByExample(criteria);
             if(count>0){
                 criteria.setLimitStart(condition.getOffset());
@@ -57,6 +58,18 @@ public class ArchitectureServiceImpl implements ArchitectureService{
         boolean success = false;
         if(null != id){
             int i = architectureMapper.deleteByPrimaryKey(id);
+            if(i>0){
+                success = true;
+            }
+        }
+        return success;
+    }
+
+    @Override
+    public boolean addArchitecture(Architecture architecture) {
+        boolean success = false;
+        if(null != architecture){
+            int i = architectureMapper.insertSelective(architecture);
             if(i>0){
                 success = true;
             }

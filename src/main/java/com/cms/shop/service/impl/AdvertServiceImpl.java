@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,10 +37,18 @@ public class AdvertServiceImpl implements AdvertService{
     public Page<Advert> queryAdvertPageByCondition(SearchCondition condition) {
         Page<Advert> page = null;
         if(null != condition){
-            page = new Page();
+            page = new Page<>();
             page.setPageSize(condition.getLimit());
 
             AdvertCriteria criteria = new AdvertCriteria();
+            AdvertCriteria.Criteria cri = criteria.createCriteria();
+            if(null != condition.getStatus()){
+                cri.andAdStatusEqualTo(condition.getStatus());
+            }
+            //广告位置
+            if(null != condition.getType()){
+                cri.andAdLocEqualTo(condition.getType());
+            }
             int count = advertMapper.countByExample(criteria);
             criteria.setOrderByClause(" CREATE_DATE desc ");
             if(count>0){
@@ -47,6 +56,14 @@ public class AdvertServiceImpl implements AdvertService{
                 criteria.setLimitEnd(condition.getLimit());
                 List<Advert> advertList = advertMapper.selectByExample(criteria);
                 if(CollectionUtils.isNotEmpty(advertList)){
+                    for(Advert ad : advertList){
+                        if(ad.getNewPicName().contains(ImageType.ADVERT.getImagePath())){
+
+                        }else{
+                            ad.setNewPicName(ImageType.ADVERT.getImagePath()+ad.getNewPicName());
+
+                        }
+                    }
                     page.setPageData(advertList);
                 }
             }
@@ -61,6 +78,7 @@ public class AdvertServiceImpl implements AdvertService{
         boolean success = false;
         String message = "";
         if(null != advert){
+            advert.setCreateDate(new Date());
             int i = advertMapper.insertSelective(advert);
             if(i>0){
                 success = true;
@@ -145,7 +163,11 @@ public class AdvertServiceImpl implements AdvertService{
         List<Advert> list = advertMapper.selectByExample(criteria);
         if(CollectionUtils.isNotEmpty(list)){
             for(Advert ad : list){
-                ad.setNewPicName(ImageType.ADVERT.getImagePath()+ad.getNewPicName());
+                if(ad.getNewPicName().contains(ImageType.ADVERT.getImagePath())){
+
+                }else{
+                    ad.setNewPicName(ImageType.ADVERT.getImagePath()+ad.getNewPicName());
+                }
             }
         }
         return list;

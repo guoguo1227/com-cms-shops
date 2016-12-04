@@ -31,6 +31,7 @@ public class BuildingOccupancyServiceImpl implements BuildingOccupancyService {
 
             BuildingOccupancyCriteria criteria = new BuildingOccupancyCriteria();
             //排序
+            criteria.setOrderByClause(" OCPY_ID desc ");
             int count = buildingOccupancyMapper.countByExample(criteria);
             if(count>0){
                 criteria.setLimitStart(condition.getOffset());
@@ -50,6 +51,18 @@ public class BuildingOccupancyServiceImpl implements BuildingOccupancyService {
         boolean success = false;
         if(null != id){
             int i = buildingOccupancyMapper.deleteByPrimaryKey(id);
+            if(i>0){
+                success = true;
+            }
+        }
+        return success;
+    }
+
+    @Override
+    public boolean addOccupancy(BuildingOccupancy buildingOccupancy) {
+        boolean success = false;
+        if(null != buildingOccupancy){
+            int i = buildingOccupancyMapper.insertSelective(buildingOccupancy);
             if(i>0){
                 success = true;
             }

@@ -43,7 +43,11 @@ public class ShopImgServiceIMpl implements ShopImgService{
             list= shopImgMapper.selectByExample(criteria);
             if(CollectionUtils.isNotEmpty(list)){
                 for(ShopImg img:list){
-                    img.setNewImgName(ImageType.SHOPPIC.getImagePath()+img.getNewImgName());
+                    if(img.getNewImgName().contains(ImageType.SHOPPIC.getImagePath())){
+
+                    }else{
+                        img.setNewImgName(ImageType.SHOPPIC.getImagePath()+img.getNewImgName());
+                    }
                 }
             }
         }

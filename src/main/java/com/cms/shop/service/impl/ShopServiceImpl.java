@@ -118,6 +118,18 @@ public class ShopServiceImpl implements ShopService {
             if(null != condition.getType()){
                 cri.andTypeEqualTo(condition.getType());
             }
+            //装修情况
+            if(null != condition.getFinishingId()){
+                cri.andFinishingIdEqualTo(condition.getFinishingId());
+            }
+            //适宜业态
+            if(null != condition.getOcpyId()){
+                cri.andOcpyIdEqualTo(condition.getOcpyId());
+            }
+            //物业性质
+            if(null != condition.getTypeId()){
+                cri.andTypeEqualTo(condition.getType());
+            }
             //排序
             criteria.setOrderByClause(" ID desc ");
             int count = shopMapper.countByExample(criteria);

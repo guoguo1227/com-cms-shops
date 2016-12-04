@@ -6,6 +6,7 @@ import com.cms.shop.model.ext.RequestResult;
 import com.cms.shop.service.AdvertService;
 import com.cms.shop.utils.Page;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,4 +79,25 @@ public class AdvertController extends BaseController{
         }
         return gson.toJson(result);
     }
+
+    /**
+     * 添加广告
+     * @param advert
+     * @return
+     */
+    @RequestMapping("add")
+    @ResponseBody
+    public String addAd(Advert advert){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != advert && null != advert.getAdLoc() && !StringUtils.isBlank(advert.getNewPicName())){
+            advert.setCreater(getUserName());
+            result = advertService.addAdvert(advert);
+        }else{
+            result.setMessage("广告位置和广告图片不可为空!");
+        }
+        return gson.toJson(result);
+    }
 }
+

@@ -18,4 +18,6 @@ public interface BuildingFacilityService {
     List<BuildingFacility> queryAll();
 
     boolean deleteById(Integer id);
+
+    boolean addBuildingFacility(BuildingFacility buildingFacility);
 }

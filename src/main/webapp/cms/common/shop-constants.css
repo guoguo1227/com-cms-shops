@@ -176,14 +176,14 @@
 .shop-goods-black{
     text-align: left;
     line-height: 37px;
-    margin-left: 22px;
+    margin-left: -92px;
     font-family: 黑体;
     font-size: 16px;
     color: #000;
 }
 .shop-font{
     font-family: 黑体;
-    font-size: 22px;
+    font-size: 20px;
     color: #676767;
     letter-spacing: 3px;
 }
@@ -239,12 +239,28 @@
 }
 .shop-font18{
     font-size: 18px;
+    font-family: 黑体;
+    font-size: 18px;
+    color: #9f9f9f;
 }
 .shop-font24{
     font-size: 24px;
 }
 .shop-font22{
-    font-size: 22px;
+    font-size: 20px;
+}
+.shop-hot-title{
+    font-family: 黑体;
+    font-size: 20px;
+    letter-spacing: 3px;
+    color: white;
+}
+.shop-hot-area{
+    font-family: 黑体;
+    font-size: 30px;
+    color: white;
+    font-style: italic;
+    margin-top:-10px;
 }
 .shop-nav ul li a{
     font-size: 16px;
@@ -254,7 +270,7 @@
 }
 .shop-nav-ul span{
     font-family: 黑体;
-    font-size: 22px;
+    font-size: 18px;
     color: #9f9f9f;
     letter-spacing: 1px;
 }

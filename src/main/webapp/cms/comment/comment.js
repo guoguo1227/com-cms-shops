@@ -15,7 +15,10 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService){
         $scope.commentFlagObj = {showDetail:false};
         $scope.searchLoad();
     }
-    $scope.searchLoad = function(){
+    $scope.searchLoad = function(page){
+        if(page){
+            $scope.search.currentPage = page ;
+        }
         $http.post("/shopmanage/qaPage.json",$scope.search,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
@@ -32,10 +35,16 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService){
     //初始化表格数据
     $scope.initTableData = function(pageData){
         $scope.tableData = {
-            //查看详情
-            openDetail : function(row){
-                $scope.commentObj = row;
-                $scope.commentFlagObj.showDetail = true;
+            check : function(row){
+                $http.post("/shopmanage/qa-check.json",{id:row.qa.qaId},angularMeta.postCfg)
+                    .success(function(data){
+                        if(data.success){
+                            $scope.searchLoad();
+                            toastr.info("操作成功!");
+                        }else{
+                            toastr.error(data.message);
+                        }
+                    });
             }
         };
 
@@ -50,7 +59,7 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService){
 
         });
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="查看" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">审核</a>';
+            pg.action =  '<a title="审核"  ng-if="$row.qa.auditStatus == 0" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.check($row)">审核</a>';
             return pg;
         }), ['shopName','distruct','qa.askerName','qa.createDate','qa.content','qa.askerPhone','qa.askerMail','qa.askerLoc','action']);
     };

@@ -18,4 +18,6 @@ public interface ArchitectureService {
     List<Architecture> queryAll();
 
     boolean deleteById(Integer id);
+
+    boolean addArchitecture(Architecture architecture);
 }

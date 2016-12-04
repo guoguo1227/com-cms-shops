@@ -12,7 +12,7 @@ function supportCtrl($scope,$http,angularMeta,lgDataTableService){
 
     $scope.ready = function(){
         $scope.search = {limit:15, currentPage:0,searchContent:''};
-        $scope.commentFlagObj = {showDetail:false};
+        $scope.supportFlagObj = {showDetail:false};
         $scope.searchLoad();
     }
     $scope.searchLoad = function(){
@@ -32,10 +32,9 @@ function supportCtrl($scope,$http,angularMeta,lgDataTableService){
     //初始化表格数据
     $scope.initTableData = function(pageData){
         $scope.tableData = {
-            //查看详情
-            openDetail : function(row){
-                $scope.commentObj = row;
-                $scope.commentFlagObj.showDetail = true;
+            delete : function(row){
+                $scope.supportFlagObj.deleteOpen = true;
+                $scope.deleteInfo = {id:row.typeId};
             }
         };
 
@@ -44,7 +43,7 @@ function supportCtrl($scope,$http,angularMeta,lgDataTableService){
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="删除" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">删除</a>';
+            pg.action =  '<a title="删除" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>';
             return pg;
         }), ['facilName','action']);
     };
@@ -58,5 +57,45 @@ function supportCtrl($scope,$http,angularMeta,lgDataTableService){
     $scope.onChangePageEntry = function(entry){
         $scope.search.limit = entry;
         $scope.searchLoad();
+    }
+    //取消删除
+    $scope.deletCancle = function(){
+        $scope.supportFlagObj.deleteOpen = false;
+    }
+    $scope.deleteSave = function(){
+        $http.post("/shopmanage/delete-shopType.json",{id:$scope.deleteInfo.id},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.supportFlagObj.deleteOpen = false;
+                    $scope.searchLoad();
+                    toastr.info("删除成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
+    }
+    //打开添加窗口
+    $scope.addSupportBtn = function(){
+        $scope.supportFlagObj.addOpen = true;
+        $scope.addSupportObj = {};
+    }
+    //取消添加
+    $scope.addShoptypeCancle = function(){
+        $scope.supportFlagObj.addOpen = false;
+    }
+    $scope.addShoptypeSave = function(){
+        if(!$scope.supportFlagObj.hotName){
+            return toastr.info("类型名称不可为空")
+        }
+        $http.post("/shopmanage/add-shopType.json",$scope.supportFlagObj,angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.supportFlagObj.addOpen = false;
+                    $scope.searchLoad();
+                    toastr.info("添加成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
     }
 }

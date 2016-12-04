@@ -5,7 +5,11 @@ import com.google.gson.GsonBuilder;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -24,4 +28,15 @@ public class BaseController {
         webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 
+    protected String getUserName(){
+        String username = "";
+        ServletRequestAttributes attrs = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if(null != attrs){
+            HttpServletRequest request = attrs.getRequest();
+            if(null != request){
+                username = request.getSession().getAttribute("SessionAdminUser").toString();
+            }
+        }
+        return username;
+    }
 }

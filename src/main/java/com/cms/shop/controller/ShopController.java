@@ -82,4 +82,20 @@ public class ShopController extends BaseController{
         }
         return gson.toJson(result);
     }
+
+
+    /**
+     * 添加商铺
+     * @param vo
+     * @return
+     */
+    @RequestMapping("add")
+    @ResponseBody
+    public String addShop(ShopVo vo){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+
+        return gson.toJson(result);
+    }
 }

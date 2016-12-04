@@ -41,6 +41,7 @@ public class StreetServiceImpl implements StreetService{
 
             StreetCriteria criteria = new StreetCriteria();
             int count = streetMapper.countByExample(criteria);
+            criteria.setOrderByClause(" STREET_ID desc ");
             if(count>0){
                 criteria.setLimitStart(condition.getOffset());
                 criteria.setLimitEnd(condition.getLimit());
@@ -66,6 +67,7 @@ public class StreetServiceImpl implements StreetService{
             if(null != condition.getDistrictId()){
                 criteria.createCriteria().andDistrictIdEqualTo(condition.getDistrictId());
             }
+            criteria.setOrderByClause(" STREET_ID desc ");
             int count = streetMapper.countByExample(criteria);
             if(count>0){
                 criteria.setLimitStart(condition.getOffset());
@@ -109,6 +111,18 @@ public class StreetServiceImpl implements StreetService{
         boolean success = false;
         if(null != id){
             int i = streetMapper.deleteByPrimaryKey(id);
+            if(i>0){
+                success = true;
+            }
+        }
+        return success;
+    }
+
+    @Override
+    public boolean addStreet(Street street) {
+        boolean success = false;
+        if(null != street){
+            int i = streetMapper.insertSelective(street);
             if(i>0){
                 success = true;
             }

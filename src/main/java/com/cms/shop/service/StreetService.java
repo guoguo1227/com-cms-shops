@@ -21,4 +21,6 @@ public interface StreetService {
     List<Street> queryAll();
 
     boolean deleteById(Integer id);
+
+    boolean addStreet(Street street);
 }

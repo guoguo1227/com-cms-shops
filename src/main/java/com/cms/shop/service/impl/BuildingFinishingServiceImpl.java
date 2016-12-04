@@ -30,6 +30,7 @@ public class BuildingFinishingServiceImpl implements BuildingFinishingService{
             page.setPageSize(condition.getLimit());
 
             BuildingFinishingCriteria criteria = new BuildingFinishingCriteria();
+            criteria.setOrderByClause(" finishing_Id desc ");
             int count = buildingFinishingMapper.countByExample(criteria);
             if(count>0){
                 criteria.setLimitStart(condition.getOffset());
@@ -62,5 +63,29 @@ public class BuildingFinishingServiceImpl implements BuildingFinishingService{
         List<BuildingFinishing> buildingFinishingList= buildingFinishingMapper.selectByExample(criteria);
 
         return buildingFinishingList;
+    }
+
+    @Override
+    public boolean addBuildingFinishing(BuildingFinishing buildingFinishing) {
+        boolean success = false;
+        if(null != buildingFinishing){
+            int i = buildingFinishingMapper.insertSelective(buildingFinishing);
+            if(i>0){
+                success = true;
+            }
+        }
+        return success;
+    }
+
+    @Override
+    public boolean deleteBuildingFinishing(Integer id) {
+        boolean success = false;
+        if(null != id){
+            int i = buildingFinishingMapper.deleteByPrimaryKey(id);
+            if(i>0){
+                success = true;
+            }
+        }
+        return success;
     }
 }

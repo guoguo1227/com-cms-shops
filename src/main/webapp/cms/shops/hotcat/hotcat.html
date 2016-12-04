@@ -13,7 +13,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">商铺类型列表</h3>
             <div class="col-xs-1 shop-fright">
-                <button type="button" class="btn ng-scope btn-info lagou-searchBut btn-sm" ng-click="addShopBtn()">添加</button>
+                <button type="button" class="btn ng-scope btn-info lagou-searchBut btn-sm" ng-click="addHotcatBtn()">添加</button>
             </div>
         </div>
         <div class="box-body">
@@ -26,5 +26,50 @@
         </div>
     </div>
 
+    </lg-modal>
+
+    <!--添加窗口-->
+    <lg-modal open="hotcatFlagObj.addOpen">
+        <div class="modal-header">
+            <h4 class="modal-title">添加商铺类型</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="box-body">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">商铺类型名称:</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="hotName"  ng-model="addHotcateObj.hotName">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default " ng-click="addHotcatCancle()">关闭</button>
+                    <button class="btn btn-info pull-right" ng-click="addHotcatSave()">确定</button>
+                </div>
+            </form>
+        </div>
+    </lg-modal>
+
+    <!--删除确认窗口-->
+    <lg-modal open="hotcatFlagObj.deleteOpen">
+        <div class="modal-header">
+            <h4 class="modal-title">删除类型</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="box-body">
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <label>确认删除该类型?</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default " ng-click="deletCancle()">关闭</button>
+                    <button class="btn btn-info pull-right" ng-click="deleteSave()">确定</button>
+                </div>
+            </form>
+        </div>
     </lg-modal>
 </div>

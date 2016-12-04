@@ -39,7 +39,37 @@ public class SearchCondition extends BaseSearchCondition {
 
     private String floor ; //层数
 
-    private Integer type; //热门类型,广告类型
+    private Integer type; //热门类型,广告位置
+
+    private Integer finishingId; //装修情况
+
+    private Integer ocpyId; //适宜业态
+
+    private Integer typeId; //物业性质
+
+    public Integer getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
+    }
+
+    public Integer getOcpyId() {
+        return ocpyId;
+    }
+
+    public void setOcpyId(Integer ocpyId) {
+        this.ocpyId = ocpyId;
+    }
+
+    public Integer getFinishingId() {
+        return finishingId;
+    }
+
+    public void setFinishingId(Integer finishingId) {
+        this.finishingId = finishingId;
+    }
 
     public Integer getType() {
         return type;

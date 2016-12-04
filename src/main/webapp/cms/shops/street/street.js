@@ -12,7 +12,7 @@ function streetCtrl($scope,$http,angularMeta,lgDataTableService){
 
     $scope.ready = function(){
         $scope.search = {limit:15, currentPage:0,searchContent:''};
-        $scope.commentFlagObj = {showDetail:false};
+        $scope.streetFlagObj = {showDetail:false};
         $scope.searchLoad();
     }
     $scope.searchLoad = function(){
@@ -32,10 +32,9 @@ function streetCtrl($scope,$http,angularMeta,lgDataTableService){
     //初始化表格数据
     $scope.initTableData = function(pageData){
         $scope.tableData = {
-            //查看详情
-            openDetail : function(row){
-                $scope.commentObj = row;
-                $scope.commentFlagObj.showDetail = true;
+            delete : function(row){
+                $scope.districtFlagObj.deleteOpen = true;
+                $scope.deleteInfo = {id:row.streetId};
             }
         };
 
@@ -44,7 +43,7 @@ function streetCtrl($scope,$http,angularMeta,lgDataTableService){
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="删除" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">删除</a>';
+            pg.action =  '<a title="删除" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>';
             return pg;
         }), ['streetName','districtName','action']);
     };
@@ -58,6 +57,58 @@ function streetCtrl($scope,$http,angularMeta,lgDataTableService){
     $scope.onChangePageEntry = function(entry){
         $scope.search.limit = entry;
         $scope.searchLoad();
+    }
+
+    //取消删除
+    $scope.deletCancle = function(){
+        $scope.streetFlagObj.deleteOpen = false;
+    }
+    $scope.deleteSave = function(){
+        $http.post("/shopmanage/delete-stree.json",{id:$scope.deleteInfo.id},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.streetFlagObj.deleteOpen = false;
+                    $scope.searchLoad();
+                    toastr.info("删除成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
+    }
+    //添加街镇弹窗
+    $scope.addStreeBtn = function(){
+        $http.post("/shopmanage/district-all.json",{},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    if(data.data && Array.isArray(data.data)){
+                        $scope.streetFlagObj.districtArr = data.data;
+                    }
+                }
+            });
+        $scope.streetFlagObj.addOpen = true;
+        $scope.addStreetObj = {};
+    }
+    //取消添加
+    $scope.addStreetCancle = function(){
+        $scope.streetFlagObj.addOpen = false;
+    }
+    $scope.addStreetSave = function(){
+        if(!$scope.addStreetObj.streetName){
+            return toastr.info("街镇名称不可为空")
+        }
+        if(!$scope.addStreetObj.districtId){
+            return toastr.info("所属地区不可为空")
+        }
+        $http.post("/shopmanage/add-stree.json",$scope.addDistrict,angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.streetFlagObj.addOpen = false;
+                    $scope.searchLoad();
+                    toastr.info("添加成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
     }
 
 }

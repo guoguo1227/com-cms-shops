@@ -12,7 +12,7 @@ function hotcatCtrl($scope,$http,angularMeta,lgDataTableService){
 
     $scope.ready = function(){
         $scope.search = {limit:15, currentPage:0,searchContent:''};
-        $scope.commentFlagObj = {showDetail:false};
+        $scope.hotcatFlagObj = {showDetail:false};
         $scope.searchLoad();
     }
     $scope.searchLoad = function(){
@@ -32,10 +32,9 @@ function hotcatCtrl($scope,$http,angularMeta,lgDataTableService){
     //初始化表格数据
     $scope.initTableData = function(pageData){
         $scope.tableData = {
-            //查看详情
-            openDetail : function(row){
-                $scope.commentObj = row;
-                $scope.commentFlagObj.showDetail = true;
+            delete : function(row){
+                $scope.hotcatFlagObj.deleteOpen = true;
+                $scope.deleteInfo = {id:row.hotId};
             }
         };
 
@@ -44,7 +43,7 @@ function hotcatCtrl($scope,$http,angularMeta,lgDataTableService){
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="删除" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">删除</a>';
+            pg.action =  '<a title="删除" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>';
             return pg;
         }), ['typeName','action']);
     };
@@ -60,4 +59,44 @@ function hotcatCtrl($scope,$http,angularMeta,lgDataTableService){
         $scope.searchLoad();
     }
 
+    //取消删除
+    $scope.deletCancle = function(){
+        $scope.hotcatFlagObj.deleteOpen = false;
+    }
+    $scope.deleteSave = function(){
+        $http.post("/shopmanage/delete-hotcate.json",{id:$scope.deleteInfo.id},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.hotcatFlagObj.deleteOpen = false;
+                    $scope.searchLoad();
+                    toastr.info("删除成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
+    }
+    //打开添加窗口
+    $scope.addHotcatBtn = function(){
+        $scope.hotcatFlagObj.addOpen = true;
+        $scope.addHotcateObj = {};
+    }
+    //取消添加
+    $scope.addHotcatCancle = function(){
+        $scope.hotcatFlagObj.addOpen = false;
+    }
+    $scope.addHotcatSave = function(){
+        if(!$scope.addHotcateObj.hotName){
+            return toastr.info("类型名称不可为空")
+        }
+        $http.post("/shopmanage/add-hotcate.json",$scope.addHotcateObj,angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.addHotcateObj.addOpen = false;
+                    $scope.searchLoad();
+                    toastr.info("添加成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
+    }
 }

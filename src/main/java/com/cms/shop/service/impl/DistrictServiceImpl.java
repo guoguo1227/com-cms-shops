@@ -57,7 +57,26 @@ public class DistrictServiceImpl implements DistrictService {
 
     @Override
     public boolean updatePriority(Integer id, boolean upflag) {
-        return false;
+        boolean success = false;
+        if(null != id){
+            District district = districtMapper.selectByPrimaryKey(id);
+            if(null != district){
+                if(upflag){
+                    if(district.getPriority()>1){
+                        district.setPriority(district.getPriority()-1);
+                    }else{
+                        district.setPriority(1);
+                    }
+                }else{
+                    district.setPriority(district.getPriority()+1);
+                }
+                int i = districtMapper.updateByPrimaryKeySelective(district);
+                if(i>0){
+                    success = true;
+                }
+            }
+        }
+        return success;
     }
 
     @Override

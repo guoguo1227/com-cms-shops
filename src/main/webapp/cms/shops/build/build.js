@@ -12,7 +12,7 @@ function buildCtrl($scope,$http,angularMeta,lgDataTableService){
 
     $scope.ready = function(){
         $scope.search = {limit:15, currentPage:0,searchContent:''};
-        $scope.commentFlagObj = {showDetail:false};
+        $scope.buildFlagObj = {showDetail:false};
         $scope.searchLoad();
     }
     $scope.searchLoad = function(){
@@ -33,9 +33,9 @@ function buildCtrl($scope,$http,angularMeta,lgDataTableService){
     $scope.initTableData = function(pageData){
         $scope.tableData = {
             //查看详情
-            openDetail : function(row){
-                $scope.commentObj = row;
-                $scope.commentFlagObj.showDetail = true;
+            delete : function(row){
+                $scope.buildFlagObj.deleteOpen = true;
+                $scope.deleteInfo = {id:row.archiId};
             }
         };
 
@@ -44,7 +44,7 @@ function buildCtrl($scope,$http,angularMeta,lgDataTableService){
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="删除" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">删除</a>';
+            pg.action =  '<a title="删除" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>';
             return pg;
         }), ['archiName','action']);
     };
@@ -58,5 +58,46 @@ function buildCtrl($scope,$http,angularMeta,lgDataTableService){
     $scope.onChangePageEntry = function(entry){
         $scope.search.limit = entry;
         $scope.searchLoad();
+    }
+
+    //取消删除
+    $scope.deletCancle = function(){
+        $scope.buildFlagObj.deleteOpen = false;
+    }
+    $scope.deleteSave = function(){
+        $http.post("/shopmanage/delete-archit.json",{id:$scope.deleteInfo.id},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.buildFlagObj.deleteOpen = false;
+                    $scope.searchLoad();
+                    toastr.info("删除成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
+    }
+    //打开添加窗口
+    $scope.addBuildBtn = function(){
+        $scope.buildFlagObj.addOpen = true;
+        $scope.addBuildObj = {};
+    }
+    //取消添加
+    $scope.addBuildCancle = function(){
+        $scope.buildFlagObj.addOpen = false;
+    }
+    $scope.addBuildSave = function(){
+        if(!$scope.addBuildObj.archiName){
+            return toastr.info("建筑结构名称不可为空")
+        }
+        $http.post("/shopmanage/add-archit.json",$scope.addBuildObj,angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.buildFlagObj.addOpen = false;
+                    $scope.searchLoad();
+                    toastr.info("添加成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
     }
 }

@@ -34,6 +34,7 @@ public class ShopTypeServiceImpl implements ShopTypeService{
 
             ShopTypeCriteria criteria = new ShopTypeCriteria();
             //排序
+            criteria.setOrderByClause(" type_Id desc ");
             int count = shopTypeMapper.countByExample(criteria);
             if(count>0){
                 criteria.setLimitStart(condition.getOffset());
@@ -53,6 +54,18 @@ public class ShopTypeServiceImpl implements ShopTypeService{
         boolean success = false;
         if(null != id){
             int i = shopTypeMapper.deleteByPrimaryKey(id);
+            if(i>0){
+                success = true;
+            }
+        }
+        return success;
+    }
+
+    @Override
+    public boolean addShopType(ShopType shopType) {
+        boolean success = true;
+        if(null != shopType){
+            int i = shopTypeMapper.insertSelective(shopType);
             if(i>0){
                 success = true;
             }

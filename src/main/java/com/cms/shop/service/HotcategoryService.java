@@ -18,4 +18,6 @@ public interface HotcategoryService {
     List<Hotcategory> queryAll();
 
     boolean deleteById(Integer id);
+
+    boolean addHotcate(Hotcategory hotcategory);
 }

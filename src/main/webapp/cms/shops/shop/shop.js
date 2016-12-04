@@ -56,9 +56,20 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService){
                     }
                 }
             });
+        $http.post("/shopmanage/shopType-all.json",{},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    if(data.data && Array.isArray(data.data)){
+                        $scope.shopFlagObj.shoptypeArr = data.data;
+                    }
+                }
+            });
 
     }
-    $scope.searchLoad = function(){
+    $scope.searchLoad = function(page){
+        if(page){
+            $scope.search.currentPage = page ;
+        }
         $http.post("/shop/page.json",$scope.search,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
@@ -142,14 +153,7 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService){
         });
 
         //                ue.setContent(template.content);
-        $http.post("/shopmanage/shopType-all.json",{},angularMeta.postCfg)
-            .success(function(data){
-                if(data.success){
-                    if(data.data && Array.isArray(data.data)){
-                        $scope.shopFlagObj.shoptypeArr = data.data;
-                    }
-                }
-            });
+
         $http.post("/shopmanage/archit-all.json",{},angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
@@ -177,7 +181,7 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService){
 
     $scope.initUE = function(){
         //实例化编辑器
-        var ue = UE.getEditor('shopContent', {
+        $scope.ue = UE.getEditor('shopContent', {
             toolbars: [
                 ['fullscreen','source','undo','redo','formatmatch','indent','justifyleft','justifyright','justifycenter','justifyjustify','background', 'link',  'fontfamily','fontsize','forecolor','bold','backcolor','italic','underline','inserttable','deletetable','insertrow','insertcol','simpleupload','insertimage','charts']
             ],
@@ -219,4 +223,95 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService){
                 }
             });
     }
+
+    /**
+     * 保存商铺
+     * @param shopImage
+     * @param flag
+     */
+    $scope.shopSave = function(){
+        if(!$scope.addshop.shopName){
+            return toastr.info("商铺名称不可为空!")
+        }
+        if(!$scope.addshop.hotcateId){
+            return toastr.info("所属商铺类型不可为空!")
+        }
+        if(!$scope.addshop.districtId){
+            return toastr.info("所在地区不可为空!")
+        }
+        if(!$scope.addshop.streetId){
+            return toastr.info("所在街镇不可为空!")
+        }
+        if(!$scope.addshop.location){
+            return toastr.info("详细地址不可为空!")
+        }
+        if(!$scope.addshop.publisher){
+            return toastr.info("发布人不可为空!")
+        }
+        if(!$scope.addshop.onsellDate){
+            return toastr.info("上架时间不可为空!")
+        }
+        if(!$scope.addshop.offsellDate){
+            return toastr.info("下架时间不可为空!")
+        }
+        if(!$scope.addshop.typeId){
+            return toastr.info("物业性质不可为空!")
+        }
+        if(!$scope.addshop.finishingId){
+            return toastr.info("装修情况不可为空!")
+        }
+        if(!$scope.addshop.traffic){
+            return toastr.info("公交线路不可为空!")
+        }
+        if(!$scope.addshop.archiId){
+            return toastr.info("建筑结构不可为空!")
+        }
+        if($scope.addshop.img1 === "" || $scope.addshop.img1 == undefined){
+            return toastr.info("请先上传图片1!")
+        }
+        //描述
+        $scope.addshop.description = ue.getContext();
+        console.log($scope.addshop)
+    }
+
+    $scope.editPriceFun = function(){
+        $scope.addshop.shopPrice2="";
+        $scope.addshop.shopPricese2="";
+
+    }
+
+    $scope.editPrice2Fun = function(){
+        $scope.addshop.shopPrice="";
+        $scope.addshop.shopPricese="";
+
+    }
+    $scope.uploadImage = function (shopImage,flag) {
+        $scope.fileInfo = shopImage;
+        Upload.upload({
+            //服务端接收
+            url: '/image/upload.json',
+            //上传的同时带的参数
+            data: { 'imageType': 7 },
+            file: shopImage
+        }).progress(function (evt) {
+            //进度条
+            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            console.log('progess:' + progressPercentage + '%' + evt.config.file.name);
+        }).success(function (data, status, headers, config) {
+            //上传成功
+            console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+            toastr.info("上传成功!");
+            if(flag ==1){
+                $scope.addshop.img1 = data.data.uploadPath;
+            }else{
+                $scope.addshop.img2 = data.data.uploadPath;
+            }
+
+        }).error(function (data, status, headers, config) {
+            //上传失败
+            toastr.info("上传失败!");
+            console.log('error status: ' + status);
+        });
+
+    };
 }

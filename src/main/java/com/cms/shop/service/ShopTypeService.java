@@ -17,6 +17,8 @@ public interface ShopTypeService {
 
     boolean deleteById(Integer id);
 
+    boolean addShopType(ShopType shopType);
+
     ShopType queryShopTypeById(Integer id);
 
     List<ShopType> queryAll();

@@ -19,4 +19,7 @@ public interface BuildingFinishingService {
 
     List<BuildingFinishing> queryAll();
 
+    boolean addBuildingFinishing(BuildingFinishing buildingFinishing);
+
+    boolean deleteBuildingFinishing(Integer id);
 }

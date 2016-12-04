@@ -51,6 +51,7 @@ public class QAServiceImpl implements QAService{
             QaCriteria criteria = new QaCriteria();
             QaCriteria.Criteria cri = criteria.createCriteria();
 
+            //状态
             if(null != condition.getCheckStatus()){
                 cri.andAuditStatusEqualTo(condition.getCheckStatus());
             }

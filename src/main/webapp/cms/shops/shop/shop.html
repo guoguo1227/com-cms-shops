@@ -8,7 +8,7 @@
                         <div class="input-group-btn">
                             <button title="所在区域" type="button" class="btn btn-default">所在区域</button>
                         </div>
-                        <select class="form-control" name = "district" ng-model="search.districtId">
+                        <select class="form-control" name = "district" ng-model="search.districtId" ng-change="searchLoad(0)">
                             <option value="">请选择</option>
                             <option value="{{type.districtId}}" ng-repeat="type in shopFlagObj.districtArr" >{{type.districtName}}</option>
                         </select>
@@ -20,9 +20,9 @@
                         <div class="input-group-btn">
                             <button title="物业性质" type="button" class="btn btn-default">物业性质</button>
                         </div>
-                        <select class="form-control" name = "hotcate" ng-model="search.hotId">
+                        <select class="form-control" name = "hotcate" ng-model="search.typeId" ng-change="searchLoad(0)">
                             <option value="">请选择</option>
-                            <option value="{{type.hotId}}" ng-repeat="type in shopFlagObj.hotcateArr" >{{type.hotName}}</option>
+                            <option value="{{type.typeId}}" ng-repeat="type in shopFlagObj.shoptypeArr" >{{type.typeName}}</option>
                         </select>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                         <div class="input-group-btn">
                             <button title="适宜业态" type="button" class="btn btn-default">适宜业态</button>
                         </div>
-                        <select class="form-control" name = "typeSearch" ng-model="search.hotId">
+                        <select class="form-control" name = "typeSearch" ng-model="search.ocpyId" ng-change="searchLoad(0)">
                             <option value="">请选择</option>
                             <option value="{{type.hotId}}" ng-repeat="type in shopFlagObj.hotcateArr" >{{type.hotName}}</option>
                         </select>
@@ -44,7 +44,7 @@
                         <div class="input-group-btn">
                             <button title="装修情况" type="button" class="btn btn-default">装修情况</button>
                         </div>
-                        <select class="form-control" name = "builFinish" ng-model="search.buildFinishId">
+                        <select class="form-control" name = "builFinish" ng-model="search.finishingId" ng-change="searchLoad(0)">
                             <option value="">请选择</option>
                             <option value="{{type.finishingId}}" ng-repeat="type in shopFlagObj.buildFinishArr" >{{type.finishingName}}</option>
                         </select>
@@ -56,7 +56,7 @@
                         <div class="input-group-btn">
                             <button title="商铺面积" type="button" class="btn btn-default">商铺面积</button>
                         </div>
-                        <select class="form-control" name = "areaRange" ng-model="search.topStatus" ng-change="searchLoad(0)">
+                        <select class="form-control" name = "areaRange" ng-model="search.areaId" ng-change="searchLoad(0)">
                             <option value="">请选择</option>
                             <option value="8">50㎡以下</option>
                             <option value="7">50㎡~100㎡</option>
@@ -71,11 +71,11 @@
                 </div>
             </div>
             <div class="form-group row input-group-sm">
-                <div class="col-xs-2">
+                <div class="col-xs-2" style="width:7%;">
                     <button  title="商铺名称" type="button" class="btn btn-default">商铺名称</button>
                 </div>
                 <div class="col-xs-4" style="margin-left: -22px;">
-                    <input type="text" class="form-control btn-sm col-xs-3" name="cname" placeholder="请输入商铺名称,进行搜索" ng-model="search.name">
+                    <input type="text" class="form-control btn-sm col-xs-3" name="search.name" placeholder="请输入商铺名称,进行搜索" ng-model="search.name">
                 </div>
                 <div class="col-xs-1">
                     <button type="button" class="btn ng-scope btn-info  btn-sm" ng-click="searchLoad(0)">搜索</button>
@@ -105,7 +105,7 @@
                 <table class="table table-hover">
                     <tr>
                         <td class="">
-                            <label class="col-xs-4 control-label">商铺名称:</label>
+                            <label class="col-xs-2 control-label">商铺名称:</label>
                             <div class="col-xs-8">
                                 <input type="text" class="form-control" ng-model="addshop.shopName">
                             </div>
@@ -146,7 +146,7 @@
                             <div class="form-group" style="margin-bottom: 21px;">
                                 <label class="col-sm-4 control-label">所属街道:</label>
                                 <div class="col-sm-8">
-                                    <select class="form-control" name = "typeSearch" ng-model="addshop.hotcateId">
+                                    <select class="form-control" name = "typeSearch" ng-model="addshop.streetId">
                                         <option value="">请选择街道</option>
                                         <option value="{{type.streetId}}" ng-repeat="type in shopFlagObj.addStreetArr" >{{type.streetName}}</option>
                                     </select>
@@ -164,14 +164,14 @@
                         <td class="col-xs-4">
                             <label class="col-sm-4 control-label">上架时间:</label>
                             <div class="input-group date" id="datetimepickerStart">
-                                <input type="text" class="form-control" ng-model = "search.startTime" placeholder="上架时间" readonly>
+                                <input type="text" class="form-control" ng-model = "addshop.onsellDate" placeholder="上架时间" readonly>
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                             </div>
                         </td>
                         <td class="col-xs-4">
                             <label class="col-sm-4 control-label">下架时间:</label>
                             <div class="input-group date" id="datetimepickerEnd">
-                                <input type="text" class="form-control" ng-model = "search.startTime" placeholder="下架时间" readonly>
+                                <input type="text" class="form-control" ng-model = "addshop.offsellDate" placeholder="下架时间" readonly>
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                             </div>
                         </td>
@@ -180,7 +180,7 @@
                         <td colspan="2">
                             <label class="col-sm-3 control-label">详细地址:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="addshop.descript">
+                                <input type="text" class="form-control" ng-model="addshop.location">
                             </div>
                         </td>
                     </tr>
@@ -215,14 +215,14 @@
                         <td>
                             <label class="col-sm-3 control-label">租赁总建筑面积:</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" ng-model="addshop.shopNo">
+                                <input type="text" class="form-control" ng-model="addshop.squareMetres">
                             </div>
                             <span>平方米</span>
                         </td>
                         <td>
                             <label class="col-sm-3 control-label">商铺面积:</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" ng-model="addshop.shopNo">
+                                <input type="text" class="form-control" ng-model="addshop.shopSquare">
                             </div>
                             <span>平方米</span>
 
@@ -232,7 +232,7 @@
                         <td>
                             <label class="col-sm-3 control-label">办公房面积:</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" ng-model="addshop.shopNo">
+                                <input type="text" class="form-control" ng-model="addshop.officeSquare">
                             </div>
                             <span>平方米</span>
 
@@ -240,7 +240,7 @@
                         <td>
                             <label class="col-sm-3 control-label">厂房面积:</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" ng-model="addshop.shopNo">
+                                <input type="text" class="form-control" ng-model="addshop.factorySquare">
                             </div>
                             <span>平方米</span>
                         </td>
@@ -249,7 +249,7 @@
                         <td>
                             <label class="col-sm-3 control-label">库房面积:</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" ng-model="addshop.shopNo">
+                                <input type="text" class="form-control" ng-model="addshop.warehouseSquare">
                             </div>
                             <span>平方米</span>
 
@@ -257,7 +257,7 @@
                         <td>
                             <label class="col-sm-3 control-label">场地面积:</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" ng-model="addshop.shopNo">
+                                <input type="text" class="form-control" ng-model="addshop.yardSquare">
                             </div>
                             <span>平方米</span>
                         </td>
@@ -267,7 +267,7 @@
                             <div class="form-group" style="margin-bottom: 21px;">
                                 <label class="col-sm-3 control-label">物业性质:</label>
                                 <div class="col-sm-5">
-                                    <select class="form-control" name = "typeSearch" ng-model="addshop.hotcateId">
+                                    <select class="form-control" name = "typeSearch" ng-model="addshop.typeId">
                                         <option value="">请选择</option>
                                         <option value="{{type.typeId}}" ng-repeat="type in shopFlagObj.shoptypeArr" >{{type.typeName}}</option>
                                     </select>
@@ -278,7 +278,7 @@
                             <div class="form-group" style="margin-bottom: 21px;">
                                 <label class="col-sm-3 control-label">装修情况:</label>
                                 <div class="col-sm-5">
-                                    <select class="form-control" name = "typeSearch" ng-model="addshop.hotcateId">
+                                    <select class="form-control" name = "typeSearch" ng-model="addshop.finishingId">
                                         <option value="">请选择</option>
                                         <option value="{{type.finishingId}}" ng-repeat="type in shopFlagObj.buildFinishArr" >{{type.finishingName}}</option>
                                     </select>
@@ -290,7 +290,7 @@
                         <td>
                             <label class="col-sm-3 control-label">公交路线:</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" ng-model="addshop.shopNo">
+                                <input type="text" class="form-control" ng-model="addshop.traffic">
                             </div>
                             <span>平方米</span>
 
@@ -299,7 +299,7 @@
                             <div class="form-group" style="margin-bottom: 21px;">
                                 <label class="col-sm-3 control-label">建筑结构:</label>
                                 <div class="col-sm-5">
-                                    <select class="form-control" name = "typeSearch" ng-model="addshop.hotcateId">
+                                    <select class="form-control" name = "typeSearch" ng-model="addshop.archiId">
                                         <option value="">请选择</option>
                                         <option value="{{type.archiId}}" ng-repeat="type in shopFlagObj.architArr" >{{type.archiName}}</option>
                                     </select>
@@ -311,8 +311,8 @@
                         <td class="col-xs-6">
                             <label class="col-sm-3 control-label">付款要求:</label>
                             <div class="col-sm-5">
-                                <select class="form-control" name = "typeSearch" ng-model="addshop.hotcateId">
-                                    <option value="">不详</option>
+                                <select class="form-control" name = "depositType" ng-model="addshop.depositType">
+                                    <option value=0>不详</option>
                                     <option value=1>一个月</option>
                                     <option value=2>二个月</option>
                                     <option value=3>三个月</option>
@@ -323,7 +323,7 @@
                         <td class="col-xs-6">
                             <label class="col-sm-3 control-label">租金按:</label>
                             <div class="col-sm-5">
-                                <select class="form-control" name = "typeSearch" ng-model="addshop.hotcateId">
+                                <select class="form-control" name = "rentType" ng-model="addshop.rentType">
                                     <option value=1>年付</option>
                                     <option value=2>半年付</option>
                                     <option value=3>季付</option>
@@ -339,38 +339,38 @@
                         <div class="row col-xs-12" style="height: 40px;">
                             <label class="col-sm-2 control-label">适宜业态:</label>
                                     <span ng-repeat="type in shopFlagObj.buildOccupArr">
-                                    <input type="radio" name="optionsRadios"  ng-model="type.ocpyId" checked="">{{type.ocpyName}}
+                                    <input type="radio" name="optionsRadios"  ng-model="addshop.ocpyId" checked="">{{type.ocpyName}}
                                     </span>
                         </div>
                         <div class="row col-xs-12">
                             <label class="col-sm-3 control-label">配套设施:</label>
                                     <span ng-repeat="type in shopFlagObj.buildFaciArr" >
-                                    <input type="checkbox" name="optionsRadios" ng-model="type.facilId" checked="">{{type.facilName}}
+                                    <input type="checkbox" name="optionsRadios" ng-model="addshop.facilId" checked="">{{type.facilName}}
                                     </span>
                         </div>
                         <div class="row col-xs-12 shop-margin-top-10">
                             <div class="col-xs-3">
                                 <label class="col-xs-5 control-label">联系人1:</label>
                                 <div class="col-xs-7">
-                                    <input type="text" class="form-control" ng-model="addshop.shopNo">
+                                    <input type="text" class="form-control" ng-model="addshop.linkmanName">
                                 </div>
                             </div>
                             <div class="col-xs-3">
                                 <label class="col-xs-5 control-label">联系电话:</label>
                                 <div class="col-xs-7">
-                                    <input type="text" class="form-control" ng-model="addshop.shopNo">
+                                    <input type="text" class="form-control" ng-model="addshop.linkmanMobile">
                                 </div>
                             </div>
                             <div class="col-xs-3">
                                 <label class="col-xs-4 control-label">手机:</label>
                                 <div class="col-xs-8">
-                                    <input type="text" class="form-control" ng-model="addshop.shopNo">
+                                    <input type="text" class="form-control" ng-model="addshop.linkmanPhone">
                                 </div>
                             </div>
                             <div class="col-xs-3">
                                 <label class="col-xs-4 control-label">email:</label>
                                 <div class="col-xs-8">
-                                    <input type="text"7 class="form-control" ng-model="addshop.shopNo">
+                                    <input type="text"7 class="form-control" ng-model="addshop.linkmanEmail">
                                 </div>
                             </div>
                         </div>
@@ -378,25 +378,25 @@
                             <div  class="col-xs-3">
                                 <label class="col-xs-5 control-label">联系人2:</label>
                                 <div class="col-xs-7">
-                                    <input type="text" class="form-control" ng-model="addshop.shopNo">
+                                    <input type="text" class="form-control" ng-model="addshop.linkmanNameSe">
                                 </div>
                             </div>
                             <div  class="col-xs-3">
                                 <label class="col-xs-5 control-label">联系电话:</label>
                                 <div class="col-xs-7">
-                                    <input type="text" class="form-control" ng-model="addshop.shopNo">
+                                    <input type="text" class="form-control" ng-model="addshop.linkmanMobileSe">
                                 </div>
                             </div>
                             <div  class="col-xs-3">
                                 <label class="col-xs-4 control-label">手机:</label>
                                 <div class="col-xs-8">
-                                    <input type="text" class="form-control" ng-model="addshop.shopNo">
+                                    <input type="text" class="form-control" ng-model="addshop.linkmanPhoneSe">
                                 </div>
                             </div>
                             <div  class="col-xs-3">
                                 <label class="col-xs-4 control-label">email:</label>
                                 <div class="col-xs-8">
-                                    <input type="text" class="form-control" ng-model="addshop.shopNo">
+                                    <input type="text" class="form-control" ng-model="addshop.linkmanEmailSe">
                                 </div>
                             </div>
                         </div>
@@ -407,14 +407,14 @@
                             <div class="col-xs-6">
                                 <label class="col-sm-2 control-label">单价:</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" ng-model="addshop.shopNo">
+                                    <input type="text" class="form-control" ng-model="addshop.shopPrice" ng-change="editPriceFun()>
                                 </div>
                                 <span>元/平米/天</span>
                             </div>
                             <div  class="col-xs-6">
                                 <label class="col-sm-2 control-label">总价:</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" ng-model="addshop.shopNo">
+                                    <input type="text" class="form-control" ng-model="addshop.shopPriceSe" ng-change="editPriceFun()>
                                 </div>
                                 <span>元/月</span>
                             </div>
@@ -423,24 +423,31 @@
                             <div class="col-xs-6">
                                 <label class="col-sm-2 control-label">单价:</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" ng-model="addshop.shopNo">
+                                    <input type="text" class="form-control" ng-model="addshop.shopPrice2" ng-change="editPrice2Fun()">
                                 </div>
                                 <span>元/平米</span>
                             </div>
                             <div class="col-xs-6">
                                 <label class="col-sm-2 control-label">总价:</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" ng-model="addshop.shopNo">
+                                    <input type="text" class="form-control" ng-model="addshop.shopPricese2" ng-change="editPrice2Fun()">
                                 </div>
                                 <span>元</span>
                             </div>
                         </div>
                         <div class="row col-xs-12 shop-margin-top-10">
-                            <label class="col-sm-2 control-label">上传图片:</label>
+                            <label class="col-sm-2 control-label">上传商铺图片:</label>
                             <div class="">
                                 <div>
-                                    <input type="file" id="companyLogoFile" name="file" data-url="/fileUploadController/upload.json" data-form-data='{"oldfile": "{{companyVo.logo}}"}'>
-                                    <span class="help-block">(请上传 .jpg、.gif、.jpeg、.png 格式的文件)</span>
+                                    <div class="col-sm-9">
+                                        <input type="file" ngf-select="" ng-model="shopImage1" name="file" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" required="">
+                                        <button type="button" ng-click="uploadImage(shopImage1,1)">上传图片1</button>
+                                    </div>
+                                    <!--<span class="help-block">(请上传 .jpg、.gif、.jpeg、.png 格式的文件)</span>-->
+                                    <div class="col-sm-9">
+                                        <input type="file" ngf-select="" ng-model="shopImage2" name="file" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" required="">
+                                        <button type="button" ng-click="uploadImage(shopImage2,2)">上传图片2</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

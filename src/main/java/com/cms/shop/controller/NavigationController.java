@@ -109,7 +109,7 @@ public class NavigationController extends BaseController{
         object11.put("dir","comment");
         object11.put("html","comment.html");
 
-        JSONObject  object12 = new JSONObject();
+      /*  JSONObject  object12 = new JSONObject();
         object12.put("id","4");
         object12.put("dir","reply");
         object12.put("html","reply.html");
@@ -117,7 +117,7 @@ public class NavigationController extends BaseController{
         JSONObject  object13 = new JSONObject();
         object13.put("id","5");
         object13.put("dir","investment");
-        object13.put("html","investment.html");
+        object13.put("html","investment.html");*/
 
         JSONObject  object15 = new JSONObject();
         object15.put("id","6");
@@ -152,8 +152,8 @@ public class NavigationController extends BaseController{
         childrenArray.add(shopParent);
         childrenArray.add(object10);
         childrenArray.add(object11);
-        childrenArray.add(object12);
-        childrenArray.add(object13);
+        //childrenArray.add(object12);
+        //childrenArray.add(object13);
         childrenArray.add(object15);
         childrenArray.add(object16);
         childrenArray.add(object17);
@@ -243,7 +243,7 @@ public class NavigationController extends BaseController{
         object61.put("name","留言列表");
         object61.put("icon","");
 
-        JSONObject object62 = new JSONObject();
+        /*JSONObject object62 = new JSONObject();
         object62.put("id","4");
         object62.put("name","回复模板列表");
         object62.put("icon","");
@@ -252,7 +252,7 @@ public class NavigationController extends BaseController{
         JSONObject object63 = new JSONObject();
         object63.put("id","5");
         object63.put("name","招商留言模板");
-        object63.put("icon","");
+        object63.put("icon","");*/
 
         JSONObject object64 = new JSONObject();
         object64.put("id","6");
@@ -288,8 +288,8 @@ public class NavigationController extends BaseController{
         navArray.add(shopNavParentObj);
         navArray.add(object60);
         navArray.add(object61);
-        navArray.add(object62);
-        navArray.add(object63);
+        //navArray.add(object62);
+        //navArray.add(object63);
         navArray.add(object64);
         navArray.add(object65);
         navArray.add(object66);

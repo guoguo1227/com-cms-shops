@@ -21,7 +21,7 @@ public class UploadUtils {
 			'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w',
 			'x', 'y', 'z' };
 	
-	public static final DateFormat MONTH_FORMAT = new SimpleDateFormat("/yyyyMM/ddHHmmss");
+	public static final DateFormat MONTH_FORMAT = new SimpleDateFormat("yyyyMM_ddHHmmss");
 	
 	public static final DateFormat YEAR_MONTH_FORMAT = new SimpleDateFormat("yyyyMM");
 	

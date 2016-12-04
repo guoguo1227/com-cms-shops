@@ -12,11 +12,11 @@ function propertyCtrl($scope,$http,angularMeta,lgDataTableService){
 
     $scope.ready = function(){
         $scope.search = {limit:15, currentPage:0,searchContent:''};
-        $scope.commentFlagObj = {showDetail:false};
+        $scope.propertyFlagObj = {showDetail:false};
         $scope.searchLoad();
     }
     $scope.searchLoad = function(){
-        $http.post("/shopmanage/hotcatePage.json",$scope.search,angularMeta.postCfg)
+        $http.post("/shopmanage/shopTypePage.json",$scope.search,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
                     $scope.pagesNumber = data.data.totalPage;
@@ -32,20 +32,18 @@ function propertyCtrl($scope,$http,angularMeta,lgDataTableService){
     //初始化表格数据
     $scope.initTableData = function(pageData){
         $scope.tableData = {
-            //查看详情
-            openDetail : function(row){
-                $scope.commentObj = row;
-                $scope.commentFlagObj.showDetail = true;
+            delete : function(row){
+                $scope.propertyFlagObj.deleteOpen = true;
+                $scope.deleteInfo = {id:row.typeId};
             }
         };
 
         var headerArray = ['物业性质','操作'];
         lgDataTableService.setWidth($scope.tableData, undefined, [4,8],true);
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
-        pageData = $scope.formatUserPageData(pageData);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="删除" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">删除</a>';
+            pg.action =  '<a title="删除" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>';
             return pg;
         }), ['typeName','action']);
     };
@@ -59,5 +57,46 @@ function propertyCtrl($scope,$http,angularMeta,lgDataTableService){
     $scope.onChangePageEntry = function(entry){
         $scope.search.limit = entry;
         $scope.searchLoad();
+    }
+
+    //取消删除
+    $scope.deletCancle = function(){
+        $scope.propertyFlagObj.deleteOpen = false;
+    }
+    $scope.deleteSave = function(){
+        $http.post("/shopmanage/delete-shopType.json",{id:$scope.deleteInfo.id},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.propertyFlagObj.deleteOpen = false;
+                    $scope.searchLoad();
+                    toastr.info("删除成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
+    }
+    //打开添加窗口
+    $scope.addPropertyBtn = function(){
+        $scope.propertyFlagObj.addOpen = true;
+        $scope.addPropertyObj = {};
+    }
+    //取消添加
+    $scope.addPropertyCancle = function(){
+        $scope.propertyFlagObj.addOpen = false;
+    }
+    $scope.addPropertySave = function(){
+        if(!$scope.addPropertyObj.typeName){
+            return toastr.info("物业性质名称不可为空")
+        }
+        $http.post("/shopmanage/add-shopType.json",$scope.addPropertyObj,angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.propertyFlagObj.addOpen = false;
+                    $scope.searchLoad();
+                    toastr.info("添加成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
     }
 }

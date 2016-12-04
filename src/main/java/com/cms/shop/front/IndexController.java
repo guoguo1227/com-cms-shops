@@ -105,5 +105,4 @@ public class IndexController extends BaseController{
         modelMap.addAttribute("advertList",advertList); //广告
         return "index";
     }
-
 }

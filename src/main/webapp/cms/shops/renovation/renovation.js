@@ -12,7 +12,7 @@ function renovationCtrl($scope,$http,angularMeta,lgDataTableService){
 
     $scope.ready = function(){
         $scope.search = {limit:15, currentPage:0,searchContent:''};
-        $scope.commentFlagObj = {showDetail:false};
+        $scope.renovationFlagObj = {showDetail:false};
         $scope.searchLoad();
     }
     $scope.searchLoad = function(){
@@ -32,20 +32,18 @@ function renovationCtrl($scope,$http,angularMeta,lgDataTableService){
     //初始化表格数据
     $scope.initTableData = function(pageData){
         $scope.tableData = {
-            //查看详情
-            openDetail : function(row){
-                $scope.commentObj = row;
-                $scope.commentFlagObj.showDetail = true;
+            delete : function(row){
+                $scope.renovationFlagObj.deleteOpen = true;
+                $scope.deleteInfo = {id:row.finishingId};
             }
         };
 
         var headerArray = ['装修名称','操作'];
         lgDataTableService.setWidth($scope.tableData, undefined, [4,8],true);
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
-        pageData = $scope.formatUserPageData(pageData);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="删除" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">删除</a>';
+            pg.action =  '<a title="删除" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>';
             return pg;
         }), ['finishingName','action']);
     };
@@ -61,20 +59,44 @@ function renovationCtrl($scope,$http,angularMeta,lgDataTableService){
         $scope.searchLoad();
     }
 
-    //格式化表格数据
-    $scope.formatUserPageData = function(pageData){
-
-        if(pageData != undefined && pageData != "" && pageData.length>0){
-            for(var i in pageData){
-                //注册账号激活状态
-                if(pageData[i].shop){
-                    pageData[i].shopSquareStr = "";
-                    if(pageData[i].shop.shopSquare){
-                        pageData[i].shopSquareStr = pageData[i].shop.shopSquare+"平米";
-                    }
+    //取消删除
+    $scope.deletCancle = function(){
+        $scope.renovationFlagObj.deleteOpen = false;
+    }
+    $scope.deleteSave = function(){
+        $http.post("/shopmanage/delete-buildFinish.json",{id:$scope.deleteInfo.id},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.renovationFlagObj.deleteOpen = false;
+                    $scope.searchLoad();
+                    toastr.info("删除成功!");
+                }else{
+                    toastr.error(data.message);
                 }
-            }
+            });
+    }
+    //打开添加窗口
+    $scope.addRenovationBtn = function(){
+        $scope.renovationFlagObj.addOpen = true;
+        $scope.addRenovationObj = {};
+    }
+    //取消添加
+    $scope.addRenovationCancle = function(){
+        $scope.renovationFlagObj.addOpen = false;
+    }
+    $scope.addRenovationSave = function(){
+        if(!$scope.addRenovationObj.finishingName){
+            return toastr.info("装修类型名称不可为空")
         }
-        return pageData;
+        $http.post("/shopmanage/add-buildFinish.json",$scope.addRenovationObj,angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.renovationFlagObj.addOpen = false;
+                    $scope.searchLoad();
+                    toastr.info("添加成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
     }
 }

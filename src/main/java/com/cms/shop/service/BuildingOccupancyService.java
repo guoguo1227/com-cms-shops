@@ -17,5 +17,7 @@ public interface BuildingOccupancyService {
 
     boolean deleteById(Integer id);
 
+    boolean addOccupancy(BuildingOccupancy buildingOccupancy);
+
     List<BuildingOccupancy> queryAll();
 }
