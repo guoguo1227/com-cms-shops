@@ -12,7 +12,7 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService){
 
     $scope.ready = function(){
         $scope.search = {limit:15, currentPage:0,searchContent:''};
-        $scope.commentFlagObj = {showDetail:false};
+        $scope.boardFlagObj = {showDetail:false};
         $scope.searchLoad();
     }
     $scope.searchLoad = function(){
@@ -35,7 +35,7 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService){
             //查看详情
             openDetail : function(row){
                 $scope.commentObj = row;
-                $scope.commentFlagObj.showDetail = true;
+                $scope.boardFlagObj.showDetail = true;
             }
         };
 
@@ -45,10 +45,10 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService){
         pageData = $scope.formatPageData(pageData);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="查看" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">查看</a>'+
+            pg.action = ''; /*'<a title="查看" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">查看</a>'+
                 '<a title="编辑" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.delete($row)">编辑</a>'+
             '<a title="删除" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>'+
-            '<a title="提交" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.delete($row)">提交</a>';
+            '<a title="提交" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.delete($row)">提交</a>';*/
             ;
             return pg;
         }), ['brdTitle','brdTypeStr','brdStatusStr','userName','createDate','action']);
@@ -63,6 +63,46 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService){
     $scope.onChangePageEntry = function(entry){
         $scope.search.limit = entry;
         $scope.searchLoad();
+    }
+
+    //添加公告弹窗
+    $scope.addBoardBtn = function(){
+        $scope.addBoardObj = {};
+        $scope.boardFlagObj.addOpen = true;
+        $scope.initUE();
+    }
+    $scope.addBoardCancle = function(){
+        $scope.boardFlagObj.addOpen = false;
+    }
+    //添加公告
+    $scope.addBoardSave = function(){
+        if(!$scope.addBoardObj.brdTitle){
+            return toastr.info("标题不可为空!")
+        }
+        if(!$scope.addBoardObj.brdType){
+            return toastr.info("类型不可为空!")
+        }
+        $scope.addBoardObj.brdContent = $scope.ue.getContentTxt();
+        $http.post("/shop/add.json",$scope.addshop,angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.goback();
+                    $scope.searchLoad();
+                    toastr.info("添加成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
+    }
+    $scope.initUE = function(){
+        //实例化编辑器
+        $scope.ue = UE.getEditor('boardContent', {
+            toolbars: [
+                ['fullscreen','source','undo','redo','formatmatch','indent','justifyleft','justifyright','justifycenter','justifyjustify','background', 'link',  'fontfamily','fontsize','forecolor','bold','backcolor','italic','underline','inserttable','deletetable','insertrow','insertcol','simpleupload','insertimage','charts']
+            ],
+            autoHeightEnabled: true,
+            autoFloatEnabled: true
+        });
     }
 
     //格式化表格数据
@@ -97,4 +137,36 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService){
         }
         return pageData;
     }
+    //上传图片
+    $scope.uploadImage = function (boardImage,flag) {
+        if(boardImage == "" || boardImage == undefined){
+            return toastr.info("请重新选择需要上传的图片!");
+        }
+        Upload.upload({
+            //服务端接收
+            url: '/image/upload.json',
+            //上传的同时带的参数
+            data: { 'imageType': 7 },
+            file: boardImage
+        }).progress(function (evt) {
+            //进度条
+            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            console.log('progess:' + progressPercentage + '%' + evt.config.file.name);
+        }).success(function (data, status, headers, config) {
+            //上传成功
+            console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+            toastr.info("上传成功!");
+            if(flag ==1){
+                $scope.addshop.img1 = data.data.uploadPath;
+            }else{
+                $scope.addBoardObj.img2 = data.data.uploadPath;
+            }
+
+        }).error(function (data, status, headers, config) {
+            //上传失败
+            toastr.info("上传失败!");
+            console.log('error status: ' + status);
+        });
+
+    };
 }

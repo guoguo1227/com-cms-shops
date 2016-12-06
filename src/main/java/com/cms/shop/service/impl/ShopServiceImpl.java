@@ -5,6 +5,8 @@ import com.cms.shop.dao.base.mapper.*;
 import com.cms.shop.enums.*;
 import com.cms.shop.model.base.*;
 import com.cms.shop.model.condition.SearchCondition;
+import com.cms.shop.model.ext.RequestResult;
+import com.cms.shop.model.ext.ShopExt;
 import com.cms.shop.model.ext.ShopVo;
 import com.cms.shop.service.HotcategoryService;
 import com.cms.shop.service.ShopImgService;
@@ -22,6 +24,7 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -128,7 +131,7 @@ public class ShopServiceImpl implements ShopService {
             }
             //物业性质
             if(null != condition.getTypeId()){
-                cri.andTypeEqualTo(condition.getType());
+                cri.andTypeIdEqualTo(condition.getTypeId());
             }
             //排序
             criteria.setOrderByClause(" ID desc ");
@@ -276,5 +279,95 @@ public class ShopServiceImpl implements ShopService {
             shop = shopMapper.selectByPrimaryKey(id);
         }
         return shop;
+    }
+
+    @Override
+    public RequestResult updateShopType(Integer id, Integer type) {
+        RequestResult result = new RequestResult();
+        boolean success = false;
+        String message = "";
+        if(null != id && null != type){
+            Shop shop = shopMapper.selectByPrimaryKey(id);
+            if(null != shop){
+                shop.setType(type);
+                int i = shopMapper.updateByPrimaryKeySelective(shop);
+                if(i>0){
+                    success = true;
+                }
+            }else{
+                message = "该商铺不存在";
+            }
+        }else{
+            message = "id不可为空";
+        }
+        result.setSuccess(success);
+        result.setMessage(message);
+        return result;    }
+
+    @Override
+    public RequestResult passShop(Integer id) {
+        RequestResult result = new RequestResult();
+        boolean success = false;
+        String message = "";
+        if(null != id){
+            Shop shop = shopMapper.selectByPrimaryKey(id);
+            if(null != shop){
+                shop.setAuditStatus(CheckStatusEnum.PASS.getKey());
+                int i = shopMapper.updateByPrimaryKey(shop);
+                if(i>0){
+                    success = true;
+                }
+
+            }else{
+                message = "该商铺不存在!";
+            }
+        }
+        result.setSuccess(success);
+        result.setMessage(message);
+        return result;
+    }
+
+    @Override
+    public RequestResult addShop(ShopExt ext) {
+        RequestResult result = new RequestResult();
+        boolean success = false;
+        String message = "";
+        if(null != ext  && !StringUtils.isBlank(ext.getShopName())){
+            Shop shop = new Shop();
+            try {
+                BeanUtilExt.copyProperties(shop,ext);
+                shop.setCreateDate(new Date());
+                shop.setAuditStatus(CheckStatusEnum.AUDIT.getKey());
+                shop.setEditTag(ShopConstant.EDIT_TAG_LOCK);
+                shop.setType(ShopTypeEnum.COMMON.getKey());
+                //todo,测试
+                shop.setShopStatus(OnlineStatusEnum.ONLINE.getKey());
+                int i = shopMapper.insertSelective(shop);
+                if(i>0){
+                    ShopImg img = new ShopImg();
+                    if(!StringUtils.isBlank(ext.getImg1())){
+                        img.setShopId(shop.getId());
+                        img.setNewImgName(ext.getImg1());
+                        shopImgService.addShopImg(img);
+                    }
+                    if(!StringUtils.isBlank(ext.getImg2())){
+                        img.setShopId(shop.getId());
+                        img.setNewImgName(ext.getImg2());
+                        shopImgService.addShopImg(img);
+                    }
+                    success = true;
+                }
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+
+        }else{
+            message = "商铺名称不能为空";
+        }
+        result.setSuccess(success);
+        result.setMessage(message);
+        return result;
     }
 }

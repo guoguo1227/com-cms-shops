@@ -35,6 +35,19 @@ public class ShopImgServiceIMpl implements ShopImgService{
     }
 
     @Override
+    public boolean addShopImg(ShopImg img) {
+        boolean success = false;
+        if(null != img){
+            int i = shopImgMapper.insertSelective(img);
+            if(i>0){
+                success = true;
+            }
+        }
+
+        return success;
+    }
+
+    @Override
     public List<ShopImg> getImgListByShopId(Integer id) {
         List<ShopImg> list = null;
         if(null != id){

@@ -16,7 +16,7 @@ function hotcatCtrl($scope,$http,angularMeta,lgDataTableService){
         $scope.searchLoad();
     }
     $scope.searchLoad = function(){
-        $http.post("/shopmanage/shopTypePage.json",$scope.search,angularMeta.postCfg)
+        $http.post("/shopmanage/hotcatePage.json",$scope.search,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
                     $scope.pagesNumber = data.data.totalPage;
@@ -45,7 +45,7 @@ function hotcatCtrl($scope,$http,angularMeta,lgDataTableService){
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
             pg.action =  '<a title="删除" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>';
             return pg;
-        }), ['typeName','action']);
+        }), ['hotName','action']);
     };
 
     //切换页面
@@ -91,7 +91,7 @@ function hotcatCtrl($scope,$http,angularMeta,lgDataTableService){
         $http.post("/shopmanage/add-hotcate.json",$scope.addHotcateObj,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
-                    $scope.addHotcateObj.addOpen = false;
+                    $scope.hotcatFlagObj.addOpen = false;
                     $scope.searchLoad();
                     toastr.info("添加成功!");
                 }else{

@@ -3,6 +3,7 @@ package com.cms.shop.controller;
 import com.cms.shop.model.base.Shop;
 import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.model.ext.RequestResult;
+import com.cms.shop.model.ext.ShopExt;
 import com.cms.shop.model.ext.ShopVo;
 import com.cms.shop.service.ShopService;
 import com.cms.shop.utils.Page;
@@ -86,16 +87,53 @@ public class ShopController extends BaseController{
 
     /**
      * 添加商铺
-     * @param vo
+     * @param ext
      * @return
      */
     @RequestMapping("add")
     @ResponseBody
-    public String addShop(ShopVo vo){
+    public String addShop(ShopExt ext){
 
         RequestResult result = new RequestResult();
         result.setSuccess(false);
+        if(null != ext){
+            result = shopService.addShop(ext);
+        }
+        return gson.toJson(result);
+    }
 
+    /**
+     * 更新商铺类型
+     * @param id
+     * @param type
+     * @return
+     */
+    @RequestMapping("update-type")
+    @ResponseBody
+    public String updateShopType(Integer id,Integer type){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != id){
+            result = shopService.updateShopType(id, type);
+        }
+        return gson.toJson(result);
+    }
+
+    /**
+     * 更新商铺类型
+     * @param id
+     * @return
+     */
+    @RequestMapping("pass")
+    @ResponseBody
+    public String passShop(Integer id){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != id){
+            result = shopService.passShop(id);
+        }
         return gson.toJson(result);
     }
 }

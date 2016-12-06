@@ -33,7 +33,7 @@ function streetCtrl($scope,$http,angularMeta,lgDataTableService){
     $scope.initTableData = function(pageData){
         $scope.tableData = {
             delete : function(row){
-                $scope.districtFlagObj.deleteOpen = true;
+                $scope.streetFlagObj.deleteOpen = true;
                 $scope.deleteInfo = {id:row.streetId};
             }
         };
@@ -99,7 +99,7 @@ function streetCtrl($scope,$http,angularMeta,lgDataTableService){
         if(!$scope.addStreetObj.districtId){
             return toastr.info("所属地区不可为空")
         }
-        $http.post("/shopmanage/add-stree.json",$scope.addDistrict,angularMeta.postCfg)
+        $http.post("/shopmanage/add-stree.json",$scope.addStreetObj,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
                     $scope.streetFlagObj.addOpen = false;

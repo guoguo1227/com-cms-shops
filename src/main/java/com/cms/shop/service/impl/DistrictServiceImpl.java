@@ -51,6 +51,7 @@ public class DistrictServiceImpl implements DistrictService {
     @Override
     public List<District> queryAll() {
         DistrictCriteria criteria = new DistrictCriteria();
+        criteria.setOrderByClause(" priority ");
         List<District> districtList = districtMapper.selectByExample(criteria);
         return districtList;
     }

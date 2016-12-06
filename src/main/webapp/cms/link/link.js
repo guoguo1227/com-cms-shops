@@ -12,11 +12,11 @@ function linkCtrl($scope,$http,angularMeta,lgDataTableService){
 
     $scope.ready = function(){
         $scope.search = {limit:15, currentPage:0,searchContent:''};
-        $scope.commentFlagObj = {showDetail:false};
+        $scope.linkFlagObj = {showDetail:false};
         $scope.searchLoad();
     }
     $scope.searchLoad = function(){
-        $http.post("/shop/page.json",$scope.search,angularMeta.postCfg)
+        $http.post("/shopmanage/friendPage.json",$scope.search,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
                     $scope.pagesNumber = data.data.totalPage;
@@ -32,23 +32,39 @@ function linkCtrl($scope,$http,angularMeta,lgDataTableService){
     //初始化表格数据
     $scope.initTableData = function(pageData){
         $scope.tableData = {
-            //查看详情
-            openDetail : function(row){
-                $scope.commentObj = row;
-                $scope.commentFlagObj.showDetail = true;
+            online : function(row){
+                $http.post("/shopmanage/update-friend-status.json",{id:row.friendId,status:1},angularMeta.postCfg)
+                    .success(function(data){
+                        if(data.success){
+                            $scope.searchLoad();
+                            toastr.info("上架成功!");
+                        }else{
+                            toastr.error(data.message);
+                        }
+                    });
+            },
+            offline : function(row){
+                $http.post("/shopmanage/update-friend-status.json",{id:row.friendId,type:2},angularMeta.postCfg)
+                    .success(function(data){
+                        if(data.success){
+                            $scope.searchLoad();
+                            toastr.info("下架成功!");
+                        }else{
+                            toastr.error(data.message);
+                        }
+                    });
             }
         };
 
-        var headerArray = ['商铺名称','所属地区','所在楼层','租赁面积','装修情况','发布日期','发布人','基本操作'];
-        lgDataTableService.setWidth($scope.tableData, undefined, [4,8],true);
+        var headerArray = ['链接名称','友情链接','状态','操作'];
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
         pageData = $scope.formatUserPageData(pageData);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="查看" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">查看</a>'+
-                '<a title="置顶" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.delete($row)">置顶</a>';
+            pg.action =  '<a title="上架" ng-if="$row.status !== 1" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.online($row)">上架</a>'+
+                '<a title="下架" ng-if="$row.status == 1" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.offline($row)">下架</a>';
             return pg;
-        }), ['shop.shopName','districtStr','shop.floor','shopSquareStr','buildingFinishing','shop.onsellDate','shop.publisher','action']);
+        }), ['friendName','url','statusStr','action']);
     };
 
     //切换页面
@@ -62,16 +78,41 @@ function linkCtrl($scope,$http,angularMeta,lgDataTableService){
         $scope.searchLoad();
     }
 
+    //添加友情链接
+    $scope.addLinkBtn = function(){
+        $scope.addLinkObj = {};
+        $scope.linkFlagObj.addOpen = true;
+
+    }
+    $scope.addFriendCancle = function(){
+        $scope.linkFlagObj.addOpen = false;
+    }
+    $scope.addFriendSave = function(){
+        $http.post("/shopmanage/add-friend.json",$scope.addLinkObj,angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.searchLoad();
+                    $scope.linkFlagObj.addOpen = false;
+                    toastr.info("添加成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
+    }
     //格式化表格数据
     $scope.formatUserPageData = function(pageData){
 
         if(pageData != undefined && pageData != "" && pageData.length>0){
             for(var i in pageData){
                 //注册账号激活状态
-                if(pageData[i].shop){
-                    pageData[i].shopSquareStr = "";
-                    if(pageData[i].shop.shopSquare){
-                        pageData[i].shopSquareStr = pageData[i].shop.shopSquare+"平米";
+                if(pageData[i].status){
+                    pageData[i].statusStr = "";
+                    if(pageData[i].status == 0){
+                        pageData[i].statusStr = "<span>未上架</span>";
+                    }else if(pageData[i].status == 1){
+                        pageData[i].statusStr = "<span><font color='green'>已上架</font></span>";
+                    }else if(pageData[i].status == 2){
+                        pageData[i].statusStr = "<span><font color='red'>下架</font></span>";
                     }
                 }
             }

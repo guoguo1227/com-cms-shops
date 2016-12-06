@@ -33,7 +33,7 @@ function adaptCtrl($scope,$http,angularMeta,lgDataTableService){
     $scope.initTableData = function(pageData){
         $scope.tableData = {
             delete : function(row){
-                $scope.adaptFlagObj.deleteOpen = false;
+                $scope.adaptFlagObj.deleteOpen = true;
                 $scope.deleteInfo = {id:row.ocpyId};
             }
         };

@@ -18,7 +18,7 @@ public interface BoardService {
 
     Page<BoardVo> queryPageByCondition(SearchCondition condition);
 
-    RequestResult addBoard(Board board);
+    RequestResult addBoard(Board board,String img);
 
     RequestResult deleteBoardById(Integer id);
 

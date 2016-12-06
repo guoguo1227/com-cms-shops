@@ -156,7 +156,7 @@ function adCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
     }
     //提交
     $scope.uploadImage = function (userImage) {
-        $scope.fileInfo = userImage;
+        $scope.fileInfo = $scope.userImage;
         Upload.upload({
             //服务端接收
             url: '/image/upload.json',

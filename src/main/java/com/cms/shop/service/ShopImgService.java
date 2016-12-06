@@ -13,5 +13,7 @@ public interface ShopImgService {
 
     public ShopImg getImgByShopId(Integer id);
 
+    boolean addShopImg(ShopImg img);
+
     public List<ShopImg> getImgListByShopId(Integer id);
 }

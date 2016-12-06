@@ -34,7 +34,7 @@ function supportCtrl($scope,$http,angularMeta,lgDataTableService){
         $scope.tableData = {
             delete : function(row){
                 $scope.supportFlagObj.deleteOpen = true;
-                $scope.deleteInfo = {id:row.typeId};
+                $scope.deleteInfo = {id:row.facilId};
             }
         };
 
@@ -63,7 +63,7 @@ function supportCtrl($scope,$http,angularMeta,lgDataTableService){
         $scope.supportFlagObj.deleteOpen = false;
     }
     $scope.deleteSave = function(){
-        $http.post("/shopmanage/delete-shopType.json",{id:$scope.deleteInfo.id},angularMeta.postCfg)
+        $http.post("/shopmanage/delete-buildFaci.json",{id:$scope.deleteInfo.id},angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
                     $scope.supportFlagObj.deleteOpen = false;
@@ -84,10 +84,10 @@ function supportCtrl($scope,$http,angularMeta,lgDataTableService){
         $scope.supportFlagObj.addOpen = false;
     }
     $scope.addShoptypeSave = function(){
-        if(!$scope.supportFlagObj.hotName){
-            return toastr.info("类型名称不可为空")
+        if(!$scope.addSupportObj.facilName){
+            return toastr.info("设施名称不可为空")
         }
-        $http.post("/shopmanage/add-shopType.json",$scope.supportFlagObj,angularMeta.postCfg)
+        $http.post("/shopmanage/add-buildFaci.json",$scope.addSupportObj,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
                     $scope.supportFlagObj.addOpen = false;

@@ -734,6 +734,35 @@ public class ShopManageController extends BaseController{
     }
 
     /**
+     * 上架,下架友情链接
+     * @param id
+     * @param status
+     * @return
+     */
+    @RequestMapping("update-friend-status")
+    @ResponseBody
+    public String updateFriendStatus(Integer id,Integer status){
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        result = friendService.updateFriendStatus(id,status);
+        return gson.toJson(result);
+    }
+
+    /**
+     * 添加友情链接
+     * @param friend
+     * @return
+     */
+    @RequestMapping("add-friend")
+    @ResponseBody
+    public String addFriend(Friend friend){
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        result = friendService.addFriend(friend);
+        return gson.toJson(result);
+    }
+
+    /**
      * 获取合作伙伴列表
      * @param condition
      * @return

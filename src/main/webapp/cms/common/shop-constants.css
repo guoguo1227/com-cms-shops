@@ -255,12 +255,25 @@
     letter-spacing: 3px;
     color: white;
 }
+.shop-hot-title-small{
+    font-family: 黑体;
+    font-size: 15px;
+    letter-spacing: 3px;
+    color: white;
+}
 .shop-hot-area{
     font-family: 黑体;
     font-size: 30px;
     color: white;
     font-style: italic;
     margin-top:-10px;
+}
+.shop-hot-area-small{
+    font-family: 黑体;
+    font-size: 21px;
+    color: white;
+    font-style: italic;
+    margin-top:-5px;
 }
 .shop-nav ul li a{
     font-size: 16px;

@@ -24,7 +24,7 @@
 var app = angular.module('MainApp', ['lg.platform','lg.datatable',
     /*'webSocketApp',*/
     'commentApp','adApp','adaptApp','buildApp','checkApp',
-    'districtApp','flashApp','friendApp','investmentApp',
+    'districtApp','flashApp','investmentApp',
     'linkApp','propertyApp','renovationApp','replyApp','reportApp',
     'shopApp','hotcatApp','supportApp','streetApp','boardApp','partnerApp','businessApp','userLoginApp','searchApp'
     ]).

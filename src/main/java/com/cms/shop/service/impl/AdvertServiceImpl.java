@@ -49,6 +49,10 @@ public class AdvertServiceImpl implements AdvertService{
             if(null != condition.getType()){
                 cri.andAdLocEqualTo(condition.getType());
             }
+            //状态
+            if(null != condition.getCheckStatus()){
+                cri.andAdStatusEqualTo(condition.getCheckStatus());
+            }
             int count = advertMapper.countByExample(criteria);
             criteria.setOrderByClause(" CREATE_DATE desc ");
             if(count>0){
@@ -78,6 +82,9 @@ public class AdvertServiceImpl implements AdvertService{
         boolean success = false;
         String message = "";
         if(null != advert){
+            //todo 测试
+            advert.setAudStatus(CheckStatusEnum.PASS.getKey());
+            advert.setAdStatus(OnlineStatusEnum.ONLINE.getKey());
             advert.setCreateDate(new Date());
             int i = advertMapper.insertSelective(advert);
             if(i>0){
@@ -160,6 +167,7 @@ public class AdvertServiceImpl implements AdvertService{
         criteria.setLimitStart(condition.getOffset());
         criteria.setLimitEnd(condition.getLimit());
 
+        criteria.setOrderByClause(" AD_ID desc ");
         List<Advert> list = advertMapper.selectByExample(criteria);
         if(CollectionUtils.isNotEmpty(list)){
             for(Advert ad : list){

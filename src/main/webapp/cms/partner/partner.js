@@ -16,7 +16,7 @@ function partnerCtrl($scope,$http,angularMeta,lgDataTableService){
 
     $scope.ready = function(){
         $scope.search = {limit:15, currentPage:0,searchContent:''};
-        $scope.commentFlagObj = {showDetail:false};
+        $scope.partnerFlagObj = {showDetail:false};
         $scope.searchLoad();
     }
     $scope.searchLoad = function(){
@@ -38,8 +38,8 @@ function partnerCtrl($scope,$http,angularMeta,lgDataTableService){
         $scope.tableData = {
             //查看详情
             openDetail : function(row){
-                $scope.commentObj = row;
-                $scope.commentFlagObj.showDetail = true;
+                $scope.partnerFlagObj = row;
+                $scope.partnerFlagObj.showDetail = true;
             }
         };
 

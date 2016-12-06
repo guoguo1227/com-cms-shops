@@ -1,6 +1,9 @@
 package com.cms.shop.service.impl;
 
+import com.cms.shop.constants.ShopConstant;
 import com.cms.shop.dao.base.mapper.FriendMapper;
+import com.cms.shop.enums.CheckStatusEnum;
+import com.cms.shop.enums.OnlineStatusEnum;
 import com.cms.shop.model.base.*;
 import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.model.ext.RequestResult;
@@ -27,7 +30,7 @@ public class FriendServiceImpl implements FriendService{
     public Page<Friend> queryListByCondition(SearchCondition condition) {
         Page<Friend> page = null;
         if(null != condition){
-            page = new Page();
+            page = new Page<>();
             page.setPageSize(condition.getLimit());
 
             FriendCriteria criteria = new FriendCriteria();
@@ -53,6 +56,9 @@ public class FriendServiceImpl implements FriendService{
         boolean success = false;
         String message = "";
         if(null != friend){
+            //todo
+            friend.setStatus(OnlineStatusEnum.ONLINE.getKey());
+            friend.setEditTag(ShopConstant.EDIT_TAG_LOCK);
             int i = friendMapper.insertSelective(friend);
             if(i>0){
                 success = true;
@@ -66,7 +72,25 @@ public class FriendServiceImpl implements FriendService{
     }
 
     @Override
-    public RequestResult offlineFriend(Friend friend) {
-        return null;
+    public RequestResult updateFriendStatus(Integer id,Integer status) {
+        RequestResult result = new RequestResult();
+        boolean success = false;
+        String message = "";
+        if(null != id){
+            Friend friend = friendMapper.selectByPrimaryKey(id);
+            if(null != friend){
+                friend.setStatus(status);
+                int i = friendMapper.updateByPrimaryKeySelective(friend);
+                if(i>0){
+                    success = true;
+                }
+
+            }else{
+                message = "该友情链接不存在!";
+            }
+        }
+        result.setSuccess(success);
+        result.setMessage(message);
+        return result;
     }
 }

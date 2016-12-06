@@ -16,6 +16,6 @@ public interface FriendService {
 
     RequestResult addFriend(Friend friend);
 
-    RequestResult offlineFriend(Friend friend);
+    RequestResult updateFriendStatus(Integer id,Integer status);
 
 }

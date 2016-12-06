@@ -13,7 +13,7 @@ function reportCtrl($scope,$http,angularMeta,lgDataTableService){
     $scope.ready = function(){
         $scope.search = {limit:15, currentPage:0,searchContent:''};
         $scope.commentFlagObj = {showDetail:false};
-        $scope.searchLoad();
+       // $scope.searchLoad();
     }
     $scope.searchLoad = function(){
         $http.post("/shop/page.json",$scope.search,angularMeta.postCfg)

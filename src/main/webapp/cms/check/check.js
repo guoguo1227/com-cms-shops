@@ -16,7 +16,7 @@ function checkCtrl($scope,$http,angularMeta,lgDataTableService){
         $scope.searchLoad();
     }
     $scope.searchLoad = function(){
-        $http.post("/shop/checkPage.json",$scope.search,angularMeta.postCfg)
+        $http.post("/shop/page.json",$scope.search,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
                     $scope.pagesNumber = data.data.totalPage;
@@ -32,23 +32,28 @@ function checkCtrl($scope,$http,angularMeta,lgDataTableService){
     //初始化表格数据
     $scope.initTableData = function(pageData){
         $scope.tableData = {
-            //查看详情
-            openDetail : function(row){
-                $scope.commentObj = row;
-                $scope.commentFlagObj.showDetail = true;
+            pass : function(row){
+                $http.post("/shop/pass.json",{id:row.shop.id},angularMeta.postCfg)
+                    .success(function(data){
+                        if(data.success){
+                            $scope.searchLoad();
+                            toastr.info("操作成功!");
+                        }else{
+                            toastr.error(data.message);
+                        }
+                    });
             }
         };
 
-        var headerArray = ['商铺名称','所属地区','所在楼层','租赁面积','装修情况','发布日期','发布人','基本操作'];
+        var headerArray = ['商铺名称','所属地区','所在楼层','租赁面积','装修情况','发布日期','发布人','审核状态','基本操作'];
         lgDataTableService.setWidth($scope.tableData, undefined, [4,8],true);
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
         pageData = $scope.formatPageData(pageData);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="查看" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">查看</a>'+
-                '<a title="置顶" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.delete($row)">置顶</a>';
+            pg.action =  '<a title="通过" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.pass($row)">通过</a>';
             return pg;
-        }), ['shop.shopName','districtStr','shop.floor','shopSquareStr','buildingFinishing','shop.onsellDate','shop.publisher','action']);
+        }), ['shop.shopName','districtStr','shop.floor','shopSquareStr','buildingFinishing','shop.createDate','shop.publisher','checkStatus','action']);
     };
 
     //切换页面
@@ -67,7 +72,16 @@ function checkCtrl($scope,$http,angularMeta,lgDataTableService){
 
         if(pageData != undefined && pageData != "" && pageData.length>0){
             for(var i in pageData){
-
+                pageData[i].checkStatus = "未审核";
+                if(pageData[i].shop.auditStatus){
+                    if(pageData[i].shop.auditStatus == 0){
+                        pageData[i].checkStatus = "未审核";
+                    }else if(pageData[i].shop.auditStatus ==1){
+                        pageData[i].checkStatus = "<font color='green'>审核通过</font>";
+                    }else if(pageData[i].shop.auditStatus ==2){
+                        pageData[i].checkStatus = "<font color='red'>审核未通过</font>";
+                    }
+                }
             }
         }
         return pageData;

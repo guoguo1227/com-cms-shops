@@ -17,7 +17,7 @@
                     <div class="input-group-btn">
                         <button title="审核状态" type="button" class="btn btn-default">审核状态</button>
                     </div>
-                    <select class="form-control" name = "status" ng-model="search.status" ng-change="searchLoad(0)">
+                    <select class="form-control" name = "status" ng-model="search.checkStatus" ng-change="searchLoad(0)">
                         <option value="">请选择</option>
                         <option value=0>待审核</option>
                         <option value=1>审核通过</option>
@@ -78,16 +78,16 @@
                         <label  class="col-sm-3 control-label">360*290像素</label>
                         <div class="col-sm-9">
                             <input type="file" ngf-select="" ng-model="userImage" name="file" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" required="">
-                            <button type="button" ng-click="uploadImage(userImage)">上传图片</button>
+                            <button type="button" class="shop-margin-top-10 btn-success"  ng-click="uploadImage(userImage)">上传图片</button>
                         </div>
                     </div>
 
-                    <div class="form-group">
+                   <!-- <div class="form-group">
                         <label style="margin-left: 12px;" class="col-sm-2 control-label">位置图示:</label>
                     </div>
                     <div class="form-group">
                         <img src="/static/ui/images/1.jpg" style="height:100px;">
-                    </div>
+                    </div>-->
                 </div>
             </form>
         </div>

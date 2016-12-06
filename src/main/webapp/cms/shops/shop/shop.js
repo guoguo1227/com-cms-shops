@@ -1,17 +1,17 @@
 /**
  * Created by samuel on 15-12-25.
  */
-var app = angular.module('shopApp',['angular-constants']);
+var app = angular.module('shopApp',['angular-constants','ngFileUpload']);
 app.controller('shopCtrl',shopCtrl);
 
-function shopCtrl($scope,$http,angularMeta,lgDataTableService){
+function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
     //初始化table
     $scope.init = function() {
         $scope.ready();
     };
 
     $scope.ready = function(){
-        $scope.search = {limit:15, currentPage:0,searchContent:''};
+        $scope.search = {limit:15, currentPage:0,searchContent:'',checkStatus:1};
         $scope.shopFlagObj = {};
         $scope.shopListFlag = true;
         $scope.searchLoad();
@@ -86,23 +86,40 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService){
     //初始化表格数据
     $scope.initTableData = function(pageData){
         $scope.tableData = {
-            //查看详情
-            openDetail : function(row){
-                $scope.commentObj = row;
-                $scope.commentFlagObj.showDetail = true;
+            setGood : function(row){
+                $http.post("/shop/update-type.json",{id:row.shop.id,type:3},angularMeta.postCfg)
+                    .success(function(data){
+                        if(data.success){
+                            $scope.searchLoad();
+                            toastr.info("设置成功!");
+                        }else{
+                            toastr.error(data.message);
+                        }
+                    });
+            },
+            setFire : function(row){
+                $http.post("/shop/update-type.json",{id:row.shop.id,type:2},angularMeta.postCfg)
+                    .success(function(data){
+                        if(data.success){
+                            $scope.searchLoad();
+                            toastr.info("设置成功!");
+                        }else{
+                            toastr.error(data.message);
+                        }
+                    });
             }
+
         };
 
-        var headerArray = ['商铺名称','所属地区','所在楼层','租赁面积','装修情况','发布日期','发布人','基本操作'];
-        lgDataTableService.setWidth($scope.tableData, undefined, [4,8],true);
+        var headerArray = ['商铺名称','所属地区','所在楼层','租赁面积','装修情况','发布日期','发布人','类型','基本操作'];
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
         pageData = $scope.formatShopPageData(pageData);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="查看" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">查看</a>'+
-                '<a title="置顶" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.delete($row)">置顶</a>';
+            pg.action =  '<a title="设置旺铺" class="btn bg-red btn-xs shop-margin-top-3" ng-click="$table.setGood($row)">设置好铺</a>'+
+                '<a title="设置好铺" class="btn bg-orange btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.setFire($row)">设置旺铺</a>';
             return pg;
-        }), ['shop.shopName','districtStr','shop.floor','shopSquareStr','buildingFinishing','shop.onsellDate','shop.publisher','action']);
+        }), ['shop.shopName','districtStr','shop.floor','shopSquareStr','buildingFinishing','shop.createDate','shop.publisher','shopTypeStr','action']);
     };
 
     //切换页面
@@ -127,6 +144,16 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService){
                     if(pageData[i].shop.squareMetres){
                         pageData[i].shopSquareStr = pageData[i].shop.squareMetres+"平米";
                     }
+                    pageData[i].shopTypeStr = "";
+                    if(pageData[i].shop.type){
+                        if(pageData[i].shop.type ==1){
+                            pageData[i].shopTypeStr = "普通";
+                        }else if(pageData[i].shop.type ==2){
+                            pageData[i].shopTypeStr = "<font color='red'>热招旺铺</font>";
+                        }else if(pageData[i].shop.type ==3){
+                            pageData[i].shopTypeStr = "<font color='orange'>精选好铺</font>";
+                        }
+                    }
                 }
             }
         }
@@ -136,7 +163,9 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService){
     //添加商铺按钮
     $scope.addShopBtn = function(){
         $scope.shopListFlag = false;
-        $scope.addshop = {};
+        $scope.addshop = {facility:""};
+        $scope.shopImage1 = "";
+        $scope.shopImage2 = "";
         $('#datetimepickerStart').datepicker({
             format: 'yyyy-mm-dd',
             language:'zh-CN',
@@ -192,22 +221,61 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService){
 
     $scope.createMap = function(){
         // 百度地图API功能
-        var map = new BMap.Map("allmap");
-        var point = new BMap.Point(116.331398,39.897445);
-        map.centerAndZoom(point,12);
-        // 创建地址解析器实例
-        var myGeo = new BMap.Geocoder();
-        // 将地址解析结果显示在地图上,并调整地图视野
-        myGeo.getPoint("北京市海淀区上地10街", function(point){
-            if (point) {
-                map.centerAndZoom(point, 16);
-                map.addOverlay(new BMap.Marker(point));
-            }else{
-                alert("您选择地址没有解析到结果!");
-            }
-        }, "北京市");
+        $scope.map = new BMap.Map("allmap");
+        var point = new BMap.Point(121.481294, 31.236669);
+        var lng=0,  lat=0, zoom = 16;
+        $scope.map.centerAndZoom(point, zoom);                 	// 初始化地图，设置中心点坐标和地图级别
+        $scope.map.enableScrollWheelZoom;						// 允许鼠标滚轮控制缩放
+        $scope.map.addControl(new BMap.NavigationControl());	// 地图平移缩放控件，默认位于地图左上方，它包含控制地图的平移和缩放的功能
+        $scope.map.addControl(new BMap.MapTypeControl());		// 地图类型控件，默认位于地图右上方
+
+        var marker = new BMap.Marker(point);        	// 创建标注
+        $scope.map.addOverlay(marker);
+        marker.enableDragging();
+        marker.addEventListener("dragend", function(e){
+            $scope.lng = e.point.lng;
+            $scope.lat = e.point.lat;
+            $scope.zoom = $scope.map.getZoom();
+        });                       	// 将标注添加到地图中
+        // 将标注添加到地图中
+        $scope.map.addEventListener("click",function(e){
+            $scope.addshop.lng = e.point.lng;
+            $scope.addshop.lat = e.point.lat;
+            $scope.addshop.zoom = $scope.map.getZoom();
+            toastr.info("选取坐标："+e.point.lng+","+e.point.lat);// 单击地图获取坐标点；
+            console.log("lng:"+$scope.addshop.lng+",lat:"+$scope.addshop.lat+",zoom:"+$scope.addshop.zoom)
+
+            $scope.map.panTo(new BMap.Point(e.point.lng,e.point.lat));// map.panTo方法，把点击的点设置为地图中心点
+        });
+        var opts = {
+            width : 25,     // 信息窗口宽度
+            height: 10,     // 信息窗口高度
+            title : "人民广场"  // 信息窗口标题
+        }
+        var infoWindow = new BMap.InfoWindow("上海市政府", opts);  // 创建信息窗口对象
+        $scope.map.openInfoWindow(infoWindow, $scope.map.getCenter());      // 打开信息窗口
+
     }
 
+    $scope.searchMap = function(){
+        if($scope.addshop.location){
+            var local = new BMap.LocalSearch($scope.map, {
+                renderOptions:{map: $scope.map}
+            });
+            console.log($scope.addshop.location)
+            local.search($scope.addshop.location);
+        }
+    }
+    //配套设施选择功能
+    $scope.confirmCheckboxClicked = function(type){
+        if (type.checked) {
+            $scope.addshop.facility = $scope.addshop.facility.replace(type.facilId + ",", "");
+        } else {
+            $scope.addshop.facility = $scope.addshop.facility + type.facilId + ",";
+        }
+        type.checked = !type.checked;
+        console.log($scope.addshop.facility)
+    },
     /**
      * 选择地区
      */
@@ -233,14 +301,23 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService){
         if(!$scope.addshop.shopName){
             return toastr.info("商铺名称不可为空!")
         }
-        if(!$scope.addshop.hotcateId){
+        if(!$scope.addshop.hotId){
             return toastr.info("所属商铺类型不可为空!")
+        }else{
+            $scope.addshop.hotId =  parseInt($scope.addshop.hotId);
+        }
+        if($scope.addshop.shopNo && $scope.addshop.shopNo.length != 13){
+            return toastr.info("商铺编号必须是13位!")
         }
         if(!$scope.addshop.districtId){
             return toastr.info("所在地区不可为空!")
+        }else{
+            $scope.addshop.districtId =  parseInt($scope.addshop.districtId);
         }
         if(!$scope.addshop.streetId){
             return toastr.info("所在街镇不可为空!")
+        }else{
+            $scope.addshop.streetId =  parseInt($scope.addshop.streetId);
         }
         if(!$scope.addshop.location){
             return toastr.info("详细地址不可为空!")
@@ -248,51 +325,82 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService){
         if(!$scope.addshop.publisher){
             return toastr.info("发布人不可为空!")
         }
+        if(!$scope.addshop.lng){
+            return toastr.info("请点击地图选取坐标!")
+        }
         if(!$scope.addshop.onsellDate){
             return toastr.info("上架时间不可为空!")
+        }else{
+            $scope.addshop.onsellDate += " 00:00:00";
         }
         if(!$scope.addshop.offsellDate){
             return toastr.info("下架时间不可为空!")
+        }else{
+            $scope.addshop.offsellDate += " 23:59:59";
         }
         if(!$scope.addshop.typeId){
             return toastr.info("物业性质不可为空!")
+        }else{
+            $scope.addshop.typeId =  parseInt($scope.addshop.typeId);
         }
         if(!$scope.addshop.finishingId){
             return toastr.info("装修情况不可为空!")
+        }else{
+            $scope.addshop.finishingId =  parseInt($scope.addshop.finishingId);
         }
         if(!$scope.addshop.traffic){
             return toastr.info("公交线路不可为空!")
         }
         if(!$scope.addshop.archiId){
             return toastr.info("建筑结构不可为空!")
+        }else{
+            $scope.addshop.archiId =  parseInt($scope.addshop.archiId);
+        }
+        if(!$scope.addshop.ocpyId){
+            return toastr.info("适应业态不可为空!")
+        }else{
+            $scope.addshop.ocpyId =  parseInt($scope.addshop.ocpyId);
         }
         if($scope.addshop.img1 === "" || $scope.addshop.img1 == undefined){
             return toastr.info("请先上传图片1!")
         }
         //描述
-        $scope.addshop.description = ue.getContext();
+        $scope.addshop.description = $scope.ue.getContentTxt();
         console.log($scope.addshop)
+
+        $http.post("/shop/add.json",$scope.addshop,angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.goback();
+                    $scope.searchLoad();
+                    toastr.info("添加成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
     }
 
     $scope.editPriceFun = function(){
-        $scope.addshop.shopPrice2="";
-        $scope.addshop.shopPricese2="";
+        $scope.addshop.price2="";
+        $scope.addshop.priceSe2="";
 
     }
 
     $scope.editPrice2Fun = function(){
-        $scope.addshop.shopPrice="";
-        $scope.addshop.shopPricese="";
+        $scope.addshop.price="";
+        $scope.addshop.priceSe="";
 
     }
-    $scope.uploadImage = function (shopImage,flag) {
-        $scope.fileInfo = shopImage;
+    $scope.uploadImage = function (userImage,flag) {
+        if(userImage == "" || userImage == undefined){
+            return toastr.info("请重新选择需要上传的图片!");
+        }
         Upload.upload({
             //服务端接收
             url: '/image/upload.json',
             //上传的同时带的参数
             data: { 'imageType': 7 },
-            file: shopImage
+            file: userImage
         }).progress(function (evt) {
             //进度条
             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);

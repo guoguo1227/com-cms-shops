@@ -1,5 +1,6 @@
 package com.cms.shop.service.impl;
 
+import com.cms.shop.constants.ShopConstant;
 import com.cms.shop.dao.base.ext.BrdImgExtMapper;
 import com.cms.shop.dao.base.mapper.BoardMapper;
 import com.cms.shop.dao.base.mapper.BrdImgMapper;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -103,13 +105,21 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public RequestResult addBoard(Board board) {
+    public RequestResult addBoard(Board board,String img) {
         RequestResult result = new RequestResult();
         boolean success = false;
         String message = "";
         if(null != board){
+            board.setCreateDate(new Date());
+            board.setEditTag(ShopConstant.EDIT_TAG_LOCK);
             int i = boardMapper.insertSelective(board);
             if(i>0){
+                if(null != board.getBrdId() && !StringUtils.isBlank(img)){
+                    BrdImg brdImg = new BrdImg();
+                    brdImg.setFileName(img);
+                    brdImg.setBrdId(board.getBrdId());
+                    brdImgMapper.insertSelective(brdImg);
+                }
                 success = true;
             }
         }else{

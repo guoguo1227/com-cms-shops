@@ -48,20 +48,20 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService){
             }
         };
 
-        var headerArray = ['商铺名称','所属地区','留言人','留言日期','留言内容','留言人手机','留言人邮箱','留言人地址','操作'];
+        var headerArray = ['商铺名称','所属地区','留言人','留言日期','留言内容','留言人手机','留言人邮箱','留言人地址','审核状态','操作'];
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
-
+        $scope.formatCommentPageData(pageData);
         lgDataTableService.config($scope.tableData,{
             noscroll : true,
             nowrap : false,
             noexpand:[],
-            width:{shopName:'10%',distruct:'30px','qa.content':'40%'}
+            width:{shopName:'10%',distruct:'100px','qa.content':'40%'}
 
         });
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
             pg.action =  '<a title="审核"  ng-if="$row.qa.auditStatus == 0" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.check($row)">审核</a>';
             return pg;
-        }), ['shopName','distruct','qa.askerName','qa.createDate','qa.content','qa.askerPhone','qa.askerMail','qa.askerLoc','action']);
+        }), ['shopName','distruct','qa.askerName','qa.createDate','qa.content','qa.askerPhone','qa.askerMail','qa.askerLoc','auditStatusStr','action']);
     };
 
     //切换页面
@@ -76,15 +76,19 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService){
     }
 
     //格式化表格数据
-    $scope.formatUserPageData = function(pageData){
+    $scope.formatCommentPageData = function(pageData){
 
         if(pageData != undefined && pageData != "" && pageData.length>0){
             for(var i in pageData){
                 //注册账号激活状态
-                if(pageData[i].shop){
-                    pageData[i].shopSquareStr = "";
-                    if(pageData[i].shop.shopSquare){
-                        pageData[i].shopSquareStr = pageData[i].shop.shopSquare+"平米";
+                if(pageData[i].qa.auditStatus){
+                    pageData[i].auditStatusStr = "";
+                    if(pageData[i].qa.auditStatus == 0){
+                        pageData[i].auditStatusStr = "<span>未审核</span>";
+                    }else if(pageData[i].qa.auditStatus == 1){
+                        pageData[i].auditStatusStr = "<span><font color='green'>已审核</font></span>";
+                    }else if(pageData[i].qa.auditStatus == 2){
+                        pageData[i].auditStatusStr = "<span><font color='red'>审核未通过</font></span>";
                     }
                 }
             }

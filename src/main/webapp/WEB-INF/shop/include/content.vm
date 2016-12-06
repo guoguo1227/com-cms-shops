@@ -112,7 +112,7 @@
                                         <a href="/front/detail.action?id=$!firShop.shop.id" target="_blank"><img src="$!firShop.filePath" alt="" style="height:250px;"></a>
                                         <div class="caption mr_zhe_p">
                                             <span class="shop-hot-title">$!{firShop.districtStr}</span>
-                                            <span class="shop-fright">$!{firShop.shop.squareMetres}㎡</span>
+                                            <span class="shop-fright shop-hot-area">$!{firShop.shop.squareMetres}㎡</span>
                                         </div>
                                     </div>
                                 #end
@@ -126,18 +126,18 @@
                                     <a href="/front/detail.action?id=$!firShop.shop.id" target="_blank"><img  src="$!firShop.filePath"></a>
                                     #if($velocityCount <4)
                                         <div class="caption mr_zhe_p2">
-                                            <span class="shop-hot-title">$!{firShop.districtStr}</span>
-                                            <span class="shop-fright shop-hot-area">$!{firShop.shop.squareMetres}㎡</span>
+                                            <span class="shop-hot-title-small">$!{firShop.districtStr}</span>
+                                            <span class="shop-fright shop-hot-area-small">$!{firShop.shop.squareMetres}㎡</span>
                                         </div>
                                     #elseif($velocityCount ==4)
                                         <div class="caption mr_zhe_p">
-                                            <span class="shop-hot-title">$!{firShop.districtStr}</span>
-                                            <span class="shop-fright shop-hot-area">$!{firShop.shop.squareMetres}㎡</span>
+                                            <span class="shop-hot-title-small">$!{firShop.districtStr}</span>
+                                            <span class="shop-fright shop-hot-area-small">$!{firShop.shop.squareMetres}㎡</span>
                                         </div>
                                     #else
                                         <div class="caption mr_zhe_p5">
-                                            <span class="shop-hot-title">$!{firShop.districtStr}</span>
-                                            <span class="shop-fright shop-hot-area">$!{firShop.shop.squareMetres}㎡</span>
+                                            <span class="shop-hot-title-small">$!{firShop.districtStr}</span>
+                                            <span class="shop-fright shop-hot-area-small">$!{firShop.shop.squareMetres}㎡</span>
                                         </div>
                                     #end
                                </div>
@@ -152,7 +152,7 @@
                                         <a href="/front/detail.action?id=$!firShop.shop.id" target="_blank"><img src="$!firShop.filePath" alt="" style="height:250px;"></a>
                                         <div class="caption mr_zhe_p2">
                                             <span>$!{firShop.districtStr}</span>
-                                            <span class="shop-fright">$!{firShop.shop.squareMetres}平米</span>
+                                            <span class="shop-fright shop-hot-area">$!{firShop.shop.squareMetres}㎡</span>
                                         </div>
                                     </div>
                                 #end

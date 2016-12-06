@@ -59,7 +59,7 @@ function districtCtrl($scope,$http,angularMeta,lgDataTableService){
                     });
             },
             delete : function(row){
-                $scope.districtFlagObj.addOpen = true;
+                $scope.districtFlagObj.deleteOpen = true;
                 $scope.deleteInfo = {id:row.districtId};
             }
 
@@ -115,13 +115,13 @@ function districtCtrl($scope,$http,angularMeta,lgDataTableService){
     }
     //取消删除
     $scope.deletCancle = function(){
-        $scope.streetFlagObj.deleteOpen = false;
+        $scope.districtFlagObj.deleteOpen = false;
     }
     $scope.deleteSave = function(){
         $http.post("/shopmanage/delete-district.json",{id:$scope.deleteInfo.id},angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
-                    $scope.districtFlagObj.addOpen = false;
+                    $scope.districtFlagObj.deleteOpen = false;
                     $scope.searchLoad();
                     toastr.info("操作成功!");
                 }else{
