@@ -57,8 +57,8 @@
                         <div class="col-sm-10">
                             <select class="form-control" name = "brdType" ng-model="addBoardObj.brdType">
                                 <option value="">请选择</option>
-                                <option value="">北翼要闻</option>
-                                <option value="">最新动态</option>
+                                <option value=5>北翼要闻</option>
+                                <option value=6>最新动态</option>
                             </select>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                         <label  class="col-sm-2 control-label">公告内容:</label>
                         <div class="col-sm-10">
                             <div class="col-xs-8">
-                                <textarea name = "content" id = "boardContent" ></textarea>
+                                <textarea name = "content" id = "boardContent" style="width:450px;height: 200px;"></textarea>
                             </div>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
 
                         <div class="col-sm-10">
                             <input type="file" ngf-select="" ng-model="boardImage" name="file" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" required="">
-                            <button type="button" class="shop-margin-top-10 btn-success"  ng-click="uploadImage(boardImage,1)">上传图片1</button>
+                            <button type="button" class="shop-margin-top-10 btn-success"  ng-click="uploadImage(boardImage)">上传图片1</button>
                         </div>
                     </div>
                 </div>

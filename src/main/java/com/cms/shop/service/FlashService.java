@@ -4,6 +4,7 @@ import com.cms.shop.model.base.Flash;
 import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.model.ext.RequestResult;
 import com.cms.shop.utils.Page;
+import org.apache.log4j.varia.FallbackErrorHandler;
 
 /**
  * @author : samuel
@@ -19,4 +20,6 @@ public interface FlashService {
     RequestResult offlineFlash(Integer id);
 
     RequestResult onlineFlash(Integer id);
+
+    RequestResult addFlash(Flash flash);
 }

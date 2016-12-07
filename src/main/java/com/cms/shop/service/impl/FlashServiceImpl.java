@@ -2,15 +2,13 @@ package com.cms.shop.service.impl;
 
 import com.cms.shop.dao.base.mapper.FlashMapper;
 import com.cms.shop.enums.ImageType;
+import com.cms.shop.enums.OnlineStatusEnum;
 import com.cms.shop.model.base.Flash;
 import com.cms.shop.model.base.FlashCriteria;
-import com.cms.shop.model.base.Street;
-import com.cms.shop.model.base.StreetCriteria;
 import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.model.ext.RequestResult;
 import com.cms.shop.service.FlashService;
 import com.cms.shop.utils.Page;
-import freemarker.template.utility.StringUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +31,11 @@ public class FlashServiceImpl implements FlashService{
     public Page<Flash> queryListByCondition(SearchCondition condition) {
         Page<Flash> page = null;
         if(null != condition){
-            page = new Page();
+            page = new Page<>();
             page.setPageSize(condition.getLimit());
 
             FlashCriteria criteria = new FlashCriteria();
+            criteria.setOrderByClause(" id desc ");
             int count = flashMapper.countByExample(criteria);
             if(count>0){
                 criteria.setLimitStart(condition.getOffset());
@@ -45,7 +44,11 @@ public class FlashServiceImpl implements FlashService{
                 if(CollectionUtils.isNotEmpty(flashList)){
                     for(Flash flash : flashList){
                         if(!StringUtils.isBlank(flash.getFlashName())){
-                            flash.setFlashName(ImageType.FLASH.getImagePath()+flash.getFlashName());
+                            if(flash.getFlashName().contains(ImageType.FLASH.getImagePath())){
+
+                            }else{
+                                flash.setFlashName(ImageType.FLASH.getImagePath()+flash.getFlashName());
+                            }
                         }
                     }
                     page.setPageData(flashList);
@@ -78,7 +81,7 @@ public class FlashServiceImpl implements FlashService{
         if(null != id){
             Flash flash = flashMapper.selectByPrimaryKey(id);
             if(null != flash){
-                flash.setStatus(0); //下架
+                flash.setStatus(OnlineStatusEnum.OFFLINE.getKey()); //下架
                 int i = flashMapper.updateByPrimaryKeySelective(flash);
                 if(i>0){
                     success = true;
@@ -101,7 +104,7 @@ public class FlashServiceImpl implements FlashService{
         if(null != id){
             Flash flash = flashMapper.selectByPrimaryKey(id);
             if(null != flash){
-                flash.setStatus(1); //上架
+                flash.setStatus(OnlineStatusEnum.ONLINE.getKey()); //上架
                 int i = flashMapper.updateByPrimaryKeySelective(flash);
                 if(i>0){
                     success = true;
@@ -110,6 +113,27 @@ public class FlashServiceImpl implements FlashService{
 
         }else{
             message = "id不可为空";
+        }
+        result.setSuccess(success);
+        result.setMessage(message);
+        return result;
+    }
+
+    @Override
+    public RequestResult addFlash(Flash flash) {
+        RequestResult result = new RequestResult();
+        boolean success = false;
+        String message = "";
+        if(null != flash){
+            //默认未上架
+            flash.setStatus(OnlineStatusEnum.OFFLINE.getKey());
+            int i  = flashMapper.insertSelective(flash);
+            if(i>0){
+                success = true;
+            }
+
+        }else{
+            message = "flash不可为空";
         }
         result.setSuccess(success);
         result.setMessage(message);

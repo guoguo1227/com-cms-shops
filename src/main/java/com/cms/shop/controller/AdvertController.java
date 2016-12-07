@@ -81,6 +81,24 @@ public class AdvertController extends BaseController{
     }
 
     /**
+     * 审核广告
+     * @param id
+     * @param ifPass
+     * @return
+     */
+    @RequestMapping("check")
+    @ResponseBody
+    public String checkAd(Integer id,boolean ifPass){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != id){
+            result =  advertService.checkAdvert(id,ifPass);
+        }
+        return gson.toJson(result);
+    }
+
+    /**
      * 添加广告
      * @param advert
      * @return

@@ -784,6 +784,48 @@ public class ShopManageController extends BaseController{
     }
 
     /**
+     * 添加合作伙伴
+     * @param partner
+     * @return
+     */
+    @RequestMapping("add-partner")
+    @ResponseBody
+    public String addPartner(Partner partner){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != partner && !StringUtils.isBlank(partner.getFileName())){
+            result = partnerService.addPartner(partner);
+        }else{
+            result.setMessage("合作伙伴图片不可为空!");
+        }
+        return gson.toJson(result);
+    }
+
+    /**
+     * 上架,下架合作伙伴
+     * @param id
+     * @param ifOnline
+     * @return
+     */
+    @RequestMapping("update-partner-status")
+    @ResponseBody
+    public String updatePartnerStatus(Integer id,boolean ifOnline){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != id){
+            if(ifOnline){
+                result = partnerService.onlinePartner(id);
+            }else{
+                result = partnerService.offlinePartner(id);
+            }
+        }else{
+            result.setMessage("id不可为空!");
+        }
+        return gson.toJson(result);
+    }
+    /**
      * 获取招商项目列表
      * @param condition
      * @return
@@ -821,6 +863,49 @@ public class ShopManageController extends BaseController{
                 result.setSuccess(true);
                 result.setData(page);
             }
+        }
+        return gson.toJson(result);
+    }
+
+    /**
+     * 添加flash
+     * @param flash
+     * @return
+     */
+    @RequestMapping("addPage")
+    @ResponseBody
+    public String addFlash(Flash flash){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != flash && !StringUtils.isBlank(flash.getFlashName())){
+           result = flashService.addFlash(flash);
+        }else{
+            result.setMessage("请重新上传flash");
+        }
+        return gson.toJson(result);
+    }
+
+    /**
+     * 上架,下架 flash
+     * @param id
+     * @param ifOnline
+     * @return
+     */
+    @RequestMapping("update-flash-status")
+    @ResponseBody
+    public String updateFlashStatus(Integer id,boolean ifOnline){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != id){
+            if(ifOnline){
+                result = flashService.onlineFlash(id);
+            }else{
+                result = flashService.offlineFlash(id);
+            }
+        }else{
+            result.setMessage("id不可为空!");
         }
         return gson.toJson(result);
     }

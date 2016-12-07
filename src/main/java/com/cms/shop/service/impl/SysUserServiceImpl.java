@@ -43,6 +43,20 @@ public class SysUserServiceImpl implements SysUserService{
     }
 
     @Override
+    public SysUser queryUserByName(String username) {
+        SysUser sysUser = null;
+        if(!StringUtils.isBlank(username)){
+            SysUserCriteria criteria = new SysUserCriteria();
+            criteria.createCriteria().andUserNameEqualTo(username);
+            List<SysUser> sysUserList = sysUserMapper.selectByExample(criteria);
+            if(CollectionUtils.isNotEmpty(sysUserList)){
+                sysUser = sysUserList.get(0);
+            }
+        }
+        return sysUser;
+    }
+
+    @Override
     public RequestResult login(String username, String password) {
         String message = "";
         boolean success = false;

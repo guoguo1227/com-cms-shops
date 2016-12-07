@@ -1,5 +1,6 @@
 package com.cms.shop.service.impl;
 
+import com.cms.shop.constants.ShopConstant;
 import com.cms.shop.dao.base.mapper.PartnerMapper;
 import com.cms.shop.enums.ImageType;
 import com.cms.shop.enums.OnlineStatusEnum;
@@ -77,11 +78,71 @@ public class PartnerServiceImpl implements PartnerService{
 
     @Override
     public RequestResult offlinePartner(Integer id) {
-        return null;
+        RequestResult result = new RequestResult();
+        boolean success = false;
+        String message = "";
+        if(null != id){
+            Partner partner = partnerMapper.selectByPrimaryKey(id);
+            if(null != partner){
+                partner.setStatus(OnlineStatusEnum.OFFLINE.getKey());
+                int i = partnerMapper.updateByPrimaryKeySelective(partner);
+                if(i>0){
+                    success = true;
+                }
+            }else{
+                message = "合作伙伴已删除";
+            }
+        }else{
+            message = "合作伙伴不可为空";
+        }
+        result.setSuccess(success);
+        result.setMessage(message);
+        return result;
     }
 
     @Override
     public RequestResult onlinePartner(Integer id) {
-        return null;
+        RequestResult result = new RequestResult();
+        boolean success = false;
+        String message = "";
+        if(null != id){
+            Partner partner = partnerMapper.selectByPrimaryKey(id);
+            if(null != partner){
+                partner.setStatus(OnlineStatusEnum.ONLINE.getKey());
+                int i = partnerMapper.updateByPrimaryKeySelective(partner);
+                if(i>0){
+                    success = true;
+                }
+            }else{
+                message = "合作伙伴已删除";
+            }
+        }else{
+            message = "合作伙伴不可为空";
+        }
+        result.setSuccess(success);
+        result.setMessage(message);
+        return result;
+    }
+
+    @Override
+    public RequestResult addPartner(Partner partner) {
+        RequestResult result = new RequestResult();
+        boolean success = false;
+        String message = "";
+        if(null != partner){
+            //默认未上架
+            partner.setStatus(OnlineStatusEnum.OFFLINE.getKey());
+            partner.setEditTag(ShopConstant.EDIT_TAG_LOCK);
+            int i  = partnerMapper.insertSelective(partner);
+            if(i>0){
+                success = true;
+            }
+
+        }else{
+            message = "合作伙伴不可为空";
+        }
+        result.setSuccess(success);
+        result.setMessage(message);
+        return result;
     }
 }

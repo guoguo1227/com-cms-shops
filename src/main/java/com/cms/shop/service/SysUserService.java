@@ -17,5 +17,7 @@ public interface SysUserService {
 
     SysUser queryUserById(Integer id);
 
+    SysUser queryUserByName(String username);
+
     RequestResult login(String username,String password);
 }

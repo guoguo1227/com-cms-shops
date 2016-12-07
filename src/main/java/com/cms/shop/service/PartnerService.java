@@ -32,4 +32,11 @@ public interface PartnerService {
      */
     RequestResult onlinePartner(Integer id);
 
+    /**
+     * 添加
+     * @param partner
+     * @return
+     */
+    RequestResult addPartner(Partner partner);
+
 }

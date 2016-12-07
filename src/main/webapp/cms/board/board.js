@@ -1,10 +1,10 @@
 /**
  * Created by samuel on 15-12-25.
  */
-var app = angular.module('boardApp',['angular-constants']);
+var app = angular.module('boardApp',['angular-constants','ngFileUpload']);
 app.controller('boardCtrl',boardCtrl);
 
-function boardCtrl($scope,$http,angularMeta,lgDataTableService){
+function boardCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
     //初始化table
     $scope.init = function() {
         $scope.ready();
@@ -82,12 +82,15 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService){
         if(!$scope.addBoardObj.brdType){
             return toastr.info("类型不可为空!")
         }
+        if(!$scope.addBoardObj.img){
+            return toastr.info("图片不可为空!")
+        }
         $scope.addBoardObj.brdContent = $scope.ue.getContentTxt();
-        $http.post("/shop/add.json",$scope.addshop,angularMeta.postCfg)
+        $http.post("/board/add.json",$scope.addBoardObj,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
-                    $scope.goback();
                     $scope.searchLoad();
+                    $scope.boardFlagObj.addOpen = false;
                     toastr.info("添加成功!");
                 }else{
                     toastr.error(data.message);
@@ -131,6 +134,10 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService){
                        pageData[i].brdTypeStr = "政策法规";
                    }else if(pageData[i].brdType == 4){
                        pageData[i].brdTypeStr = "商铺知识";
+                   }else if(pageData[i].brdType == 5){
+                       pageData[i].brdTypeStr = "北翼要闻";
+                   }else if(pageData[i].brdType == 6){
+                       pageData[i].brdTypeStr = "最新动态";
                    }
                 }
             }
@@ -138,7 +145,7 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService){
         return pageData;
     }
     //上传图片
-    $scope.uploadImage = function (boardImage,flag) {
+    $scope.uploadImage = function (boardImage) {
         if(boardImage == "" || boardImage == undefined){
             return toastr.info("请重新选择需要上传的图片!");
         }
@@ -146,7 +153,7 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService){
             //服务端接收
             url: '/image/upload.json',
             //上传的同时带的参数
-            data: { 'imageType': 7 },
+            data: { 'imageType': 2 },
             file: boardImage
         }).progress(function (evt) {
             //进度条
@@ -156,11 +163,7 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService){
             //上传成功
             console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
             toastr.info("上传成功!");
-            if(flag ==1){
-                $scope.addshop.img1 = data.data.uploadPath;
-            }else{
-                $scope.addBoardObj.img2 = data.data.uploadPath;
-            }
+            $scope.addBoardObj.img = data.data.uploadPath;
 
         }).error(function (data, status, headers, config) {
             //上传失败

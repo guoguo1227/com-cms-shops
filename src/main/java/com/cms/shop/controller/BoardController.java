@@ -96,15 +96,11 @@ public class BoardController extends BaseController{
         result.setSuccess(false);
         if(null != vo){
             Board board = new Board();
-            BoardVo boardVo = new BoardVo();
-            try {
-                BeanUtilExt.copyProperties(boardVo,vo);
-                result =  boardService.addBoard(board,vo.getImg());
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
+            board.setBrdContent(vo.getBrdContent());
+            board.setBrdTitle(vo.getBrdTitle());
+            board.setBrdType(vo.getBrdType());
+            board.setCreId(getUserId());
+            result =  boardService.addBoard(board,vo.getImg());
         }
         return gson.toJson(result);
     }

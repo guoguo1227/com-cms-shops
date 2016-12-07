@@ -49,9 +49,9 @@ public class AdvertServiceImpl implements AdvertService{
             if(null != condition.getType()){
                 cri.andAdLocEqualTo(condition.getType());
             }
-            //状态
+            //审核状态
             if(null != condition.getCheckStatus()){
-                cri.andAdStatusEqualTo(condition.getCheckStatus());
+                cri.andAudStatusEqualTo(condition.getCheckStatus());
             }
             int count = advertMapper.countByExample(criteria);
             criteria.setOrderByClause(" CREATE_DATE desc ");
@@ -146,6 +146,33 @@ public class AdvertServiceImpl implements AdvertService{
             if(i>0){
                 success = true;
             }
+        }else{
+            message = "广告id不可为空";
+        }
+        result.setMessage(message);
+        result.setSuccess(success);
+        return result;
+    }
+
+    @Override
+    public RequestResult checkAdvert(Integer id, boolean ifPass) {
+        RequestResult result = new RequestResult();
+        boolean success = false;
+        String message = "";
+        if(null != id ){
+            Advert advert = advertMapper.selectByPrimaryKey(id);
+            if(null != advert){
+                if(ifPass){
+                    advert.setAudStatus(CheckStatusEnum.PASS.getKey());
+                }else{
+                    advert.setAudStatus(CheckStatusEnum.NOPASS.getKey());
+                }
+                int i = advertMapper.updateByPrimaryKey(advert);
+                if(i>0){
+                    success = true;
+                }
+            }
+
         }else{
             message = "广告id不可为空";
         }

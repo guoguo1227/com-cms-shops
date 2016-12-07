@@ -24,5 +24,7 @@ public interface AdvertService {
 
     RequestResult updateAdvert(Advert advert);
 
+    RequestResult checkAdvert(Integer id,boolean ifPass);
+
     List<Advert> queryOnlineList(SearchCondition condition);
 }

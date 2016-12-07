@@ -81,7 +81,7 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService){
         if(pageData != undefined && pageData != "" && pageData.length>0){
             for(var i in pageData){
                 //注册账号激活状态
-                if(pageData[i].qa.auditStatus){
+                if(pageData[i].qa){
                     pageData[i].auditStatusStr = "";
                     if(pageData[i].qa.auditStatus == 0){
                         pageData[i].auditStatusStr = "<span>未审核</span>";

@@ -112,6 +112,7 @@ public class BoardServiceImpl implements BoardService{
         if(null != board){
             board.setCreateDate(new Date());
             board.setEditTag(ShopConstant.EDIT_TAG_LOCK);
+            board.setBrdStatus(CheckStatusEnum.AUDIT.getKey());
             int i = boardMapper.insertSelective(board);
             if(i>0){
                 if(null != board.getBrdId() && !StringUtils.isBlank(img)){

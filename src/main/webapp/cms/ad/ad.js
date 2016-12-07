@@ -43,6 +43,28 @@ function adCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             delete : function(row){
                 $scope.adFlagObj.deleteOpen = false;
                 $scope.deleteInfo = {id:row.adId};
+            },
+            pass : function(row){
+                $http.post("/advert/check.json",{id:row.adId,ifPass:true},angularMeta.postCfg)
+                    .success(function(data){
+                        if(data.success){
+                            $scope.searchLoad();
+                            toastr.info("审核通过成功!");
+                        }else{
+                            toastr.error(data.message);
+                        }
+                    });
+            },
+            unpass : function(row){
+                $http.post("/advert/check.json",{id:row.adId,ifPass:false},angularMeta.postCfg)
+                    .success(function(data){
+                        if(data.success){
+                            $scope.searchLoad();
+                            toastr.info("审核不通过成功!");
+                        }else{
+                            toastr.error(data.message);
+                        }
+                    });
             }
         };
 
@@ -62,7 +84,9 @@ function adCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             pg.link="<a href='{{$row.url}}' target='_blank'>{{$row.url}}</a>"
             pg.action =  /*'<a title="查看" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">查看</a>'+
                 '<a title="编辑" class="btn bg-green btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.delete($row)">编辑</a>'+*/
-            '<a title="删除" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>';
+                '<a title="审核通过"  ng-if="$row.audStatus == 0" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.pass($row)">审核通过</a>'+
+                '<a title="审核不通过" ng-if="$row.audStatus == 0" class="btn bg-green btn-xs shop-margin-left-3 shop-margin-top-3" ng-click="$table.unpass($row)">审核不通过</a>'+
+                '<a title="删除" class="btn bg-green btn-xs shop-margin-left-3 shop-margin-top-3" ng-click="$table.delete($row)">删除</a>';
             /*'<a title="提交" class="btn bg-green btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.delete($row)">提交</a>';*/
             ;
             return pg;
@@ -85,17 +109,15 @@ function adCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
 
         if(pageData != undefined && pageData != "" && pageData.length>0){
             for(var i in pageData){
-                //注册账号激活状态
+                //状态
                 pageData[i].audStatusStr = "";
-                if(pageData[i].audStatus){
-                   if(pageData[i].audStatus == 0){
-                       pageData[i].audStatusStr = "未审核";
-                   }else if(pageData[i].audStatus == 1){
-                       pageData[i].audStatusStr = "<span style='color: green'>已审核</span>";
-                   }else if(pageData[i].audStatus == 2){
-                       pageData[i].audStatusStr = "<span style='color: red'>审核未通过</span>";
+                if(pageData[i].auditStatus == 0){
+                    pageData[i].audStatusStr = "未审核";
+                }else if(pageData[i].auditStatus == 1){
+                    pageData[i].audStatusStr = "<span style='color: green'>已审核</span>";
+                }else if(pageData[i].auditStatus == 2){
+                    pageData[i].audStatusStr = "<span style='color: red'>审核未通过</span>";
 
-                   }
                 }
                 pageData[i].adLocStr = "";
                 if(pageData[i].adLoc){
@@ -156,7 +178,9 @@ function adCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
     }
     //提交
     $scope.uploadImage = function (userImage) {
-        $scope.fileInfo = $scope.userImage;
+        if(userImage == "" || userImage == undefined){
+            return toastr.info("请重新选择需要上传的图片!");
+        }
         Upload.upload({
             //服务端接收
             url: '/image/upload.json',

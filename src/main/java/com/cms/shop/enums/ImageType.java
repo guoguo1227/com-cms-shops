@@ -35,8 +35,6 @@ public enum  ImageType {
             case 7:
                 return SHOPPIC.getImagePath();
             case 8:
-                return ADVERT.getImagePath();
-            case 9:
                 return FLASH.getImagePath();
             default:
                 return "upload";
