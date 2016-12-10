@@ -42,7 +42,7 @@ function partnerCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                         if(data.success){
                             $scope.partnerFlagObj.addOpen = false;
                             $scope.searchLoad();
-                            toastr.info("添加成功!");
+                            toastr.info("下架成功!");
                         }else{
                             toastr.error(data.message);
                         }
@@ -54,7 +54,7 @@ function partnerCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                         if(data.success){
                             $scope.partnerFlagObj.addOpen = false;
                             $scope.searchLoad();
-                            toastr.info("添加成功!");
+                            toastr.info("上架成功!");
                         }else{
                             toastr.error(data.message);
                         }
@@ -71,7 +71,7 @@ function partnerCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             pg.imgurl = "<a class='fancybox' rel='group' href={{$row.fileName}}><img src={{$row.fileName}} style='width:300px;height: 100px;' /></a>";
 
             pg.action =  '<a title="下架" ng-if="$row.status == 1" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.offline($row)">下架</a>'+
-             '<a title="上架" ng-if="$row.status !== 1" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.onli上ne($row)">架</a>';
+             '<a title="上架" ng-if="$row.status !== 1" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.online($row)">上架</a>';
             return pg;
         }), ['partnerName','imgurl','statusStr','action']);
     };
@@ -125,9 +125,9 @@ function partnerCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                 if(pageData[i].status == 0){
                     pageData[i].statusStr = "未上架";
                 }else if(pageData[i].status == 1){
-                    pageData[i].statusStr = "上架";
+                    pageData[i].statusStr = "<span><font color='green'>已上架</font></span>";
                 }else if(pageData[i].status == 2){
-                    pageData[i].statusStr = "下架";
+                    pageData[i].statusStr = "<span><font color='red'>已下架</font></span>";
                 }
             }
         }

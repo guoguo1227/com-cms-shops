@@ -57,9 +57,9 @@ function myCtrl($scope,$http,angularMeta){
     }
     $scope.items = $scope.data.slice(0, $scope.pageSize);*/
     //分页要repeat的数组
-    $scope.total = $("#total").val();
+    $scope.total = $("#totalPage").val();
     if($scope.total){
-        for (var i = 0; i < $scope.total; i++) {
+        for (var i = 0; i < $scope.total && i<6; i++) {
             $scope.pageList.push(i + 1);
         }
     }

@@ -4,7 +4,7 @@
 <html lang="en">
 <body>
 
-<div class="content" ng-app="shopDetailApp" ng-controller="shopDetailAppCtrl" ng-init="init()">
+<div class="content" id="shopDetialPage" ng-app="shopDetailApp" ng-controller="shopDetailAppCtrl" ng-init="init()">
     #parse("\include\navigation.vm")
     <div class="container">
         <div class="row col-xs-12" style="height: 200px;">
@@ -87,6 +87,7 @@
                                         <input type="hidden" id="lng" value="$!{shop.shop.lng}"/>
                                         <input type="hidden" id="lat" value="$!{shop.shop.lat}"/>
                                         <input type="hidden" id="zoom" value="$!{shop.shop.zoom}"/>
+                                        <input type="hidden" id="shopId" value="$!{shop.shop.id}">
                                         <span class="shop-font22 shop-border-none" >其他说明:</span>
                                     </div>
                                     <div class="col-xs-8 panel panel-default shop-border-none">
@@ -138,7 +139,6 @@
 <script src="/static/plugins/angular/angular.js"></script>
 <script src="/cms/common/angular-constants.js"></script>
 
-<script src="/cms/common/shopIndex.js"></script>
 <!--
 <script src="/cms/common/search.js"></script>
 -->

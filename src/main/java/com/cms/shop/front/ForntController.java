@@ -192,7 +192,7 @@ public class ForntController extends BaseController{
         modelMap.addAttribute("boardList",boardList);
         modelMap.addAttribute("goodShopList",goodShopList);
         modelMap.addAttribute("total",total);
-        modelMap.addAttribute("pageSize",totalPage);
+        modelMap.addAttribute("totalPage",totalPage);
         return "boardList";
     }
 

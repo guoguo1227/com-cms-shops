@@ -8,8 +8,8 @@
                     </div>
                     <select class="form-control" name = "typeSearch" ng-model="search.type" ng-change="searchLoad(0)">
                         <option value="">请选择</option>
-                        <option value="">比翼要闻</option>
-                        <option value="">最新动态</option>
+                        <option value=5>比翼要闻</option>
+                        <option value=6>最新动态</option>
                     </select>
                 </div>
             </div>
@@ -18,7 +18,7 @@
                     <div class="input-group-btn">
                         <button title="审核状态" type="button" class="btn btn-default">审核状态</button>
                     </div>
-                    <select class="form-control" name = "status" ng-model="search.status" ng-change="searchLoad(0)">
+                    <select class="form-control" name = "status" ng-model="search.checkStatus" ng-change="searchLoad(0)">
                         <option value="">请选择</option>
                         <option value=0>待审核</option>
                         <option value=1>审核通过</option>
@@ -90,6 +90,27 @@
         <div class="modal-footer">
             <button class="btn btn-default" ng-click="addBoardCancle()">取消</button>
             <button class="btn btn-primary pull-right" ng-click="addBoardSave()">保存</button>
+        </div>
+    </lg-modal>
+    <!--删除确认窗口-->
+    <lg-modal open="boardFlagObj.deleteOpen">
+        <div class="modal-header">
+            <h4 class="modal-title">删除公告</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="box-body">
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <label>确认删除该公告?</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default " ng-click="deletCancle()">关闭</button>
+                    <button class="btn btn-info pull-right" ng-click="deleteSave()">确定</button>
+                </div>
+            </form>
         </div>
     </lg-modal>
 </div>

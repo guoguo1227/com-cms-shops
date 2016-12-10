@@ -4,8 +4,8 @@
 
     <select id="selectImgByBrdId" resultType="java.lang.String">
         select file_Name
-        from biz_img
-        where  biz_Id = #{id}
+        from brd_img
+        where  brd_Id = #{id}
         order by img_Id desc
         limit 1
     </select>

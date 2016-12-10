@@ -51,10 +51,10 @@
                 <div class="col-lg-4 panel panel-default shop-margin-left-10" style="height:330px;width: 32%;">
                     <div class="panel-body">
                         <div class="shop-panel-heading" style="background-color: white;line-height: 2"><span class="shop-font-news shop-margin-bottom-5">北冀要闻</span></div>
-                        <div class="col-lg-4 shop-margin-top-30" style="height:25px;">
+                        <div class="col-lg-4 shop-margin-top-30" style="height:25px;width: 37%;">
                             <a class="shop-font-time" href="#" style="margin-left: 2px;">$!date.format('MM月dd日',$!today)</a>
                         </div>
-                        <div class="col-lg-8 shop-margin-top-15" style="height:40px;width:66%;background-size:100% 100%;background-image: url('/static/ui/images/more1.png')" >
+                        <div class="col-lg-8 shop-margin-top-15" style="height:40px;width:62%;background-size:100% 100%;background-image: url('/static/ui/images/more1.png')" >
                             <a href="/front/boardList.action?type=1" target="_blank" class="shop-margin-top-10 shop-fright"><font color="white">more</font></a>
                         </div>
                         <div class="row col-lg-12 shop-margin-top-10" style="width:115%;">
@@ -62,8 +62,8 @@
                                 #foreach($news in $!newsBoardList)
                                     #set($brdTitle=$news.brdTitle)
 
-                                    #if($!brdTitle.length()>18)
-                                        #set($brdTitle=$brdTitle.substring(0,17))
+                                    #if($!brdTitle.length()>14)
+                                        #set($brdTitle=$brdTitle.substring(0,14))
                                     #end
 
                                     <li class="shop-margin-bottom-10"><a href="/front/boardDetail.action?id=$news.brdId" target="_blank">$!{brdTitle}</a></li>
@@ -76,10 +76,10 @@
                     <!-- <div class="panel-heading">广告位3</div> -->
                     <div class="panel-body panel-default">
                         <div class="shop-panel-heading" style="background-color: white;line-height: 2"><span class="shop-font-news">最新动态</span></div>
-                            <div class="col-lg-4 shop-margin-top-30" style="height:25px;">
+                            <div class="col-lg-4 shop-margin-top-30" style="height:25px;width: 37%;">
                                 <a class="shop-font-time" href="#" style="margin-left: 2px;">$!date.format('MM月dd日',$!today)</a>
                             </div>
-                            <div class="col-lg-8 shop-margin-top-15" style="height:40px;width:66%;background-size:100% 100%;background-image: url('/static/ui/images/more1.png')" >
+                            <div class="col-lg-8 shop-margin-top-15" style="height:40px;width:62%;background-size:100% 100%;background-image: url('/static/ui/images/more1.png')" >
                                 <a href="/front/boardList.action?type=2" target="_blank" class="shop-margin-top-10 shop-fright"><font color="white">more</font></a>
                             </div>
                             <div class="row col-lg-12 shop-margin-top-5" style="width:115%;">
@@ -87,8 +87,8 @@
                                     #foreach($business in $!businessBoardList)
                                         #set($brdTitle=$business.brdTitle)
 
-                                        #if($!brdTitle.length()>18)
-                                            #set($brdTitle=$brdTitle.substring(0,17))
+                                        #if($!brdTitle.length()>14)
+                                            #set($brdTitle=$brdTitle.substring(0,14))
                                         #end
                                         <li class="shop-margin-bottom-10"><a class="shop-color-gray" href="/front/boardDetail.action?id=$business.brdId" target="_blank">$!{brdTitle}</a></li>
                                     #end

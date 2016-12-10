@@ -32,10 +32,31 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
     //初始化表格数据
     $scope.initTableData = function(pageData){
         $scope.tableData = {
-            //查看详情
-            openDetail : function(row){
-                $scope.commentObj = row;
-                $scope.boardFlagObj.showDetail = true;
+            delete : function(row){
+                $scope.boardFlagObj.deleteOpen = true;
+                $scope.deleteInfo = {id:row.brdId};
+            },
+            pass : function(row){
+                $http.post("/board/check.json",{id:row.brdId,ifPass:true},angularMeta.postCfg)
+                    .success(function(data){
+                        if(data.success){
+                            $scope.searchLoad();
+                            toastr.info("审核通过成功!");
+                        }else{
+                            toastr.error(data.message);
+                        }
+                    });
+            },
+            unpass : function(row){
+                $http.post("/board/check.json",{id:row.brdId,ifPass:false},angularMeta.postCfg)
+                    .success(function(data){
+                        if(data.success){
+                            $scope.searchLoad();
+                            toastr.info("审核不通过成功!");
+                        }else{
+                            toastr.error(data.message);
+                        }
+                    });
             }
         };
 
@@ -45,11 +66,9 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         pageData = $scope.formatPageData(pageData);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action = ''; /*'<a title="查看" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">查看</a>'+
-                '<a title="编辑" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.delete($row)">编辑</a>'+
-            '<a title="删除" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>'+
-            '<a title="提交" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.delete($row)">提交</a>';*/
-            ;
+            pg.action = '<a title="删除" class="btn bg-default btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>'+
+            '<a title="审核通过" ng-if="$row.brdStatus != 1" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.pass($row)">审核通过</a>'+
+            '<a title="审核不通过" ng-if="$row.brdStatus == 1" class="btn bg-red btn-xs shop-margin-top-3" ng-click="$table.unpass($row)">审核不通过</a>';
             return pg;
         }), ['brdTitle','brdTypeStr','brdStatusStr','userName','createDate','action']);
     };
@@ -107,22 +126,35 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             autoFloatEnabled: true
         });
     }
-
+    //取消删除
+    $scope.deletCancle = function(){
+        $scope.boardFlagObj.deleteOpen = false;
+    }
+    $scope.deleteSave = function(){
+        $http.post("/board/delete.json",{id:$scope.deleteInfo.id},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.boardFlagObj.deleteOpen = false;
+                    $scope.searchLoad();
+                    toastr.info("删除成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
+    }
     //格式化表格数据
     $scope.formatPageData = function(pageData){
 
         if(pageData != undefined && pageData != "" && pageData.length>0){
             for(var i in pageData){
                 pageData[i].brdStatusStr = "";
-                if(pageData[i].brdStatus){
-                   if(pageData[i].brdStatus == 0){
-                       pageData[i].brdStatusStr = "未审核";
-                   }else if(pageData[i].brdStatus == 1){
-                       pageData[i].brdStatusStr = "<span style='color: green'>审核通过</span>";
-                   }else if(pageData[i].brdStatus == 2){
-                       pageData[i].brdStatusStr = "<span style='color: red'>审核未通过</span>";
+                if(pageData[i].brdStatus == 0){
+                    pageData[i].brdStatusStr = "未审核";
+                }else if(pageData[i].brdStatus == 1){
+                    pageData[i].brdStatusStr = "<span style='color: green'>审核通过</span>";
+                }else if(pageData[i].brdStatus == 2){
+                    pageData[i].brdStatusStr = "<span style='color: red'>审核未通过</span>";
 
-                   }
                 }
                 pageData[i].brdTypeStr = "";
                 if(pageData[i].brdType){

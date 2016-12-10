@@ -1,6 +1,6 @@
 <!-- 留言板 -->
-<div class="modal-body shop-comment-form">
-    <form class="form-horizontal" name = "addCommentForm" novalidate>
+<div class="modal-body shop-comment-form " id="addCommentForm">
+    <form class="form-horizontal"  name = "addCommentForm" novalidate>
         <div class="box-body">
             <div class="form-group">
                 <label class="col-sm-3 control-label">企业/个人名称</label>

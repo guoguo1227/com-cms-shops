@@ -26,6 +26,8 @@ public interface BoardService {
 
     RequestResult updateBoard(Board board);
 
+    RequestResult updateBoardStatus(Integer id,boolean ifPass);
+
     List<Board> queryOnList(BoardTypeEnum typeEnum,SearchCondition condition);
 
     List<BoardVo> queryVoOnList(BoardTypeEnum typeEnum,SearchCondition condition);

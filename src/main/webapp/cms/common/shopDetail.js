@@ -8,19 +8,11 @@ app.controller('shopDetailAppCtrl',shopDetailAppCtrl);
 function shopDetailAppCtrl($scope,$http,angularMeta){
 
     $scope.init = function(){
-        //$scope.queryData();
-       // alert(comment)
         $scope.createMap();
+        $scope.comment = {};
+
     }
 
-    $scope.queryData = function(){
-        $http.post("/shop/byId.json",$scope.comment,angularMeta.postCfg)
-            .success(function(data){
-                if(data.success){
-                }else{
-                }
-            });
-    }
     //搜索
     $scope.searchLoad = function(){
         $scope.searchContent = $("input#searchContent").val();
@@ -77,6 +69,39 @@ function shopDetailAppCtrl($scope,$http,angularMeta){
             map.openInfoWindow(infoWindow, map.getCenter());
         }
 
+    }
+
+    $scope.addComment = function(){
+
+        console.log($scope.comment)
+        if(!$scope.comment.askerName){
+            return toastr.info("请输入企业/个人名称！")
+        }
+        if(!$scope.comment.content){
+            return toastr.info("请输入内容！")
+        }
+        if(!$scope.comment.askerMail && !$scope.comment.askerPhone){
+            return toastr.info("手机号和邮箱不能同时为空！")
+        }
+        $scope.comment.shopId = $("#shopId").val();
+        $http.post("/shopIndex/addComment.do",$scope.comment,angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    toastr.info("提交成功！")
+                    $scope.comment = {};//清空
+                }else{
+                    toastr.info(data.message);
+                }
+            });
+        $('#myModal').modal('hide');
+        toastr.info("提交成功！")
+
+    }
+
+    //搜索
+    $scope.searchLoad = function(){
+        $scope.searchContent = $("input#searchContent").val();
+        window.location.href=encodeURI("/front/search-shop.action?searchContent="+$scope.searchContent);
     }
 
 }

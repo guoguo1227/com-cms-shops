@@ -33,7 +33,7 @@ public class BoardController extends BaseController{
 
     @RequestMapping("page")
     @ResponseBody
-    public String queryAdvertPage(SearchCondition condition){
+    public String queryBoardPage(SearchCondition condition){
 
         RequestResult result = new RequestResult();
         result.setSuccess(false);
@@ -49,7 +49,7 @@ public class BoardController extends BaseController{
 
     @RequestMapping("query")
     @ResponseBody
-    public String queryAdById(Integer id){
+    public String queryBoardById(Integer id){
 
         RequestResult result = new RequestResult();
         result.setSuccess(false);
@@ -61,7 +61,7 @@ public class BoardController extends BaseController{
 
     @RequestMapping("delete")
     @ResponseBody
-    public String deleteAdById(Integer id){
+    public String deleteBoardById(Integer id){
 
         RequestResult result = new RequestResult();
         result.setSuccess(false);
@@ -73,12 +73,30 @@ public class BoardController extends BaseController{
 
     @RequestMapping("update")
     @ResponseBody
-    public String updateAd(Board board){
+    public String updateBoard(Board board){
 
         RequestResult result = new RequestResult();
         result.setSuccess(false);
         if(null != board){
             result =  boardService.updateBoard(board);
+        }
+        return gson.toJson(result);
+    }
+
+    /**
+     * 审核公告
+     * @param id
+     * @param ifPass
+     * @return
+     */
+    @RequestMapping("check")
+    @ResponseBody
+    public String checkBoardById(Integer id,boolean ifPass){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != id){
+            result =  boardService.updateBoardStatus(id,ifPass);
         }
         return gson.toJson(result);
     }

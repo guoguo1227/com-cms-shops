@@ -41,7 +41,7 @@ function adCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
     $scope.initTableData = function(pageData){
         $scope.tableData = {
             delete : function(row){
-                $scope.adFlagObj.deleteOpen = false;
+                $scope.adFlagObj.deleteOpen = true;
                 $scope.deleteInfo = {id:row.adId};
             },
             pass : function(row){

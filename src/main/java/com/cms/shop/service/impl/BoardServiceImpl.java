@@ -69,6 +69,10 @@ public class BoardServiceImpl implements BoardService{
             if(null != condition.getType()){
                 cri.andBrdTypeEqualTo(condition.getType());
             }
+            //状态
+            if(null != condition.getCheckStatus()){
+                cri.andBrdStatusEqualTo(condition.getCheckStatus());
+            }
             int count = boardMapper.countByExample(criteria);
 
             if(count>0){
@@ -137,6 +141,11 @@ public class BoardServiceImpl implements BoardService{
         boolean success = false;
         String message = "";
         if(null != id){
+            //删除关联图片
+            BrdImgCriteria criteria = new BrdImgCriteria();
+            criteria.createCriteria().andBrdIdEqualTo(id);
+            brdImgMapper.deleteByExample(criteria);
+
             int i = boardMapper.deleteByPrimaryKey(id);
             if(i>0){
                 success = true;
@@ -188,6 +197,34 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
+    public RequestResult updateBoardStatus(Integer id, boolean ifPass) {
+        RequestResult result = new RequestResult();
+        boolean success = false;
+        String message = "";
+        if(null != id){
+            Board board = boardMapper.selectByPrimaryKey(id);
+            if(null != board){
+                if(ifPass){
+                    board.setBrdStatus(CheckStatusEnum.PASS.getKey());
+                }else{
+                    board.setBrdStatus(CheckStatusEnum.NOPASS.getKey());
+                }
+                int i = boardMapper.updateByPrimaryKey(board);
+                if(i>0){
+                    success = true;
+                }
+            }else{
+                message = "该公告已删除";
+            }
+
+        }else{
+            message = "id不可为空";
+        }
+        result.setMessage(message);
+        result.setSuccess(success);
+        return result;    }
+
+    @Override
     public List<Board> queryOnList(BoardTypeEnum typeEnum,SearchCondition condition) {
         BoardCriteria criteria = new BoardCriteria();
         criteria.createCriteria().andBrdTypeEqualTo(typeEnum.getKey()).andBrdStatusEqualTo(CheckStatusEnum.PASS.getKey());
@@ -209,7 +246,15 @@ public class BoardServiceImpl implements BoardService{
 
         List<BoardVo> list = new ArrayList<>();
         BoardCriteria criteria = new BoardCriteria();
-        criteria.createCriteria().andBrdTypeEqualTo(typeEnum.getKey()).andBrdStatusEqualTo(CheckStatusEnum.PASS.getKey());
+        BoardCriteria.Criteria cri = criteria.createCriteria();
+        cri.andBrdStatusEqualTo(CheckStatusEnum.PASS.getKey());
+
+        /**
+         * 类型
+         */
+        if(null != typeEnum){
+            cri.andBrdTypeEqualTo(typeEnum.getKey());
+        }
 
         criteria.setOrderByClause(" BRD_ID desc ");
 
@@ -228,7 +273,11 @@ public class BoardServiceImpl implements BoardService{
 
                     String img = brdImgExtMapper.selectImgByBrdId(b.getBrdId());
                     if(!StringUtils.isBlank(img)){
-                        vo.setImg(ImageType.BOARD.getImagePath()+img);
+                        if(!img.contains(ImageType.BOARD.getImagePath())){
+                            vo.setImg(ImageType.BOARD.getImagePath()+img);
+                        }else{
+                            vo.setImg(img);
+                        }
                         list.add(vo);
                     }
                 } catch (InvocationTargetException e) {

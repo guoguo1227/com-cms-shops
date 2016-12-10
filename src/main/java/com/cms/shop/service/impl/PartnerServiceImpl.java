@@ -36,13 +36,18 @@ public class PartnerServiceImpl implements PartnerService{
         PartnerCriteria criteria = new PartnerCriteria();
         criteria.createCriteria().andStatusEqualTo(OnlineStatusEnum.ONLINE.getKey()).andEditTagEqualTo(EDIT_TAG);
 
+        criteria.setOrderByClause(" PARTNER_ID desc ");
         criteria.setLimitStart(0);
         criteria.setLimitEnd(4);
         List<Partner> partnerList = partnerMapper.selectByExample(criteria);
         if(CollectionUtils.isNotEmpty(partnerList)){
             for(Partner partner : partnerList){
                 if(!StringUtils.isBlank(partner.getFileName())){
-                    partner.setFileName(ImageType.PARTNER.getImagePath()+partner.getFileName());
+                    if(partner.getFileName().contains(ImageType.PARTNER.getImagePath())){
+
+                    }else{
+                        partner.setFileName(ImageType.PARTNER.getImagePath()+partner.getFileName());
+                    }
                 }
             }
         }
@@ -57,6 +62,8 @@ public class PartnerServiceImpl implements PartnerService{
             page.setPageSize(condition.getLimit());
 
             PartnerCriteria criteria = new PartnerCriteria();
+            criteria.setOrderByClause(" PARTNER_ID desc ");
+
             int count = partnerMapper.countByExample(criteria);
             if(count>0){
                 criteria.setLimitStart(condition.getOffset());
@@ -65,7 +72,11 @@ public class PartnerServiceImpl implements PartnerService{
                 if(CollectionUtils.isNotEmpty(partnerList)){
                     for(Partner partner : partnerList){
                         if(!StringUtils.isBlank(partner.getFileName())){
-                            partner.setFileName(ImageType.PARTNER.getImagePath()+partner.getFileName());
+                            if(partner.getFileName().contains(ImageType.PARTNER.getImagePath())){
+
+                            }else{
+                                partner.setFileName(ImageType.PARTNER.getImagePath()+partner.getFileName());
+                            }
                         }
                     }
                     page.setPageData(partnerList);
@@ -131,8 +142,8 @@ public class PartnerServiceImpl implements PartnerService{
         String message = "";
         if(null != partner){
             //默认未上架
-            partner.setStatus(OnlineStatusEnum.OFFLINE.getKey());
-            partner.setEditTag(ShopConstant.EDIT_TAG_LOCK);
+            partner.setStatus(OnlineStatusEnum.WAIT.getKey());
+            partner.setEditTag(ShopConstant.EDIT_TAG_UNLOCK);
             int i  = partnerMapper.insertSelective(partner);
             if(i>0){
                 success = true;

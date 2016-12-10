@@ -93,4 +93,20 @@ public class FriendServiceImpl implements FriendService{
         result.setMessage(message);
         return result;
     }
+
+    @Override
+    public List<Friend> queryOnList(SearchCondition condition) {
+        FriendCriteria criteria = new FriendCriteria();
+
+        criteria.createCriteria().andStatusEqualTo(CheckStatusEnum.PASS.getKey());
+        criteria.setOrderByClause(" FRIEND_ID desc ");
+        criteria.setLimitStart(0);
+        criteria.setLimitEnd(6);
+        if (null != condition){
+            criteria.setLimitEnd(condition.getLimit());
+        }
+
+        return friendMapper.selectByExample(criteria);
+
+    }
 }

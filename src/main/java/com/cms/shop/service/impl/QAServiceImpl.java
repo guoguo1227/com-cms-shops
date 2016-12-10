@@ -56,7 +56,7 @@ public class QAServiceImpl implements QAService{
                 cri.andAuditStatusEqualTo(condition.getCheckStatus());
             }
             int count = qaMapper.countByExample(criteria);
-            criteria.setOrderByClause(" CREATE_DATE desc ");
+            criteria.setOrderByClause(" QA_ID desc ");
             if(count>0){
                 criteria.setLimitStart(condition.getOffset());
                 criteria.setLimitEnd(condition.getLimit());
@@ -119,6 +119,8 @@ public class QAServiceImpl implements QAService{
         boolean success = false;
         String message = "";
         if(null != qa && !StringUtils.isBlank(qa.getAskerName())){
+            qa.setAuditStatus(CheckStatusEnum.AUDIT.getKey());
+            qa.setCreateDate(new Date());
             int i = qaMapper.insertSelective(qa);
             if(i>0){
                 success = true;

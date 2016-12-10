@@ -59,6 +59,8 @@ public class IndexController extends BaseController{
     @Autowired
     private AdvertService advertService;
 
+    @Autowired
+    private FriendService friendService;
     /**
      * 首页
      * @return
@@ -74,11 +76,11 @@ public class IndexController extends BaseController{
 
         SearchCondition condition = new SearchCondition();
         condition.setLimit(6);
-        List<Board> newsBoardList = boardService.queryOnList(BoardTypeEnum.NOTICE,condition);
-        List<Board> businessBoardList = boardService.queryOnList(BoardTypeEnum.SHOPABIT,condition);
+        List<Board> newsBoardList = boardService.queryOnList(BoardTypeEnum.NEWS,condition);
+        List<Board> businessBoardList = boardService.queryOnList(BoardTypeEnum.BUSINESS,condition);
 
         condition.setLimit(3);
-        List<BoardVo> imgBoardList = boardService.queryVoOnList(BoardTypeEnum.POLICY, condition);
+        List<BoardVo> imgBoardList = boardService.queryVoOnList(null, condition);
 
         List<Hotcategory> hotcategoryList = hotcategoryService.queryAll();
 
@@ -88,6 +90,8 @@ public class IndexController extends BaseController{
         List<Advert> advertList = advertService.queryOnlineList(condition);
 
         Flash flash = flashService.queryFlash();
+        condition.setLimit(6);
+        List<Friend> friendList = friendService.queryOnList(condition);
 
         List<Keyword> keywordList = keywordService.queryHotKeyWord();
         modelMap.addAttribute("partnerList",partnerList); //合作伙伴
@@ -103,6 +107,7 @@ public class IndexController extends BaseController{
         modelMap.addAttribute("keywordList",keywordList);
         modelMap.addAttribute("today",new Date());
         modelMap.addAttribute("advertList",advertList); //广告
+        modelMap.addAttribute("friendList",friendList); //友情链接
         return "index";
     }
 }
