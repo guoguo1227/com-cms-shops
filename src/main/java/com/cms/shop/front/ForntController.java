@@ -1,6 +1,7 @@
 package com.cms.shop.front;
 
 import com.cms.shop.controller.BaseController;
+import com.cms.shop.enums.CheckStatusEnum;
 import com.cms.shop.enums.ShopTypeEnum;
 import com.cms.shop.model.base.*;
 import com.cms.shop.model.condition.SearchCondition;
@@ -67,6 +68,13 @@ public class ForntController extends BaseController{
         List<ShopVo> list = new ArrayList<>();
         int total = 0;
         int totalPage = 0;
+        int pageSize = 0;
+        int currentPage = 0;
+
+        if(null != condition.getCurrentPage()){
+            currentPage = condition.getCurrentPage();
+        }
+
         try {
             String searchContent = new String(request.getParameter("searchContent").getBytes("ISO8859-1"), "UTF-8");
             condition.setSearchContent(searchContent);
@@ -88,6 +96,7 @@ public class ForntController extends BaseController{
             list = shopVoPage.getPageData();
             total = shopVoPage.getTotalCount();
             totalPage = shopVoPage.getTotalPage();
+            pageSize = shopVoPage.getPageSize();
         }
         List<Hotcategory> hotcategoryList = hotcategoryService.queryAll();
         List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD);
@@ -97,7 +106,9 @@ public class ForntController extends BaseController{
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
         modelMap.addAttribute("total",total);
-        modelMap.addAttribute("pageSize",totalPage);
+        modelMap.addAttribute("totalPage",totalPage);
+        modelMap.addAttribute("pageSize",pageSize);
+        modelMap.addAttribute("currentPage",currentPage);
         modelMap.addAttribute("shopList",list);
         modelMap.addAttribute("goodShopList",goodShopList);
         modelMap.addAttribute("hotcategoryList",hotcategoryList);//商铺类型
@@ -176,11 +187,19 @@ public class ForntController extends BaseController{
         List<BoardVo> boardList = new ArrayList<>();
         int total = 0;
         int totalPage = 0;
+        int pageSize = 0;
+        int currentPage = 0;
+
+        if(null != condition.getCurrentPage()){
+            currentPage = condition.getCurrentPage();
+        }
+        condition.setCheckStatus(CheckStatusEnum.PASS.getKey());
         Page<BoardVo> page = boardService.queryPageByCondition(condition);
         if(null != page && CollectionUtils.isNotEmpty(page.getPageData())){
             boardList = page.getPageData();
             total = page.getTotalCount();
             totalPage = page.getTotalPage();
+            pageSize = page.getPageSize();
         }
         List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD);
         List<District> districtList = districtService.queryAll();
@@ -193,6 +212,9 @@ public class ForntController extends BaseController{
         modelMap.addAttribute("goodShopList",goodShopList);
         modelMap.addAttribute("total",total);
         modelMap.addAttribute("totalPage",totalPage);
+        modelMap.addAttribute("pageSize",pageSize);
+        modelMap.addAttribute("currentPage",currentPage);
+
         return "boardList";
     }
 

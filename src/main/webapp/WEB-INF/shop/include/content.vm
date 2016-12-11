@@ -42,7 +42,6 @@
                             </ol>
                         </div>
 
-
                         <!-- 轮播（Carousel）导航 -->
                     </div>
 
@@ -55,7 +54,7 @@
                             <a class="shop-font-time" href="#" style="margin-left: 2px;">$!date.format('MM月dd日',$!today)</a>
                         </div>
                         <div class="col-lg-8 shop-margin-top-15" style="height:40px;width:62%;background-size:100% 100%;background-image: url('/static/ui/images/more1.png')" >
-                            <a href="/front/boardList.action?type=1" target="_blank" class="shop-margin-top-10 shop-fright"><font color="white">more</font></a>
+                            <a href="/front/boardList.action?type=5" target="_blank" class="shop-margin-top-10 shop-fright"><font color="white">more</font></a>
                         </div>
                         <div class="row col-lg-12 shop-margin-top-10" style="width:115%;">
                             <ul class="shop-news shop-margin-top-10">
@@ -80,7 +79,7 @@
                                 <a class="shop-font-time" href="#" style="margin-left: 2px;">$!date.format('MM月dd日',$!today)</a>
                             </div>
                             <div class="col-lg-8 shop-margin-top-15" style="height:40px;width:62%;background-size:100% 100%;background-image: url('/static/ui/images/more1.png')" >
-                                <a href="/front/boardList.action?type=2" target="_blank" class="shop-margin-top-10 shop-fright"><font color="white">more</font></a>
+                                <a href="/front/boardList.action?type=6" target="_blank" class="shop-margin-top-10 shop-fright"><font color="white">more</font></a>
                             </div>
                             <div class="row col-lg-12 shop-margin-top-5" style="width:115%;">
                                 <ul class="shop-news shop-margin-top-10">

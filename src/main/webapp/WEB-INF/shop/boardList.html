@@ -40,16 +40,10 @@
                                     #end
                                 </div>
                                 <div class="box-footer clearfix">
-                                    <!--<ul class="pagination pagination-sm no-margin pull-right">
-                                        <li><a href="#">«</a></li>
-                                        <li><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">»</a></li>
-                                    </ul>-->
                                     <input type="hidden" id="totalPage" value="$!{totalPage}"/>
+                                    <input type="hidden" id="currentPage" value="$!{currentPage}"/>
                                     <nav>
-                                        <ul class="pagination">
+                                        <ul class="pagination" style="cursor :pointer;">
                                             <li>
                                                 <a ng-click="Previous()">
                                                     <span>上一页</span>
@@ -65,6 +59,7 @@
                                             </li>
                                         </ul>
                                     </nav>
+
                                 </div>
                             </div>
                         </div>
@@ -85,6 +80,9 @@
 
 <script src="/static/plugins/angular/angular.js"></script>
 <script src="/cms/common/angular-constants.js"></script>
+
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap-paginator.min.js"></script>
+<script src="/static/plugins/toastr/toastr2.js"></script>
 
 <script src="/cms/common/shopIndex.js"></script>
 <!--

@@ -10,7 +10,13 @@ function searchCtrl($scope){
     //搜索
     $scope.searchLoad = function(){
         $scope.searchContent = $("input#searchContent").val();
-        window.location.href=encodeURI("/front/search-shop.action?searchContent="+$scope.searchContent);
+        window.open(encodeURI("/front/search-shop.action?searchContent="+$scope.searchContent));
     }
 
+    $scope.myKeyup = function(e){
+        var keycode = window.event?e.keyCode:e.which;
+        if(keycode==13){
+            $scope.searchLoad();
+        }
+    };
 }
