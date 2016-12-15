@@ -53,7 +53,8 @@ public class ShopImgServiceIMpl implements ShopImgService{
         if(null != id){
             ShopImgCriteria criteria = new ShopImgCriteria();
             criteria.createCriteria().andShopIdEqualTo(id);
-            list= shopImgMapper.selectByExample(criteria);
+            criteria.setOrderByClause(" IMG_ID desc ");
+            list = shopImgMapper.selectByExample(criteria);
             if(CollectionUtils.isNotEmpty(list)){
                 for(ShopImg img:list){
                     if(img.getNewImgName().contains(ImageType.SHOPPIC.getImagePath())){

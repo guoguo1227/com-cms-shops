@@ -35,8 +35,19 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService){
     //初始化表格数据
     $scope.initTableData = function(pageData){
         $scope.tableData = {
-            check : function(row){
-                $http.post("/shopmanage/qa-check.json",{id:row.qa.qaId},angularMeta.postCfg)
+            pass : function(row){
+                $http.post("/shopmanage/qa-check.json",{id:row.qa.qaId,ifPass:true},angularMeta.postCfg)
+                    .success(function(data){
+                        if(data.success){
+                            $scope.searchLoad();
+                            toastr.info("操作成功!");
+                        }else{
+                            toastr.error(data.message);
+                        }
+                    });
+            },
+            unpass : function(row){
+                $http.post("/shopmanage/qa-check.json",{id:row.qa.qaId,ifPass:false},angularMeta.postCfg)
                     .success(function(data){
                         if(data.success){
                             $scope.searchLoad();
@@ -59,7 +70,8 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService){
 
         });
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="审核"  ng-if="$row.qa.auditStatus == 0" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.check($row)">审核</a>';
+            pg.action =  '<a title="审核通过"  ng-if="$row.qa.auditStatus == 0" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.pass($row)">审核通过</a>'+
+            '<a title="审核不通过"  ng-if="$row.qa.auditStatus == 0" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.unpass($row)">审核不通过</a>';
             return pg;
         }), ['shopName','distruct','qa.askerName','qa.createDate','qa.content','qa.askerPhone','qa.askerMail','qa.askerLoc','auditStatusStr','action']);
     };
@@ -90,6 +102,13 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService){
                     }else if(pageData[i].qa.auditStatus == 2){
                         pageData[i].auditStatusStr = "<span><font color='red'>审核未通过</font></span>";
                     }
+                }
+                if(!pageData[i].shopName){
+                    pageData[i].shopName = "无";
+                }
+
+                if(!pageData[i].distruct){
+                    pageData[i].distruct = "无";
                 }
             }
         }

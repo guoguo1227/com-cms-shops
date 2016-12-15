@@ -9,3 +9,10 @@ CREATE TABLE `keyword` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=240 DEFAULT CHARSET=utf8 COMMENT='搜索词表';
 
+CREATE TABLE `investment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(100) NOT NULL COMMENT '名称',
+  `type` varchar(100) NOT NULL COMMENT '类型',
+  `description` varchar(3000) DEFAULT NULL COMMENT '描述',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=443 DEFAULT CHARSET=utf8 COMMENT='招商热线';

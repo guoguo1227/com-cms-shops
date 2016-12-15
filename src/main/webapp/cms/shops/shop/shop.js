@@ -8,11 +8,15 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
     //初始化table
     $scope.init = function() {
         $scope.ready();
+        $(".fancybox").fancybox({
+            openEffect	: 'none',
+            closeEffect	: 'none'
+        });
     };
 
     $scope.ready = function(){
         $scope.search = {limit:15, currentPage:0,searchContent:'',checkStatus:1};
-        $scope.shopFlagObj = {};
+        $scope.shopFlagObj = {detailFlag:false};
         $scope.shopListFlag = true;
         $scope.searchLoad();
 
@@ -107,19 +111,35 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                             toastr.error(data.message);
                         }
                     });
+            },
+            //查看详情
+            detail : function(row){
+                $http.post("/shop/detail.json",{id:row.shop.id},angularMeta.postCfg)
+                    .success(function(data){
+                        if(data.success){
+                            $scope.showDetail(data.data);
+                        }else{
+                            toastr.error(data.message);
+                        }
+                    });
             }
 
         };
 
-        var headerArray = ['商铺名称','所属地区','所在楼层','租赁面积','装修情况','发布日期','发布人','类型','基本操作'];
+        var headerArray = ['商铺名称','所属地区','图片1','图片2','所在楼层','租赁面积','装修情况','发布日期','发布人','类型','基本操作'];
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
         pageData = $scope.formatShopPageData(pageData);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
+            pg.shopImg1 = "<div class='thumbnail' style='height:160px;'><a class='fancybox' rel='group' href={{$row.img1}}><img  src={{$row.img1}}   style='height:160px;'/></a></div>";
+            pg.shopImg2 = "<div class='thumbnail' style='height:160px;'><a class='fancybox' rel='group' href={{$row.img2}}><img  src={{$row.img2}}   style='height:160px;'/></a></div>";
+
             pg.action =  '<a title="设置旺铺" class="btn bg-red btn-xs shop-margin-top-3" ng-click="$table.setGood($row)">设置好铺</a>'+
-                '<a title="设置好铺" class="btn bg-orange btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.setFire($row)">设置旺铺</a>';
+                '<a title="设置好铺" class="btn bg-orange btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.setFire($row)">设置旺铺</a>'+
+            '<a title="查看" class="btn bg-green btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.detail($row)">查看</a>';
+
             return pg;
-        }), ['shop.shopName','districtStr','shop.floor','shopSquareStr','buildingFinishing','shop.createDate','shop.publisher','shopTypeStr','action']);
+        }), ['shop.shopName','districtStr','shopImg1','shopImg2','shop.floor','shopSquareStr','buildingFinishing','shop.createDate','shop.publisher','shopTypeStr','action']);
     };
 
     //切换页面
@@ -163,6 +183,8 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
     //添加商铺按钮
     $scope.addShopBtn = function(){
         $scope.shopListFlag = false;
+
+        $scope.shopFlagObj.detailFlag = false;
         $scope.addshop = {facility:""};
         $scope.shopImage1 = "";
         $scope.shopImage2 = "";
@@ -181,7 +203,7 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             autoclose:true
         });
 
-        //                ue.setContent(template.content);
+        //  ue.setContent(template.content);
 
         $http.post("/shopmanage/archit-all.json",{},angularMeta.postCfg)
             .success(function(data){
@@ -208,6 +230,23 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         $scope.shopListFlag = true;
     }
 
+    //商铺详情
+    $scope.showDetail = function(data){
+        $scope.shopListFlag = false;
+        $scope.addshop = data;
+        $scope.shopImage1 = "";
+        $scope.shopImage2 = "";
+        $scope.shopFlagObj.detailFlag = true;
+
+        $scope.shopDetailObj = {
+            description: data.description,
+            img1:$scope.addshop.img1,
+            img2:$scope.addshop.img2
+        }
+
+        $scope.createDetailMap($scope.addshop);
+        console.info($scope.addshop)
+    }
     $scope.initUE = function(){
         //实例化编辑器
         $scope.ue = UE.getEditor('shopContent', {
@@ -257,6 +296,29 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
 
     }
 
+    $scope.createDetailMap = function(addshop){
+        // 百度地图API功能
+        $scope.map = new BMap.Map("allmap");
+        var point = new BMap.Point(addshop.lng, addshop.lat);
+        var lng = addshop.lng,  lat = addshop.lat, zoom = addshop.zoom;
+        $scope.map.centerAndZoom(point, zoom);                 	// 初始化地图，设置中心点坐标和地图级别
+        $scope.map.enableScrollWheelZoom;						// 允许鼠标滚轮控制缩放
+        $scope.map.addControl(new BMap.NavigationControl());	// 地图平移缩放控件，默认位于地图左上方，它包含控制地图的平移和缩放的功能
+        $scope.map.addControl(new BMap.MapTypeControl());		// 地图类型控件，默认位于地图右上方
+
+        var marker = new BMap.Marker(point);        	// 创建标注
+        $scope.map.addOverlay(marker);
+        marker.enableDragging();
+
+        var opts = {
+            width : 25,     // 信息窗口宽度
+            height: 10,     // 信息窗口高度
+            title : ""  // 信息窗口标题
+        }
+        var infoWindow = new BMap.InfoWindow(addshop.location, opts);  // 创建信息窗口对象
+        $scope.map.openInfoWindow(infoWindow, $scope.map.getCenter());      // 打开信息窗口
+
+    }
     $scope.searchMap = function(){
         if($scope.addshop.location){
             var local = new BMap.LocalSearch($scope.map, {

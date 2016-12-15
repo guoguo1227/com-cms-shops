@@ -8,7 +8,6 @@ import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.model.ext.RequestResult;
 import com.cms.shop.model.ext.ShopExt;
 import com.cms.shop.model.ext.ShopVo;
-import com.cms.shop.service.HotcategoryService;
 import com.cms.shop.service.ShopImgService;
 import com.cms.shop.service.ShopService;
 import com.cms.shop.service.ShopTypeService;
@@ -55,6 +54,9 @@ public class ShopServiceImpl implements ShopService {
 
     @Autowired
     private HotcategoryMapper hotcategoryMapper;
+
+    @Autowired
+    private InvestmentMapper investmentMapper;
 
     @Autowired
     private BuildingFacilityMapper buildingFacilityMapper;
@@ -187,6 +189,15 @@ public class ShopServiceImpl implements ShopService {
                         if(null != img){
                             shopVo.setFilePath(img.getNewImgName());
                         }
+                        List<ShopImg> shopImgList = shopImgService.getImgListByShopId(shop.getId());
+                        if(CollectionUtils.isNotEmpty(shopImgList)){
+                            if(shopImgList.size()>0){
+                                if(shopImgList.size()>1){
+                                    shopVo.setImg2(shopImgList.get(1).getNewImgName());
+                                }
+                                shopVo.setImg1(shopImgList.get(0).getNewImgName());
+                            }
+                        }
                         if(null != shop.getOcpyId()){
                             BuildingOccupancy buildingOccupancy = buildingOccupancyMapper.selectByPrimaryKey(shop.getOcpyId());
                             if(null != buildingOccupancy){
@@ -213,6 +224,36 @@ public class ShopServiceImpl implements ShopService {
             page.setTotalCount(count);
         }
         return page;
+    }
+
+    @Override
+    public ShopExt queryShopDetailById(Integer id) {
+        ShopExt ext =  new ShopExt();
+        if(null != id){
+            Shop shop = shopMapper.selectByPrimaryKey(id);
+            if(null != shop){
+                try {
+                    BeanUtilExt.copyProperties(ext,shop);
+                    List<ShopImg> imgList = shopImgService.getImgListByShopId(shop.getId());
+                    if(CollectionUtils.isNotEmpty(imgList)){
+                        if(imgList.size()>0){
+                           if(imgList.size()>1){
+                               ext.setImg2(imgList.get(1).getNewImgName());
+                           }
+                            ext.setImg1(imgList.get(0).getNewImgName());
+
+                        }
+                    }
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        }
+        return ext;
     }
 
     @Override
@@ -365,6 +406,42 @@ public class ShopServiceImpl implements ShopService {
 
         }else{
             message = "商铺名称不能为空";
+        }
+        result.setSuccess(success);
+        result.setMessage(message);
+        return result;
+    }
+
+    @Override
+    public Investment queryInvestment() {
+        Investment investment = null;
+        InvestmentCriteria criteria = new InvestmentCriteria();
+        criteria.setOrderByClause(" id desc ");
+        List<Investment> list = investmentMapper.selectByExample(criteria);
+        if(CollectionUtils.isNotEmpty(list)){
+            investment = list.get(0);
+        }
+        return investment;
+    }
+
+    @Override
+    public RequestResult updateInvestment(Investment investment) {
+
+        RequestResult result = new RequestResult();
+        boolean success = false;
+        String message = "";
+        if(null != investment && null != investment.getId()){
+            Investment invest = investmentMapper.selectByPrimaryKey(investment.getId());
+            if(null != invest){
+                invest.setDescription(investment.getDescription());
+                int i = investmentMapper.updateByPrimaryKeySelective(invest);
+                if(i>0){
+                    success = true;
+                }
+
+            }else{
+                message = "该招商热线不存在!";
+            }
         }
         result.setSuccess(success);
         result.setMessage(message);

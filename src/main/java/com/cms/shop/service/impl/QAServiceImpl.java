@@ -88,14 +88,18 @@ public class QAServiceImpl implements QAService{
     }
 
     @Override
-    public RequestResult pass(Integer id) {
+    public RequestResult check(Integer id,boolean ifPass) {
         RequestResult result = new RequestResult();
         boolean success = false;
         String message = "";
         if(null != id){
             Qa qa = qaMapper.selectByPrimaryKey(id);
             if(null != qa){
-                qa.setAuditStatus(CheckStatusEnum.PASS.getKey());
+                if(ifPass){
+                    qa.setAuditStatus(CheckStatusEnum.PASS.getKey());
+                }else{
+                    qa.setAuditStatus(CheckStatusEnum.NOPASS.getKey());
+                }
                 qa.setAuditDate(new Date());
                 int i = qaMapper.updateByPrimaryKeySelective(qa);
                 if(i>0){

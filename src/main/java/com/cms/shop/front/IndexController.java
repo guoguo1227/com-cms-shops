@@ -94,6 +94,10 @@ public class IndexController extends BaseController{
         List<Friend> friendList = friendService.queryOnList(condition);
 
         List<Keyword> keywordList = keywordService.queryHotKeyWord();
+
+        //招商热线
+        Investment investment = shopService.queryInvestment();
+
         modelMap.addAttribute("partnerList",partnerList); //合作伙伴
         modelMap.addAttribute("businessList",businessList); //招商项目
         modelMap.addAttribute("goodShopList",goodShopList); //精选好铺
@@ -108,6 +112,7 @@ public class IndexController extends BaseController{
         modelMap.addAttribute("today",new Date());
         modelMap.addAttribute("advertList",advertList); //广告
         modelMap.addAttribute("friendList",friendList); //友情链接
+        modelMap.addAttribute("investment",investment); //招商热线
         return "index";
     }
 }

@@ -1,5 +1,6 @@
 package com.cms.shop.controller;
 
+import com.cms.shop.model.base.Investment;
 import com.cms.shop.model.base.Shop;
 import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.model.ext.RequestResult;
@@ -62,6 +63,25 @@ public class ShopController extends BaseController{
         return gson.toJson(result);
     }
 
+    /**
+     * 查询商铺详情
+     * @param id
+     * @return
+     */
+    @RequestMapping("detail")
+    @ResponseBody
+    public String queryShopDetail(Integer id){
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != id){
+            ShopExt ext = shopService.queryShopDetailById(id);
+            if(null != ext){
+                result.setSuccess(true);
+                result.setData(ext);
+            }
+        }
+        return gson.toJson(result);
+    }
 
     /**
      * 审核列表
@@ -136,4 +156,38 @@ public class ShopController extends BaseController{
         }
         return gson.toJson(result);
     }
+
+    /**
+     * 查询招商热线
+     * @return
+     */
+    @RequestMapping("query-investment")
+    @ResponseBody
+    public String queryInvestment(){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        Investment investment = shopService.queryInvestment();
+        if(null != investment){
+            result.setSuccess(true);
+            result.setData(investment);
+        }
+        return gson.toJson(result);
+    }
+
+    /**
+     * 更新招商热线
+     * @param investment
+     * @return
+     */
+    @RequestMapping("update-investment")
+    @ResponseBody
+    public String updateInvestment(Investment investment){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        result = shopService.updateInvestment(investment);
+        return gson.toJson(result);
+    }
+
 }

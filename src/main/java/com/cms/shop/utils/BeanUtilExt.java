@@ -6,6 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +33,7 @@ public class BeanUtilExt extends BeanUtils {
         ConvertUtils.register(new org.apache.commons.beanutils.converters.IntegerConverter(0),Integer.class);
         ConvertUtils.register(new org.apache.commons.beanutils.converters.BooleanConverter(false),Boolean.class);
         ConvertUtils.register(new org.apache.commons.beanutils.converters.LongConverter(0),Long.class);
+        ConvertUtils.register(new org.apache.commons.beanutils.converters.BigDecimalConverter(0), BigDecimal.class);
     }
 
     public static void copyProperties(Object target, Object source)

@@ -17,7 +17,7 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://115.29.104.4:3306/youneverdiedbtest" userId="root" password="123456">
+                        connectionURL="jdbc:mysql://localhost:3306/youneverdiedbtest2" userId="root" password="123456">
         </jdbcConnection>
 
         <javaTypeResolver>
@@ -172,7 +172,11 @@
         <table schema="" tableName="thrd_occ" domainObjectName="ThrdOcc">
             <generatedKey column="THRD_OCC_ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
         </table>-->
-        <table schema="" tableName="brd_img" domainObjectName="BrdImg">
+        <!--<table schema="" tableName="brd_img" domainObjectName="BrdImg">
+            <generatedKey column="ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>-->
+
+        <table schema="" tableName="investment" domainObjectName="Investment">
             <generatedKey column="ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
         </table>
     </context>

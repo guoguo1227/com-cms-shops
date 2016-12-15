@@ -130,56 +130,6 @@
 	<!-- 滚动图片栏 for 精品项目-->
 		<script type="text/javascript" src="/static/ui/js/projectCarousel.js"></script>
         <!--弹出QQ对话框-->
-    <script type="text/JavaScript">
-
-        function QQtalk(QQnum) {
-
-            var sitename = "网站名称或者网址,网站制作学习网,www.forasp.cn";
-
-            Link = "tencent://message/?uin=" + QQnum + "&WebSiteName=" + sitename;
-
-            try {//支持,通过www.建for立asp对.cn象判断是附支持QQ
-
-                var xmlhttp = new ActiveXObject("TimwpDll.TimwpCheck");
-
-                this.location.href = Link;
-                var n = xmlhttp.GetVersion();
-
-                if (n >= 2.1)
-
-                    this.location.href = Link;
-
-                else {//www.forasp.cn
-
-                    if (confirm(sitename + "\n温馨提示：\r\n　　请您访问http://im.qq.com/下载新版的QQ/TM以支持与企业商家在线交流！")) {
-
-                         //alert(sitename+"\n温馨提示：\r\n　　请您访问http://im.qq.com/下载新版的QQ/TM以支持与企业商家在线交流！");
-
-                        window.target = "_top";
-
-                        window.open("http://im.qq.com/");
-
-                    }
-                }
-
-            } catch (e) {//不支持
-
-                if (confirm(sitename + "\n温馨提示：\r\n　　请您访问http://im.qq.com/下载新版的QQ/TM以支持与企业商家在线交流！")) {
-
-                    //alert(sitename+"\n温馨提示：\r\n　　请您访问http://im.qq.com/下载新版的QQ/TM以支持与企业商家在线交流！");
-
-                    window.target = "_top";
-
-                    window.open("http://im.qq.com/");
-
-                }
-
-            }
-
-            return false;
-        }
-        </script>
-
     <script type="text/javascript">
         function getId(id) { return document.getElementById(id); }
         function addLoadEvent(func){

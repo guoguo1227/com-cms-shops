@@ -15,7 +15,7 @@ public interface QAService {
 
     Page<QaVo> queryQAPageByCondition(SearchCondition condition);
 
-    RequestResult pass(Integer id);
+    RequestResult check(Integer id,boolean ifPass);
 
     RequestResult add(Qa qa);
 

@@ -186,11 +186,11 @@
                             <img src="/static/ui/images/phone.png" style="height: 25px;"><p><font color="red">招商热线</font></p>
                         </div>
                     </button>
-                    <button class="col-lg-12 thumbnail shop-border-none" data-toggle="modal" style="height: 60px;">
-                        <div class="panel-default" onclick = "javascript:QQtalk('31527345');">
+                    <div class="panel-default col-lg-12 thumbnail shop-border-none" style="height: 60px;">
+                        <a class="buy" href="http://wpa.qq.com/msgrd?V=1&amp;uin=316527345&amp;Site=beiyishop&amp;Menu=yes" target="_blank" title="在线客服">
                             <img src="/static/ui/images/qq.png" style="height: 25px;" ><p><font color="red">在线客服</font></p>
-                        </div>
-                    </button>
+                        </a>
+                    </div>
                     <button class="col-lg-12 thumbnail shop-border-none" data-toggle="modal" data-target="#myModal" style="height: 60px;">
                         <div class="panel-default">
                             <img src="/static/ui/images/servicer.png" style="height: 25px;"><p><font color="red">给我留言</font></p>

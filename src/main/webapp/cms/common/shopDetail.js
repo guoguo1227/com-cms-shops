@@ -80,13 +80,13 @@ function shopDetailAppCtrl($scope,$http,angularMeta){
         $http.post("/shopIndex/addComment.do",$scope.comment,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
-                    toastr.info("提交成功！")
                     $scope.comment = {};//清空
+                    toastr.info("提交成功！")
                 }else{
                     toastr.info(data.message);
                 }
             });
-        $('#myModal').modal('hide');
+        $scope.comment = {};//清空
         toastr.info("提交成功！")
 
     }

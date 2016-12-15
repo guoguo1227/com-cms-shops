@@ -28,11 +28,13 @@ function myCtrl($scope,$http,angularMeta){
             .success(function(data){
                 if(data.success){
                     toastr.info("提交成功！")
+                    $scope.comment  = {};
                     $('#myModal').modal('hide');
                 }else{
                     toastr.info(data.message);
                 }
             });
+        $scope.comment = {};
         $('#myModal').modal('hide');
         toastr.info("提交成功！")
 

@@ -149,6 +149,11 @@ public class NavigationController extends BaseController{
         boardObj.put("dir","board");
         boardObj.put("html","board.html");
 
+        JSONObject  object20 = new JSONObject();
+        object20.put("id","12");
+        object20.put("dir","investment");
+        object20.put("html","investment.html");
+
         childrenArray.add(shopParent);
         childrenArray.add(object10);
         childrenArray.add(object11);
@@ -160,6 +165,7 @@ public class NavigationController extends BaseController{
         childrenArray.add(object18);
         childrenArray.add(object19);
         childrenArray.add(boardObj);
+        childrenArray.add(object20);
 
         JSONObject parent = new JSONObject();
         parent.put("id", "0");
@@ -284,6 +290,10 @@ public class NavigationController extends BaseController{
         object69.put("name","公告管理列表");
         object69.put("icon","");
 
+        JSONObject object70 = new JSONObject();
+        object70.put("id","12");
+        object70.put("name","招商热线");
+        object70.put("icon","");
 
         navArray.add(shopNavParentObj);
         navArray.add(object60);
@@ -296,6 +306,7 @@ public class NavigationController extends BaseController{
         navArray.add(object67);
         navArray.add(object68);
         navArray.add(object69);
+        navArray.add(object70);
 
 
         JSONObject object = new JSONObject();

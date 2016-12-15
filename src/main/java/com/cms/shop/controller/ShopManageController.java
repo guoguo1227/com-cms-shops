@@ -938,13 +938,14 @@ public class ShopManageController extends BaseController{
      */
     @RequestMapping("qa-check")
     @ResponseBody
-    public String QaCheck(Integer id){
+    public String QaCheck(Integer id,boolean ifPass){
 
         RequestResult result = new RequestResult();
         result.setSuccess(false);
         if(null != id){
-            result = qaService.pass(id);
+            result = qaService.check(id,ifPass);
         }
         return gson.toJson(result);
     }
+
 }

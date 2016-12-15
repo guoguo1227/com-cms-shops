@@ -91,6 +91,7 @@ public class ForntController extends BaseController{
         });
         thread.start();
 
+        condition.setCheckStatus(CheckStatusEnum.PASS.getKey());
         Page<ShopVo> shopVoPage = shopService.queryListBySearchCondition(condition);
         if(null != shopVoPage){
             list = shopVoPage.getPageData();

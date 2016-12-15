@@ -2,6 +2,7 @@ package com.cms.shop.service;
 
 import com.cms.shop.enums.ShopTypeEnum;
 import com.cms.shop.model.base.Business;
+import com.cms.shop.model.base.Investment;
 import com.cms.shop.model.base.Shop;
 import com.cms.shop.model.base.ShopImg;
 import com.cms.shop.model.condition.SearchCondition;
@@ -22,6 +23,8 @@ public interface ShopService {
 
     Page<ShopVo> queryListBySearchCondition(SearchCondition condition);
 
+    ShopExt queryShopDetailById(Integer id);
+
     Page<ShopVo> queryCheckListBySearchCondition(SearchCondition condition);
 
     List<ShopVo> getOnList(ShopTypeEnum type);
@@ -33,4 +36,8 @@ public interface ShopService {
     RequestResult passShop(Integer id);
 
     RequestResult addShop(ShopExt ext);
+
+    Investment queryInvestment();
+
+    RequestResult updateInvestment(Investment investment);
 }

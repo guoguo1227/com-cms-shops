@@ -14,8 +14,7 @@
                 <div class="box-body">
                     <div class="form-group">
                         <div class="col-sm-8">
-                           <p><span>招商电话:02166150172</span></p>
-                           <p><span>地址:上海市宝山梅林路768号 </span></p>
+                           <p><span>$!{investment.description}</span></p>
                         </div>
                     </div>
                 </div>
