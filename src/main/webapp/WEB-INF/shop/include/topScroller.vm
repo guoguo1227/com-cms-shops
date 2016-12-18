@@ -24,22 +24,21 @@
                 <img src="/static/ui/images/top2.jpg" alt="">
             </div>
         </div>
-        <div class="carousel-control left">
-           <ul class="nav navbar-nav">
-               #foreach($hotcat in $hotcategoryList)
-                   <li class="shop-font18 shop-margin-left-10" style="height: 60px;line-height: 60px;width:180px;text-align: left">
-                       <a href="/front/search-shop.action?hotId=$!hotcat.hotId" target="_blank"><font color="#f8f8ff">$!{hotcat.hotName}</font>
-                       <font class="shop-fright" size="6" color="#f8f8ff">&rsaquo;</font>
-                       </span></a></li>
-               #end
-           </ul>
+        <div class="carousel-control left" style="opacity: 1;">
+            <ul id="myTab" class="nav navbar-nav nav-tabs" style="background-color: #413F3F;">
+                #foreach($hotcat in $hotcategoryList)
+                    <li class="shop-font18" style="height: 60px;line-height: 60px;width:180px;text-align: left">
+                        <a href="#tabs-$velocityCount" data-toggle="tab" style="height: 100%;width:100%;"><font color="#f8f8ff">$!{hotcat.hotName}</font>
+                            <font class="shop-fright" size="6" color="#f8f8ff">&rsaquo;</font>
+                            </span>
+                        </a>
+                    </li>
+                #end
+            </ul>
         </div>
-       #* <div class="carousel-control right" style="z-index:10">
-
-        </div>*#
+        
     </div>
 </div>
-
 <!-- 二维码栏 -->
 <div class="row col-xs-12">
     <div class="panel panel-default">
@@ -48,12 +47,12 @@
 
                 <div id="qrcodeCarousel" class="carousel slide pad_010 b_k" data-ride="carousel" style="height: 270px;">
                     <!-- 轮播（Carousel）项目 -->
-                    <div class="carousel-inner bor_btm" style="height: 270px;top:2px;margin-left:-10px;">
-                        <div class="item active" style="height: 270px;">
-                            <div class="col-sm-12 col-lg-12 shop-margin-top-2" >
-                                <p class="shop-margin-left-5"><font style="font-size: 20px;color:#ec0011;">&nbsp;北&nbsp;&nbsp;&nbsp;&nbsp;翼&nbsp;&nbsp;&nbsp;&nbsp;商&nbsp;&nbsp;&nbsp;&nbsp;铺</font></p>
-                                <p class="shop-margin-left-5" style="margin-top:-15px;"><font style="font-size: 20px;color:#ec0011;">&nbsp;创&nbsp;&nbsp;&nbsp;&nbsp;造&nbsp;&nbsp;&nbsp;&nbsp;财&nbsp;&nbsp;&nbsp;&nbsp;富</font></p>
-                            </div>
+                    <div class="col-sm-12 col-lg-12 shop-margin-top-2" >
+                        <p style="margin-left:-5px;"><font style="font-size: 20px;color:#ec0011;">北&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;翼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商&nbsp;&nbsp;&nbsp;&nbsp;铺</font></p>
+                        <p style="margin-top:-10px;margin-left: -5px;"><font style="font-size: 20px;color:#ec0011;">创&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;造&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;财&nbsp;&nbsp;&nbsp;&nbsp;富</font></p>
+                    </div>
+                    <div class="carousel-inner bor_btm" style="height: 250px;margin-left:-10px;">
+                        <div class="item active" style="height: 250px;">
                             <div class="col-sm-12 col-lg-12" style="margin-top:-13px;">
                                 <img  src="/static/ui/images/grcode1.jpg" style="height: 160px;width:111%;margin-left: -4px;">
                             </div>
@@ -61,11 +60,7 @@
                                 <span style="font-size: 18px;"><font>北&nbsp;&nbsp;&nbsp;翼&nbsp;&nbsp;&nbsp;商&nbsp;&nbsp;&nbsp;&nbsp;铺&nbsp;&nbsp;&nbsp;&nbsp;网</font></span>
                             </div>
                         </div>
-                        <div class="item" style="height: 270px;">
-                            <div class="col-sm-12 col-lg-12 shop-margin-top-2">
-                                <p class="shop-margin-left-5"><font color="red" style="font-size: 20px;">&nbsp;北&nbsp;&nbsp;&nbsp;&nbsp;翼&nbsp;&nbsp;&nbsp;&nbsp;商&nbsp;&nbsp;&nbsp;&nbsp;铺</font></p>
-                                <p class="shop-margin-left-5" style="margin-top:-15px;"><font color="red" style="font-size: 20px;">&nbsp;创&nbsp;&nbsp;&nbsp;&nbsp;造&nbsp;&nbsp;&nbsp;&nbsp;财&nbsp;&nbsp;&nbsp;&nbsp;富</font></p>
-                            </div>
+                        <div class="item" style="height: 250px;">
                             <div class="col-sm-12 col-lg-12" style="margin-top:-13px;">
                                 <img  src="/static/ui/images/grcode2.png" style="height: 160px;width:111%;margin-left: -4px;">
                             </div>
@@ -73,40 +68,28 @@
                                 <span style="font-size: 18px;"><font>北&nbsp;&nbsp;&nbsp;翼&nbsp;&nbsp;&nbsp;商&nbsp;&nbsp;&nbsp;业&nbsp;&nbsp;&nbsp;&nbsp;街</font></span>
                             </div>
                         </div>
-                        <div class="item" style="height: 270px;">
-                            <div class="col-sm-12 col-lg-12 shop-margin-top-2">
-                                <p class="shop-margin-left-5"><font color="red" style="font-size: 20px;">&nbsp;北&nbsp;&nbsp;&nbsp;&nbsp;翼&nbsp;&nbsp;&nbsp;&nbsp;商&nbsp;&nbsp;&nbsp;&nbsp;铺</font></p>
-                                <p class="shop-margin-left-5" style="margin-top:-15px;"><font color="red" style="font-size: 20px;">&nbsp;创&nbsp;&nbsp;&nbsp;&nbsp;造&nbsp;&nbsp;&nbsp;&nbsp;财&nbsp;&nbsp;&nbsp;&nbsp;富</font></p>
-                            </div>
+                        <div class="item" style="height: 250px;">
                             <div class="col-sm-12 col-lg-12" style="margin-top:-13px;">
                                 <img  src="/static/ui/images/grcode3.jpg" style="height: 160px;width:111%;margin-left: -4px;">
                             </div>
                             <div class="col-sm-12 col-lg-12 shop-margin-left-5">
-                                <span style="font-size: 18px;"><font>沪&nbsp;&nbsp;&nbsp;客&nbsp;&nbsp;&nbsp;隆&nbsp;&nbsp;&nbsp;&nbsp;微&nbsp;&nbsp;&nbsp;&nbsp;信</font></span>
+                                <span style="font-size: 18px;"><font>沪&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;隆</font></span>
                             </div>
                         </div>
-                        <div class="item" style="height: 270px;">
-                            <div class="col-sm-12 col-lg-12 shop-margin-top-2">
-                                <p class="shop-margin-left-5"><font color="red" style="font-size: 20px;">&nbsp;北&nbsp;&nbsp;&nbsp;&nbsp;翼&nbsp;&nbsp;&nbsp;&nbsp;商&nbsp;&nbsp;&nbsp;&nbsp;铺</font></p>
-                                <p class="shop-margin-left-5" style="margin-top:-15px;"><font color="red" style="font-size: 20px;">&nbsp;创&nbsp;&nbsp;&nbsp;&nbsp;造&nbsp;&nbsp;&nbsp;&nbsp;财&nbsp;&nbsp;&nbsp;&nbsp;富</font></p>
-                            </div>
+                        <div class="item" style="height: 250px;">
                             <div class="col-sm-12 col-lg-12" style="margin-top:-13px;">
                                 <img  src="/static/ui/images/grcode4.jpg" style="height: 160px;width:111%;margin-left: -4px;">
                             </div>
                             <div class="col-sm-12 col-lg-12 shop-margin-left-5">
-                                <span style="font-size: 18px;"><font>刘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;行&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;街</font></span>
+                                <span style="font-size: 18px;"><font>刘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;行&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;街</font></span>
                             </div>
                         </div>
-                        <div class="item" style="height: 270px;">
-                            <div class="col-sm-12 col-lg-12 shop-margin-top-2">
-                                <p class="shop-margin-left-5"><font color="red" style="font-size: 20px;">&nbsp;北&nbsp;&nbsp;&nbsp;&nbsp;翼&nbsp;&nbsp;&nbsp;&nbsp;商&nbsp;&nbsp;&nbsp;&nbsp;铺</font></p>
-                                <p class="shop-margin-left-5" style="margin-top:-15px;"><font color="red" style="font-size: 20px;">&nbsp;创&nbsp;&nbsp;&nbsp;&nbsp;造&nbsp;&nbsp;&nbsp;&nbsp;财&nbsp;&nbsp;&nbsp;&nbsp;富</font></p>
-                            </div>
+                        <div class="item" style="height: 250px;">
                             <div class="col-sm-12 col-lg-12" style="margin-top:-13px;">
                                 <img  src="/static/ui/images/grcode5.jpg" style="height: 160px;width:111%;margin-left: -4px;">
                             </div>
                             <div class="col-sm-12 col-lg-12 shop-margin-left-5">
-                                <span style="font-size: 18px;"><font>水&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;产&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;路</font></span>
+                                <span style="font-size: 18px;"><font>水&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;产&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;路</font></span>
                             </div>
                         </div>
                     </div>
@@ -123,59 +106,59 @@
 
             </div>
             <div class="col-lg-7 panel panel-default shop-margin-left-10" style="height: 270px;width: 64%;">
-                <div class="panel-heading shop-font16" style="background-color: white;"><span><font style="color:#e60015;font-size: 22px;"><strong>▌<strong></strong></font></span><span class="shop-font shop-spacing3">商铺热门筛选</span></div>
+                <div class="panel-heading shop-font14" style="background-color: white;"><span><font style="color:#e60015;font-size: 22px;"><strong>▌<strong></strong></font></span><span class="shop-font shop-spacing3">商铺热门筛选</span></div>
                 <div class="panel-body shop-select-font">
                     #foreach($hotcat in $hotcategoryList)
                         <a href="/front/search-shop.action?hotId=$!hotcat.hotId" target="_blank">
-                            <button type="button" class="btn btn-default shop-font14 shop-color-gray">$!{hotcat.hotName}</button>
+                            <button type="button" class="btn btn-default  shop-color-gray">$!{hotcat.hotName}</button>
                         </a>
                     #end
                     <hr style="margin-top: 1px;margin-bottom: 1px;color:#ffffff;">
                     <a href="/front/search-shop.action?areaId=8" target="_blank">
-                        <button type="button" class="btn btn-default shop-font14 shop-color-gray"">50㎡以下</button><span class="shop-color-gray">||
+                        <button type="button" class="btn btn-default shop-color-gray"">50㎡以下</button><span class="shop-color-gray">||
                     </a>
                     <a href="/front/search-shop.action?areaId=7" target="_blank">
-                        <button type="button" class="btn btn-default shop-font14 shop-color-gray">50㎡-100㎡</button><span class="shop-color-gray">||
+                        <button type="button" class="btn btn-default shop-color-gray">50㎡-100㎡</button><span class="shop-color-gray">||
                     </a>
                     <a href="/front/search-shop.action?areaId=6" target="_blank">
-                        <button type="button" class="btn btn-default shop-font14 shop-color-gray">100㎡-150m㎡</button><span class="shop-color-gray">||
+                        <button type="button" class="btn btn-default shop-color-gray">100㎡-150m㎡</button><span class="shop-color-gray">||
                     </a>
                     <a href="/front/search-shop.action?areaId=5" target="_blank">
-                        <button type="button" class="btn btn-default shop-font14 shop-color-gray">150㎡-200㎡</button><span class="shop-color-gray">||
+                        <button type="button" class="btn btn-default shop-color-gray">150㎡-200㎡</button><span class="shop-color-gray">||
                     </a>
                     <a href="/front/search-shop.action?areaId=4" target="_blank">
-                        <button type="button" class="btn btn-default shop-font14 shop-color-gray">200㎡-300㎡</button><span class="shop-color-gray">||
+                        <button type="button" class="btn btn-default shop-color-gray">200㎡-300㎡</button><span class="shop-color-gray">||
                     </a>
                     <a href="/front/search-shop.action?areaId=3" target="_blank">
-                        <button type="button" class="btn btn-default shop-font14 shop-color-gray">300㎡-400㎡</button><span class="shop-color-gray">||
+                        <button type="button" class="btn btn-default shop-color-gray">300㎡-400㎡</button><span class="shop-color-gray">||
                     </a>
                     <a href="/front/search-shop.action?areaId=2" target="_blank">
-                        <button type="button" class="btn btn-default shop-font14 shop-color-gray">400㎡-500㎡</button><span class="shop-color-gray">||
+                        <button type="button" class="btn btn-default shop-color-gray">400㎡-500㎡</button><span class="shop-color-gray">||
                     </a>
                     <a href="/front/search-shop.action?areaId=1" target="_blank">
-                        <button type="button" class="btn btn-default shop-font14 shop-color-gray">500㎡以上</button>
+                        <button type="button" class="btn btn-default shop-color-gray">500㎡以上</button>
                     </a>
                     <hr style="margin-top:1px;margin-bottom: 1px;">
                     <a href="/front/search-shop.action?floor=0" target="_blank">
-                        <button type="button" class="btn btn-default shop-font14 shop-color-gray">地下</button><span class="shop-color-gray">||
+                        <button type="button" class="btn btn-default shop-color-gray">地下</button><span class="shop-color-gray">||
                     </a>
                     <a href="/front/search-shop.action?floor=1" target="_blank">
-                        <button type="button" class="btn btn-default shop-font14 shop-color-gray">一层</button><span class="shop-color-gray">||
+                        <button type="button" class="btn btn-default shop-color-gray">一层</button><span class="shop-color-gray">||
                     </a>
                     <a href="/front/search-shop.action?floor=2" target="_blank">
-                        <button type="button" class="btn btn-default shop-font14 shop-color-gray">二层</button><span class="shop-color-gray">||
+                        <button type="button" class="btn btn-default shop-color-gray">二层</button><span class="shop-color-gray">||
                     </a>
                     <a href="/front/search-shop.action?floor=3" target="_blank">
-                        <button type="button" class="btn btn-default shop-font14 shop-color-gray">三层</button><span class="shop-color-gray">||
+                        <button type="button" class="btn btn-default shop-color-gray">三层</button><span class="shop-color-gray">||
                     </a>
                     <a href="/front/search-shop.action?floor=4" target="_blank">
-                        <button type="button" class="btn btn-default shop-font14 shop-color-gray">四层</button><span class="shop-color-gray">||
+                        <button type="button" class="btn btn-default shop-color-gray">四层</button><span class="shop-color-gray">||
                     </a>
                     <a href="/front/search-shop.action?floor=5" target="_blank">
-                        <button type="button" class="btn btn-default shop-font14 shop-color-gray">四层以上</button><span class="shop-color-gray">||
+                        <button type="button" class="btn btn-default shop-color-gray">四层以上</button><span class="shop-color-gray">||
                     </a>
                     <a  href="/front/search-shop.action?floor=6" target="_blank">
-                        <button type="button" class="btn btn-default shop-font14 shop-color-gray">多层</button>
+                        <button type="button" class="btn btn-default shop-color-gray">多层</button>
                     </a>
                 </div>
             </div>

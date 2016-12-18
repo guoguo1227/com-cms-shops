@@ -5,9 +5,25 @@
             <a href="/front/detail.action?id=$goodShop.shop.id" target="_blank">
                 <img src="$!goodShop.filePath" alt="" style="height: 175px;">
             </a>
-            <div class="caption" style="background-color:#F5CF8A">
-                <span>$!{goodShop.shopType}  $!{goodShop.shop.squareMetres}平米</span><span class="shop-fright shop-color-red shop-font18">$!{goodShop.districtStr}</span>
-            </div>
+            #set($roadName = $!goodShop.shop.road)
+
+            #if($!roadName.length()>3)
+                #set($roadName=$roadName.substring(0,3))
+            #end
+            #if($velocityCount == 1 || $velocityCount == 4)
+                <div class="caption shop-good-title" style="background-color:#F5CF8A;">
+                    <span>$!{roadName}  </span><span class="shop-fright shop-color-red shop-font18">$!{goodShop.shop.squareMetres}㎡</span>
+                </div>
+            #elseif($velocityCount == 2 || $velocityCount == 5)
+                <div class="caption shop-good-title" style="background-color:#e84f5e;">
+                    <span>$!{roadName}  </span><span class="shop-fright shop-color-red shop-font18">$!{goodShop.shop.squareMetres}㎡</span>
+                </div>
+            #else
+                <div class="caption shop-good-title" style="background-color:#bec000;">
+                    <span>$!{roadName}  </span><span class="shop-fright shop-color-red shop-font18">$!{goodShop.shop.squareMetres}㎡</span>
+                </div>
+            #end
+
         </div>
     #end
 </div>

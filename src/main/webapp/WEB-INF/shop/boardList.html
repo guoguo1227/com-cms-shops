@@ -14,10 +14,8 @@
                 </div>
             </div>
         </div>
-        <div class="row col-xs-12">
-            <div class="panel panel-default">
-                #parse("\include\search.vm")
-            </div>
+        <div class="row col-xs-12 shop-margin-top-30">
+            #parse("\include\search.vm")
         </div>
         <!-- 商铺列表 -->
         <div class="row col-xs-12">
@@ -33,13 +31,13 @@
                             <div class="panel-body">
                                 <div class="row">
                                     #foreach($board in $boardList)
-                                    <div class="shop-margin-left-10 shop-default-border" style="height: 60px;">
-                                        <span style="font-size: 20px;line-height: 60px;"><a class="shop-margin-left-20 shop-color-gray"  href="/front/boardDetail.action?id=$!board.brdId" target="_blank">$!{board.brdTitle}</a></span>
-                                        <span class="shop-fright shop-margin-right-10 shop-margin-top-20">$!date.format('yyyy-MM-dd HH:mm:ss ',$!board.createDate)</span>
+                                    <div class="shop-margin-left-10 " style="height: 60px;">
+                                        <span style="font-size: 20px;line-height: 60px;"><a class="shop-margin-left-20 shop-color-black"  href="/front/boardDetail.action?id=$!board.brdId" target="_blank">$!{board.brdTitle}</a></span>
+                                        <span class="shop-fright shop-margin-right-10 shop-margin-top-20 shop-color-gray">$!date.format('yyyy-MM-dd HH:mm:ss ',$!board.createDate)</span>
                                     </div>
                                     #end
                                 </div>
-                                <div class="box-footer clearfix">
+                                <div class="box-footer clearfix shop-fright">
                                     <input type="hidden" id="totalPage" value="$!{totalPage}"/>
                                     <input type="hidden" id="currentPage" value="$!{currentPage}"/>
                                     <nav>

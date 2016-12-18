@@ -70,8 +70,8 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService){
 
         });
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="审核通过"  ng-if="$row.qa.auditStatus == 0" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.pass($row)">审核通过</a>'+
-            '<a title="审核不通过"  ng-if="$row.qa.auditStatus == 0" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.unpass($row)">审核不通过</a>';
+            pg.action =  '<a title="审核通过"  ng-if="$row.qa.auditStatus == 0" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.pass($row)">通过</a>'+
+            '<a title="审核不通过"  ng-if="$row.qa.auditStatus == 0" class="btn bg-orange btn-xs shop-margin-top-3" ng-click="$table.unpass($row)">不通过</a>';
             return pg;
         }), ['shopName','distruct','qa.askerName','qa.createDate','qa.content','qa.askerPhone','qa.askerMail','qa.askerLoc','auditStatusStr','action']);
     };

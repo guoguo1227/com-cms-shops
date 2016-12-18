@@ -306,6 +306,12 @@ public class ShopServiceImpl implements ShopService {
                     ShopType shopType = shopTypeService.queryShopTypeById(shop.getTypeId());
                     vo.setShopType(shopType.getTypeName());
                 }
+                //道路缩写
+                if(StringUtils.isBlank(shop.getRoad())){
+                   if(!StringUtils.isBlank(shop.getShopName())){
+                       shop.setRoad(shop.getShopName());
+                   }
+                }
 
                 voList.add(vo);
             }

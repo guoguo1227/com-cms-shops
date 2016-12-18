@@ -22,4 +22,6 @@ public interface FlashService {
     RequestResult onlineFlash(Integer id);
 
     RequestResult addFlash(Flash flash);
+
+    RequestResult deleteFlash(Integer id);
 }

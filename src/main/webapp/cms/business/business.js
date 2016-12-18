@@ -1,10 +1,10 @@
 /**
  * Created by samuel on 15-12-25.
  */
-var app = angular.module('businessApp',['angular-constants']);
+var app = angular.module('businessApp',['angular-constants','ngFileUpload']);
 app.controller('businessrCtrl',businessrCtrl);
 
-function businessrCtrl($scope,$http,angularMeta,lgDataTableService){
+function businessrCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
     //初始化table
     $scope.init = function() {
         $scope.ready();
@@ -16,7 +16,7 @@ function businessrCtrl($scope,$http,angularMeta,lgDataTableService){
 
     $scope.ready = function(){
         $scope.search = {limit:15, currentPage:0,searchContent:''};
-        $scope.commentFlagObj = {showDetail:false};
+        $scope.businessFlagObj = {showDetail:false};
         $scope.searchLoad();
     }
     $scope.searchLoad = function(){
@@ -43,15 +43,25 @@ function businessrCtrl($scope,$http,angularMeta,lgDataTableService){
             }
         };
 
-        var headerArray = ['项目名称','审核状态','发布人','发布日期','操作'];
-        lgDataTableService.setWidth($scope.tableData, undefined, [4,8],true);
+        var headerArray = ['项目名称','项目图片','顶部图片','审核状态','发布人','发布日期','操作'];
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
         pageData = $scope.formatUserPageData(pageData);
+        lgDataTableService.config($scope.tableData,{
+            noscroll : true,
+            nowrap : false,
+            noexpand:[],
+            width:{fileNameImg:'12%',fileNameImg2:'12%'}
+
+        });
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
             pg.action =  '<a title="下架" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">下架</a>';
+
+            pg.fileNameImg = "<div class='thumbnail' style='max-height:180px;'><a class='fancybox' rel='group' href={{$row.fileName}}><img  src={{$row.fileName}}  style='width: 100%;height: 100%;'/></a></div>";
+            pg.fileNameImg2 = "<div class='thumbnail' style='max-height:180px;'><a class='fancybox' rel='group' href={{$row.fileName2}}><img  src={{$row.fileName2}}  style='width: 100%;height: 100%;'/></a></div>";
+
             return pg;
-        }), ['bizName','statusStr','publisher','createDate','action']);
+        }), ['bizName','fileNameImg','fileNameImg2','statusStr','publisher','createDate','action']);
     };
 
     //切换页面
@@ -65,19 +75,67 @@ function businessrCtrl($scope,$http,angularMeta,lgDataTableService){
         $scope.searchLoad();
     }
 
+    //添加项目
+    $scope.addBusinessBtn = function(){
+        $scope.businessFlagObj.addOpen = true;
+        $scope.addBusinessObj = {};
+
+        $scope.initUE();
+    }
+
+    $scope.initUE = function(){
+        //实例化编辑器
+        $scope.ue = UE.getEditor('businessContent', {
+            toolbars: [
+                ['fullscreen','source','undo','redo','formatmatch','indent','justifyleft','justifyright','justifycenter','justifyjustify','background', 'link',  'fontfamily','fontsize','forecolor','bold','backcolor','italic','underline','inserttable','deletetable','insertrow','insertcol','simpleupload','insertimage','charts']
+            ],
+            autoHeightEnabled: true,
+            autoFloatEnabled: true
+        });
+    }
+
+    $scope.addBusinessCancle = function(){
+        $scope.businessFlagObj.addOpen = false;
+    }
+    //保存
+    $scope.adBusinessSave = function(){
+        if(!$scope.addBusinessObj.bizName){
+            return toastr.info("项目名称不可为空!")
+        }
+        if(!$scope.addBusinessObj.onsellDate){
+            return toastr.info("上架时间不可为空!")
+        }else{
+            $scope.addBusinessObj.onsellDate += " 00:00:00";
+        }
+        if(!$scope.addBusinessObj.offsellDate){
+            return toastr.info("下架时间不可为空!")
+        }else{
+            $scope.addBusinessObj.onsellDate +=  " 23:59:59";
+        }
+        if(!$scope.addBusinessObj.fileName){
+            return toastr.info("项目图片不可为空!")
+        }
+        //描述
+        $scope.addBusinessObj.bizContent = $scope.ue.getContentTxt();
+        if(!$scope.addBusinessObj.bizContent){
+            return toastr.info("项目内容不可为空!")
+        }
+    }
+
+
     //格式化表格数据
     $scope.formatUserPageData = function(pageData){
 
         if(pageData != undefined && pageData != "" && pageData.length>0){
             for(var i in pageData){
                 pageData[i].statusStr = "";
-                if(pageData[i].bizStatus){
-                    if(pageData[i].bizStatus == 0){
-                        pageData[i].brdStatusStr = "未审核";
-                    }else if(pageData[i].bizStatus == 1){
-                        pageData[i].brdStatusStr = "<span style='color: green'>已审核</span>";
-                    }else if(pageData[i].bizStatus == 2){
-                        pageData[i].brdStatusStr = "<span style='color: red'>审核未通过</span>";
+                if(pageData[i].audStatus){
+                    if(pageData[i].audStatus == 0){
+                        pageData[i].statusStr = "未审核";
+                    }else if(pageData[i].audStatus == 1){
+                        pageData[i].statusStr = "<span style='color: green'>已审核</span>";
+                    }else if(pageData[i].audStatus == 2){
+                        pageData[i].statusStr = "<span style='color: red'>审核未通过</span>";
 
                     }
                 }
@@ -85,4 +143,36 @@ function businessrCtrl($scope,$http,angularMeta,lgDataTableService){
         }
         return pageData;
     }
+
+    $scope.uploadImage = function (businessImage,flag) {
+        if(businessImage == "" || businessImage == undefined){
+            return toastr.info("请重新选择需要上传的图片!");
+        }
+        Upload.upload({
+            //服务端接收
+            url: '/image/upload.json',
+            //上传的同时带的参数
+            data: { 'imageType': 3 },
+            file: businessImage
+        }).progress(function (evt) {
+            //进度条
+            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            console.log('progess:' + progressPercentage + '%' + evt.config.file.name);
+        }).success(function (data, status, headers, config) {
+            //上传成功
+            console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+            toastr.info("上传成功!");
+            if(flag ==1){
+                $scope.addBusinessObj.fileName = data.data.uploadPath;
+            }else{
+                $scope.addBusinessObj.fileName2 = data.data.uploadPath;
+            }
+
+        }).error(function (data, status, headers, config) {
+            //上传失败
+            toastr.info("上传失败!");
+            console.log('error status: ' + status);
+        });
+
+    };
 }

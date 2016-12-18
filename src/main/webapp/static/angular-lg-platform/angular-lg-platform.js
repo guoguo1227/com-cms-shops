@@ -1272,7 +1272,7 @@ angular.module('lg.layout', ['lg.sidebar', 'lg.router']).
             restrict: 'E',
             replace: true,
             template: '<header class="lg-headbar">' +
-            '<a class="logo logo-{{getState()}}"><font color="white" style="margin-left:10px;margin-top:10px;font-size: 24px;">北冀集团</font></a>' +
+            '<a class="logo logo-{{getState()}}"><font color="white" style="margin-left:10px;margin-top:10px;font-size: 24px;">北翼集团</font></a>' +
             '<nav class="navbar">' +
             '<a lg-slider><i class="fa fa-bars"></i></a>' +
 
@@ -1359,7 +1359,7 @@ angular.module('lg.layout', ['lg.sidebar', 'lg.router']).
             '<div class="pull-right">' +
             '<b>Version</b>&nbsp;0.0.1' +
             '</div>' +
-            '<strong>北冀商铺&nbsp;<i class="fa fa-copyright"></i>&nbsp;2016.11' +
+            '<strong>北翼商铺&nbsp;<i class="fa fa-copyright"></i>&nbsp;2016.11' +
             '<a href="http://www.beiyishops.com">&nbsp;http://www.beiyishops.com/</a>' +
             '</strong>' +
             '.&nbsp;' +

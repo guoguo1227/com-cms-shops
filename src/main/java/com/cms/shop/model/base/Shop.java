@@ -112,6 +112,8 @@ public class Shop implements BaseBean {
 
     private Integer type;
 
+    private String road;
+
     public Integer getId() {
         return id;
     }
@@ -536,6 +538,14 @@ public class Shop implements BaseBean {
         this.type = type;
     }
 
+    public String getRoad() {
+        return road;
+    }
+
+    public void setRoad(String road) {
+        this.road = road == null ? null : road.trim();
+    }
+
     /** 
      * 拷贝，将对象中的字段全部拷贝到子对象中
      * @param bean 接收对象的子类
@@ -595,6 +605,7 @@ public class Shop implements BaseBean {
         bean.setPrice2(getPrice2());
         bean.setPriceSe2(getPriceSe2());
         bean.setType(getType());
+        bean.setRoad(getRoad());
         return bean;
     }
 
@@ -657,6 +668,7 @@ public class Shop implements BaseBean {
         	", price2:" + getPrice2() + 
         	", priceSe2:" + getPriceSe2() + 
         	", type:" + getType() + 
+        	", road:" + getRoad() + 
         "}";
     }
 }

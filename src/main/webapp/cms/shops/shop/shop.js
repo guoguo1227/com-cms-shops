@@ -126,7 +126,7 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
 
         };
 
-        var headerArray = ['商铺名称','所属地区','图片1','图片2','所在楼层','租赁面积','装修情况','发布日期','发布人','类型','基本操作'];
+        var headerArray = ['商铺名称','所属地区','道路简称','图片1','图片2','所在楼层','租赁面积','装修情况','发布日期','发布人','类型','基本操作'];
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
         pageData = $scope.formatShopPageData(pageData);
 
@@ -139,7 +139,7 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             '<a title="查看" class="btn bg-green btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.detail($row)">查看</a>';
 
             return pg;
-        }), ['shop.shopName','districtStr','shopImg1','shopImg2','shop.floor','shopSquareStr','buildingFinishing','shop.createDate','shop.publisher','shopTypeStr','action']);
+        }), ['shop.shopName','districtStr','shop.road','shopImg1','shopImg2','shop.floor','shopSquareStr','buildingFinishing','shop.createDate','shop.publisher','shopTypeStr','action']);
     };
 
     //切换页面

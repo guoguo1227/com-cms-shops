@@ -55,6 +55,7 @@
     <result column="PRICE2" property="price2" jdbcType="INTEGER" />
     <result column="PRICE_SE2" property="priceSe2" jdbcType="INTEGER" />
     <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="road" property="road" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -122,7 +123,7 @@
     LINKMAN_EMAIL_SE, LINKMAN_MOBILE_SE, type_Id, finishing_Id, PRICE_TYPE, PUBLISHER, 
     street_Id, hot_Id, browsers, lng, lat, zoom, flrHeight, office_Square, factory_Square, 
     warehouse_Square, yard_Square, shop_Square, rent_Type, ontop, DEPOSIT_TYPE, PRICE2, 
-    PRICE_SE2, type
+    PRICE_SE2, type, road
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cms.shop.model.base.ShopCriteria" >
     select
@@ -183,7 +184,7 @@
       factory_Square, warehouse_Square, yard_Square, 
       shop_Square, rent_Type, ontop, 
       DEPOSIT_TYPE, PRICE2, PRICE_SE2, 
-      type)
+      type, road)
     values (#{shopName,jdbcType=VARCHAR}, #{shopNo,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
       #{description,jdbcType=VARCHAR}, #{floor,jdbcType=VARCHAR}, #{squareMetres,jdbcType=DECIMAL}, 
       #{traffic,jdbcType=VARCHAR}, #{facility,jdbcType=VARCHAR}, #{monthDeposit,jdbcType=INTEGER}, 
@@ -201,7 +202,7 @@
       #{factorySquare,jdbcType=DECIMAL}, #{warehouseSquare,jdbcType=DECIMAL}, #{yardSquare,jdbcType=DECIMAL}, 
       #{shopSquare,jdbcType=DECIMAL}, #{rentType,jdbcType=INTEGER}, #{ontop,jdbcType=INTEGER}, 
       #{depositType,jdbcType=INTEGER}, #{price2,jdbcType=INTEGER}, #{priceSe2,jdbcType=INTEGER}, 
-      #{type,jdbcType=INTEGER})
+      #{type,jdbcType=INTEGER}, #{road,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.cms.shop.model.base.Shop" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -365,6 +366,9 @@
       <if test="type != null" >
         type,
       </if>
+      <if test="road != null" >
+        road,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="shopName != null" >
@@ -522,6 +526,9 @@
       </if>
       <if test="type != null" >
         #{type,jdbcType=INTEGER},
+      </if>
+      <if test="road != null" >
+        #{road,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -693,6 +700,9 @@
       <if test="record.type != null" >
         type = #{record.type,jdbcType=INTEGER},
       </if>
+      <if test="record.road != null" >
+        road = #{record.road,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -752,7 +762,8 @@
       DEPOSIT_TYPE = #{record.depositType,jdbcType=INTEGER},
       PRICE2 = #{record.price2,jdbcType=INTEGER},
       PRICE_SE2 = #{record.priceSe2,jdbcType=INTEGER},
-      type = #{record.type,jdbcType=INTEGER}
+      type = #{record.type,jdbcType=INTEGER},
+      road = #{record.road,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -916,6 +927,9 @@
       <if test="type != null" >
         type = #{type,jdbcType=INTEGER},
       </if>
+      <if test="road != null" >
+        road = #{road,jdbcType=VARCHAR},
+      </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
@@ -972,7 +986,8 @@
       DEPOSIT_TYPE = #{depositType,jdbcType=INTEGER},
       PRICE2 = #{price2,jdbcType=INTEGER},
       PRICE_SE2 = #{priceSe2,jdbcType=INTEGER},
-      type = #{type,jdbcType=INTEGER}
+      type = #{type,jdbcType=INTEGER},
+      road = #{road,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

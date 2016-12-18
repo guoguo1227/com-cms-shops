@@ -39,6 +39,7 @@
                                 <li style="border: 1px solid #7c7c7c;" data-target="#boardCarousel" data-slide-to="0" class="active"></li>
                                 <li style="border: 1px solid #7c7c7c;" data-target="#boardCarousel" data-slide-to="1"></li>
                                 <li style="border: 1px solid #7c7c7c;" data-target="#boardCarousel" data-slide-to="2"></li>
+                                <li style="border: 1px solid #7c7c7c;" data-target="#boardCarousel" data-slide-to="3"></li>
                             </ol>
                         </div>
 
@@ -49,7 +50,7 @@
 
                 <div class="col-lg-4 panel panel-default shop-margin-left-10" style="height:330px;width: 32%;">
                     <div class="panel-body">
-                        <div class="shop-panel-heading" style="background-color: white;line-height: 2"><span class="shop-font-news shop-margin-bottom-5">北冀要闻</span></div>
+                        <div class="shop-panel-heading" style="background-color: white;line-height: 2"><span class="shop-font-news shop-margin-bottom-5">北翼要闻</span></div>
                         <div class="col-lg-4 shop-margin-top-30" style="height:25px;width: 37%;">
                             <a class="shop-font-time" href="#" style="margin-left: 2px;">$!date.format('MM月dd日',$!today)</a>
                         </div>
@@ -74,7 +75,7 @@
                 <div class="col-lg-4 panel panel-default shop-margin-left-10" style="height:330px;width: 32%;">
                     <!-- <div class="panel-heading">广告位3</div> -->
                     <div class="panel-body panel-default">
-                        <div class="shop-panel-heading" style="background-color: white;line-height: 2"><span class="shop-font-news">最新动态</span></div>
+                        <div class="shop-panel-heading" style="background-color: white;line-height: 2"><span class="shop-font-news">商家动态</span></div>
                             <div class="col-lg-4 shop-margin-top-30" style="height:25px;width: 37%;">
                                 <a class="shop-font-time" href="#" style="margin-left: 2px;">$!date.format('MM月dd日',$!today)</a>
                             </div>
@@ -107,10 +108,15 @@
                         <div class="col-lg-4 col-sm-12" style="height: 300px;">
                             #foreach($firShop in $!fireShopList)
                                 #if($velocityCount == 1)
+                                    #set($roadName = $!firShop.shop.road)
+
+                                    #if($!roadName.length()>3)
+                                        #set($roadName=$roadName.substring(0,3))
+                                    #end
                                     <div class="col-xs-12 thumbnail">
                                         <a href="/front/detail.action?id=$!firShop.shop.id" target="_blank"><img src="$!firShop.filePath" alt="" style="height:250px;"></a>
                                         <div class="caption mr_zhe_p">
-                                            <span class="shop-hot-title">$!{firShop.districtStr}</span>
+                                            <span class="shop-hot-title">$!{roadName}</span>
                                             <span class="shop-fright shop-hot-area">$!{firShop.shop.squareMetres}㎡</span>
                                         </div>
                                     </div>
@@ -121,21 +127,26 @@
                         <div class="col-lg-4 col-sm-12 row" style="width:36%;">
                             #foreach($firShop in $!fireShopList)
                                #if($velocityCount > 1 && $velocityCount !=6)
+                                   #set($roadName2 = $!firShop.shop.road)
+
+                                   #if($!roadName2.length()>3)
+                                       #set($roadName2=$roadName2.substring(0,3))
+                                   #end
                                <div class="col-lg-6 thumbnail">
                                     <a href="/front/detail.action?id=$!firShop.shop.id" target="_blank"><img  src="$!firShop.filePath" style="height:90px;"></a>
                                     #if($velocityCount <4)
                                         <div class="caption mr_zhe_p2">
-                                            <span class="shop-hot-title-small">$!{firShop.districtStr}</span>
+                                            <span class="shop-hot-title-small">$!{roadName2}</span>
                                             <span class="shop-fright shop-hot-area-small">$!{firShop.shop.squareMetres}㎡</span>
                                         </div>
                                     #elseif($velocityCount ==4)
                                         <div class="caption mr_zhe_p">
-                                            <span class="shop-hot-title-small">$!{firShop.districtStr}</span>
+                                            <span class="shop-hot-title-small">$!{roadName2}</span>
                                             <span class="shop-fright shop-hot-area-small">$!{firShop.shop.squareMetres}㎡</span>
                                         </div>
                                     #else
                                         <div class="caption mr_zhe_p5">
-                                            <span class="shop-hot-title-small">$!{firShop.districtStr}</span>
+                                            <span class="shop-hot-title-small">$!{roadName2}</span>
                                             <span class="shop-fright shop-hot-area-small">$!{firShop.shop.squareMetres}㎡</span>
                                         </div>
                                     #end
@@ -147,10 +158,15 @@
                         <div class="col-lg-4 col-sm-12">
                             #foreach($firShop in $!fireShopList)
                                 #if($velocityCount == 6)
+                                    #set($roadName3 = $!firShop.shop.road)
+
+                                    #if($!roadName3.length()>3)
+                                        #set($roadName3=$roadName3.substring(0,3))
+                                    #end
                                     <div class="col-xs-12 thumbnail">
                                         <a href="/front/detail.action?id=$!firShop.shop.id" target="_blank"><img src="$!firShop.filePath" alt="" style="height:250px;"></a>
                                         <div class="caption mr_zhe_p2">
-                                            <span>$!{firShop.districtStr}</span>
+                                            <span class="shop-hot-title-small">$!{roadName3}</span>
                                             <span class="shop-fright shop-hot-area">$!{firShop.shop.squareMetres}㎡</span>
                                         </div>
                                     </div>
@@ -176,23 +192,50 @@
                 <br>
                 <div class="row col-lg-12" style="width:106%;">
                     #foreach($goodShop in $!goodShopList)
-                        <div class="col-lg-4 thumbnail shop-margin-left-2 shop-border-none shop-good-list" style="width:32%;">
+                        <div class="imgbox col-lg-4 thumbnail shop-margin-left-2 shop-border-none shop-good-list" style="width:32%;">
                             <a href="/front/detail.action?id=$!goodShop.shop.id" target="_blank" class="thumbnail shop-margin-bottom-10 shop-border-none">
                                 <img src="$!goodShop.filePath" alt="" style="height: 215px;">
                             </a>
+                            #set($shopType=$!goodShop.shopType)
+                            #if($!shopType.length()>2)
+                                #set($shopType=$shopType.substring(0,2))
+                            #end
                             <span>
-                                <span class="shop-goods-black">$!{goodShop.shopType} &nbsp;&nbsp; $!{goodShop.shop.squareMetres}平米</span><span class="shop-fright shop-goods-red">$!{goodShop.districtStr}</span>
+                                <span class="shop-goods-black">$!{shopType} &nbsp;&nbsp; $!{goodShop.shop.squareMetres}平米</span><span class="shop-fright shop-goods-red">$!{goodShop.districtStr}</span>
                             </span>
 
                             #set($distribe = $!goodShop.shop.description)
+                            #if($!distribe.length()>38)
+                                #set($distribe=$distribe.substring(0,38))
+                            #end
+                            #if($velocityCount == 1 || $velocityCount == 4)
+                                <div class="shop-text">
+                                    <div class="shop-imgtext">
+                                        <p>
+                                            <span>$!{distribe}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            #elseif($velocityCount == 2 || $velocityCount == 5)
+                                <div class="shop-text" style="background:#bec000;">
+                                    <div class="shop-imgtext">
+                                        <p>
+                                            <span>$!{distribe}</span>
+                                        </p>
+                                    </div>
+                                </div>
 
-                            <p style="font-size: 18px;">
-                                <span>$!{goodShop.shop.shopName}</span>
-                               #* #if($!distribe.length()>26)
-                                    #set($distribe=$distribe.substring(0,25))
-                                    <span>$!{distribe}</span>
-                                #end*#
-                            </p>
+                            #else
+                                <div class="shop-text" style="background:#e84f5e;">
+                                    <div class="shop-imgtext">
+                                        <p>
+                                            <span>$!{distribe}</span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                            #end
+
                             <a href="/front/detail.action?id=$!goodShop.shop.id" target="_blank" class="now">&nbsp;</a>
 
                         </div>
@@ -231,10 +274,6 @@
                                                 #set($bizContent=$bizContent.substring(0,29))
                                             #end
                                             <span>$!{bizName}</span>
-                                            <!--
-                                                                <p>$!{bizContent}</p>
--->
-
                                         </div>
                                     #end
                                 </ul>

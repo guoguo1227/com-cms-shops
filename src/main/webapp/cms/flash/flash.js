@@ -56,6 +56,10 @@ function flashCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                             toastr.error(data.message);
                         }
                     });
+            },
+            delete : function(row){
+                $scope.flashFlagObj.deleteOpen = true;
+                $scope.deleteFlagObj = {id:row.id};
             }
         };
 
@@ -66,7 +70,8 @@ function flashCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
 
             pg.action = '<a title="下架" ng-if="$row.status ==1" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.offline($row)">下架</a>'+
-            '<a title="上架" ng-if="$row.status !== 1" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.online($row)">上架</a>';
+            '<a title="上架" ng-if="$row.status !== 1" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.online($row)">上架</a>'+
+            '<a title="删除" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>';
             return pg;
         }), ['oldName','imgurl','statusStr','action']);
     };
@@ -96,12 +101,28 @@ function flashCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         if(!$scope.addFlashObj.flashName){
             return toastr.info("请重新上传flash!")
         }
-        $http.post("/shopmanage/addPage.json",$scope.addFlashObj,angularMeta.postCfg)
+        $http.post("/shopmanage/addFlash.json",$scope.addFlashObj,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
                     $scope.flashFlagObj.addOpen = false;
                     $scope.searchLoad();
                     toastr.info("添加成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
+    }
+    //取消删除
+    $scope.deletCancle = function(){
+        $scope.flashFlagObj.deleteOpen = false;
+    }
+    $scope.deleteSave = function(){
+        $http.post("/shopmanage/delete-shopType.json",{id:$scope.deleteFlagObj.id},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.adFlagObj.deleteOpen = false;
+                    $scope.searchLoad();
+                    toastr.info("删除成功!");
                 }else{
                     toastr.error(data.message);
                 }
@@ -130,6 +151,7 @@ function flashCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         }
         return pageData;
     }
+
     //提交
     $scope.uploadImage = function (flashImage) {
         if(flashImage == "" || flashImage == undefined){

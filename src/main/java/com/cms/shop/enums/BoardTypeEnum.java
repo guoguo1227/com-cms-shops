@@ -11,7 +11,7 @@ public enum BoardTypeEnum {
     SHOPABIT(2, "开店一点通"),
     POLICY(3, "政策法规"),
     KNOWLEDGE(4, "商铺知识"),
-    NEWS(5, "北冀要闻"),
+    NEWS(5, "北翼要闻"),
     BUSINESS(6, "商家动态");
 
     private Integer key;

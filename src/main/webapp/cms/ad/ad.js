@@ -80,7 +80,7 @@ function adCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
 
         });
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.img = "<div class='thumbnail' style='height:180px;'><a class='fancybox' rel='group' href={{$row.newPicName}}><img  src={{$row.newPicName}}  /></a></div>";
+            pg.img = "<div class='thumbnail' style='height:180px;'><a class='fancybox' rel='group' href={{$row.newPicName}}><img  src={{$row.newPicName}}  style='width: 100%;height: 100%;'/></a></div>";
             pg.link="<a href='{{$row.url}}' target='_blank'>{{$row.url}}</a>"
             pg.action =  /*'<a title="查看" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">查看</a>'+
                 '<a title="编辑" class="btn bg-green btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.delete($row)">编辑</a>'+*/
@@ -161,11 +161,11 @@ function adCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             });
     }
     //取消删除
-    $scope.deletCancle = function(){
+    $scope.deleteCancle = function(){
         $scope.adFlagObj.deleteOpen = false;
     }
     $scope.deleteSave = function(){
-        $http.post("/shopmanage/delete-shopType.json",{id:$scope.deleteInfo.id},angularMeta.postCfg)
+        $http.post("/advert/delete.json",{id:$scope.deleteInfo.id},angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
                     $scope.adFlagObj.deleteOpen = false;

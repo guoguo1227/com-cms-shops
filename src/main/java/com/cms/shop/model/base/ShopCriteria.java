@@ -3517,6 +3517,76 @@ public class ShopCriteria implements BaseCriteria {
             addCriterion("type not between", value1, value2, "type");
             return (Criteria) this;
         }
+
+        public Criteria andRoadIsNull() {
+            addCriterion("road is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoadIsNotNull() {
+            addCriterion("road is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoadEqualTo(String value) {
+            addCriterion("road =", value, "road");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoadNotEqualTo(String value) {
+            addCriterion("road <>", value, "road");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoadGreaterThan(String value) {
+            addCriterion("road >", value, "road");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoadGreaterThanOrEqualTo(String value) {
+            addCriterion("road >=", value, "road");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoadLessThan(String value) {
+            addCriterion("road <", value, "road");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoadLessThanOrEqualTo(String value) {
+            addCriterion("road <=", value, "road");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoadLike(String value) {
+            addCriterion("road like", value, "road");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoadNotLike(String value) {
+            addCriterion("road not like", value, "road");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoadIn(List<String> values) {
+            addCriterion("road in", values, "road");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoadNotIn(List<String> values) {
+            addCriterion("road not in", values, "road");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoadBetween(String value1, String value2) {
+            addCriterion("road between", value1, value2, "road");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoadNotBetween(String value1, String value2) {
+            addCriterion("road not between", value1, value2, "road");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria implements Serializable {

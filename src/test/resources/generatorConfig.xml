@@ -176,7 +176,10 @@
             <generatedKey column="ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
         </table>-->
 
-        <table schema="" tableName="investment" domainObjectName="Investment">
+      <!--  <table schema="" tableName="investment" domainObjectName="Investment">
+            <generatedKey column="ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        </table>-->
+        <table schema="" tableName="shop" domainObjectName="Shop">
             <generatedKey column="ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
         </table>
     </context>

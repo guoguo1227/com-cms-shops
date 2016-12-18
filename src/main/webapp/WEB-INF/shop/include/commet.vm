@@ -3,8 +3,8 @@
     <form class="form-horizontal"  name = "addCommentForm" novalidate>
         <div class="box-body">
             <div class="form-group">
-                <label class="col-sm-3 control-label">企业/个人名称</label>
-                <div class="col-sm-8">
+                <label class="col-sm-3 control-label">企业/个人名称<font color="red">*</font></label>
+                <div class="col-sm-6">
                     <input type="text" name="askerName" ng-model="comment.askerName"  class="form-control" required>
                     <!--<span style="color:red" ng-show="addCommentForm.company.$dirty && addCommentForm.company.$invalid">
                                     <span ng-show="addCommentForm.company.$error.required">企业/个人名称是必须的。</span></span>-->
@@ -12,19 +12,19 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">地址</label>
-                <div class="col-sm-8">
+                <div class="col-sm-6">
                     <input type="text" name="askerLoc" ng-model="comment.askerLoc"  class="form-control">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">联系电话/手机</label>
-                <div class="col-sm-8">
+                <div class="col-sm-6">
                     <input type="text" name="askerPhone" ng-model="comment.askerPhone"  class="form-control">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">邮箱</label>
-                <div class="col-sm-8">
+                <div class="col-sm-6">
                     <input type="text" name="askerMail" ng-model="comment.askerMail"  class="form-control">
                     <!--<span style="color:red" ng-show="addCommentForm.email.$dirty && addCommentForm.email.$invalid">
                                     <span ng-show="addCommentForm.email.$error.email">邮箱是必须的。</span></span>
@@ -32,19 +32,18 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label">内容留言</label>
-                <div class="col-sm-8">
+                <label class="col-sm-3 control-label">内容留言<font color="red">*</font></label>
+                <div class="col-sm-6">
                     <textarea class="form-control" rows="3" placeholder="" ng-model="comment.content"></textarea>
                 </div>
             </div>
+            <div class="modal-footer col-sm-10">
+                <button type="button" class="btn btn-default shop-btn" ng-click="addComment()">
+                    提交
+                </button>
+            </div>
         </div>
     </form>
-    <div class="modal-footer">
 
-
-        <button type="button" class="btn btn-default" ng-click="addComment()">
-            提交
-        </button>
-    </div>
 </div>
 <script src="/static/plugins/toastr/toastr2.js"></script>

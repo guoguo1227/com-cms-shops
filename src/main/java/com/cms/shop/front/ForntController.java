@@ -58,6 +58,8 @@ public class ForntController extends BaseController{
     @Autowired
     private KeywordService keywordService;
 
+    @Autowired
+    private FlashService flashService;
     /**
      * 多条件搜索商铺
      * @return
@@ -104,6 +106,9 @@ public class ForntController extends BaseController{
         List<District> districtList = districtService.queryAll();
         List<Keyword> keywordList = keywordService.queryHotKeyWord();
 
+        Flash flash = flashService.queryFlash();
+        modelMap.addAttribute("flash",flash);
+
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
         modelMap.addAttribute("total",total);
@@ -140,6 +145,8 @@ public class ForntController extends BaseController{
         List<District> districtList = districtService.queryAll();
 
         List<Keyword> keywordList = keywordService.queryHotKeyWord();
+        Flash flash = flashService.queryFlash();
+        modelMap.addAttribute("flash",flash);
         modelMap.addAttribute("keywordList",keywordList);
         modelMap.addAttribute("shop",vo);
         modelMap.addAttribute("imgList",imgList);
@@ -166,7 +173,8 @@ public class ForntController extends BaseController{
         List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD);
         List<District> districtList = districtService.queryAll();
         List<Keyword> keywordList = keywordService.queryHotKeyWord();
-
+        Flash flash = flashService.queryFlash();
+        modelMap.addAttribute("flash",flash);
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
 
@@ -205,6 +213,8 @@ public class ForntController extends BaseController{
         List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD);
         List<District> districtList = districtService.queryAll();
         List<Keyword> keywordList = keywordService.queryHotKeyWord();
+        Flash flash = flashService.queryFlash();
+        modelMap.addAttribute("flash",flash);
 
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
@@ -237,6 +247,8 @@ public class ForntController extends BaseController{
         List<District> districtList = districtService.queryAll();
         List<Keyword> keywordList = keywordService.queryHotKeyWord();
 
+        Flash flash = flashService.queryFlash();
+        modelMap.addAttribute("flash",flash);
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
 
@@ -263,6 +275,8 @@ public class ForntController extends BaseController{
         List<District> districtList = districtService.queryAll();
         List<Keyword> keywordList = keywordService.queryHotKeyWord();
 
+        Flash flash = flashService.queryFlash();
+        modelMap.addAttribute("flash",flash);
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
 
@@ -290,6 +304,8 @@ public class ForntController extends BaseController{
         List<District> districtList = districtService.queryAll();
         List<Keyword> keywordList = keywordService.queryHotKeyWord();
 
+        Flash flash = flashService.queryFlash();
+        modelMap.addAttribute("flash",flash);
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
 

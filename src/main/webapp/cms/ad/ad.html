@@ -75,7 +75,18 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  class="col-sm-3 control-label">360*290像素</label>
+                        <label  class="col-sm-2 control-label">所在位置:</label>
+                        <div class="col-sm-10">
+                            <div class='thumbnail' ng-if="addAdInfo.adLoc == 1"><a class='fancybox' rel='group' href='/static/ui/images/adlocation1.png'><img  src='/static/ui/images/adlocation1.png'  style='width: 100%;height:200px;'/></a></div>
+                            <div class='thumbnail' ng-if="addAdInfo.adLoc == 2"><a class='fancybox' rel='group' href='/static/ui/images/adlocation2.png'><img  src='/static/ui/images/adlocation2.png'  style='width: 100%;height:200px;'/></a></div>
+                            <div class='thumbnail' ng-if="addAdInfo.adLoc == 3"><a class='fancybox' rel='group' href='/static/ui/images/adlocation3.png'><img  src='/static/ui/images/adlocation3.png'  style='width: 100%;height:200px;'/></a></div>
+                            <div class='thumbnail' ng-if="addAdInfo.adLoc == 4"><a class='fancybox' rel='group' href='/static/ui/images/adlocation4.png'><img  src='/static/ui/images/adlocation4.png'  style='width: 100%;height:200px;'/></a></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label  class="col-sm-3 control-label" ng-if="addAdInfo.adLoc == 1">360*290像素</label>
+                        <label  class="col-sm-3 control-label" ng-if="addAdInfo.adLoc != 1">1107*220像素</label>
                         <div class="col-sm-9">
                             <input type="file" ngf-select="" ng-model="userImage" name="file" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" required="">
                             <button type="button" class="shop-margin-top-10 btn-success"  ng-click="uploadImage(userImage)">上传图片</button>
@@ -112,7 +123,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-default " ng-click="deletCancle()">关闭</button>
+                    <button class="btn btn-default " ng-click="deleteCancle()">关闭</button>
                     <button class="btn btn-info pull-right" ng-click="deleteSave()">确定</button>
                 </div>
             </form>

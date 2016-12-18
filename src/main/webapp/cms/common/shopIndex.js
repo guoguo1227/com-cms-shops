@@ -21,8 +21,8 @@ function myCtrl($scope,$http,angularMeta){
         if(!$scope.comment.content){
             return toastr.info("请输入内容！")
         }
-        if(!$scope.comment.askerMail && !$scope.comment.askerPhone){
-            return toastr.info("手机号和邮箱不能同时为空！")
+        if(!$scope.comment.askerPhone){
+            return toastr.info("手机号不能为空！")
         }
         $http.post("/shopIndex/addComment.do",$scope.comment,angularMeta.postCfg)
             .success(function(data){

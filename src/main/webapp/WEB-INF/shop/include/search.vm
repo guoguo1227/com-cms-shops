@@ -9,7 +9,11 @@
                 &nbsp;&nbsp;
                 <span class=" shop-font-small">热门搜索:</span>
                 #foreach($keyword in $!keywordList)
-                    <span class="shop-margin-left-10 shop-font-small">$!{keyword.word}</span>
+                    #set($word = $keyword.word)
+                    #if($!word.length()>6)
+                        #set($word=$word.substring(0,6))
+                    #end
+                    <span class="shop-margin-left-10 shop-font-small">$!{word}</span>
                 #end
             </div>
         </form>

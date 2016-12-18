@@ -52,7 +52,7 @@ public class BusinessServiceImpl implements BusinessService {
     public Page<Business> queryPageByCondition(SearchCondition condition) {
         Page<Business> page = null;
         if(null != condition){
-            page = new Page();
+            page = new Page<>();
             page.setPageSize(condition.getLimit());
 
             BusinessCriteria criteria = new BusinessCriteria();
@@ -61,6 +61,10 @@ public class BusinessServiceImpl implements BusinessService {
             //id
             if(null != condition.getId()){
                 cri.andBizIdEqualTo(condition.getId());
+            }
+            //状态
+            if(null != condition.getCheckStatus()){
+                cri.andAudStatusEqualTo(condition.getCheckStatus());
             }
             //排序
             criteria.setOrderByClause(" biz_Id desc ");
@@ -73,8 +77,16 @@ public class BusinessServiceImpl implements BusinessService {
                     if(CollectionUtils.isNotEmpty(businessList)){
                         for(Business b:businessList){
                             if(!StringUtils.isBlank(b.getFileName())){
-                                b.setFileName(ImageType.BUSINESS.getImagePath()+b.getFileName());
+                                if(!b.getFileName().contains(ImageType.BUSINESS.getImagePath())){
+                                    b.setFileName(ImageType.BUSINESS.getImagePath()+b.getFileName());
+                                }
                             }
+                            if(!StringUtils.isBlank(b.getFileName2())){
+                                if(!b.getFileName2().contains(ImageType.BUSINESS.getImagePath())){
+                                    b.setFileName2(ImageType.BUSINESS.getImagePath()+b.getFileName2());
+                                }
+                            }
+
                         }
                     }
                     page.setPageData(businessList);

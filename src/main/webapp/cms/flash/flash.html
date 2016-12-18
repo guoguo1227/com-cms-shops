@@ -38,6 +38,26 @@
             <button class="btn btn-primary pull-right" ng-click="adFlashSave()">保存</button>
         </div>
     </lg-modal>
-
+    <!--删除确认窗口-->
+    <lg-modal open="flashFlagObj.deleteOpen">
+        <div class="modal-header">
+            <h4 class="modal-title">删除类型</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="box-body">
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <label>确认删除该类型?</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default " ng-click="deletCancle()">关闭</button>
+                    <button class="btn btn-info pull-right" ng-click="deleteSave()">确定</button>
+                </div>
+            </form>
+        </div>
+    </lg-modal>
 
 </div>

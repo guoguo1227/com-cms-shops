@@ -69,6 +69,11 @@ public class FlashServiceImpl implements FlashService{
         List<Flash> list = flashMapper.selectByExample(cri);
         if(CollectionUtils.isNotEmpty(list)){
             flash = list.get(0);
+            if(flash.getFlashName().contains(ImageType.FLASH.getImagePath())){
+
+            }else{
+                flash.setFlashName(ImageType.FLASH.getImagePath()+flash.getFlashName());
+            }
         }
         return flash;
     }
@@ -134,6 +139,24 @@ public class FlashServiceImpl implements FlashService{
 
         }else{
             message = "flash不可为空";
+        }
+        result.setSuccess(success);
+        result.setMessage(message);
+        return result;
+    }
+
+    @Override
+    public RequestResult deleteFlash(Integer id) {
+        RequestResult result = new RequestResult();
+        boolean success = false;
+        String message = "";
+        if(null != id){
+            int i = flashMapper.deleteByPrimaryKey(id);
+            if(i>0){
+                success = true;
+            }
+        }else{
+            message = "id不可为空!";
         }
         result.setSuccess(success);
         result.setMessage(message);

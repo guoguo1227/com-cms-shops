@@ -872,7 +872,7 @@ public class ShopManageController extends BaseController{
      * @param flash
      * @return
      */
-    @RequestMapping("addPage")
+    @RequestMapping("addFlash")
     @ResponseBody
     public String addFlash(Flash flash){
 
@@ -882,6 +882,24 @@ public class ShopManageController extends BaseController{
            result = flashService.addFlash(flash);
         }else{
             result.setMessage("请重新上传flash");
+        }
+        return gson.toJson(result);
+    }
+    /**
+     * 删除flash
+     * @param id
+     * @return
+     */
+    @RequestMapping("deleteFlash")
+    @ResponseBody
+    public String deleteFlash(Integer id){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != id){
+            result = flashService.deleteFlash(id);
+        }else{
+            result.setMessage("id不可为空!");
         }
         return gson.toJson(result);
     }

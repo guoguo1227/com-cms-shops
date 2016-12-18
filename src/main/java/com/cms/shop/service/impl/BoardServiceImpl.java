@@ -244,26 +244,60 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public List<BoardVo> queryVoOnList(BoardTypeEnum typeEnum,SearchCondition condition) {
 
+        boolean imgFlag = false;
         List<BoardVo> list = new ArrayList<>();
         BoardCriteria criteria = new BoardCriteria();
         BoardCriteria.Criteria cri = criteria.createCriteria();
         cri.andBrdStatusEqualTo(CheckStatusEnum.PASS.getKey());
 
-        /**
-         * 类型
-         */
-        if(null != typeEnum){
-            cri.andBrdTypeEqualTo(typeEnum.getKey());
-        }
 
+        //查询首页图片
+        if(null != condition.getType()){
+            if(condition.getType().equals(1)){
+                imgFlag = true;
+            }
+        }
+        if(!imgFlag){
+            //类型
+            if(null != typeEnum){
+                cri.andBrdTypeEqualTo(typeEnum.getKey());
+            }
+        }
         criteria.setOrderByClause(" BRD_ID desc ");
 
         criteria.setLimitStart(0);
         criteria.setLimitEnd(6);
-        if (null != condition){
+        if (null != condition.getLimit()){
             criteria.setLimitEnd(condition.getLimit());
         }
-        List<Board> boardList = boardMapper.selectByExample(criteria);
+
+        List<Board> boardList = new ArrayList<>();
+        if(imgFlag){
+
+            //北翼要闻
+            BoardCriteria newsCri = new BoardCriteria();
+            newsCri.createCriteria().andBrdStatusEqualTo(CheckStatusEnum.PASS.getKey()).andBrdTypeEqualTo(BoardTypeEnum.NEWS.getKey());
+            newsCri.setLimitStart(0);
+            newsCri.setLimitEnd(2);
+            newsCri.setOrderByClause(" BRD_ID desc ");
+
+            List<Board> newsList= boardMapper.selectByExample(newsCri);
+            if(CollectionUtils.isNotEmpty(newsList)){
+                boardList.addAll(newsList);
+            }
+            //商家动态
+            BoardCriteria businessCri = new BoardCriteria();
+            businessCri.createCriteria().andBrdStatusEqualTo(CheckStatusEnum.PASS.getKey()).andBrdTypeEqualTo(BoardTypeEnum.BUSINESS.getKey());
+            businessCri.setLimitStart(0);
+            businessCri.setLimitEnd(2);
+            businessCri.setOrderByClause(" BRD_ID desc ");
+            List<Board> businessList= boardMapper.selectByExample(businessCri);
+            if(CollectionUtils.isNotEmpty(businessList)){
+                boardList.addAll(businessList);
+            }
+        }else{
+            boardList = boardMapper.selectByExample(criteria);
+        }
 
         if(CollectionUtils.isNotEmpty(boardList)){
             for(Board b : boardList){

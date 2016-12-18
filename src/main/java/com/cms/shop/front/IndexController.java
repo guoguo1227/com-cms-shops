@@ -79,7 +79,8 @@ public class IndexController extends BaseController{
         List<Board> newsBoardList = boardService.queryOnList(BoardTypeEnum.NEWS,condition);
         List<Board> businessBoardList = boardService.queryOnList(BoardTypeEnum.BUSINESS,condition);
 
-        condition.setLimit(3);
+        condition.setLimit(4);
+        condition.setType(1);
         List<BoardVo> imgBoardList = boardService.queryVoOnList(null, condition);
 
         List<Hotcategory> hotcategoryList = hotcategoryService.queryAll();
@@ -102,7 +103,7 @@ public class IndexController extends BaseController{
         modelMap.addAttribute("businessList",businessList); //招商项目
         modelMap.addAttribute("goodShopList",goodShopList); //精选好铺
         modelMap.addAttribute("fireShopList",fireShopList); //精选旺铺
-        modelMap.addAttribute("newsBoardList",newsBoardList); //北冀要闻
+        modelMap.addAttribute("newsBoardList",newsBoardList); //北翼要闻
         modelMap.addAttribute("businessBoardList",businessBoardList); //商家动态
         modelMap.addAttribute("imgBoardList",imgBoardList); //商家动态
         modelMap.addAttribute("hotcategoryList",hotcategoryList);//商铺类型

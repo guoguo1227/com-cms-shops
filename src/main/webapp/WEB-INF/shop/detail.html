@@ -14,20 +14,18 @@
                 </div>
             </div>
         </div>
-        <div class="row col-xs-12">
-            <div class="panel panel-default">
-                #parse("\include\search.vm")
-            </div>
+        <div class="row col-xs-12 shop-margin-top-30">
+            #parse("\include\search.vm")
         </div>
-        <div class="row col-xs-12 shop-detail-table" style="margin-top:-48px;">
+        <div class="row col-xs-12 shop-detail-table box-body" style="margin-top:-10px;">
             <div class="panel panel-default">
-                <div class="panel-heading">
+                <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-3 panel panel-default shop-border-none">
                             <div>
                                 <ul class="nav navbar-nav shop-detail-btn">
                                     #foreach($hotcat in $!hotcategoryList)
-                                    <li class="shop-margin-top-15" >
+                                    <li class="" >
                                         <a href="/front/search-shop.action?hotId=$!hotcat.hotId" target="_blank">
                                             $!{hotcat.hotName}
                                         </a>
@@ -37,7 +35,7 @@
                                         <hr style="border-bottom: 3px solid #eee;">
                                     </li>
                                     #foreach($district in $!districtList)
-                                    <li class="shop-margin-top-15">
+                                    <li class="">
                                         <a href="/front/search-shop.action?districtId=$!district.districtId" target="_blank">
                                             $!{district.districtName}
                                         </a>
@@ -72,11 +70,11 @@
                                             <div class="panel-body ">
                                                 <table class="table table-bordered shop-detail-tb shop-border-none">
                                                 <tbody>
-                                                    <tr><td><span style="font-size: 22px;">所在地区:</span><span> $!{shop.districtStr}</span><td><span style="font-size: 22px;">保证金: </span><span> $!{shop.deposit}</span></td></tr>
-                                                    <tr><td><span id="shopLoc" style="font-size: 24px;">商铺地址:</span><span>  $!{shop.shop.location}</span></td><td><span style="font-size: 22px;">租金:</span><span>  $!{shop.priceSe}</span></td></tr>
-                                                    <tr><td><span style="font-size: 22px;">适宜业态:</span><span>  $!{shop.buildingOccupancy}</span></td><td><span style="font-size: 22px;">招商电话:</span><span>  $!{shop.shop.linkmanPhone}</span></td></tr>
-                                                    <tr><td><span style="font-size: 22px;">所在楼层:</span><span>  $!{shop.shop.floor}</span></td></tr>
-                                                    <tr><td><span style="font-size: 22px;">发布日期:</span><span> $!date.format('yyyy-MM-dd HH:mm:ss ',$!shop.shop.createDate)</span></td></tr>
+                                                    <tr><td><span>所在地区:</span><span> $!{shop.districtStr}</span><td><span>保证金: </span><span> $!{shop.deposit}</span></td></tr>
+                                                    <tr><td><span id="shopLoc">商铺地址:</span><span>  $!{shop.shop.location}</span></td><td><span>租金:</span><span>  $!{shop.priceSe}</span></td></tr>
+                                                    <tr><td><span>适宜业态:</span><span>  $!{shop.buildingOccupancy}</span></td><td><span>招商电话:</span><span>  $!{shop.shop.linkmanPhone}</span></td></tr>
+                                                    <tr><td><span>所在楼层:</span><span>  $!{shop.shop.floor}</span></td></tr>
+                                                    <tr><td><span>发布日期:</span><span> $!date.format('yyyy-MM-dd HH:mm:ss ',$!shop.shop.createDate)</span></td></tr>
                                                 </tbody>
                                                 </table>
                                             </div>
@@ -96,13 +94,8 @@
 
                                 </div>
                                 <div class="row box" style="border-top: 5px solid red;">
-                                    <div class="panel panel-default shop-border-none">
-                                        <div class="panel-box shop-border-none">
-                                            #parse("\include\commet.vm")
-                                        </div>
-
-                                    </div>
-                            </div>
+                                    #parse("\include\commet.vm")
+                                </div>
                         </div>
                     </div>
 
@@ -125,7 +118,7 @@
 <footer id="footer">
     <hr>
     <div class="shop-foot">
-        <p>上海北冀（集团）有限公司 地址:上海市宝山梅林路768号  邮编:201901 电话:02166150172</p>
+        <p>上海北翼（集团）有限公司 地址:上海市宝山梅林路768号  邮编:201901 电话:021-66150172</p>
         <p>Copyright 2007-2012 上海市宝山区供销合作总社 备案/许可证编号为：沪ICP备12047456号</p>
     </div>
 </footer>
