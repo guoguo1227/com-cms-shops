@@ -27,6 +27,8 @@ public class Advert implements BaseBean {
 
     private Integer editTag;
 
+    private Integer priority;
+
     public Integer getAdId() {
         return adId;
     }
@@ -115,6 +117,14 @@ public class Advert implements BaseBean {
         this.editTag = editTag;
     }
 
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
+
     /** 
      * 拷贝，将对象中的字段全部拷贝到子对象中
      * @param bean 接收对象的子类
@@ -132,6 +142,7 @@ public class Advert implements BaseBean {
         bean.setCreater(getCreater());
         bean.setCreateDate(getCreateDate());
         bean.setEditTag(getEditTag());
+        bean.setPriority(getPriority());
         return bean;
     }
 
@@ -152,6 +163,7 @@ public class Advert implements BaseBean {
         	", creater:" + getCreater() + 
         	", createDate:" + getCreateDate() + 
         	", editTag:" + getEditTag() + 
+        	", priority:" + getPriority() + 
         "}";
     }
 }

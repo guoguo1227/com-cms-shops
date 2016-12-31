@@ -82,9 +82,8 @@ public class AdvertServiceImpl implements AdvertService{
         boolean success = false;
         String message = "";
         if(null != advert){
-            //todo 测试
-            advert.setAudStatus(CheckStatusEnum.PASS.getKey());
-            advert.setAdStatus(OnlineStatusEnum.ONLINE.getKey());
+            advert.setAudStatus(CheckStatusEnum.AUDIT.getKey()); //未审核
+            advert.setAdStatus(OnlineStatusEnum.ONLINE.getKey()); //默认上架
             advert.setCreateDate(new Date());
             int i = advertMapper.insertSelective(advert);
             if(i>0){
@@ -194,7 +193,7 @@ public class AdvertServiceImpl implements AdvertService{
         criteria.setLimitStart(condition.getOffset());
         criteria.setLimitEnd(condition.getLimit());
 
-        criteria.setOrderByClause(" AD_ID desc ");
+        criteria.setOrderByClause(" priority,AD_ID desc ");
         List<Advert> list = advertMapper.selectByExample(criteria);
         if(CollectionUtils.isNotEmpty(list)){
             for(Advert ad : list){

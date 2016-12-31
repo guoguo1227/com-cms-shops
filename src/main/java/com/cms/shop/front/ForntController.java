@@ -166,9 +166,12 @@ public class ForntController extends BaseController{
     public String project(SearchCondition condition,ModelMap modelMap){
 
         List<Business> businessList = new ArrayList<>();
-        Page<Business> page = businessService.queryPageByCondition(condition);
-        if(null != page && CollectionUtils.isNotEmpty(page.getPageData())){
-            businessList = page.getPageData();
+        Business business = null;
+        if(null != condition.getId()){
+            Page<Business> page = businessService.queryPageByCondition(condition);
+            if(null != page && CollectionUtils.isNotEmpty(page.getPageData())){
+                business = page.getPageData().get(0);
+            }
         }
         List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD);
         List<District> districtList = districtService.queryAll();
@@ -178,7 +181,7 @@ public class ForntController extends BaseController{
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
 
-        modelMap.addAttribute("businessList",businessList);
+        modelMap.addAttribute("business",business);
         modelMap.addAttribute("goodShopList",goodShopList);
 
         return "project";

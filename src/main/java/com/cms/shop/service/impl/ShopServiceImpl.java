@@ -74,6 +74,8 @@ public class ShopServiceImpl implements ShopService {
 
             ShopCriteria criteria = new ShopCriteria();
             ShopCriteria.Criteria cri = criteria.createCriteria();
+            //锁定状态暂时没用上
+            cri.andEditTagEqualTo(ShopConstant.EDIT_TAG_LOCK);
             //审核状态
             if(null != condition.getCheckStatus()){
                 cri.andAuditStatusEqualTo(condition.getCheckStatus());
@@ -349,7 +351,32 @@ public class ShopServiceImpl implements ShopService {
         }
         result.setSuccess(success);
         result.setMessage(message);
-        return result;    }
+        return result;
+    }
+
+    @Override
+    public RequestResult updateRoad(Integer id, String road) {
+        RequestResult result = new RequestResult();
+        boolean success = false;
+        String message = "";
+        if(null != id && !StringUtils.isBlank(road)){
+            Shop shop = shopMapper.selectByPrimaryKey(id);
+            if(null != shop){
+                shop.setRoad(road);
+                int i = shopMapper.updateByPrimaryKeySelective(shop);
+                if(i>0){
+                    success = true;
+                }
+            }else{
+                message = "该商铺不存在";
+            }
+        }else{
+            message = "id不可为空";
+        }
+        result.setSuccess(success);
+        result.setMessage(message);
+        return result;
+    }
 
     @Override
     public RequestResult passShop(Integer id) {
@@ -412,6 +439,24 @@ public class ShopServiceImpl implements ShopService {
 
         }else{
             message = "商铺名称不能为空";
+        }
+        result.setSuccess(success);
+        result.setMessage(message);
+        return result;
+    }
+
+    @Override
+    public RequestResult updateShop(Shop shop) {
+        RequestResult result = new RequestResult();
+        boolean success = false;
+        String message = "";
+        if(null != shop && null != shop.getId()){
+            int i = shopMapper.updateByPrimaryKeySelective(shop);
+            if(i>0){
+                success = true;
+            }else{
+                message = "操作失败!";
+            }
         }
         result.setSuccess(success);
         result.setMessage(message);

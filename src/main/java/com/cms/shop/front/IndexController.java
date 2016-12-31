@@ -8,7 +8,6 @@ import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.model.ext.BoardVo;
 import com.cms.shop.model.ext.ShopVo;
 import com.cms.shop.service.*;
-import org.apache.log4j.helpers.AbsoluteTimeDateFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,7 +86,12 @@ public class IndexController extends BaseController{
 
         List<District> districtList = districtService.queryAll();
 
+        condition.setLimit(4);
+        condition.setType(1); //位置1
+        List<Advert> advertTopList = advertService.queryOnlineList(condition); //顶部导航轮播广告图片
+
         condition.setLimit(3);
+        condition.setType(2); //位置2
         List<Advert> advertList = advertService.queryOnlineList(condition);
 
         Flash flash = flashService.queryFlash();
@@ -112,6 +116,7 @@ public class IndexController extends BaseController{
         modelMap.addAttribute("keywordList",keywordList);
         modelMap.addAttribute("today",new Date());
         modelMap.addAttribute("advertList",advertList); //广告
+        modelMap.addAttribute("advertTopList",advertTopList); //广告
         modelMap.addAttribute("friendList",friendList); //友情链接
         modelMap.addAttribute("investment",investment); //招商热线
         return "index";

@@ -1,7 +1,9 @@
 ALTER table  shop add  type  int(2)  DEFAULT '1' COMMENT '类型 1-普通 2-热铺 3-旺铺';
 ALTER table  shop add road varchar(100) NOT NULL COMMENT '道路缩写';
 
+ALTER table  advert add priority int(10) DEFAULT '1' COMMENT '优先级';
 
+ALTER table  hotcategory add priority int(10) DEFAULT '1' COMMENT '优先级';
 
 CREATE TABLE `keyword` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

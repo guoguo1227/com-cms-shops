@@ -267,6 +267,13 @@
     letter-spacing: 3px;
     color: white;
 }
+.shop-imgBoard-title{
+    font-family: 黑体;
+    font-size: 20px;
+    letter-spacing: 3px;
+    color: #646464;
+    line-height:20px;
+}
 .shop-hot-title-small{
     font-family: 黑体;
     font-size: 15px;
@@ -395,12 +402,12 @@
 .shop-detail-btn li:hover{
     border-right: 5px solid white;
     font-size: 24px;
+    border-right: 5px solid orange;
+    height: 80%;
 }
-.shop-detail-btn li a:hover{
+.shop-detail-btn li :hover{
     color: orange;
     background-color: white;
-    border-right: 5px solid orange;
-
 }
 .shop-detail-btn li{
     border-right: 5px solid red;

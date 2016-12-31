@@ -9,6 +9,7 @@ import com.cms.shop.model.ext.ShopVo;
 import com.cms.shop.service.ShopService;
 import com.cms.shop.utils.Page;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -123,6 +124,24 @@ public class ShopController extends BaseController{
     }
 
     /**
+     * 更新商铺
+     * @param shop
+     * @return
+     */
+    @RequestMapping("update")
+    @ResponseBody
+    public String updateShop(Shop shop){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != shop && null != shop.getId()){
+            result = shopService.updateShop(shop);
+        }else{
+            result.setMessage("商铺id不可为空,请刷新页面重试!");
+        }
+        return gson.toJson(result);
+    }
+    /**
      * 更新商铺类型
      * @param id
      * @param type
@@ -136,6 +155,24 @@ public class ShopController extends BaseController{
         result.setSuccess(false);
         if(null != id){
             result = shopService.updateShopType(id, type);
+        }
+        return gson.toJson(result);
+    }
+
+    /**
+     * 更新商铺类型
+     * @param id
+     * @param road
+     * @return
+     */
+    @RequestMapping("update-road")
+    @ResponseBody
+    public String updateRoad(Integer id,String road){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != id && !StringUtils.isBlank(road)){
+            result = shopService.updateRoad(id,road);
         }
         return gson.toJson(result);
     }

@@ -68,6 +68,8 @@ public class BoardServiceImpl implements BoardService{
             //类型
             if(null != condition.getType()){
                 cri.andBrdTypeEqualTo(condition.getType());
+            }else{
+                cri.andBrdTypeGreaterThanOrEqualTo(BoardTypeEnum.NEWS.getKey());
             }
             //状态
             if(null != condition.getCheckStatus()){
@@ -227,8 +229,16 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public List<Board> queryOnList(BoardTypeEnum typeEnum,SearchCondition condition) {
         BoardCriteria criteria = new BoardCriteria();
-        criteria.createCriteria().andBrdTypeEqualTo(typeEnum.getKey()).andBrdStatusEqualTo(CheckStatusEnum.PASS.getKey());
+        BoardCriteria.Criteria cri = criteria.createCriteria();
+        cri.andBrdStatusEqualTo(CheckStatusEnum.PASS.getKey());
 
+        //类型
+        if(null != typeEnum){
+            cri.andBrdTypeEqualTo(typeEnum.getKey());
+        }
+        else{
+            cri.andBrdTypeGreaterThanOrEqualTo(BoardTypeEnum.NEWS.getKey());
+        }
         criteria.setOrderByClause(" BRD_ID desc ");
         criteria.setLimitStart(0);
         criteria.setLimitEnd(6);

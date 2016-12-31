@@ -33,8 +33,6 @@
                                 <!--<div class="row box thumbnail" style="border-bottom: 5px solid red;">
                                     <img src="/static/ui/images/1.jpg" style="height: 500px;width: 100%;">
                                 </div>-->
-                                #foreach($business in $!businessList)
-                                #if($velocityCount <9)
                                 <div class="row box thumbnail">
                                     <img src="$!business.fileName" style="height: 500px;width: 100%;">
                                     <div class="row panel-body" style="margin-top: -20px;">
@@ -48,8 +46,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                #end
-                                #end
                                 <div class="row panel-body" style="border-top: 5px solid red;">
                                     #parse("\include\commet.vm")
                                 </div>

@@ -74,8 +74,10 @@ public class AdvertController extends BaseController{
 
         RequestResult result = new RequestResult();
         result.setSuccess(false);
-        if(null != advert){
+        if(null != advert && null != advert.getAdId()){
             result =  advertService.updateAdvert(advert);
+        }else{
+            result.setMessage("广告id不可为空!");
         }
         return gson.toJson(result);
     }

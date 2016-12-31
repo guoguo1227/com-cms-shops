@@ -179,8 +179,8 @@
       <!--  <table schema="" tableName="investment" domainObjectName="Investment">
             <generatedKey column="ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
         </table>-->
-        <table schema="" tableName="shop" domainObjectName="Shop">
-            <generatedKey column="ID" sqlStatement="SELECT @@IDENTITY" identity="true"/>
+        <table schema="" tableName="hotcategory" domainObjectName="Hotcategory">
+            <generatedKey column="hot_Id" sqlStatement="SELECT @@IDENTITY" identity="true"/>
         </table>
     </context>
 </generatorConfiguration>

@@ -2,308 +2,304 @@
 #parse("\include\header.vm")
 
 <html lang="en">
-	<body>
+<body>
 
-    <div class="content" ng-app="myApp" ng-controller="myCtrl" ng-init="init()">
-        #parse("\include\navigation.vm")
-        <div class="container">
-            <div class="row"  style="margin-top: -26px;">
-                <div class="col-lg-12 ">
-                    <div class="row col-xs-12">
-                        #parse("\include\search.vm")
-                    </div>
-                    #parse("\include\topScroller.vm")
-                    #parse("\include\content.vm")
+<div class="content" ng-app="myApp" ng-controller="myCtrl" ng-init="init()">
+    #parse("\include\navigation.vm")
+    <div class="container">
+        <div class="row"  style="margin-top: -26px;">
+            <div class="col-lg-12 ">
+                <div class="row col-xs-12">
+                    #parse("\include\search.vm")
                 </div>
+                #parse("\include\topScroller.vm")
+                #parse("\include\content.vm")
             </div>
-        </div>
-
-        <!-- START PANEL -->
-        <!-- END PANEL -->
-        <!-- 合作共赢 -->
-        <div class="container" style="margin-top:-10px;">
-            <div class="row col-xs-12 ">
-                <div class="col-xs-12 panel panel-default">
-                    <div class="col-xs-1" style="width:14%;">
-                        <div class=" panel-box shop-cooperation">
-                            <p class="shop-margin-top-20" >合&nbsp;&nbsp;&nbsp;&nbsp;作</p>
-                            <p>∞</p>
-                            <p>共&nbsp;&nbsp;&nbsp;&nbsp;赢</p>
-                        </div>
-
-                    </div>
-                    <div class="col-xs-9 panel-box" style="width:69%;">
-                        <div id="myCarousel" class="carousel slide pad_010 b_k shop-margin-top-10" data-ride="carousel">
-                            <!-- 轮播（Carousel）项目 -->
-                            <div id="ifocus" class="carousel-inner bor_btm shop-border-none">
-                                <!--#foreach($partner in $partnerList)
-                                #if($!velocityCount == 1)
-                                <div class="item active" >
-                                    <div class="col-sm-12 col-lg-12 thumbnail shop-border-none">
-                                        <a href="$!partner.url" target="_blank">
-                                            <img src="$!partner.fileName" style="height: 160px;">
-                                        </a>
-                                    </div>
-                                </div>
-                                #else
-                                <div class="item" >
-                                    <div class="col-sm-12 col-lg-12 thumbnail shop-border-none">
-                                        <a href="$!partner.url" target="_blank">
-                                            <img src="$!partner.fileName" style="height: 160px;">
-                                        </a>
-                                    </div>
-                                </div>
-                                #end
-                                #end
--->
-                                <div id="ifocus_btn" style="width:1.3%;">
-                                    <ul style="margin-left: -40px;margin-top:40px;">
-                                        <li class="current">o</li>
-                                        <li class="normal">o</li>
-                                        <li class="normal">o</li>
-                                        <li class="normal">o</li>
-                                    </ul>
-                                </div>
-                                <div id="ifocus_pic" class="col-lg-12">
-                                    <div id="ifocus_piclist">
-                                        #foreach($partner in $partnerList)
-                                          <div><a src="$!partner.fileName" target="_blank"><img src="$!partner.fileName" style="height: 160px;"></a></div>
-                                        #end
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-2 panel-box" style="width:17%;">
-                        <div class="panel-box shop-margin-top-30 shop-friendlink">
-                            <span style="margin-left:-45px;">友情连接:</span>
-                            <ul>
-                                #foreach( $link in $!friendList)
-
-                                #set($friendName=$link.friendName)
-
-                                #if($!friendName.length()>9)
-                                #set($friendName=$friendName.substring(0,9))
-                                #end
-                                <li style="margin-left:-35px;"><a href="$!link.url" target="_blank"><p>$!{friendName}</p></a></li>
-                                #end
-                                <!--<li><a href="http://www.shby.cn" target="_blank"><p>宝山区供销总社</p></a></li>-->
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- 合作共赢 -->
-
-        <div class="container">
-            <div class="row col-xs-12" style="height: 200px;margin-top:-22px;">
-                <img class="shop-margin-top-1" src="/static/ui/images/footer.png" style="height: 200px;width:100%;" />
-            </div>
-            <div class="panel-box shop-foot">
-                <p>上海北翼（集团）有限公司 地址:上海市宝山梅林路768号  邮编:201901 电话:021-66150172</p>
-                <p>Copyright 2007-2012 上海市宝山区供销合作总社 备案/许可证编号为：沪ICP备12047456号</p>
-            </div>
-        </div>
-
-        <!-- 留言板（Modal） -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            #parse("\include\commentForm.vm")
-        </div>
-
-        <!--招商热线-->
-        <div class="modal fade" id="businessModel" tabindex="-1" role="dialog" aria-labelledby="businessModalLabel" aria-hidden="true">
-            #parse("\include\businessForm.vm")
         </div>
     </div>
 
-        <script src="/static/bootstrap/js/bootstrap.js"></script>
-		<script src="/static/plugins/slimScroll/jquery.slimscroll.js"></script>
+    <!-- START PANEL -->
+    <!-- END PANEL -->
+    <!-- 合作共赢 -->
+    <div class="container" style="margin-top:-10px;">
+        <div class="row col-xs-12 ">
+            <div class="col-xs-12 panel panel-default">
+                <div class="col-xs-1" style="width:14%;">
+                    <div class="col-lg-12 panel-box shop-cooperation" style="width:70%;">
+                        <p class="shop-margin-top-20" >合&nbsp;&nbsp;&nbsp;&nbsp;作</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;∞</p>
+                        <p>共&nbsp;&nbsp;&nbsp;&nbsp;赢</p>
+                    </div>
+                    <div id="ifocus_btn" class="col-lg-12" style="width:30%;">
+                        <ul style="margin-top:40px;">
+                            <li class="current"></li>
+                            <li class="normal"></li>
+                            <li class="normal"></li>
+                            <li class="normal"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-12 panel-box" style="width:69%;">
+                    <!-- 轮播（Carousel）项目 -->
+                    <div id="ifocus" class="shop-border-none shop-margin-top-10" style="width:100%;">
+                        <div id="ifocus_pic" style="width:100%;">
+                            <div id="ifocus_piclist">
+                                #foreach($partner in $partnerList)
+                                <div><a src="$!partner.fileName" target="_blank"><img src="$!partner.fileName" style="height: 160px;"></a></div>
+                                #end
+                            </div>
+                        </div>
+                        <!--#foreach($partner in $partnerList)
+                        #if($!velocityCount == 1)
+                        <div class="item active" >
+                            <div class="col-sm-12 col-lg-12 thumbnail shop-border-none">
+                                <a href="$!partner.url" target="_blank">
+                                    <img src="$!partner.fileName" style="height: 160px;">
+                                </a>
+                            </div>
+                        </div>
+                        #else
+                        <div class="item" >
+                            <div class="col-sm-12 col-lg-12 thumbnail shop-border-none">
+                                <a href="$!partner.url" target="_blank">
+                                    <img src="$!partner.fileName" style="height: 160px;">
+                                </a>
+                            </div>
+                        </div>
+                        #end
+                        #end
+-->
+                    </div>
+                </div>
+                <div class="col-xs-2 panel-box" style="width:17%;">
+                    <div class="panel-box shop-margin-top-30 shop-friendlink">
+                        <span style="margin-left:-20px;">友情连接:</span>
+                        <ul>
+                            #foreach( $link in $!friendList)
 
-        <script src="/static/plugins/angular/angular.js"></script>
-        <script src="/cms/common/angular-constants.js"></script>
+                            #set($friendName=$link.friendName)
 
-        <script src="/cms/common/shopIndex.js"></script>
+                            #if($!friendName.length()>9)
+                            #set($friendName=$friendName.substring(0,9))
+                            #end
+                            <li style="margin-left:-35px;"><a href="$!link.url" target="_blank"><p>$!{friendName}</p></a></li>
+                            #end
+                            <!--<li><a href="http://www.shby.cn" target="_blank"><p>宝山区供销总社</p></a></li>-->
 
-	<!-- 滚动图片栏 for 精品项目-->
-		<script type="text/javascript" src="/static/ui/js/projectCarousel.js"></script>
-        <!--弹出QQ对话框-->
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $(".shop-imgtext").hide();
-            $(".imgbox").hover(function(){
-                $(".shop-imgtext",this).slideToggle(500);
-            });
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 合作共赢 -->
+
+    <div class="container">
+        <div class="row col-xs-12" style="height: 200px;margin-top:-22px;">
+            <img class="shop-margin-top-1" src="/static/ui/images/footer.png" style="height: 200px;width:100%;" />
+        </div>
+        <div class="panel-box shop-foot">
+            <p>上海北翼（集团）有限公司 地址:上海市宝山梅林路762号  邮编:201901 电话:021-66150172</p>
+            <p>Copyright 2007-2012 上海市宝山区供销合作总社 备案/许可证编号为：沪ICP备12047456号</p>
+        </div>
+    </div>
+
+    <!-- 留言板（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        #parse("\include\commentForm.vm")
+    </div>
+
+    <!--招商热线-->
+    <div class="modal fade" id="businessModel" tabindex="-1" role="dialog" aria-labelledby="businessModalLabel" aria-hidden="true">
+        #parse("\include\businessForm.vm")
+    </div>
+</div>
+
+<script src="/static/bootstrap/js/bootstrap.js"></script>
+<script src="/static/plugins/slimScroll/jquery.slimscroll.js"></script>
+
+<script src="/static/plugins/angular/angular.js"></script>
+<script src="/cms/common/angular-constants.js"></script>
+
+<script src="/cms/common/shopIndex.js"></script>
+
+<!-- 滚动图片栏 for 精品项目-->
+<script type="text/javascript" src="/static/ui/js/projectCarousel.js"></script>
+<!--弹出QQ对话框-->
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".shop-imgtext").hide();
+        $(".imgbox").hover(function(){
+            $(".shop-imgtext",this).slideToggle(500);
         });
-    </script>
-    <script>
-        $(function () {
+    });
+</script>
+<script>
+    $(function () {
 
-            $("#tabs-1").mousemove(function (e) {
-                $(this).tab('show');
-            });
-            $("#tabs-2").mousemove(function (e) {
-                $(this).tab('show');
-            });
-            $("#tabs-3").mousemove(function (e) {
-                $(this).tab('show');
-            });
-            $("#tabs-4").mousemove(function (e) {
-                $(this).tab('show');
-            });
-            $("#tabs-5").mousemove(function (e) {
-                $(this).tab('show');
-            });
-            $("#tabs-6").mousemove(function (e) {
-                $(this).tab('show');
-            });
+        $("#tabs-1").mousemove(function (e) {
+            $(this).tab('show');
         });
-    </script>
-    <script type="text/javascript">
-        function getId(id) { return document.getElementById(id); }
-        function addLoadEvent(func){
-            var oldonload = window.onload;
-            if (typeof window.onload != 'function') {
-                window.onload = func;
-            } else {
-                window.onload = function(){
-                    oldonload();
-                    func();
-                }
+        $("#tabs-2").mousemove(function (e) {
+            $(this).tab('show');
+        });
+        $("#tabs-3").mousemove(function (e) {
+            $(this).tab('show');
+        });
+        $("#tabs-4").mousemove(function (e) {
+            $(this).tab('show');
+        });
+        $("#tabs-5").mousemove(function (e) {
+            $(this).tab('show');
+        });
+        $("#tabs-6").mousemove(function (e) {
+            $(this).tab('show');
+        });
+    });
+</script>
+<script type="text/javascript">
+    function getId(id) { return document.getElementById(id); }
+    function addLoadEvent(func){
+        var oldonload = window.onload;
+        if (typeof window.onload != 'function') {
+            window.onload = func;
+        } else {
+            window.onload = function(){
+                oldonload();
+                func();
             }
         }
+    }
 
-        function moveElement(elementID,final_x,final_y,interval) {
-            if (!document.getElementById) return false;
-            if (!document.getElementById(elementID)) return false;
-            var elem = document.getElementById(elementID);
-            if (elem.movement) {
-                clearTimeout(elem.movement);
-            }
-            if (!elem.style.left) {
-                elem.style.left = "0px";
-            }
-            if (!elem.style.top) {
-                elem.style.top = "0px";
-            }
-            var xpos = parseInt(elem.style.left);
-            var ypos = parseInt(elem.style.top);
-            if (xpos == final_x && ypos == final_y) {
-                return true;
-            }
-            if (xpos < final_x) {
-                var dist = Math.ceil((final_x - xpos)/10);
-                xpos = xpos + dist;
-            }
-            if (xpos > final_x) {
-                var dist = Math.ceil((xpos - final_x)/10);
-                xpos = xpos - dist;
-            }
-            if (ypos < final_y) {
-                var dist = Math.ceil((final_y - ypos)/10);
-                ypos = ypos + dist;
-            }
-            if (ypos > final_y) {
-                var dist = Math.ceil((ypos - final_y)/10);
-                ypos = ypos - dist;
-            }
-            elem.style.left = xpos + "px";
-            elem.style.top = ypos + "px";
-            var repeat = "moveElement('"+elementID+"',"+final_x+","+final_y+","+interval+")";
-            elem.movement = setTimeout(repeat,interval);
+    function moveElement(elementID,final_x,final_y,interval) {
+        if (!document.getElementById) return false;
+        if (!document.getElementById(elementID)) return false;
+        var elem = document.getElementById(elementID);
+        if (elem.movement) {
+            clearTimeout(elem.movement);
         }
-
-        function classNormal(iFocusBtnID){
-            var iFocusBtns= getId(iFocusBtnID).getElementsByTagName('li');
-            for(var i=0; i<iFocusBtns.length; i++) {
-                iFocusBtns[i].className='normal';
-            }
+        if (!elem.style.left) {
+            elem.style.left = "0px";
         }
-
-        function classCurrent(iFocusBtnID,n){
-            var iFocusBtns= getId(iFocusBtnID).getElementsByTagName('li');
-            iFocusBtns[n].className='current';
+        if (!elem.style.top) {
+            elem.style.top = "0px";
         }
-
-        function iFocusChange() {
-            if(!getId('ifocus')) return false;
-            getId('ifocus').onmouseover = function(){atuokey = true};
-            getId('ifocus').onmouseout = function(){atuokey = false};
-            var iFocusBtns = getId('ifocus_btn').getElementsByTagName('li');
-            var listLength = iFocusBtns.length;
-            iFocusBtns[0].onmouseover = function() {
-                moveElement('ifocus_piclist',0,0,5);
-                classNormal('ifocus_btn');
-                classCurrent('ifocus_btn',0);
-            }
-            if (listLength>=2) {
-                iFocusBtns[1].onmouseover = function() {
-                    moveElement('ifocus_piclist',0,-160,5);
-                    classNormal('ifocus_btn');
-                    classCurrent('ifocus_btn',1);
-                }
-            }
-            if (listLength>=3) {
-                iFocusBtns[2].onmouseover = function() {
-                    moveElement('ifocus_piclist',0,-320,5);
-                    classNormal('ifocus_btn');
-                    classCurrent('ifocus_btn',2);
-                }
-            }
-            if (listLength>=4) {
-                iFocusBtns[3].onmouseover = function() {
-                    moveElement('ifocus_piclist',0,-480,5);
-                    classNormal('ifocus_btn');
-                    classCurrent('ifocus_btn',3);
-                }
-            }
+        var xpos = parseInt(elem.style.left);
+        var ypos = parseInt(elem.style.top);
+        if (xpos == final_x && ypos == final_y) {
+            return true;
         }
+        if (xpos < final_x) {
+            var dist = Math.ceil((final_x - xpos)/10);
+            xpos = xpos + dist;
+        }
+        if (xpos > final_x) {
+            var dist = Math.ceil((xpos - final_x)/10);
+            xpos = xpos - dist;
+        }
+        if (ypos < final_y) {
+            var dist = Math.ceil((final_y - ypos)/10);
+            ypos = ypos + dist;
+        }
+        if (ypos > final_y) {
+            var dist = Math.ceil((ypos - final_y)/10);
+            ypos = ypos - dist;
+        }
+        elem.style.left = xpos + "px";
+        elem.style.top = ypos + "px";
+        var repeat = "moveElement('"+elementID+"',"+final_x+","+final_y+","+interval+")";
+        elem.movement = setTimeout(repeat,interval);
+    }
 
-        setInterval('autoiFocus()',2000);
-        var atuokey = false;
-        function autoiFocus() {
-            if(!getId('ifocus')) return false;
-            if(atuokey) return false;
-            var focusBtnList = getId('ifocus_btn').getElementsByTagName('li');
-            var listLength = focusBtnList.length;
-            for(var i=0; i<listLength; i++) {
-                if (focusBtnList[i].className == 'current') var currentNum = i;
-            }
-            if (currentNum==0&&listLength!=1 ){
+    function classNormal(iFocusBtnID){
+        var iFocusBtns= getId(iFocusBtnID).getElementsByTagName('li');
+        for(var i=0; i<iFocusBtns.length; i++) {
+            iFocusBtns[i].className='normal';
+        }
+    }
+
+    function classCurrent(iFocusBtnID,n){
+        var iFocusBtns= getId(iFocusBtnID).getElementsByTagName('li');
+        iFocusBtns[n].className='current';
+    }
+
+    function iFocusChange() {
+        if(!getId('ifocus')) return false;
+        getId('ifocus').onmouseover = function(){atuokey = true};
+        getId('ifocus').onmouseout = function(){atuokey = false};
+        var iFocusBtns = getId('ifocus_btn').getElementsByTagName('li');
+        var listLength = iFocusBtns.length;
+        iFocusBtns[0].onmouseover = function() {
+            moveElement('ifocus_piclist',0,0,5);
+            classNormal('ifocus_btn');
+            classCurrent('ifocus_btn',0);
+        }
+        if (listLength>=2) {
+            iFocusBtns[1].onmouseover = function() {
                 moveElement('ifocus_piclist',0,-160,5);
                 classNormal('ifocus_btn');
                 classCurrent('ifocus_btn',1);
             }
-            if (currentNum==1&&listLength!=2 ){
+        }
+        if (listLength>=3) {
+            iFocusBtns[2].onmouseover = function() {
                 moveElement('ifocus_piclist',0,-320,5);
                 classNormal('ifocus_btn');
                 classCurrent('ifocus_btn',2);
             }
-            if (currentNum==2&&listLength!=3 ){
+        }
+        if (listLength>=4) {
+            iFocusBtns[3].onmouseover = function() {
                 moveElement('ifocus_piclist',0,-480,5);
                 classNormal('ifocus_btn');
                 classCurrent('ifocus_btn',3);
             }
-            if (currentNum==3 ){
-                moveElement('ifocus_piclist',0,0,5);
-                classNormal('ifocus_btn');
-                classCurrent('ifocus_btn',0);
-            }
-            if (currentNum==1&&listLength==2 ){
-                moveElement('ifocus_piclist',0,0,5);
-                classNormal('ifocus_btn');
-                classCurrent('ifocus_btn',0);
-            }
-            if (currentNum==2&&listLength==3 ){
-                moveElement('ifocus_piclist',0,0,5);
-                classNormal('ifocus_btn');
-                classCurrent('ifocus_btn',0);
-            }
         }
-        addLoadEvent(iFocusChange);
-    </script>
-	</body>
+    }
+
+    setInterval('autoiFocus()',2000);
+    var atuokey = false;
+    function autoiFocus() {
+        if(!getId('ifocus')) return false;
+        if(atuokey) return false;
+        var focusBtnList = getId('ifocus_btn').getElementsByTagName('li');
+        var listLength = focusBtnList.length;
+        for(var i=0; i<listLength; i++) {
+            if (focusBtnList[i].className == 'current') var currentNum = i;
+        }
+        if (currentNum==0&&listLength!=1 ){
+            moveElement('ifocus_piclist',0,-160,5);
+            classNormal('ifocus_btn');
+            classCurrent('ifocus_btn',1);
+        }
+        if (currentNum==1&&listLength!=2 ){
+            moveElement('ifocus_piclist',0,-320,5);
+            classNormal('ifocus_btn');
+            classCurrent('ifocus_btn',2);
+        }
+        if (currentNum==2&&listLength!=3 ){
+            moveElement('ifocus_piclist',0,-480,5);
+            classNormal('ifocus_btn');
+            classCurrent('ifocus_btn',3);
+        }
+        if (currentNum==3 ){
+            moveElement('ifocus_piclist',0,0,5);
+            classNormal('ifocus_btn');
+            classCurrent('ifocus_btn',0);
+        }
+        if (currentNum==1&&listLength==2 ){
+            moveElement('ifocus_piclist',0,0,5);
+            classNormal('ifocus_btn');
+            classCurrent('ifocus_btn',0);
+        }
+        if (currentNum==2&&listLength==3 ){
+            moveElement('ifocus_piclist',0,0,5);
+            classNormal('ifocus_btn');
+            classCurrent('ifocus_btn',0);
+        }
+    }
+    addLoadEvent(iFocusChange);
+</script>
+</body>
 
 </html>

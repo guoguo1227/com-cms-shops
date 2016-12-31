@@ -38,12 +38,18 @@ function businessrCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         $scope.tableData = {
             //查看详情
             openDetail : function(row){
-                $scope.commentObj = row;
-                $scope.commentFlagObj.showDetail = true;
+                $scope.addBusinessObj = row;
+                $scope.businessFlagObj.addOpen = true;
+                $scope.businessFlagObj.detailFlag = true;
+
+                $scope.initUE();
+                if($scope.addBusinessObj.bizContent){
+                    $scope.ue.setContent($scope.addBusinessObj.bizContent);
+                }
             }
         };
 
-        var headerArray = ['项目名称','项目图片','顶部图片','审核状态','发布人','发布日期','操作'];
+        var headerArray = ['项目名称','项目图片','顶部图片','审核状态','上架状态','发布人','发布日期','操作'];
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
         pageData = $scope.formatUserPageData(pageData);
         lgDataTableService.config($scope.tableData,{
@@ -55,13 +61,13 @@ function businessrCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         });
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="下架" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">下架</a>';
+            pg.action =  '<a title="查看" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">查看</a>';
 
             pg.fileNameImg = "<div class='thumbnail' style='max-height:180px;'><a class='fancybox' rel='group' href={{$row.fileName}}><img  src={{$row.fileName}}  style='width: 100%;height: 100%;'/></a></div>";
             pg.fileNameImg2 = "<div class='thumbnail' style='max-height:180px;'><a class='fancybox' rel='group' href={{$row.fileName2}}><img  src={{$row.fileName2}}  style='width: 100%;height: 100%;'/></a></div>";
 
             return pg;
-        }), ['bizName','fileNameImg','fileNameImg2','statusStr','publisher','createDate','action']);
+        }), ['bizName','fileNameImg','fileNameImg2','statusStr','bizStatusStr','publisher','createDate','action']);
     };
 
     //切换页面
@@ -104,13 +110,22 @@ function businessrCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         }
         if(!$scope.addBusinessObj.onsellDate){
             return toastr.info("上架时间不可为空!")
-        }else{
-            $scope.addBusinessObj.onsellDate += " 00:00:00";
         }
+
         if(!$scope.addBusinessObj.offsellDate){
             return toastr.info("下架时间不可为空!")
         }else{
-            $scope.addBusinessObj.onsellDate +=  " 23:59:59";
+            var flag = $scope.DataCompareAndEques($scope.addBusinessObj.offsellDate,$scope.addBusinessObj.onsellDate);
+            if(!flag){
+                toastr.info("结束时间必须大于等于开始时间");
+                return;
+            }
+            if ($scope.addBusinessObj.offsellDate.indexOf("23:59:59")<0) {
+                $scope.addBusinessObj.offsellDate +=  " 23:59:59";
+            }
+            if ($scope.addBusinessObj.onsellDate.indexOf("00:00:00") <0) {
+                $scope.addBusinessObj.onsellDate +=  " 00:00:00";
+            }
         }
         if(!$scope.addBusinessObj.fileName){
             return toastr.info("项目图片不可为空!")
@@ -120,6 +135,17 @@ function businessrCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         if(!$scope.addBusinessObj.bizContent){
             return toastr.info("项目内容不可为空!")
         }
+        $http.post("/shopmanage/add-business.json",$scope.addBusinessObj,angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.searchLoad();
+                    toastr.info("添加成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
+        $scope.businessFlagObj.addOpen = false;
+
     }
 
 
@@ -129,15 +155,21 @@ function businessrCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         if(pageData != undefined && pageData != "" && pageData.length>0){
             for(var i in pageData){
                 pageData[i].statusStr = "";
-                if(pageData[i].audStatus){
-                    if(pageData[i].audStatus == 0){
-                        pageData[i].statusStr = "未审核";
-                    }else if(pageData[i].audStatus == 1){
-                        pageData[i].statusStr = "<span style='color: green'>已审核</span>";
-                    }else if(pageData[i].audStatus == 2){
-                        pageData[i].statusStr = "<span style='color: red'>审核未通过</span>";
+                if(pageData[i].audStatus == 0){
+                    pageData[i].statusStr = "未审核";
+                }else if(pageData[i].audStatus == 1){
+                    pageData[i].statusStr = "<span style='color: green'>已审核</span>";
+                }else if(pageData[i].audStatus == 2){
+                    pageData[i].statusStr = "<span style='color: red'>审核未通过</span>";
 
-                    }
+                }
+                if(pageData[i].bizStatus == 0){
+                    pageData[i].bizStatusStr = "未上架";
+                }else if(pageData[i].bizStatus == 1){
+                    pageData[i].bizStatusStr = "<span style='color: green'>已上架</span>";
+                }else if(pageData[i].bizStatus == 2){
+                    pageData[i].bizStatusStr = "<span style='color: red'>已下架</span>";
+
                 }
             }
         }
@@ -175,4 +207,21 @@ function businessrCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         });
 
     };
+
+    /**
+     * 比较两个日期的大小，大于或等于返回true
+     * @param sDate1
+     * @param sDate2
+     * @constructor
+     */
+    $scope.DataCompareAndEques = function(sDate1,sDate2){
+        var begin=new Date(sDate1.replace(/-/g,"/"));
+        var end=new Date(sDate2.replace(/-/g,"/"));
+        //js判断日期
+        if(begin-end>=0){
+            return true;
+        }
+        return false;
+    }
+
 }

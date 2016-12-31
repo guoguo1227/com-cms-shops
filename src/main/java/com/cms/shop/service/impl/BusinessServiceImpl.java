@@ -15,6 +15,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -99,7 +100,24 @@ public class BusinessServiceImpl implements BusinessService {
 
     @Override
     public RequestResult addBusiness(Business business) {
-        return null;
+        RequestResult result = new RequestResult();
+        boolean success = false;
+        String message = "";
+        if(null != business){
+            business.setCreateDate(new Date());
+            business.setBizStatus(OnlineStatusEnum.WAIT.getKey());
+            //默认通过
+            business.setAudStatus(CheckStatusEnum.PASS.getKey());
+            int i = businessMapper.insertSelective(business);
+            if(i>0){
+                success = true;
+            }
+        }else{
+            message = "招商项目不可为空";
+        }
+        result.setSuccess(success);
+        result.setMessage(message);
+        return result;
     }
 
     @Override

@@ -868,6 +868,23 @@ public class ShopManageController extends BaseController{
     }
 
     /**
+     * 添加招商项目列表
+     * @param business
+     * @return
+     */
+    @RequestMapping("add-business")
+    @ResponseBody
+    public String addBusinessPage(Business business){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != business){
+            result =  businessService.addBusiness(business);
+        }
+        return gson.toJson(result);
+    }
+
+    /**
      * 添加flash
      * @param flash
      * @return

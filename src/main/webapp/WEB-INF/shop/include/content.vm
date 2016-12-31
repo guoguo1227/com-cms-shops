@@ -13,29 +13,48 @@
             <!-- 三个详情栏 -->
             <div class="row">
                 <div class="col-lg-4 panel panel-default" >
-                    <div id="boardCarousel" class="row carousel slide pad_010 b_k" data-ride="carousel" style="height: 330px;margin-left:10px;">
+                    <div id="boardCarousel" class="row carousel slide pad_010 b_k" data-ride="carousel" style="height: 350px;margin-left:10px;">
                         <!-- 轮播（Carousel）项目 -->
-                        <div class="row carousel-inner bor_btm" style="height: 280px;">
+                        <div class="row carousel-inner bor_btm" style="height: 310px;">
                             #foreach($imgBoard in $imgBoardList)
                                 #if($!velocityCount == 1)
-                                    <div class="item active" >
-                                        <a class="thumbnail" href="/front/boardDetail.action?id=$imgBoard.brdId" target="_blank">
-                                            <img src="$!imgBoard.img">
+                                    <div class="item active shop-good-list" >
+                                        <a class="" href="/front/boardDetail.action?id=$imgBoard.brdId" target="_blank">
+                                            <img src="$!imgBoard.img"  style="height: 280px;width:100%;">
                                         </a>
+                                        <hr style="border-bottom: 5px solid #ee1d14;margin-top:2px;margin-bottom: 2px;margin-left:-26px;">
+                                        <div class="caption">
+                                            #set($imgboardTitle=$imgBoard.brdTitle)
+
+                                            #if($!imgboardTitle.length()>14)
+                                                #set($imgboardTitle=$imgboardTitle.substring(0,14))
+                                            #end
+                                            <span class="shop-imgBoard-title">$!{imgboardTitle}</span>
+                                        </div>
                                     </div>
                                 #else
-                                    <div class="item" >
-                                        <a class="thumbnail" href="/front/boardDetail.action?id=$imgBoard.brdId" target="_blank">
-                                            <img src="$!imgBoard.img">
+                                    <div class="item shop-good-list">
+                                        <a class="" href="/front/boardDetail.action?id=$imgBoard.brdId" target="_blank">
+                                            <img src="$!imgBoard.img"  style="height: 280px;width:100%;">
                                         </a>
+                                        <hr style="border-bottom: 5px solid #ee1d14;margin-top:2px;margin-bottom: 2px;margin-left:-26px;">
+                                        <div class="caption">
+                                            #set($imgboardTitle=$imgBoard.brdTitle)
+
+                                            #if($!imgboardTitle.length()>14)
+                                                #set($imgboardTitle=$imgboardTitle.substring(0,14))
+                                            #end
+                                            <span class="shop-imgBoard-title">$!{imgboardTitle}</span>
+                                        </div>
                                     </div>
                                 #end
+
                             #end
 
                         </div>
-                        <hr style="border-bottom: 5px solid #ee1d14;margin-top:2px;margin-bottom: 2px;margin-left:-26px;">
-                        <div class="row " style="height: 50px;">
-                            <ol class="carousel-indicators" style="bottom:-5px;">
+
+                        <div class="row " style="height: 10px;">
+                            <ol class="carousel-indicators" style="bottom: 0px;">
                                 <li style="border: 1px solid #7c7c7c;" data-target="#boardCarousel" data-slide-to="0" class="active"></li>
                                 <li style="border: 1px solid #7c7c7c;" data-target="#boardCarousel" data-slide-to="1"></li>
                                 <li style="border: 1px solid #7c7c7c;" data-target="#boardCarousel" data-slide-to="2"></li>
@@ -48,13 +67,13 @@
 
                 </div>
 
-                <div class="col-lg-4 panel panel-default shop-margin-left-10" style="height:330px;width: 32%;">
+                <div class="col-lg-4 panel panel-default shop-margin-left-10" style="height:350px;width: 32%;">
                     <div class="panel-body">
                         <div class="shop-panel-heading" style="background-color: white;line-height: 2"><span class="shop-font-news shop-margin-bottom-5">北翼要闻</span></div>
-                        <div class="col-lg-4 shop-margin-top-30" style="height:25px;width: 37%;">
+                        <div class="col-lg-4 shop-margin-top-30" style="height:25px;width: 39%;">
                             <a class="shop-font-time" href="#" style="margin-left: 2px;">$!date.format('MM月dd日',$!today)</a>
                         </div>
-                        <div class="col-lg-8 shop-margin-top-15" style="height:40px;width:62%;background-size:100% 100%;background-image: url('/static/ui/images/more1.png')" >
+                        <div class="col-lg-8 shop-margin-top-15" style="height:40px;width:60%;background-size:100% 100%;background-image: url('/static/ui/images/more1.png')" >
                             <a href="/front/boardList.action?type=5" target="_blank" class="shop-margin-top-10 shop-fright"><font color="white">more</font></a>
                         </div>
                         <div class="row col-lg-12 shop-margin-top-10" style="width:115%;">
@@ -72,14 +91,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 panel panel-default shop-margin-left-10" style="height:330px;width: 32%;">
+                <div class="col-lg-4 panel panel-default shop-margin-left-10" style="height:350px;width: 32%;">
                     <!-- <div class="panel-heading">广告位3</div> -->
                     <div class="panel-body panel-default">
                         <div class="shop-panel-heading" style="background-color: white;line-height: 2"><span class="shop-font-news">商家动态</span></div>
-                            <div class="col-lg-4 shop-margin-top-30" style="height:25px;width: 37%;">
+                            <div class="col-lg-4 shop-margin-top-30" style="height:25px;width: 39%;">
                                 <a class="shop-font-time" href="#" style="margin-left: 2px;">$!date.format('MM月dd日',$!today)</a>
                             </div>
-                            <div class="col-lg-8 shop-margin-top-15" style="height:40px;width:62%;background-size:100% 100%;background-image: url('/static/ui/images/more1.png')" >
+                            <div class="col-lg-8 shop-margin-top-15" style="height:40px;width:60%;background-size:100% 100%;background-image: url('/static/ui/images/more1.png')" >
                                 <a href="/front/boardList.action?type=6" target="_blank" class="shop-margin-top-10 shop-fright"><font color="white">more</font></a>
                             </div>
                             <div class="row col-lg-12 shop-margin-top-5" style="width:115%;">
@@ -166,7 +185,7 @@
                                     <div class="col-xs-12 thumbnail">
                                         <a href="/front/detail.action?id=$!firShop.shop.id" target="_blank"><img src="$!firShop.filePath" alt="" style="height:250px;"></a>
                                         <div class="caption mr_zhe_p2">
-                                            <span class="shop-hot-title-small">$!{roadName3}</span>
+                                            <span class="shop-hot-title">$!{roadName3}</span>
                                             <span class="shop-fright shop-hot-area">$!{firShop.shop.squareMetres}㎡</span>
                                         </div>
                                     </div>
@@ -207,6 +226,8 @@
                             #set($distribe = $!goodShop.shop.description)
                             #if($!distribe.length()>38)
                                 #set($distribe=$distribe.substring(0,38))
+                            #elseif($!distribe.length()==0)
+                                #set($distribe=$goodShop.shop.shopName)
                             #end
                             #if($velocityCount == 1 || $velocityCount == 4)
                                 <div class="shop-text">
@@ -261,7 +282,7 @@
                             <div class="col-xs-11" style="margin-left: -10px;">
                                 <ul id="mr_fu">
                                     #foreach($business in $businessList)
-                                    <li><a href="/front/project.action" target="_blank">
+                                    <li><a href="/front/project.action?id=$!business.bizId" target="_blank">
                                         <img src="$!business.fileName" style="width:150px;height: 150px;"/> </a>
                                         <div class="mr_zhe">
                                             #set($bizName = $business.bizName)

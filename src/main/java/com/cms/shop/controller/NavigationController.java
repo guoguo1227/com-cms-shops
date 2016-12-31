@@ -133,10 +133,10 @@ public class NavigationController extends BaseController{
         object17.put("dir","link");
         object17.put("html","link.html");
 
-        JSONObject  object18 = new JSONObject();
+       /* JSONObject  object18 = new JSONObject();
         object18.put("id","9");
         object18.put("dir","report");
-        object18.put("html","report.html");
+        object18.put("html","report.html");*/
 
         JSONObject  object19 = new JSONObject();
         object19.put("id", "10");
@@ -166,7 +166,7 @@ public class NavigationController extends BaseController{
         childrenArray.add(object15);
         childrenArray.add(object16);
         childrenArray.add(object17);
-        childrenArray.add(object18);
+        /*childrenArray.add(object18);*/
         childrenArray.add(object19);
         childrenArray.add(boardObj);
         childrenArray.add(object20);
@@ -280,10 +280,10 @@ public class NavigationController extends BaseController{
         object66.put("name","友情链接列表");
         object66.put("icon","");
 
-        JSONObject object67 = new JSONObject();
+        /*JSONObject object67 = new JSONObject();
         object67.put("id","9");
         object67.put("name","报表");
-        object67.put("icon","");
+        object67.put("icon","");*/
 
         JSONObject object68 = new JSONObject();
         object68.put("id", "10");
@@ -313,7 +313,7 @@ public class NavigationController extends BaseController{
         navArray.add(object64);
         navArray.add(object65);
         navArray.add(object66);
-        navArray.add(object67);
+        /*navArray.add(object67);*/
         navArray.add(object68);
         navArray.add(object69);
         navArray.add(object71);

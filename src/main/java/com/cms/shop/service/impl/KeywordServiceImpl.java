@@ -61,6 +61,7 @@ public class KeywordServiceImpl implements KeywordService{
                 k.setWord(keyword);
                 k.setCount(1);
                 k.setCreatetime(now);
+                k.setUpdatetime(now);
                 int i = keywordMapper.insertSelective(k);
                 if(i>0){
                     success = true;

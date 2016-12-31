@@ -33,9 +33,13 @@ public interface ShopService {
 
     RequestResult updateShopType(Integer id,Integer type);
 
+    RequestResult updateRoad(Integer id,String road);
+
     RequestResult passShop(Integer id);
 
     RequestResult addShop(ShopExt ext);
+
+    RequestResult updateShop(Shop shop);
 
     Investment queryInvestment();
 

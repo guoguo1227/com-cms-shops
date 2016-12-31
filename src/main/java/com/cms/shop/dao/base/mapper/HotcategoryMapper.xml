@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.cms.shop.model.base.Hotcategory" >
     <id column="hot_Id" property="hotId" jdbcType="INTEGER" />
     <result column="hot_Name" property="hotName" jdbcType="VARCHAR" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -64,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    hot_Id, hot_Name
+    hot_Id, hot_Name, priority
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cms.shop.model.base.HotcategoryCriteria" >
     select
@@ -108,8 +109,8 @@
     <selectKey resultType="java.lang.Integer" keyProperty="hotId" order="AFTER" >
       SELECT @@IDENTITY
     </selectKey>
-    insert into hotcategory (hot_Name)
-    values (#{hotName,jdbcType=VARCHAR})
+    insert into hotcategory (hot_Name, priority)
+    values (#{hotName,jdbcType=VARCHAR}, #{priority,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.cms.shop.model.base.Hotcategory" >
     <selectKey resultType="java.lang.Integer" keyProperty="hotId" order="AFTER" >
@@ -120,10 +121,16 @@
       <if test="hotName != null" >
         hot_Name,
       </if>
+      <if test="priority != null" >
+        priority,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="hotName != null" >
         #{hotName,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -142,6 +149,9 @@
       <if test="record.hotName != null" >
         hot_Name = #{record.hotName,jdbcType=VARCHAR},
       </if>
+      <if test="record.priority != null" >
+        priority = #{record.priority,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -150,7 +160,8 @@
   <update id="updateByExample" parameterType="map" >
     update hotcategory
     set hot_Id = #{record.hotId,jdbcType=INTEGER},
-      hot_Name = #{record.hotName,jdbcType=VARCHAR}
+      hot_Name = #{record.hotName,jdbcType=VARCHAR},
+      priority = #{record.priority,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -161,12 +172,16 @@
       <if test="hotName != null" >
         hot_Name = #{hotName,jdbcType=VARCHAR},
       </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
     </set>
     where hot_Id = #{hotId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cms.shop.model.base.Hotcategory" >
     update hotcategory
-    set hot_Name = #{hotName,jdbcType=VARCHAR}
+    set hot_Name = #{hotName,jdbcType=VARCHAR},
+      priority = #{priority,jdbcType=INTEGER}
     where hot_Id = #{hotId,jdbcType=INTEGER}
   </update>
 </mapper>

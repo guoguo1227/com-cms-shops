@@ -35,7 +35,8 @@
     <!--添加项目-->
     <lg-modal open = "businessFlagObj.addOpen">
         <div class="modal-header">
-            <h4 class="modal-title">添加招商项目</h4>
+            <h4 class="modal-title" ng-if="!businessFlagObj.detailFlag">添加招商项目</h4>
+            <h4 class="modal-title" ng-if="businessFlagObj.detailFlag">查看招商项目</h4>
         </div>
         <div class="modal-body">
             <form class="form-horizontal">
@@ -44,6 +45,12 @@
                         <label class="col-sm-2 control-label">项目名称:</label>
                         <div class="col-sm-10">
                             <input type="text" name="bizName" class="form-control" ng-model="addBusinessObj.bizName" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">发布人:</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="bizName" class="form-control" ng-model="addBusinessObj.publisher" >
                         </div>
                     </div>
                     <div class="form-group">
@@ -67,16 +74,26 @@
                         </div>
                     </div>
 
-
-
                     <div class="form-group">
-                        <label  class="col-sm-3 control-label">150*150像素</label>
-                        <div class="col-sm-9">
+                        <label  class="col-sm-4 control-label">项目图片 : 150*150像素</label>
+                        <div class="col-sm-6" ng-if="businessFlagObj.detailFlag">
+                            <img src="{{addBusinessObj.fileName}}" style="width:150px;height: 150px;" >
+                        </div>
+                        <div class="col-sm-6" ng-if="!businessFlagObj.detailFlag">
                             <input type="file" ngf-select="" ng-model="fileName" name="file" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" required="">
-                            <button type="button" class="shop-margin-top-10 btn-success"  ng-click="uploadImage(fileName)">上传图片</button>
+                            <button type="button" class="shop-margin-top-10 btn-success"  ng-click="uploadImage(fileName,1)">上传图片</button>
                         </div>
                     </div>
-
+                    <div class="form-group">
+                        <label  class="col-sm-4 control-label">顶部图片 : 150*150像素</label>
+                        <div class="col-sm-6" ng-if="businessFlagObj.detailFlag">
+                            <img src="{{addBusinessObj.fileName2}}" style="width:150px;height: 150px;">
+                        </div>
+                        <div class="col-sm-6" ng-if="!businessFlagObj.detailFlag">
+                            <input type="file" ngf-select="" ng-model="fileName2" name="file" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" required="">
+                            <button type="button" class="shop-margin-top-10 btn-success"  ng-click="uploadImage(fileName2,2)">上传图片</button>
+                        </div>
+                    </div>
                     <!-- <div class="form-group">
                          <label style="margin-left: 12px;" class="col-sm-2 control-label">位置图示:</label>
                      </div>
@@ -88,7 +105,7 @@
         </div>
         <div class="modal-footer">
             <button class="btn btn-default" ng-click="addBusinessCancle()">取消</button>
-            <button class="btn btn-primary pull-right" ng-click="adBusinessSave()">保存</button>
+            <button ng-if="!businessFlagObj.detailFlag" class="btn btn-primary pull-right" ng-click="adBusinessSave()">保存</button>
         </div>
     </lg-modal>
 </div>

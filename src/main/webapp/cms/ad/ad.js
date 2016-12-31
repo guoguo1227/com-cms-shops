@@ -20,7 +20,7 @@ function adCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         $scope.adFlagObj = {showDetail:false};
         $scope.searchLoad();
         $scope.adFlagObj.locationArr = [
-            {id:1,name:"位置1"},{id:2,name:"位置2"},{id:3,name:"位置3"},{id:4,name:"位置4"}
+            {id:1,name:"位置1"},{id:2,name:"位置2"},{id:3,name:"位置3"},{id:4,name:"位置4"},{id:5,name:"位置5"}
         ]
     }
     $scope.searchLoad = function(){
@@ -65,10 +65,16 @@ function adCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                             toastr.error(data.message);
                         }
                     });
+            },
+            edit : function(row){
+                $scope.adFlagObj.addOpen = true;
+                $scope.addAdInfo = row;
+                $scope.addAdInfo.adLoc += "";
+                $scope.adFlagObj.editFlag = true;
             }
         };
 
-        var headerArray = ['广告名称','广告图片','广告链接','广告状态','广告位置','创建人','创建时间','操作'];
+        var headerArray = ['广告名称','广告图片','广告链接','广告位置','优先级','广告状态','创建人','创建时间','操作'];
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
         pageData = $scope.formatPageData(pageData);
 
@@ -80,17 +86,17 @@ function adCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
 
         });
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.img = "<div class='thumbnail' style='height:180px;'><a class='fancybox' rel='group' href={{$row.newPicName}}><img  src={{$row.newPicName}}  style='width: 100%;height: 100%;'/></a></div>";
+            pg.img = "<div class='thumbnail' style='height:180px;'><a class='fancybox' rel='group' href={{$row.newPicName}}><img  src={{$row.newPicName}}  style='width: 100%;'/></a></div>";
             pg.link="<a href='{{$row.url}}' target='_blank'>{{$row.url}}</a>"
-            pg.action =  /*'<a title="查看" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">查看</a>'+
-                '<a title="编辑" class="btn bg-green btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.delete($row)">编辑</a>'+*/
-                '<a title="审核通过"  ng-if="$row.audStatus == 0" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.pass($row)">审核通过</a>'+
-                '<a title="审核不通过" ng-if="$row.audStatus == 0" class="btn bg-green btn-xs shop-margin-left-3 shop-margin-top-3" ng-click="$table.unpass($row)">审核不通过</a>'+
-                '<a title="删除" class="btn bg-green btn-xs shop-margin-left-3 shop-margin-top-3" ng-click="$table.delete($row)">删除</a>';
+            pg.action =
+                '<a title="编辑" class="btn bg-green btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.edit($row)">编辑</a>'+
+                '<a title="审核通过"  ng-if="$row.audStatus == 0" class="btn bg-green btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.pass($row)">审核通过</a>'+
+                '<a title="审核不通过" ng-if="$row.audStatus == 0" class="btn bg-orange btn-xs shop-margin-left-3 shop-margin-top-3" ng-click="$table.unpass($row)">审核不通过</a>'+
+                '<a title="删除" class="btn bg-red btn-xs shop-margin-left-3 shop-margin-top-3" ng-click="$table.delete($row)">删除</a>';
             /*'<a title="提交" class="btn bg-green btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.delete($row)">提交</a>';*/
             ;
             return pg;
-        }), ['adName','img','link','audStatusStr','adLocStr','creater','createDate','action']);
+        }), ['adName','img','link','adLocStr','priority','audStatusStr','creater','createDate','action']);
     };
 
     //切换页面
@@ -111,11 +117,11 @@ function adCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             for(var i in pageData){
                 //状态
                 pageData[i].audStatusStr = "";
-                if(pageData[i].auditStatus == 0){
+                if(pageData[i].audStatus == 0){
                     pageData[i].audStatusStr = "未审核";
-                }else if(pageData[i].auditStatus == 1){
+                }else if(pageData[i].audStatus == 1){
                     pageData[i].audStatusStr = "<span style='color: green'>已审核</span>";
-                }else if(pageData[i].auditStatus == 2){
+                }else if(pageData[i].audStatus == 2){
                     pageData[i].audStatusStr = "<span style='color: red'>审核未通过</span>";
 
                 }
@@ -146,6 +152,7 @@ function adCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         if(!$scope.addAdInfo.adLoc){
             return toastr.info("广告位置不可为空!")
         }
+
         if($scope.addAdInfo.newPicName === "" || $scope.addAdInfo.newPicName == undefined){
             return toastr.info("请先上传图片!")
         }
@@ -155,6 +162,41 @@ function adCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                     $scope.adFlagObj.addOpen = false;
                     $scope.searchLoad();
                     toastr.info("添加成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
+    }
+    //修改
+    $scope.editSave = function(){
+        if(!$scope.addAdInfo.adId){
+            return toastr.info("广告id为空,请刷新重试!")
+        }
+        if(!$scope.addAdInfo.adName){
+            return toastr.info("广告名称不可为空!")
+        }
+        if(!$scope.addAdInfo.adLoc){
+            return toastr.info("广告位置不可为空!")
+        }
+        if($scope.addAdInfo.newPicName === "" || $scope.addAdInfo.newPicName == undefined){
+            return toastr.info("请先上传图片!")
+        }
+
+        $scope.updateInfo = {
+            adId : $scope.addAdInfo.adId,
+            adName : $scope.addAdInfo.adName,
+            adLoc : $scope.addAdInfo.adLoc,
+            priority : $scope.addAdInfo.priority,
+            newPicName : $scope.addAdInfo.newPicName,
+            url : $scope.addAdInfo.url
+
+        }
+        $http.post("/advert/update.json",$scope.updateInfo,angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.adFlagObj.addOpen = false;
+                    $scope.searchLoad();
+                    toastr.info("修改成功!");
                 }else{
                     toastr.error(data.message);
                 }

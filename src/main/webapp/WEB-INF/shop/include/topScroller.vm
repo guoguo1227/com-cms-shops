@@ -10,31 +10,40 @@
         </ol>
 
         <div class="carousel-inner" style="height:350px;">
-            <div class="item active">
+           #* <div class="item active">
                 <img src="/static/ui/images/top1.jpg" alt="">
-                #*<embed src="/flash/20141103232602_65944-3039.swf" style="width:300px;height: 100px;" class="ng-scope">*#
-            </div>
-            <div class="item">
-                <img src="/static/ui/images/top2.jpg" alt="">
-            </div>
-            <div class="item">
-                <img src="/static/ui/images/top1.jpg" alt="">
-            </div>
-            <div class="item">
-                <img src="/static/ui/images/top2.jpg" alt="">
-            </div>
+                *##*<embed src="/flash/20141103232602_65944-3039.swf" style="width:300px;height: 100px;" class="ng-scope">*##*
+            </div>*#
+            #foreach($adtop in $!advertTopList)
+                #if($!velocityCount == 1)
+                    <div class="item active">
+                        <img src="$!adtop.newPicName" alt="">
+                    #*<embed src="/flash/20141103232602_65944-3039.swf" style="width:300px;height: 100px;" class="ng-scope">*#
+                    </div>
+                #else
+                    <div class="item">
+                        <img src="$!adtop.newPicName" alt="">
+                    </div>
+                #end
+            #end
         </div>
         <div class="carousel-control left" style="opacity: 1;">
             <ul id="myTab" class="nav navbar-nav nav-tabs" style="background-color: #413F3F;">
                 #foreach($hotcat in $hotcategoryList)
-                    <li class="shop-font18" style="height: 60px;line-height: 60px;width:180px;text-align: left">
-                        <a href="#tabs-$velocityCount" data-toggle="tab" style="height: 100%;width:100%;"><font color="#f8f8ff">$!{hotcat.hotName}</font>
+                    <li class="shop-font18 dropdown" style="height: 60px;line-height: 60px;width:180px;text-align: left;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="height: 100%;width:100%;"><font color="#f8f8ff">$!{hotcat.hotName}</font>
                             <font class="shop-fright" size="6" color="#f8f8ff">&rsaquo;</font>
                             </span>
                         </a>
+                        <ul class="dropdown-menu shop-son-ul" style="margin-left: 178px;margin-top: -61px;">
+                            <li><a href="#"><span>源味门</span></a></li>
+                            <li><a href="#"><span style="font-size: 14px;">北翼国大 健康家园</span></a></li>
+                        </ul>
                     </li>
                 #end
+
             </ul>
+
         </div>
         
     </div>
@@ -48,8 +57,8 @@
                 <div id="qrcodeCarousel" class="carousel slide pad_010 b_k" data-ride="carousel" style="height: 270px;">
                     <!-- 轮播（Carousel）项目 -->
                     <div class="col-sm-12 col-lg-12 shop-margin-top-2" >
-                        <p style="margin-left:-5px;"><font style="font-size: 20px;color:#ec0011;">北&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;翼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商&nbsp;&nbsp;&nbsp;&nbsp;铺</font></p>
-                        <p style="margin-top:-10px;margin-left: -5px;"><font style="font-size: 20px;color:#ec0011;">创&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;造&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;财&nbsp;&nbsp;&nbsp;&nbsp;富</font></p>
+                        <p style="margin-left:-5px;"><font style="font-size: 20px;color:#ec0011;font-family: 黑体;">北&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;翼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商&nbsp;&nbsp;&nbsp;&nbsp;铺</font></p>
+                        <p style="margin-top:-10px;margin-left: -5px;"><font style="font-size: 20px;color:#ec0011;font-family: 黑体;">创&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;造&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;财&nbsp;&nbsp;&nbsp;&nbsp;富</font></p>
                     </div>
                     <div class="carousel-inner bor_btm" style="height: 250px;margin-left:-10px;">
                         <div class="item active" style="height: 250px;">
@@ -57,7 +66,7 @@
                                 <img  src="/static/ui/images/grcode1.jpg" style="height: 160px;width:111%;margin-left: -4px;">
                             </div>
                             <div class="col-sm-12 col-lg-12 shop-margin-left-5">
-                                <span style="font-size: 18px;"><font>北&nbsp;&nbsp;&nbsp;翼&nbsp;&nbsp;&nbsp;商&nbsp;&nbsp;&nbsp;&nbsp;铺&nbsp;&nbsp;&nbsp;&nbsp;网</font></span>
+                                <span style="font-size: 18px;font-family: 黑体;"><font>北&nbsp;&nbsp;&nbsp;翼&nbsp;&nbsp;&nbsp;商&nbsp;&nbsp;&nbsp;&nbsp;铺&nbsp;&nbsp;&nbsp;&nbsp;网</font></span>
                             </div>
                         </div>
                         <div class="item" style="height: 250px;">
@@ -65,7 +74,7 @@
                                 <img  src="/static/ui/images/grcode2.png" style="height: 160px;width:111%;margin-left: -4px;">
                             </div>
                             <div class="col-sm-12 col-lg-12 shop-margin-left-5">
-                                <span style="font-size: 18px;"><font>北&nbsp;&nbsp;&nbsp;翼&nbsp;&nbsp;&nbsp;商&nbsp;&nbsp;&nbsp;业&nbsp;&nbsp;&nbsp;&nbsp;街</font></span>
+                                <span style="font-size: 18px;font-family: 黑体;"><font>北&nbsp;&nbsp;&nbsp;翼&nbsp;&nbsp;&nbsp;商&nbsp;&nbsp;&nbsp;业&nbsp;&nbsp;&nbsp;街</font></span>
                             </div>
                         </div>
                         <div class="item" style="height: 250px;">
@@ -73,7 +82,7 @@
                                 <img  src="/static/ui/images/grcode3.jpg" style="height: 160px;width:111%;margin-left: -4px;">
                             </div>
                             <div class="col-sm-12 col-lg-12 shop-margin-left-5">
-                                <span style="font-size: 18px;"><font>沪&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;隆</font></span>
+                                <span style="font-size: 18px;font-family: 黑体;"><font>沪&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;隆</font></span>
                             </div>
                         </div>
                         <div class="item" style="height: 250px;">
@@ -81,7 +90,7 @@
                                 <img  src="/static/ui/images/grcode4.jpg" style="height: 160px;width:111%;margin-left: -4px;">
                             </div>
                             <div class="col-sm-12 col-lg-12 shop-margin-left-5">
-                                <span style="font-size: 18px;"><font>刘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;行&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;街</font></span>
+                                <span style="font-size: 18px;font-family: 黑体;"><font>刘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;行&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;街</font></span>
                             </div>
                         </div>
                         <div class="item" style="height: 250px;">
@@ -89,7 +98,7 @@
                                 <img  src="/static/ui/images/grcode5.jpg" style="height: 160px;width:111%;margin-left: -4px;">
                             </div>
                             <div class="col-sm-12 col-lg-12 shop-margin-left-5">
-                                <span style="font-size: 18px;"><font>水&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;产&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;路</font></span>
+                                <span style="font-size: 18px;font-family: 黑体;"><font>翼&nbsp;&nbsp;&nbsp;生&nbsp;&nbsp;&nbsp;活&nbsp;&nbsp;&nbsp;广&nbsp;&nbsp;&nbsp;场</font></span>
                             </div>
                         </div>
                     </div>
@@ -140,7 +149,7 @@
                     </a>
                     <hr style="margin-top:1px;margin-bottom: 1px;">
                     <a href="/front/search-shop.action?floor=0" target="_blank">
-                        <button type="button" class="btn btn-default shop-color-gray">地下</button><span class="shop-color-gray">||
+                        <button type="button" class="btn btn-default shop-color-gray">地下层</button><span class="shop-color-gray">||
                     </a>
                     <a href="/front/search-shop.action?floor=1" target="_blank">
                         <button type="button" class="btn btn-default shop-color-gray">一层</button><span class="shop-color-gray">||

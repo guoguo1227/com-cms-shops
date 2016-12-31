@@ -51,6 +51,7 @@ public class HotcategoryServiceImpl implements HotcategoryService{
     @Override
     public List<Hotcategory> queryAll() {
         HotcategoryCriteria criteria = new HotcategoryCriteria();
+        criteria.setOrderByClause(" priority desc ");
         List<Hotcategory> hotcategoryList= hotcategoryMapper.selectByExample(criteria);
         return hotcategoryList;
     }
