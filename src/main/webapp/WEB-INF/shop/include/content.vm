@@ -275,14 +275,13 @@
             <center><h3><font style="color:rgb(193, 14, 14)">精品项目</font></h3></center>
             <hr style="border: 5px solid rgb(193, 14, 14);margin-top:2px;margin-bottom: 2px;width:98%;">
             <div class="row col-xs-12 friend">
-                <div id="slide">
+                <div id="shopslide">
                     <ul class="slideul1">
                         <li class="slideli1">
                             <ul class="slideul2">
                                 #foreach($business in $businessList)
                                 <li><a href="/front/project.action?id=$!business.bizId" target="_blank">
                                     <img src="$!business.fileName" style="width:150px;height: 150px;"/> </a>
-                                    <div class="mr_zhe">
                                         #set($bizName = $business.bizName)
                                         #set($bizContent=$business.bizContent)
 
@@ -293,7 +292,6 @@
                                             #set($bizContent=$bizContent.substring(0,29))
                                         #end
                                         <span>$!{bizName}</span>
-                                    </div>
                                 #end
                             </ul>
                         <li class="slideli2"></li>

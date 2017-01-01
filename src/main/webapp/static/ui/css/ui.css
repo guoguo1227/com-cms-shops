@@ -27,16 +27,18 @@
 .mr_zhe p{
     font-size: 10px;
 }
-/*.slideul2 li{
-    display:inline;float:left;margin-left: 18px;*//*height:389px;*//*width:150px;overflow:hidden;position:relative;
-}*/
+.slideul2 li{
+    display:inline;float:left;margin-left: 18px;height:389px;width:150px;overflow:hidden;position:relative;
+    text-align: center;
+}
 .slideul2 span{
+    margin-top:5px;
     font-size: 12px;
 }
 
-#slide{overflow:hidden;}
-#slide ul{list-style:none;}
-#slide li{float:left;}
+#shopslide{overflow:hidden;height:230px;}
+#shopslide ul{list-style:none;}
+#shopslide li{float:left;}
 .slideul1{width:3999px;}
 
 .shop-img-responsive {

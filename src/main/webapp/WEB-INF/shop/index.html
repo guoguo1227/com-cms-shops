@@ -125,7 +125,7 @@
 <!-- 滚动图片栏 for 精品项目-->
 <script type="text/javascript">
     var _speed=30;
-    var _slide = $("#slide");
+    var _slide = $("#shopslide");
     var _slideli1 = $(".slideli1");
     var _slideli2 = $(".slideli2");
     _slideli2.html(_slideli1.html());
@@ -133,17 +133,18 @@
         if(_slide.scrollLeft() >= _slideli1.width())
             _slide.scrollLeft(0);
         else{
-            _slide.scrollLeft(_slide.scrollLeft()+6);
+            _slide.scrollLeft(_slide.scrollLeft()+2);
         }
     }
     $(function(){
         //两秒后调用
         var sliding=setInterval(Marquee,_speed)
-        _slide.hover(function() {
+        _slide.mouseover(function() {
             //鼠标移动DIV上停止
             clearInterval(sliding);
             console.log("on")
-        },function(){
+        });
+        _slide.mouseout(function() {
             //离开继续调用
             console.log("off")
             sliding=setInterval(Marquee,_speed);
