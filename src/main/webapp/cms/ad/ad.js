@@ -20,7 +20,7 @@ function adCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         $scope.adFlagObj = {showDetail:false};
         $scope.searchLoad();
         $scope.adFlagObj.locationArr = [
-            {id:1,name:"位置1"},{id:2,name:"位置2"},{id:3,name:"位置3"},{id:4,name:"位置4"},{id:5,name:"位置5"}
+            {id:1,name:"位置1"},{id:2,name:"位置2"},{id:3,name:"位置3"},{id:4,name:"位置4"},{id:5,name:"位置5"},{id:6,name:"位置6"},{id:7,name:"位置7"},{id:8,name:"位置8"},{id:9,name:"位置9"},{id:10,name:"位置10"}
         ]
     }
     $scope.searchLoad = function(){

@@ -1,17 +1,17 @@
 package com.cms.shop.service.impl;
 
 import com.cms.shop.dao.base.mapper.HotcategoryMapper;
-import com.cms.shop.model.base.District;
-import com.cms.shop.model.base.DistrictCriteria;
-import com.cms.shop.model.base.Hotcategory;
-import com.cms.shop.model.base.HotcategoryCriteria;
+import com.cms.shop.model.base.*;
 import com.cms.shop.model.condition.SearchCondition;
+import com.cms.shop.model.ext.HotcategoryVo;
 import com.cms.shop.service.HotcategoryService;
+import com.cms.shop.service.ShopService;
 import com.cms.shop.utils.Page;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,6 +24,9 @@ public class HotcategoryServiceImpl implements HotcategoryService{
 
     @Autowired
     private HotcategoryMapper hotcategoryMapper;
+
+    @Autowired
+    private ShopService shopService;
 
     @Override
     public Page<Hotcategory> queryPageByCondition(SearchCondition condition) {
@@ -54,6 +57,31 @@ public class HotcategoryServiceImpl implements HotcategoryService{
         criteria.setOrderByClause(" priority desc ");
         List<Hotcategory> hotcategoryList= hotcategoryMapper.selectByExample(criteria);
         return hotcategoryList;
+    }
+
+    @Override
+    public List<HotcategoryVo> queryHotNac() {
+        SearchCondition condition = new SearchCondition();
+        condition.setLimit(3);
+
+        List<HotcategoryVo> voList = new ArrayList<>();
+        HotcategoryCriteria criteria = new HotcategoryCriteria();
+        criteria.setOrderByClause(" priority desc ");
+        criteria.setLimitStart(0);
+        criteria.setLimitEnd(6);
+        List<Hotcategory> hotcategoryList= hotcategoryMapper.selectByExample(criteria);
+        if(CollectionUtils.isNotEmpty(hotcategoryList)){
+            for(Hotcategory hot : hotcategoryList){
+                HotcategoryVo vo = new HotcategoryVo();
+                vo.setHotcategory(hot);
+
+                condition.setHotId(hot.getHotId());
+                List<Shop> shopList = shopService.queryList(condition);
+                vo.setShopList(shopList);
+                voList.add(vo);
+            }
+        }
+        return voList;
     }
 
     @Override

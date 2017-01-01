@@ -30,16 +30,16 @@
         <div class="carousel-control left subpage" style="opacity: 1;">
 
             <ul id="myTab" class="nav navbar-nav nav-tabs shoptabs" style="background-color: #413F3F;">
-                #foreach($hotcat in $hotcategoryList)
+                #foreach($hotcat in $!hotcategoryList)
                     <li class="shop-font18 shopnav" style="height: 60px;line-height: 60px;width:180px;text-align: left;">
-                        <a href="#" style="height: 100%;width:100%;">$!{hotcat.hotName}
+                        <a href="/front/search-shop.action?hotId=$hotcat.hotcategory.hotId" style="height: 100%;width:100%;">$!{hotcat.hotcategory.hotName}
                             <font class="shop-fright" size="6">&rsaquo;</font>
                             </span>
                         </a>
                         <div class="prosmore hide"">
-                            <span><a href="#">旅游</a></span>
-                            <span><a href="#">景点公园</a></span>
-                            <span><a href="#">其他</a></span>
+                            #foreach($hotshop in $!hotcat.shopList)
+                                <span><a href="/front/detail.action?id=$!hotshop.id" target="_blank">$!{hotshop.shopName}</a></span>
+                            #end
                         </div>
                     </li>
                 #end

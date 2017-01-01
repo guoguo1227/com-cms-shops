@@ -229,6 +229,26 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
+    public List<Shop> queryList(SearchCondition condition) {
+        ShopCriteria criteria = new ShopCriteria();
+        ShopCriteria.Criteria cri = criteria.createCriteria();
+        cri.andAuditStatusEqualTo(CheckStatusEnum.PASS.getKey()).andEditTagEqualTo(ShopConstant.EDIT_TAG_LOCK);
+        criteria.setOrderByClause(" ID desc ");
+        criteria.setLimitStart(0);
+        criteria.setLimitEnd(3);
+        if(null != condition){
+            if(null != condition.getLimit()){
+                criteria.setLimitEnd(condition.getLimit());
+            }
+            if(null != condition.getHotId()){
+                cri.andHotIdEqualTo(condition.getHotId());
+            }
+        }
+        List<Shop> shopList = shopMapper.selectByExample(criteria);
+        return  shopList;
+    }
+
+    @Override
     public ShopExt queryShopDetailById(Integer id) {
         ShopExt ext =  new ShopExt();
         if(null != id){
@@ -278,7 +298,7 @@ public class ShopServiceImpl implements ShopService {
         List<ShopVo> voList = new ArrayList<>();
         ShopCriteria criteria = new ShopCriteria();
         criteria.createCriteria().andAuditStatusEqualTo(CheckStatusEnum.PASS.getKey()).andEditTagEqualTo(ShopConstant.EDIT_TAG_LOCK)
-                .andShopStatusEqualTo(OnlineStatusEnum.ONLINE.getKey()).andTypeEqualTo(type.getKey());
+                .andTypeEqualTo(type.getKey());
         criteria.setOrderByClause(" ID desc ");
         criteria.setLimitStart(0);
         criteria.setLimitEnd(6);
@@ -379,14 +399,18 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public RequestResult passShop(Integer id) {
+    public RequestResult checkShop(Integer id,boolean ifpass) {
         RequestResult result = new RequestResult();
         boolean success = false;
         String message = "";
         if(null != id){
             Shop shop = shopMapper.selectByPrimaryKey(id);
             if(null != shop){
-                shop.setAuditStatus(CheckStatusEnum.PASS.getKey());
+                if(ifpass){
+                    shop.setAuditStatus(CheckStatusEnum.PASS.getKey());
+                }else{
+                    shop.setAuditStatus(CheckStatusEnum.NOPASS.getKey());
+                }
                 int i = shopMapper.updateByPrimaryKey(shop);
                 if(i>0){
                     success = true;

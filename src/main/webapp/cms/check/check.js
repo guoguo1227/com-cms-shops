@@ -33,7 +33,18 @@ function checkCtrl($scope,$http,angularMeta,lgDataTableService){
     $scope.initTableData = function(pageData){
         $scope.tableData = {
             pass : function(row){
-                $http.post("/shop/pass.json",{id:row.shop.id},angularMeta.postCfg)
+                $http.post("/shop/check.json",{id:row.shop.id,ifPass:true},angularMeta.postCfg)
+                    .success(function(data){
+                        if(data.success){
+                            $scope.searchLoad();
+                            toastr.info("操作成功!");
+                        }else{
+                            toastr.error(data.message);
+                        }
+                    });
+            },
+            unpass: function(row){
+                $http.post("/shop/check.json",{id:row.shop.id,ifPass:false},angularMeta.postCfg)
                     .success(function(data){
                         if(data.success){
                             $scope.searchLoad();
@@ -51,7 +62,8 @@ function checkCtrl($scope,$http,angularMeta,lgDataTableService){
         pageData = $scope.formatPageData(pageData);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="通过" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.pass($row)">通过</a>';
+            pg.action =  '<a title="通过" ng-if="$row.shop.auditStatus != 1"  class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.pass($row)">通过</a>'+
+             '<a title="不通过" ng-if="$row.shop.auditStatus != 2"  class="btn bg-red btn-xs shop-margin-top-3 shop-margin-left-2" ng-click="$table.unpass($row)">不通过</a>';
             return pg;
         }), ['shop.shopName','districtStr','shop.floor','shopSquareStr','buildingFinishing','shop.createDate','shop.publisher','checkStatus','action']);
     };

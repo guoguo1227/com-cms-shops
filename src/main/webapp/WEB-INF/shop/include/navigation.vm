@@ -1,16 +1,16 @@
 <div class="container">
     <!-- 北翼商铺网 -->
     <div class="smart-body ">
-        <div class="row">
+        <div class="row col-xs-12">
+            <embed src="$!{flash.flashName}"  wmode="transparent"  style="width:100%;height:100px;" class="ng-scope">
             #*<div class="col-xs-3 col-md-offset-1">
                 <a href="#" class="shop-top-title">北翼商铺网</a>
             </div>*#
             #*<a href="#" class="shop-top-title shop-margin-left-10">北翼商铺网</a>*#
-            <embed src="$!{flash.flashName}" style="width:100%;height:100px;" class="ng-scope">
         </div>
     </div>
     <!-- 导航栏 -->
-    <div class="row" style="margin-top: -35px;margin-left:-30px;">
+    <div class="row col-sm-12 col-md-offset-1" style="margin-top: -35px;margin-left:-30px;">
         <div class="col-sm-12">
             <nav class="navbar navbar-default open-hover shop-hide-border shop-margin-top15" role="navigation">
                 <!-- Collect the nav links, forms, and other content for toggling -->

@@ -2,7 +2,7 @@
 /* 导航样式 */
 .prosmore{margin-left:-30px;margin-top:-38px;position:absolute;z-index:999;left:210px;top:38px;background-color:#fff;border-left:0 none;width:214px;height:120px}
 .prosmore{text-align:left}
-.prosmore span{float:left;height:36px;width:107px;line-height:22px;padding-top:9px;display:inline-block;}
+.prosmore span{float:left;height:36px;width:150px;line-height:22px;padding-top:9px;display:inline-block;}
 .prosmore span a{
     height:18px;
     line-height:18px;

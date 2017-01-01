@@ -2,6 +2,7 @@ package com.cms.shop.front;
 
 import com.cms.shop.controller.BaseController;
 import com.cms.shop.enums.CheckStatusEnum;
+import com.cms.shop.enums.ShopStatusEnum;
 import com.cms.shop.enums.ShopTypeEnum;
 import com.cms.shop.model.base.*;
 import com.cms.shop.model.condition.SearchCondition;
@@ -60,6 +61,9 @@ public class ForntController extends BaseController{
 
     @Autowired
     private FlashService flashService;
+
+    @Autowired
+    private AdvertService advertService;
     /**
      * 多条件搜索商铺
      * @return
@@ -94,6 +98,7 @@ public class ForntController extends BaseController{
         thread.start();
 
         condition.setCheckStatus(CheckStatusEnum.PASS.getKey());
+
         Page<ShopVo> shopVoPage = shopService.queryListBySearchCondition(condition);
         if(null != shopVoPage){
             list = shopVoPage.getPageData();
@@ -109,8 +114,25 @@ public class ForntController extends BaseController{
         Flash flash = flashService.queryFlash();
         modelMap.addAttribute("flash",flash);
 
-        modelMap.addAttribute("districtList",districtList);//地区
+        Advert advert = null;
+        condition.setLimit(1);
+        if(null != condition.getType()){
+            if(condition.getType().equals(3)){
+                condition.setType(3); //位置3
+            }else if(condition.getType().equals(2)){
+                condition.setType(4); //位置4
+            }
+        }else{
+            condition.setType(3);
+        }
+
+        List<Advert> advertList = advertService.queryOnlineList(condition);
+        if(CollectionUtils.isNotEmpty(advertList)){
+            advert = advertList.get(0);
+        }
+        modelMap.addAttribute("districtList", districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
+        modelMap.addAttribute("advert",advert);
         modelMap.addAttribute("total",total);
         modelMap.addAttribute("totalPage",totalPage);
         modelMap.addAttribute("pageSize",pageSize);
@@ -119,6 +141,7 @@ public class ForntController extends BaseController{
         modelMap.addAttribute("goodShopList",goodShopList);
         modelMap.addAttribute("hotcategoryList",hotcategoryList);//商铺类型
         modelMap.addAttribute("searchContent",condition.getSearchContent());
+
         return "search";
     }
 
@@ -147,8 +170,17 @@ public class ForntController extends BaseController{
         List<Keyword> keywordList = keywordService.queryHotKeyWord();
         Flash flash = flashService.queryFlash();
         modelMap.addAttribute("flash",flash);
+        Advert advert = null;
+        condition.setLimit(1);
+        condition.setType(9); //位置9
+        List<Advert> advertList = advertService.queryOnlineList(condition);
+        if(CollectionUtils.isNotEmpty(advertList)){
+            advert = advertList.get(0);
+        }
+
         modelMap.addAttribute("keywordList",keywordList);
         modelMap.addAttribute("shop",vo);
+        modelMap.addAttribute("advert",advert);
         modelMap.addAttribute("imgList",imgList);
         modelMap.addAttribute("hotcategoryList",hotcategoryList);//商铺类型
         modelMap.addAttribute("districtList",districtList);//地区
@@ -178,8 +210,18 @@ public class ForntController extends BaseController{
         List<Keyword> keywordList = keywordService.queryHotKeyWord();
         Flash flash = flashService.queryFlash();
         modelMap.addAttribute("flash",flash);
+
+        Advert advert = null;
+        condition.setLimit(1);
+        condition.setType(10); //位置10
+        List<Advert> advertList = advertService.queryOnlineList(condition);
+        if(CollectionUtils.isNotEmpty(advertList)){
+            advert = advertList.get(0);
+        }
+
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
+        modelMap.addAttribute("advert",advert);
 
         modelMap.addAttribute("business",business);
         modelMap.addAttribute("goodShopList",goodShopList);
@@ -219,8 +261,17 @@ public class ForntController extends BaseController{
         Flash flash = flashService.queryFlash();
         modelMap.addAttribute("flash",flash);
 
+        Advert advert = null;
+        condition.setLimit(1);
+        condition.setType(5); //位置5
+        List<Advert> advertList = advertService.queryOnlineList(condition);
+        if(CollectionUtils.isNotEmpty(advertList)){
+            advert = advertList.get(0);
+        }
+
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
+        modelMap.addAttribute("advert",advert);
 
         modelMap.addAttribute("boardList",boardList);
         modelMap.addAttribute("goodShopList",goodShopList);
@@ -252,8 +303,16 @@ public class ForntController extends BaseController{
 
         Flash flash = flashService.queryFlash();
         modelMap.addAttribute("flash",flash);
+        Advert advert = null;
+        condition.setLimit(1);
+        condition.setType(8); //位置8
+        List<Advert> advertList = advertService.queryOnlineList(condition);
+        if(CollectionUtils.isNotEmpty(advertList)){
+            advert = advertList.get(0);
+        }
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
+        modelMap.addAttribute("advert",advert);
 
         modelMap.addAttribute("board",board);
         modelMap.addAttribute("goodShopList",goodShopList);
@@ -278,10 +337,19 @@ public class ForntController extends BaseController{
         List<District> districtList = districtService.queryAll();
         List<Keyword> keywordList = keywordService.queryHotKeyWord();
 
+        Advert advert = null;
+        condition.setLimit(1);
+        condition.setType(7); //位置7
+        List<Advert> advertList = advertService.queryOnlineList(condition);
+        if(CollectionUtils.isNotEmpty(advertList)){
+            advert = advertList.get(0);
+        }
+
         Flash flash = flashService.queryFlash();
         modelMap.addAttribute("flash",flash);
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
+        modelMap.addAttribute("advert",advert);
 
         modelMap.addAttribute("businessList",businessList);
         modelMap.addAttribute("goodShopList",goodShopList);
@@ -307,10 +375,19 @@ public class ForntController extends BaseController{
         List<District> districtList = districtService.queryAll();
         List<Keyword> keywordList = keywordService.queryHotKeyWord();
 
+        Advert advert = null;
+        condition.setLimit(1);
+        condition.setType(6); //位置6
+        List<Advert> advertList = advertService.queryOnlineList(condition);
+        if(CollectionUtils.isNotEmpty(advertList)){
+            advert = advertList.get(0);
+        }
+
         Flash flash = flashService.queryFlash();
         modelMap.addAttribute("flash",flash);
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
+        modelMap.addAttribute("advert",advert);
 
         modelMap.addAttribute("businessList",businessList);
         modelMap.addAttribute("goodShopList",goodShopList);

@@ -273,7 +273,7 @@
     <div class="panel panel-default">
         <div class="panel-heading"  style="height: 280px;">
             <center><h3><font style="color:rgb(193, 14, 14)">精品项目</font></h3></center>
-            <hr style="border: 5px solid rgb(193, 14, 14);margin-top:2px;margin-bottom: 2px;width:98%;">
+            <hr style="border: 5px solid rgb(193, 14, 14);margin-top:2px;margin-bottom: 2px;width:97%;">
             <div class="row col-xs-12 friend">
                 <div id="shopslide">
                     <ul class="slideul1">

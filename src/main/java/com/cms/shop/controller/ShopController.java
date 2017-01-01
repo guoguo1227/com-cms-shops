@@ -178,18 +178,19 @@ public class ShopController extends BaseController{
     }
 
     /**
-     * 更新商铺类型
+     * 审核商铺
      * @param id
+     * @param ifPass
      * @return
      */
-    @RequestMapping("pass")
+    @RequestMapping("check")
     @ResponseBody
-    public String passShop(Integer id){
+    public String checkShop(Integer id,boolean ifPass){
 
         RequestResult result = new RequestResult();
         result.setSuccess(false);
         if(null != id){
-            result = shopService.passShop(id);
+            result = shopService.checkShop(id,ifPass);
         }
         return gson.toJson(result);
     }

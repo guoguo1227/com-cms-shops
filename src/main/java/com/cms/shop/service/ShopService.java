@@ -23,6 +23,8 @@ public interface ShopService {
 
     Page<ShopVo> queryListBySearchCondition(SearchCondition condition);
 
+    List<Shop> queryList(SearchCondition condition);
+
     ShopExt queryShopDetailById(Integer id);
 
     Page<ShopVo> queryCheckListBySearchCondition(SearchCondition condition);
@@ -35,7 +37,7 @@ public interface ShopService {
 
     RequestResult updateRoad(Integer id,String road);
 
-    RequestResult passShop(Integer id);
+    RequestResult checkShop(Integer id,boolean ifPass);
 
     RequestResult addShop(ShopExt ext);
 

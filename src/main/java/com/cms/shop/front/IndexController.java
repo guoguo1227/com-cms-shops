@@ -6,6 +6,7 @@ import com.cms.shop.enums.ShopTypeEnum;
 import com.cms.shop.model.base.*;
 import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.model.ext.BoardVo;
+import com.cms.shop.model.ext.HotcategoryVo;
 import com.cms.shop.model.ext.ShopVo;
 import com.cms.shop.service.*;
 import org.slf4j.Logger;
@@ -82,7 +83,7 @@ public class IndexController extends BaseController{
         condition.setType(1);
         List<BoardVo> imgBoardList = boardService.queryVoOnList(null, condition);
 
-        List<Hotcategory> hotcategoryList = hotcategoryService.queryAll();
+        List<HotcategoryVo> hotcategoryList = hotcategoryService.queryHotNac();
 
         List<District> districtList = districtService.queryAll();
 
