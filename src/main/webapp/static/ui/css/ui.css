@@ -21,19 +21,24 @@
     color: #999;
     text-align: center;
 }
-.friend{height:230px;margin:0 auto;overflow:hidden;}
+.friend{height:230px;}
 .mr_frbox{height:220px;padding:24px 0px 0px;}
-.mr_frBtnL{cursor:pointer;display:inline;float:left;height:46px;margin:63px 0px 0px -20px;width:18px;}
-.mr_frUl{float:left;height:202px;width:1047px;margin-left:25px;}
-.mr_frBtnR{float:right;margin-top:55px;cursor:pointer;width:18px;height:46px;margin-right: -60px;}
-.mr_frUl ul li{display:inline;float:left;margin-left: 18px;/*height:389px;*/width:150px;overflow:hidden;position:relative;}
-.mr_frUl ul li a img{/*display:block;*/width:100%;height:150px;}
-.mr_zhe span{
-    font-size: 12px;
-}
+
 .mr_zhe p{
     font-size: 10px;
 }
+/*.slideul2 li{
+    display:inline;float:left;margin-left: 18px;*//*height:389px;*//*width:150px;overflow:hidden;position:relative;
+}*/
+.slideul2 span{
+    font-size: 12px;
+}
+
+#slide{overflow:hidden;}
+#slide ul{list-style:none;}
+#slide li{float:left;}
+.slideul1{width:3999px;}
+
 .shop-img-responsive {
     display: block;
     max-width: 100%;

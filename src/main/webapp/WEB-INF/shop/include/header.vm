@@ -11,6 +11,7 @@
     <link href="/static/ui/css/ui.css" rel="stylesheet">
     <link href="/cms/common/shop-constants.css" rel="stylesheet">
     <link href="/static/plugins/toastr/toastr2.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/static/ui/css/navstyle.css">
 
     <script src="/static/plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <script type="text/javascript" src="/static/ui/js/jquery.SuperSlide2.js"></script>

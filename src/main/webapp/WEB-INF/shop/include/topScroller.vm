@@ -27,22 +27,25 @@
                 #end
             #end
         </div>
-        <div class="carousel-control left" style="opacity: 1;">
-            <ul id="myTab" class="nav navbar-nav nav-tabs" style="background-color: #413F3F;">
+        <div class="carousel-control left subpage" style="opacity: 1;">
+
+            <ul id="myTab" class="nav navbar-nav nav-tabs shoptabs" style="background-color: #413F3F;">
                 #foreach($hotcat in $hotcategoryList)
-                    <li class="shop-font18 dropdown" style="height: 60px;line-height: 60px;width:180px;text-align: left;">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="height: 100%;width:100%;"><font color="#f8f8ff">$!{hotcat.hotName}</font>
-                            <font class="shop-fright" size="6" color="#f8f8ff">&rsaquo;</font>
+                    <li class="shop-font18 shopnav" style="height: 60px;line-height: 60px;width:180px;text-align: left;">
+                        <a href="#" style="height: 100%;width:100%;">$!{hotcat.hotName}
+                            <font class="shop-fright" size="6">&rsaquo;</font>
                             </span>
                         </a>
-                        <ul class="dropdown-menu shop-son-ul" style="margin-left: 178px;margin-top: -61px;">
-                            <li><a href="#"><span>源味门</span></a></li>
-                            <li><a href="#"><span style="font-size: 14px;">北翼国大 健康家园</span></a></li>
-                        </ul>
+                        <div class="prosmore hide"">
+                            <span><a href="#">旅游</a></span>
+                            <span><a href="#">景点公园</a></span>
+                            <span><a href="#">其他</a></span>
+                        </div>
                     </li>
                 #end
 
             </ul>
+
 
         </div>
         

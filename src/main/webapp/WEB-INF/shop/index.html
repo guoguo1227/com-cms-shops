@@ -122,8 +122,35 @@
 <script src="/cms/common/angular-constants.js"></script>
 
 <script src="/cms/common/shopIndex.js"></script>
-
 <!-- 滚动图片栏 for 精品项目-->
+<script type="text/javascript">
+    var _speed=30;
+    var _slide = $("#slide");
+    var _slideli1 = $(".slideli1");
+    var _slideli2 = $(".slideli2");
+    _slideli2.html(_slideli1.html());
+    function Marquee(){
+        if(_slide.scrollLeft() >= _slideli1.width())
+            _slide.scrollLeft(0);
+        else{
+            _slide.scrollLeft(_slide.scrollLeft()+6);
+        }
+    }
+    $(function(){
+        //两秒后调用
+        var sliding=setInterval(Marquee,_speed)
+        _slide.hover(function() {
+            //鼠标移动DIV上停止
+            clearInterval(sliding);
+            console.log("on")
+        },function(){
+            //离开继续调用
+            console.log("off")
+            sliding=setInterval(Marquee,_speed);
+        });
+    });
+</script>
+
 <script type="text/javascript" src="/static/ui/js/projectCarousel.js"></script>
 <!--弹出QQ对话框-->
 <script type="text/javascript">
@@ -134,29 +161,7 @@
         });
     });
 </script>
-<script>
-    $(function () {
 
-        $("#tabs-1").mousemove(function (e) {
-            $(this).tab('show');
-        });
-        $("#tabs-2").mousemove(function (e) {
-            $(this).tab('show');
-        });
-        $("#tabs-3").mousemove(function (e) {
-            $(this).tab('show');
-        });
-        $("#tabs-4").mousemove(function (e) {
-            $(this).tab('show');
-        });
-        $("#tabs-5").mousemove(function (e) {
-            $(this).tab('show');
-        });
-        $("#tabs-6").mousemove(function (e) {
-            $(this).tab('show');
-        });
-    });
-</script>
 <script type="text/javascript">
     function getId(id) { return document.getElementById(id); }
     function addLoadEvent(func){
@@ -299,6 +304,21 @@
         }
     }
     addLoadEvent(iFocusChange);
+</script>
+
+<script type="text/javascript">
+    var item = $(".shop-font18.shopnav");
+    item.hover(function(){
+        $(this).addClass("prosahover");
+//        $(".prosmore.hide").removeClass('hide');
+        $(this).find(".prosmore").removeClass('hide');
+    },function(){
+        if($(this).hasClass("prosahover")){
+            $(this).removeClass("prosahover");
+        }
+        $(this).find(".prosmore").addClass('hide');
+//        $(".prosmore.hide").addClass('hide');
+    });
 </script>
 </body>
 

@@ -271,39 +271,34 @@
 <!--精品项目-->
 <div class="row col-xs-12" style="margin-top:-12px;">
     <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading"  style="height: 280px;">
             <center><h3><font style="color:rgb(193, 14, 14)">精品项目</font></h3></center>
-            <hr style="border: 5px solid rgb(193, 14, 14);margin-top:2px;margin-bottom: 2px;width:91%;">
-            <div class="row">
-                <div class="friend">
-                    <div class="mr_frbox">
-                        <div class="mr_frUl col-xs-12">
-                            <img class="mr_frBtnL prev" src="/static/ui/images/mfrl.gif" />
-                            <div class="col-xs-11" style="margin-left: -10px;">
-                                <ul id="mr_fu">
-                                    #foreach($business in $businessList)
-                                    <li><a href="/front/project.action?id=$!business.bizId" target="_blank">
-                                        <img src="$!business.fileName" style="width:150px;height: 150px;"/> </a>
-                                        <div class="mr_zhe">
-                                            #set($bizName = $business.bizName)
-                                            #set($bizContent=$business.bizContent)
+            <hr style="border: 5px solid rgb(193, 14, 14);margin-top:2px;margin-bottom: 2px;width:98%;">
+            <div class="row col-xs-12 friend">
+                <div id="slide">
+                    <ul class="slideul1">
+                        <li class="slideli1">
+                            <ul class="slideul2">
+                                #foreach($business in $businessList)
+                                <li><a href="/front/project.action?id=$!business.bizId" target="_blank">
+                                    <img src="$!business.fileName" style="width:150px;height: 150px;"/> </a>
+                                    <div class="mr_zhe">
+                                        #set($bizName = $business.bizName)
+                                        #set($bizContent=$business.bizContent)
 
-                                            #if($!business.bizName.length()>10)
-                                                #set($bizName=$bizName.substring(0,9))
-                                            #end
-                                            #if($!business.bizName.length()>30)
-                                                #set($bizContent=$bizContent.substring(0,29))
-                                            #end
-                                            <span>$!{bizName}</span>
-                                        </div>
-                                    #end
-                                </ul>
-                            </div>
-                            <div class="col-xs-1">
-                                <img class="mr_frBtnR next" src="/static/ui/images/mfrr.gif" />
-                            </div>
-                        </div>
-                    </div>
+                                        #if($!business.bizName.length()>10)
+                                            #set($bizName=$bizName.substring(0,9))
+                                        #end
+                                        #if($!business.bizName.length()>30)
+                                            #set($bizContent=$bizContent.substring(0,29))
+                                        #end
+                                        <span>$!{bizName}</span>
+                                    </div>
+                                #end
+                            </ul>
+                        <li class="slideli2"></li>
+                    </ul>
+
                 </div>
             </div>
         </div>
