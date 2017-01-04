@@ -847,6 +847,24 @@ public class ShopManageController extends BaseController{
     }
 
     /**
+     * 审核招商项目
+     * @param id
+     * @param ifPass
+     * @return
+     */
+    @RequestMapping("checkBusiness")
+    @ResponseBody
+    public String checkBusiness(Integer id,boolean ifPass){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != id){
+            result = businessService.checkBusiness(id,ifPass);
+        }
+        return gson.toJson(result);
+    }
+
+    /**
      * 获取Flash列表
      * @param condition
      * @return

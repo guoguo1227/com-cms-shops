@@ -22,4 +22,6 @@ public interface BusinessService {
 
     RequestResult updateBusiness(Business business);
 
+    RequestResult checkBusiness(Integer id,boolean ifPass);
+
 }

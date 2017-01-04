@@ -60,48 +60,48 @@
                 <div id="qrcodeCarousel" class="carousel slide pad_010 b_k" data-ride="carousel" style="height: 270px;">
                     <!-- 轮播（Carousel）项目 -->
                     <div class="col-sm-12 col-lg-12 shop-margin-top-2" >
-                        <p style="margin-left:-5px;"><font style="font-size: 20px;color:#ec0011;font-family: 黑体;">北&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;翼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商&nbsp;&nbsp;&nbsp;&nbsp;铺</font></p>
-                        <p style="margin-top:-10px;margin-left: -5px;"><font style="font-size: 20px;color:#ec0011;font-family: 黑体;">创&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;造&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;财&nbsp;&nbsp;&nbsp;&nbsp;富</font></p>
+                        <p style="margin-left:0px;margin-top:5px;text-align: center;"><font style="font-size: 20px;color:#ec0011;font-family: 黑体;letter-spacing: 19px;">北翼商铺</font></p>
+                        <p style="margin-top:-10px;margin-left:0px;text-align: center;"><font style="font-size: 20px;color:#ec0011;font-family: 黑体;letter-spacing: 19px;">创造财富</font></p>
                     </div>
                     <div class="carousel-inner bor_btm" style="height: 250px;margin-left:-10px;">
                         <div class="item active" style="height: 250px;">
                             <div class="col-sm-12 col-lg-12" style="margin-top:-13px;">
                                 <img  src="/static/ui/images/grcode1.jpg" style="height: 160px;width:111%;margin-left: -4px;">
                             </div>
-                            <div class="col-sm-12 col-lg-12 shop-margin-left-5">
-                                <span style="font-size: 18px;font-family: 黑体;"><font>北&nbsp;&nbsp;&nbsp;翼&nbsp;&nbsp;&nbsp;商&nbsp;&nbsp;&nbsp;&nbsp;铺&nbsp;&nbsp;&nbsp;&nbsp;网</font></span>
+                            <div class="col-sm-12 col-lg-12 shop-margin-left-10" style="text-align: center;">
+                                <span style="font-size: 18px;font-family: 黑体;letter-spacing: 13px;"><font>北翼商铺网</font></span>
                             </div>
                         </div>
                         <div class="item" style="height: 250px;">
                             <div class="col-sm-12 col-lg-12" style="margin-top:-13px;">
                                 <img  src="/static/ui/images/grcode2.png" style="height: 160px;width:111%;margin-left: -4px;">
                             </div>
-                            <div class="col-sm-12 col-lg-12 shop-margin-left-5">
-                                <span style="font-size: 18px;font-family: 黑体;"><font>北&nbsp;&nbsp;&nbsp;翼&nbsp;&nbsp;&nbsp;商&nbsp;&nbsp;&nbsp;业&nbsp;&nbsp;&nbsp;街</font></span>
+                            <div class="col-sm-12 col-lg-12 shop-margin-left-5"  style="text-align: center;">
+                                <span style="font-size: 18px;letter-spacing: 13px;font-family: 黑体;"><font>北翼商业街</font></span>
                             </div>
                         </div>
                         <div class="item" style="height: 250px;">
                             <div class="col-sm-12 col-lg-12" style="margin-top:-13px;">
                                 <img  src="/static/ui/images/grcode3.jpg" style="height: 160px;width:111%;margin-left: -4px;">
                             </div>
-                            <div class="col-sm-12 col-lg-12 shop-margin-left-5">
-                                <span style="font-size: 18px;font-family: 黑体;"><font>沪&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;隆</font></span>
+                            <div class="col-sm-12 col-lg-12 shop-margin-left-15"  style="text-align: center;">
+                                <span style="font-size: 18px;letter-spacing:23px;font-family: 黑体;"><font>沪客隆</font></span>
                             </div>
                         </div>
                         <div class="item" style="height: 250px;">
                             <div class="col-sm-12 col-lg-12" style="margin-top:-13px;">
                                 <img  src="/static/ui/images/grcode4.jpg" style="height: 160px;width:111%;margin-left: -4px;">
                             </div>
-                            <div class="col-sm-12 col-lg-12 shop-margin-left-5">
-                                <span style="font-size: 18px;font-family: 黑体;"><font>刘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;行&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;街</font></span>
+                            <div class="col-sm-12 col-lg-12 shop-margin-left-15" style="text-align: center;">
+                                <span style="font-size: 18px;letter-spacing:20px;font-family: 黑体;"><font>刘行新街</font></span>
                             </div>
                         </div>
                         <div class="item" style="height: 250px;">
                             <div class="col-sm-12 col-lg-12" style="margin-top:-13px;">
                                 <img  src="/static/ui/images/grcode5.jpg" style="height: 160px;width:111%;margin-left: -4px;">
                             </div>
-                            <div class="col-sm-12 col-lg-12 shop-margin-left-5">
-                                <span style="font-size: 18px;font-family: 黑体;"><font>翼&nbsp;&nbsp;&nbsp;生&nbsp;&nbsp;&nbsp;活&nbsp;&nbsp;&nbsp;广&nbsp;&nbsp;&nbsp;场</font></span>
+                            <div class="col-sm-12 col-lg-12 shop-margin-left-15" style="text-align: center;">
+                                <span style="font-size: 18px;letter-spacing: 13px;font-family: 黑体;"><font>翼生活广场</font></span>
                             </div>
                         </div>
                     </div>
@@ -120,7 +120,7 @@
             <div class="col-lg-7 panel panel-default shop-margin-left-10" style="height: 270px;width: 64%;">
                 <div class="panel-heading shop-font14" style="background-color: white;"><span><font style="color:#e60015;font-size: 22px;"><strong>▌<strong></strong></font></span><span class="shop-font shop-spacing3">商铺热门筛选</span></div>
                 <div class="panel-body shop-select-font">
-                    #foreach($hotcat in $hotcategoryList)
+                    #foreach($hotcat in $!hotAllList)
                         <a href="/front/search-shop.action?hotId=$!hotcat.hotId" target="_blank">
                             <button type="button" class="btn btn-default  shop-color-gray">$!{hotcat.hotName}</button>
                         </a>

@@ -27,9 +27,15 @@
 .mr_zhe p{
     font-size: 10px;
 }
+.slideul1{
+    padding-left: 0px;
+}
+.slideul2{
+    padding-left: 0px;
+}
 .slideul2 li{
     display:inline;float:left;
-    margin-left: 18px;
+    margin-left: 10px;
     width:150px;
     overflow:hidden;
     position:relative;

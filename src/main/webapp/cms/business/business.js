@@ -46,10 +46,33 @@ function businessrCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                 if($scope.addBusinessObj.bizContent){
                     $scope.ue.setContent($scope.addBusinessObj.bizContent);
                 }
+            },
+            pass : function(row){
+                $http.post("/shopmanage/checkBusiness.json",{id:row.bizId,ifPass:true},angularMeta.postCfg)
+                    .success(function(data){
+                        if(data.success){
+                            $scope.searchLoad();
+                            toastr.info("审核通过成功!");
+                        }else{
+                            toastr.error(data.message);
+                        }
+                    });
+            },
+            unpass : function(row){
+                $http.post("/shopmanage/checkBusiness.json",{id:row.bizId,ifPass:false},angularMeta.postCfg)
+                    .success(function(data){
+                        if(data.success){
+                            $scope.searchLoad();
+                            toastr.info("审核不通过成功!");
+                        }else{
+                            toastr.error(data.message);
+                        }
+                    });
             }
+
         };
 
-        var headerArray = ['项目名称','项目图片','顶部图片','审核状态','上架状态','发布人','发布日期','操作'];
+        var headerArray = ['项目名称','项目图片','顶部图片','审核状态','上架时间','下架时间','上架状态','发布人','发布日期','操作'];
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
         pageData = $scope.formatUserPageData(pageData);
         lgDataTableService.config($scope.tableData,{
@@ -61,13 +84,15 @@ function businessrCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         });
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="查看" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.openDetail($row)">查看</a>';
+            pg.action =  '<a title="查看" class="btn bg-blue btn-xs shop-margin-top-3 shop-margin-left-2" ng-click="$table.openDetail($row)">查看</a>'+
+            '<a title="审核通过"  ng-if="$row.audStatus == 0" class="btn bg-green btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.pass($row)">审核通过</a>'+
+            '<a title="审核不通过" ng-if="$row.audStatus == 0" class="btn bg-orange btn-xs shop-margin-left-3 shop-margin-top-3" ng-click="$table.unpass($row)">审核不通过</a>';
 
             pg.fileNameImg = "<div class='thumbnail' style='max-height:180px;'><a class='fancybox' rel='group' href={{$row.fileName}}><img  src={{$row.fileName}}  style='width: 100%;height: 100%;'/></a></div>";
             pg.fileNameImg2 = "<div class='thumbnail' style='max-height:180px;'><a class='fancybox' rel='group' href={{$row.fileName2}}><img  src={{$row.fileName2}}  style='width: 100%;height: 100%;'/></a></div>";
 
             return pg;
-        }), ['bizName','fileNameImg','fileNameImg2','statusStr','bizStatusStr','publisher','createDate','action']);
+        }), ['bizName','fileNameImg','fileNameImg2','statusStr','onsellDate','offsellDateStr','bizStatusStr','publisher','createDate','action']);
     };
 
     //切换页面
@@ -170,6 +195,12 @@ function businessrCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                 }else if(pageData[i].bizStatus == 2){
                     pageData[i].bizStatusStr = "<span style='color: red'>已下架</span>";
 
+                }
+                pageData[i].offsellDateStr = "";
+                if(pageData[i].offsellDate){
+                    pageData[i].offsellDateStr +=pageData[i].offsellDate;
+                }else{
+                    pageData[i].offsellDateStr = "无";
                 }
             }
         }

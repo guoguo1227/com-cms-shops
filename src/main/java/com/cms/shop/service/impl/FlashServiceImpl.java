@@ -35,7 +35,13 @@ public class FlashServiceImpl implements FlashService{
             page.setPageSize(condition.getLimit());
 
             FlashCriteria criteria = new FlashCriteria();
+            FlashCriteria.Criteria cri = criteria.createCriteria();
             criteria.setOrderByClause(" id desc ");
+
+            if(null != condition.getStatus()){
+                cri.andStatusEqualTo(condition.getStatus());
+            }
+
             int count = flashMapper.countByExample(criteria);
             if(count>0){
                 criteria.setLimitStart(condition.getOffset());
@@ -86,7 +92,7 @@ public class FlashServiceImpl implements FlashService{
         if(null != id){
             Flash flash = flashMapper.selectByPrimaryKey(id);
             if(null != flash){
-                flash.setStatus(OnlineStatusEnum.OFFLINE.getKey()); //下架
+                flash.setStatus(OnlineStatusEnum.WAIT.getKey()); //下架
                 int i = flashMapper.updateByPrimaryKeySelective(flash);
                 if(i>0){
                     success = true;
@@ -131,7 +137,7 @@ public class FlashServiceImpl implements FlashService{
         String message = "";
         if(null != flash){
             //默认未上架
-            flash.setStatus(OnlineStatusEnum.OFFLINE.getKey());
+            flash.setStatus(OnlineStatusEnum.WAIT.getKey());
             int i  = flashMapper.insertSelective(flash);
             if(i>0){
                 success = true;

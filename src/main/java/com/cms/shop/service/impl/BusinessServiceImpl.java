@@ -63,7 +63,11 @@ public class BusinessServiceImpl implements BusinessService {
             if(null != condition.getId()){
                 cri.andBizIdEqualTo(condition.getId());
             }
-            //状态
+            //上架状态
+            if(null != condition.getStatus()){
+                cri.andBizStatusEqualTo(condition.getStatus());
+            }
+            //审核状态
             if(null != condition.getCheckStatus()){
                 cri.andAudStatusEqualTo(condition.getCheckStatus());
             }
@@ -106,8 +110,8 @@ public class BusinessServiceImpl implements BusinessService {
         if(null != business){
             business.setCreateDate(new Date());
             business.setBizStatus(OnlineStatusEnum.WAIT.getKey());
-            //默认通过
-            business.setAudStatus(CheckStatusEnum.PASS.getKey());
+            //默认待审核
+            business.setAudStatus(CheckStatusEnum.AUDIT.getKey());
             int i = businessMapper.insertSelective(business);
             if(i>0){
                 success = true;
@@ -123,5 +127,32 @@ public class BusinessServiceImpl implements BusinessService {
     @Override
     public RequestResult updateBusiness(Business business) {
         return null;
+    }
+
+    @Override
+    public RequestResult checkBusiness(Integer id, boolean ifPass) {
+        RequestResult result = new RequestResult();
+        boolean success = false;
+        String message = "";
+        if(null != id ){
+            Business business = businessMapper.selectByPrimaryKey(id);
+            if(null != business){
+                if(ifPass){
+                    business.setAudStatus(CheckStatusEnum.PASS.getKey());
+                }else{
+                    business.setAudStatus(CheckStatusEnum.NOPASS.getKey());
+                }
+                int i = businessMapper.updateByPrimaryKey(business);
+                if(i>0){
+                    success = true;
+                }
+            }
+
+        }else{
+            message = "id不可为空";
+        }
+        result.setMessage(message);
+        result.setSuccess(success);
+        return result;
     }
 }

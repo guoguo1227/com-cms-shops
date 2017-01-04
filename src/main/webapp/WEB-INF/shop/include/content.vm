@@ -293,7 +293,9 @@
                                         #end
                                         <span>$!{bizName}</span>
                                 #end
+                                </li>
                             </ul>
+                        </li>
                         <li class="slideli2"></li>
                     </ul>
 

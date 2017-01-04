@@ -70,8 +70,8 @@ function flashCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
 
             pg.action = '<a title="下架" ng-if="$row.status ==1" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.offline($row)">下架</a>'+
-            '<a title="上架" ng-if="$row.status !== 1" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.online($row)">上架</a>'+
-            '<a title="删除" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>';
+            '<a title="上架" ng-if="$row.status !== 1" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.online($row)">上架</a>'+
+            '<a title="删除" class="btn bg-red btn-xs shop-margin-top-3 shop-margin-left-2" ng-click="$table.delete($row)">删除</a>';
             return pg;
         }), ['oldName','imgurl','statusStr','action']);
     };
@@ -117,10 +117,10 @@ function flashCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         $scope.flashFlagObj.deleteOpen = false;
     }
     $scope.deleteSave = function(){
-        $http.post("/shopmanage/delete-shopType.json",{id:$scope.deleteFlagObj.id},angularMeta.postCfg)
+        $http.post("/shopmanage/deleteFlash.json",{id:$scope.deleteFlagObj.id},angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
-                    $scope.adFlagObj.deleteOpen = false;
+                    $scope.flashFlagObj.deleteOpen = false;
                     $scope.searchLoad();
                     toastr.info("删除成功!");
                 }else{
@@ -143,8 +143,6 @@ function flashCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                     pageData[i].statusStr = "未上架";
                 }else if(pageData[i].status == 1){
                     pageData[i].statusStr = "<span><font color='green'>已上架</font></span>";
-                }else if(pageData[i].status ==2){
-                    pageData[i].statusStr = "<span><font color='red'>已下架</font></span>"
                 }
 
             }

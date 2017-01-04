@@ -14,6 +14,19 @@
                     </select>
                 </div>
             </div>
+            <div class="col-xs-3" style="width:21%">
+                <div class="input-group input-group-sm">
+                    <div class="input-group-btn">
+                        <button title="上架状态" type="button" class="btn btn-default">上架状态</button>
+                    </div>
+                    <select class="form-control" name = "status" ng-model="search.status" ng-change="searchLoad(0)">
+                        <option value="">请选择</option>
+                        <option value=0>未上架</option>
+                        <option value=1>已上架</option>
+                        <option value=2>已下架</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </form>
     <div class="box">

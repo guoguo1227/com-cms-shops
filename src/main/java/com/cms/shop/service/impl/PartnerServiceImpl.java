@@ -38,7 +38,7 @@ public class PartnerServiceImpl implements PartnerService{
 
         criteria.setOrderByClause(" PARTNER_ID desc ");
         criteria.setLimitStart(0);
-        criteria.setLimitEnd(4);
+        criteria.setLimitEnd(5);
         List<Partner> partnerList = partnerMapper.selectByExample(criteria);
         if(CollectionUtils.isNotEmpty(partnerList)){
             for(Partner partner : partnerList){

@@ -85,6 +85,8 @@ public class IndexController extends BaseController{
 
         List<HotcategoryVo> hotcategoryList = hotcategoryService.queryHotNac();
 
+        List<Hotcategory> hotAllList = hotcategoryService.queryAll();
+
         List<District> districtList = districtService.queryAll();
 
         condition.setLimit(4);
@@ -112,6 +114,7 @@ public class IndexController extends BaseController{
         modelMap.addAttribute("businessBoardList",businessBoardList); //商家动态
         modelMap.addAttribute("imgBoardList",imgBoardList); //商家动态
         modelMap.addAttribute("hotcategoryList",hotcategoryList);//商铺类型
+        modelMap.addAttribute("hotAllList",hotAllList);//商铺类型
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("flash",flash);
         modelMap.addAttribute("keywordList",keywordList);

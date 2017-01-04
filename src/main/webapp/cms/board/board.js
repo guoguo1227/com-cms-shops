@@ -66,9 +66,9 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         pageData = $scope.formatPageData(pageData);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action = '<a title="删除" class="btn bg-info btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>'+
-            '<a title="审核通过" ng-if="$row.brdStatus != 1" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.pass($row)">审核通过</a>'+
-            '<a title="审核不通过" ng-if="$row.brdStatus == 1" class="btn bg-red btn-xs shop-margin-top-3" ng-click="$table.unpass($row)">审核不通过</a>';
+            pg.action = '<a title="删除" class="btn bg-red btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>'+
+            '<a title="审核通过" ng-if="$row.brdStatus != 1" class="btn bg-green btn-xs shop-margin-top-3 shop-margin-left-2" ng-click="$table.pass($row)">审核通过</a>'+
+            '<a title="审核不通过" ng-if="$row.brdStatus == 1" class="btn bg-orange btn-xs shop-margin-top-3 shop-margin-left-2" ng-click="$table.unpass($row)">审核不通过</a>';
             return pg;
         }), ['brdTitle','brdTypeStr','brdStatusStr','userName','createDate','action']);
     };
