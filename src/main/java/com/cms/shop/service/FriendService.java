@@ -19,6 +19,8 @@ public interface FriendService {
 
     RequestResult addFriend(Friend friend);
 
+    RequestResult updateFriend(Friend friend);
+
     RequestResult updateFriendStatus(Integer id,Integer status);
 
     List<Friend> queryOnList(SearchCondition condition);

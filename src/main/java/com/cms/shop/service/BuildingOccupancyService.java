@@ -19,5 +19,7 @@ public interface BuildingOccupancyService {
 
     boolean addOccupancy(BuildingOccupancy buildingOccupancy);
 
+    boolean updateOccupancy(BuildingOccupancy buildingOccupancy);
+
     List<BuildingOccupancy> queryAll();
 }

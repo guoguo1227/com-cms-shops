@@ -21,7 +21,8 @@
     <!--添加窗口-->
     <lg-modal open="linkFlagObj.addOpen">
         <div class="modal-header">
-            <h4 class="modal-title">添加友情链接</h4>
+            <h4 class="modal-title" ng-if="!linkFlagObj.edit">添加友情链接</h4>
+            <h4 class="modal-title" ng-if="linkFlagObj.edit">添加友情链接</h4>
         </div>
         <div class="modal-body">
             <form class="form-horizontal">
@@ -41,7 +42,8 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-default " ng-click="addFriendCancle()">关闭</button>
-                    <button class="btn btn-info pull-right" ng-click="addFriendSave()">确定</button>
+                    <button class="btn btn-info pull-right" ng-if="!linkFlagObj.edit" ng-click="addFriendSave()">确定</button>
+                    <button class="btn btn-info pull-right" ng-if="linkFlagObj.edit" ng-click="updateFriendSave()">编辑</button>
                 </div>
             </form>
         </div>

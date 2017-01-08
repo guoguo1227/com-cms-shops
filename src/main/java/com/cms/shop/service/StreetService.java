@@ -23,4 +23,6 @@ public interface StreetService {
     boolean deleteById(Integer id);
 
     boolean addStreet(Street street);
+
+    boolean updateStreet(Street street);
 }

@@ -35,6 +35,14 @@ function propertyCtrl($scope,$http,angularMeta,lgDataTableService){
             delete : function(row){
                 $scope.propertyFlagObj.deleteOpen = true;
                 $scope.deleteInfo = {id:row.typeId};
+            },
+            edit : function(row){
+                $scope.propertyFlagObj.addOpen = true;
+                $scope.addPropertyObj = {
+                    typeId : row.typeId,
+                    typeName : row.typeName
+                };
+                $scope.propertyFlagObj.edit = true;
             }
         };
 
@@ -43,7 +51,8 @@ function propertyCtrl($scope,$http,angularMeta,lgDataTableService){
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="删除" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>';
+            pg.action ='<a title="编辑" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.edit($row)">编辑</a>'+
+                '<a title="删除" class="btn bg-red btn-xs shop-margin-top-3 shop-margin-left-2" ng-click="$table.delete($row)">删除</a>';
             return pg;
         }), ['typeName','action']);
     };
@@ -79,6 +88,7 @@ function propertyCtrl($scope,$http,angularMeta,lgDataTableService){
     $scope.addPropertyBtn = function(){
         $scope.propertyFlagObj.addOpen = true;
         $scope.addPropertyObj = {};
+        $scope.propertyFlagObj.edit = false;
     }
     //取消添加
     $scope.addPropertyCancle = function(){
@@ -94,6 +104,22 @@ function propertyCtrl($scope,$http,angularMeta,lgDataTableService){
                     $scope.propertyFlagObj.addOpen = false;
                     $scope.searchLoad();
                     toastr.info("添加成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
+    }
+    //编辑
+    $scope.updatePropertySave = function(){
+        if(!$scope.addPropertyObj.typeName){
+            return toastr.info("物业性质名称不可为空")
+        }
+        $http.post("/shopmanage/update-shopType.json",$scope.addPropertyObj,angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.propertyFlagObj.addOpen = false;
+                    $scope.searchLoad();
+                    toastr.info("修改成功!");
                 }else{
                     toastr.error(data.message);
                 }

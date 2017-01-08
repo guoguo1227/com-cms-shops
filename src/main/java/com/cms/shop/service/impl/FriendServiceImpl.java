@@ -72,6 +72,29 @@ public class FriendServiceImpl implements FriendService{
     }
 
     @Override
+    public RequestResult updateFriend(Friend friend) {
+        RequestResult result = new RequestResult();
+        boolean success = false;
+        String message = "";
+        if(null != friend && null != friend.getFriendId()){
+            Friend tmp = friendMapper.selectByPrimaryKey(friend.getFriendId());
+            if(null != tmp){
+                tmp.setFriendName(friend.getFriendName());
+                tmp.setUrl(friend.getUrl());
+                int i = friendMapper.updateByPrimaryKeySelective(tmp);
+                if(i>0){
+                    success = true;
+                }
+            }
+        }else{
+            message = "id不可为空";
+        }
+        result.setSuccess(success);
+        result.setMessage(message);
+        return result;
+    }
+
+    @Override
     public RequestResult updateFriendStatus(Integer id,Integer status) {
         RequestResult result = new RequestResult();
         boolean success = false;

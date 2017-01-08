@@ -75,4 +75,20 @@ public class BuildingFacilityServiceImpl implements BuildingFacilityService{
         }
         return success;
     }
+
+    @Override
+    public boolean updateBuildingFacility(BuildingFacility buildingFacility) {
+        boolean success = false;
+        if(null != buildingFacility && null != buildingFacility.getFacilId()){
+            BuildingFacility tmp = buildingFacilityMapper.selectByPrimaryKey(buildingFacility.getFacilId());
+            if(null != tmp){
+                tmp.setFacilName(buildingFacility.getFacilName());
+                int i = buildingFacilityMapper.updateByPrimaryKeySelective(tmp);
+                if(i>0){
+                    success = true;
+                }
+            }
+
+        }
+        return success;    }
 }

@@ -19,6 +19,8 @@ public interface ShopTypeService {
 
     boolean addShopType(ShopType shopType);
 
+    boolean updateShopType(ShopType shopType);
+
     ShopType queryShopTypeById(Integer id);
 
     List<ShopType> queryAll();

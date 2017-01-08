@@ -20,4 +20,6 @@ public interface BuildingFacilityService {
     boolean deleteById(Integer id);
 
     boolean addBuildingFacility(BuildingFacility buildingFacility);
+
+    boolean updateBuildingFacility(BuildingFacility buildingFacility);
 }

@@ -21,5 +21,7 @@ public interface BuildingFinishingService {
 
     boolean addBuildingFinishing(BuildingFinishing buildingFinishing);
 
+    boolean updateBuildingFinishing(BuildingFinishing buildingFinishing);
+
     boolean deleteBuildingFinishing(Integer id);
 }

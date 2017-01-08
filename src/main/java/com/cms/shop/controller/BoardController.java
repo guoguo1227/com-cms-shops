@@ -71,18 +71,6 @@ public class BoardController extends BaseController{
         return gson.toJson(result);
     }
 
-    @RequestMapping("update")
-    @ResponseBody
-    public String updateBoard(Board board){
-
-        RequestResult result = new RequestResult();
-        result.setSuccess(false);
-        if(null != board){
-            result =  boardService.updateBoard(board);
-        }
-        return gson.toJson(result);
-    }
-
     /**
      * 审核公告
      * @param id
@@ -119,6 +107,30 @@ public class BoardController extends BaseController{
             board.setBrdType(vo.getBrdType());
             board.setCreId(getUserId());
             result =  boardService.addBoard(board,vo.getImg());
+        }
+        return gson.toJson(result);
+    }
+
+    /**
+     * 更新公告
+     * @param vo
+     * @return
+     */
+    @RequestMapping("update")
+    @ResponseBody
+    public String updateBoard(BoardVo vo){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != vo && null != vo.getBrdId()){
+            Board board = new Board();
+            board.setBrdId(vo.getBrdId());
+            board.setBrdContent(vo.getBrdContent());
+            board.setBrdTitle(vo.getBrdTitle());
+            board.setBrdType(vo.getBrdType());
+            result =  boardService.updateBoard(board,vo.getImg());
+        }else{
+            result.setMessage("id不可为空!");
         }
         return gson.toJson(result);
     }

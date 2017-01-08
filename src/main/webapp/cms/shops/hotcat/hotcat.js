@@ -35,6 +35,15 @@ function hotcatCtrl($scope,$http,angularMeta,lgDataTableService){
             delete : function(row){
                 $scope.hotcatFlagObj.deleteOpen = true;
                 $scope.deleteInfo = {id:row.hotId};
+            },
+            edit : function(row){
+                $scope.hotcatFlagObj.addOpen = true;
+                $scope.addHotcateObj = {
+                    hotId : row.hotId,
+                    hotName : row.hotName,
+                    priority : row.priority
+                };
+                $scope.hotcatFlagObj.edit = true;
             }
         };
 
@@ -43,7 +52,8 @@ function hotcatCtrl($scope,$http,angularMeta,lgDataTableService){
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="删除" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>';
+            pg.action ='<a title="编辑" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.edit($row)">编辑</a>'+
+                '<a title="删除" class="btn bg-red btn-xs shop-margin-top-3 shop-margin-left-2" ng-click="$table.delete($row)">删除</a>';
             return pg;
         }), ['hotName','action']);
     };
@@ -79,6 +89,7 @@ function hotcatCtrl($scope,$http,angularMeta,lgDataTableService){
     $scope.addHotcatBtn = function(){
         $scope.hotcatFlagObj.addOpen = true;
         $scope.addHotcateObj = {};
+        $scope.hotcatFlagObj.edit = false;
     }
     //取消添加
     $scope.addHotcatCancle = function(){
@@ -94,6 +105,22 @@ function hotcatCtrl($scope,$http,angularMeta,lgDataTableService){
                     $scope.hotcatFlagObj.addOpen = false;
                     $scope.searchLoad();
                     toastr.info("添加成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
+    }
+    //编辑
+    $scope.updateHotcatSave = function(){
+        if(!$scope.addHotcateObj.hotName){
+            return toastr.info("类型名称不可为空")
+        }
+        $http.post("/shopmanage/update-hotcate.json",$scope.addHotcateObj,angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.hotcatFlagObj.addOpen = false;
+                    $scope.searchLoad();
+                    toastr.info("修改成功!");
                 }else{
                     toastr.error(data.message);
                 }

@@ -17,12 +17,12 @@
             #foreach($adtop in $!advertTopList)
                 #if($!velocityCount == 1)
                     <div class="item active">
-                        <img src="$!adtop.newPicName" alt="">
+                        <a href="$!adtop.url" target="_blank" style="height: 350px;"><img src="$!adtop.newPicName" alt="" style="width: 100%;height:100%;"></a>
                     #*<embed src="/flash/20141103232602_65944-3039.swf" style="width:300px;height: 100px;" class="ng-scope">*#
                     </div>
                 #else
-                    <div class="item">
-                        <img src="$!adtop.newPicName" alt="">
+                    <div class="item" style="height:350px;">
+                        <a href="$!adtop.url" target="_blank" style="height: 350px;"><img src="$!adtop.newPicName" alt="" style="width: 100%;height: 100%;;"></a>
                     </div>
                 #end
             #end
@@ -182,7 +182,7 @@
                         </div>
                     </button>
                     <div class="panel-default col-lg-12 thumbnail shop-border-none" style="height: 60px;">
-                        <a class="buy" href="http://wpa.qq.com/msgrd?V=1&amp;uin=316527345&amp;Site=beiyishop&amp;Menu=yes" target="_blank" title="在线客服">
+                        <a class="buy" href="http://wpa.qq.com/msgrd?V=1&amp;uin=2046303590&amp;Site=beiyishop&amp;Menu=yes" target="_blank" title="在线客服">
                             <img src="/static/ui/images/qq.png" style="height: 25px;" ><p><font color="red">在线客服</font></p>
                         </a>
                     </div>

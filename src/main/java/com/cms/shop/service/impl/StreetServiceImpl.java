@@ -129,4 +129,21 @@ public class StreetServiceImpl implements StreetService{
         }
         return success;
     }
+
+    @Override
+    public boolean updateStreet(Street street) {
+        boolean success = false;
+        if(null != street && null != street.getStreetId()){
+            Street tmp = streetMapper.selectByPrimaryKey(street.getStreetId());
+            if(null != tmp){
+                tmp.setStreetName(street.getStreetName());
+                tmp.setDistrictId(street.getDistrictId());
+                int i = streetMapper.updateByPrimaryKeySelective(tmp);
+                if(i>0){
+                    success = true;
+                }
+            }
+        }
+        return success;
+    }
 }

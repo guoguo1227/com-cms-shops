@@ -118,7 +118,29 @@ public class ShopManageController extends BaseController{
         }
         return gson.toJson(result);
     }
+    /**
+     * 编辑建筑结构
+     * @param architecture
+     * @return
+     */
+    @RequestMapping("update-archit")
+    @ResponseBody
+    public String updateArchit(Architecture architecture){
 
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != architecture && !StringUtils.isBlank(architecture.getArchiName())){
+            boolean success = architectureService.updateArchitecture(architecture);
+            if(success){
+                result.setSuccess(true);
+            }else{
+                result.setMessage("修改失败!");
+            }
+        }else{
+            result.setMessage("建筑结构名称不可为空!");
+        }
+        return gson.toJson(result);
+    }
     /**
      * 删除建筑结构
      * @param id
@@ -189,6 +211,30 @@ public class ShopManageController extends BaseController{
                 result.setSuccess(true);
             }else{
                 result.setMessage("添加失败!");
+            }
+        }else{
+            result.setMessage("配套设施名称不可为空!");
+        }
+        return gson.toJson(result);
+    }
+
+    /**
+     * 编辑配套设施
+     * @param buildingFacility
+     * @return
+     */
+    @RequestMapping("update-buildFaci")
+    @ResponseBody
+    public String updateBuildFaci(BuildingFacility buildingFacility){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != buildingFacility && !StringUtils.isBlank(buildingFacility.getFacilName())){
+            boolean success = buildingFacilityService.updateBuildingFacility(buildingFacility);
+            if(success){
+                result.setSuccess(true);
+            }else{
+                result.setMessage("修改失败!");
             }
         }else{
             result.setMessage("配套设施名称不可为空!");
@@ -269,6 +315,29 @@ public class ShopManageController extends BaseController{
         return gson.toJson(result);
     }
     /**
+     * 修改装修类型
+     * @param buildingFinishing
+     * @return
+     */
+    @RequestMapping("update-buildFinish")
+    @ResponseBody
+    public String updateBuildFinish(BuildingFinishing buildingFinishing){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != buildingFinishing){
+            boolean success = buildingFinishingService.updateBuildingFinishing(buildingFinishing);
+            if(success){
+                result.setSuccess(true);
+            }else{
+                result.setMessage("修改失败!");
+            }
+        }else{
+            result.setMessage("类型不可为空!");
+        }
+        return gson.toJson(result);
+    }
+    /**
      * 添加装修类型
      * @param id
      * @return
@@ -342,7 +411,29 @@ public class ShopManageController extends BaseController{
         }
         return gson.toJson(result);
     }
+    /**
+     * 编辑适宜业态
+     * @param buildingOccupancy
+     * @return
+     */
+    @RequestMapping("update-buildOccup")
+    @ResponseBody
+    public String updateOccup(BuildingOccupancy buildingOccupancy){
 
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != buildingOccupancy && !StringUtils.isBlank(buildingOccupancy.getOcpyName())){
+            boolean success = buildingOccupancyService.updateOccupancy(buildingOccupancy);
+            if(success){
+                result.setSuccess(true);
+            }else{
+                result.setMessage("操作失败!");
+            }
+        }else{
+            result.setMessage("名称不可为空!");
+        }
+        return gson.toJson(result);
+    }
     /**
      * 删除适宜业态
      * @param id
@@ -412,6 +503,28 @@ public class ShopManageController extends BaseController{
                 result.setSuccess(true);
             }else{
                 result.setMessage("添加失败!");
+            }
+        }else{
+            result.setMessage("地区名称不可为空!");
+        }
+        return gson.toJson(result);
+    }
+    /**
+     * 编辑地区
+     * @param district
+     * @return
+     */
+    @RequestMapping("update-district")
+    @ResponseBody
+    public String updateDistrict(District district){
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != district && !StringUtils.isBlank(district.getDistrictName())){
+            boolean success = districtService.updateDistrict(district);
+            if(success){
+                result.setSuccess(true);
+            }else{
+                result.setMessage("更新失败!");
             }
         }else{
             result.setMessage("地区名称不可为空!");
@@ -520,6 +633,30 @@ public class ShopManageController extends BaseController{
         }
         return gson.toJson(result);
     }
+    /**
+     * 编辑商铺类型
+     * @param hotcategory
+     * @return
+     */
+    @RequestMapping("update-hotcate")
+    @ResponseBody
+    public String updateHotcate(Hotcategory hotcategory){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+
+        if(null != hotcategory && !StringUtils.isBlank(hotcategory.getHotName())){
+            boolean success = hotcategoryService.updateHotcat(hotcategory);
+            if(success){
+                result.setSuccess(true);
+            }else{
+                result.setMessage("操作失败");
+            }
+        }else{
+            result.setMessage("名称不可为空!");
+        }
+        return gson.toJson(result);
+    }
 
     /**
      * 删除商铺类型
@@ -590,6 +727,30 @@ public class ShopManageController extends BaseController{
         result.setSuccess(false);
         if(null != shopType && !StringUtils.isBlank(shopType.getTypeName())){
             boolean success = shopTypeService.addShopType(shopType);
+            if(success){
+                result.setSuccess(true);
+            }else{
+                result.setMessage("操作失败!");
+            }
+        }else{
+            result.setMessage("名称不可为空!");
+        }
+        return gson.toJson(result);
+    }
+
+    /**
+     * 添加物业性质
+     * @param shopType
+     * @return
+     */
+    @RequestMapping("update-shopType")
+    @ResponseBody
+    public String updateShopType(ShopType shopType){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != shopType && !StringUtils.isBlank(shopType.getTypeName())){
+            boolean success = shopTypeService.updateShopType(shopType);
             if(success){
                 result.setSuccess(true);
             }else{
@@ -694,6 +855,30 @@ public class ShopManageController extends BaseController{
     }
 
     /**
+     * 编辑街镇
+     * @param street
+     * @return
+     */
+    @RequestMapping("update-stree")
+    @ResponseBody
+    public String updateStreet(Street street){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != street && null != street.getDistrictId() && !StringUtils.isBlank(street.getStreetName())){
+            boolean success = streetService.updateStreet(street);
+            if(success){
+                result.setSuccess(true);
+            }else{
+                result.setMessage("更新失败!");
+            }
+        }else{
+            result.setMessage("街道名称和地区不可为空!");
+        }
+        return gson.toJson(result);
+    }
+
+    /**
      * 删除街道
      * @param id
      * @return
@@ -759,6 +944,19 @@ public class ShopManageController extends BaseController{
         RequestResult result = new RequestResult();
         result.setSuccess(false);
         result = friendService.addFriend(friend);
+        return gson.toJson(result);
+    }
+    /**
+     * 更新友情链接
+     * @param friend
+     * @return
+     */
+    @RequestMapping("update-friend")
+    @ResponseBody
+    public String updateFriend(Friend friend){
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        result = friendService.updateFriend(friend);
         return gson.toJson(result);
     }
 

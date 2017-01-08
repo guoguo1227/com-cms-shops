@@ -35,6 +35,23 @@ function streetCtrl($scope,$http,angularMeta,lgDataTableService){
             delete : function(row){
                 $scope.streetFlagObj.deleteOpen = true;
                 $scope.deleteInfo = {id:row.streetId};
+            },
+            edit : function(row){
+                $http.post("/shopmanage/district-all.json",{},angularMeta.postCfg)
+                    .success(function(data){
+                        if(data.success){
+                            if(data.data && Array.isArray(data.data)){
+                                $scope.streetFlagObj.districtArr = data.data;
+                            }
+                        }
+                    });
+                $scope.streetFlagObj.addOpen = true;
+                $scope.streetFlagObj.edit = true;
+                $scope.addStreetObj = {
+                    streetId:row.streetId,
+                    streetName:row.streetName,
+                    districtId:row.districtId
+                };
             }
         };
 
@@ -43,7 +60,8 @@ function streetCtrl($scope,$http,angularMeta,lgDataTableService){
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="删除" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>';
+            pg.action =  '<a title="编辑" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.edit($row)">编辑</a>'+
+                '<a title="删除" class="btn bg-red btn-xs shop-margin-top-3 shop-margin-left-2" ng-click="$table.delete($row)">删除</a>';
             return pg;
         }), ['streetName','districtName','action']);
     };
@@ -87,6 +105,26 @@ function streetCtrl($scope,$http,angularMeta,lgDataTableService){
             });
         $scope.streetFlagObj.addOpen = true;
         $scope.addStreetObj = {};
+        $scope.streetFlagObj.edit = false;
+    }
+    //编辑
+    $scope.updateStreetSave = function(){
+        if(!$scope.addStreetObj.streetName){
+            return toastr.info("街镇名称不可为空")
+        }
+        if(!$scope.addStreetObj.districtId){
+            return toastr.info("所属地区不可为空")
+        }
+        $http.post("/shopmanage/update-stree.json",$scope.addStreetObj,angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.streetFlagObj.addOpen = false;
+                    $scope.searchLoad();
+                    toastr.info("编辑成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
     }
     //取消添加
     $scope.addStreetCancle = function(){

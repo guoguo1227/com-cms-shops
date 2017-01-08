@@ -1,13 +1,4 @@
 <div class="col-xs-12" id="propertyApp"  ng-app="propertyApp"  ng-controller="propertyCtrl" ng-init="init()">
-    <form class="" role="form">
-        <div class="box-body">
-            <div class="form-group row">
-                <div class="col-xs-2 shop-margin-top-10">
-                </div>
-            </div>
-
-        </div>
-    </form>
 
     <div class="box">
         <div class="box-header with-border">
@@ -29,7 +20,8 @@
     <!--添加窗口-->
     <lg-modal open="propertyFlagObj.addOpen">
         <div class="modal-header">
-            <h4 class="modal-title">添加物业性质</h4>
+            <h4 class="modal-title" ng-if="!propertyFlagObj.edit">添加物业性质</h4>
+            <h4 class="modal-title" ng-if="propertyFlagObj.edit">修改物业性质</h4>
         </div>
         <div class="modal-body">
             <form class="form-horizontal">
@@ -43,7 +35,8 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-default " ng-click="addPropertyCancle()">关闭</button>
-                    <button class="btn btn-info pull-right" ng-click="addPropertySave()">确定</button>
+                    <button class="btn btn-info pull-right" ng-click="addPropertySave()" ng-if="!propertyFlagObj.edit">确定</button>
+                    <button class="btn btn-info pull-right" ng-click="updatePropertySave()" ng-if="propertyFlagObj.edit">修改</button>
                 </div>
             </form>
         </div>

@@ -12,6 +12,7 @@ function businessrCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             openEffect	: 'none',
             closeEffect	: 'none'
         });
+        $scope.initUE();
     };
 
     $scope.ready = function(){
@@ -42,7 +43,6 @@ function businessrCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                 $scope.businessFlagObj.addOpen = true;
                 $scope.businessFlagObj.detailFlag = true;
 
-                $scope.initUE();
                 if($scope.addBusinessObj.bizContent){
                     $scope.ue.setContent($scope.addBusinessObj.bizContent);
                 }

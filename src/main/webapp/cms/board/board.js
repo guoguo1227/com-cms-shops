@@ -8,6 +8,7 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
     //初始化table
     $scope.init = function() {
         $scope.ready();
+        $scope.initUE();
     };
 
     $scope.ready = function(){
@@ -57,6 +58,15 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                             toastr.error(data.message);
                         }
                     });
+            },
+            update : function(row){
+                $scope.addBoardObj = row;
+                $scope.addBoardObj.brdType += '';
+                $scope.boardFlagObj.addOpen = true;
+                $scope.boardFlagObj.edit = true;
+                if(row.brdContent){
+                    $scope.ue.setContent(row.brdContent);
+                }
             }
         };
 
@@ -68,7 +78,8 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
             pg.action = '<a title="删除" class="btn bg-red btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>'+
             '<a title="审核通过" ng-if="$row.brdStatus != 1" class="btn bg-green btn-xs shop-margin-top-3 shop-margin-left-2" ng-click="$table.pass($row)">审核通过</a>'+
-            '<a title="审核不通过" ng-if="$row.brdStatus == 1" class="btn bg-orange btn-xs shop-margin-top-3 shop-margin-left-2" ng-click="$table.unpass($row)">审核不通过</a>';
+            '<a title="审核不通过" ng-if="$row.brdStatus == 1" class="btn bg-orange btn-xs shop-margin-top-3 shop-margin-left-2" ng-click="$table.unpass($row)">审核不通过</a>'+
+            '<a title="编辑" class="btn bg-blue btn-xs shop-margin-top-3 shop-margin-left-2" ng-click="$table.update($row)">编辑</a>';
             return pg;
         }), ['brdTitle','brdTypeStr','brdStatusStr','userName','createDate','action']);
     };
@@ -88,7 +99,10 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
     $scope.addBoardBtn = function(){
         $scope.addBoardObj = {};
         $scope.boardFlagObj.addOpen = true;
-        $scope.initUE();
+        $scope.boardFlagObj.edit = false;
+
+        $scope.ue.setContent("");
+        //$scope.initUE();
     }
     $scope.addBoardCancle = function(){
         $scope.boardFlagObj.addOpen = false;
@@ -111,6 +125,19 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                     $scope.searchLoad();
                     $scope.boardFlagObj.addOpen = false;
                     toastr.info("添加成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
+    }
+    //更新公告
+    $scope.updateBoardSave = function(){
+        $http.post("/board/update.json",$scope.addBoardObj,angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.searchLoad();
+                    $scope.boardFlagObj.addOpen = false;
+                    toastr.info("更新成功!");
                 }else{
                     toastr.error(data.message);
                 }

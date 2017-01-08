@@ -20,6 +20,8 @@ public interface BoardService {
 
     RequestResult addBoard(Board board,String img);
 
+    RequestResult updateBoard(Board board,String img);
+
     RequestResult deleteBoardById(Integer id);
 
     RequestResult queryBoardById(Integer id);

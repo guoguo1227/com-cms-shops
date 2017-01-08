@@ -23,4 +23,6 @@ public interface HotcategoryService {
     boolean deleteById(Integer id);
 
     boolean addHotcate(Hotcategory hotcategory);
+
+    boolean updateHotcat(Hotcategory hotcategory);
 }

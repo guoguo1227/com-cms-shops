@@ -76,4 +76,21 @@ public class ArchitectureServiceImpl implements ArchitectureService{
         }
         return success;
     }
+
+    @Override
+    public boolean updateArchitecture(Architecture architecture) {
+        boolean success = false;
+        if(null != architecture && null != architecture.getArchiId()){
+            Architecture tmp = architectureMapper.selectByPrimaryKey(architecture.getArchiId());
+            if(null != tmp){
+                tmp.setArchiName(architecture.getArchiName());
+                int i = architectureMapper.updateByPrimaryKeySelective(tmp);
+                if(i>0){
+                    success = true;
+                }
+            }
+
+        }
+        return success;
+    }
 }

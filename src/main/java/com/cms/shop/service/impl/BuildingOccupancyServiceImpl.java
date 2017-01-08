@@ -71,6 +71,22 @@ public class BuildingOccupancyServiceImpl implements BuildingOccupancyService {
     }
 
     @Override
+    public boolean updateOccupancy(BuildingOccupancy buildingOccupancy) {
+        boolean success = false;
+        if(null != buildingOccupancy && null != buildingOccupancy.getOcpyId()){
+            BuildingOccupancy tmp = buildingOccupancyMapper.selectByPrimaryKey(buildingOccupancy.getOcpyId());
+            if(null != tmp){
+                tmp.setOcpyName(buildingOccupancy.getOcpyName());
+                int i = buildingOccupancyMapper.updateByPrimaryKeySelective(buildingOccupancy);
+                if(i>0){
+                    success = true;
+                }
+            }
+        }
+        return success;
+    }
+
+    @Override
     public List<BuildingOccupancy> queryAll() {
         List<BuildingOccupancy> buildingOccupancyList = null;
         BuildingOccupancyCriteria criteria = new BuildingOccupancyCriteria();

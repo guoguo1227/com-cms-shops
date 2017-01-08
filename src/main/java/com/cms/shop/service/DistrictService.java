@@ -35,5 +35,7 @@ public interface DistrictService {
 
     public boolean addDistrict(District district);
 
+    public boolean updateDistrict(District district);
+
     public District queryDistrictById(Integer id);
 }

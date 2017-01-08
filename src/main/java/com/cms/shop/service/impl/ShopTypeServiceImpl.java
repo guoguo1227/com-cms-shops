@@ -74,6 +74,22 @@ public class ShopTypeServiceImpl implements ShopTypeService{
     }
 
     @Override
+    public boolean updateShopType(ShopType shopType) {
+        boolean success = true;
+        if(null != shopType && null != shopType.getTypeId()){
+            ShopType tmp = shopTypeMapper.selectByPrimaryKey(shopType.getTypeId());
+            if(null != tmp){
+                tmp.setTypeName(shopType.getTypeName());
+                int i = shopTypeMapper.updateByPrimaryKeySelective(tmp);
+                if(i>0){
+                    success = true;
+                }
+            }
+        }
+        return success;
+    }
+
+    @Override
     public ShopType queryShopTypeById(Integer id) {
         ShopType shopType = null;
         if(null != id){

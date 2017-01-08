@@ -105,6 +105,23 @@ public class DistrictServiceImpl implements DistrictService {
     }
 
     @Override
+    public boolean updateDistrict(District district) {
+        boolean success = false;
+        if(null != district && null != district.getDistrictId()){
+            District tmp = districtMapper.selectByPrimaryKey(district.getDistrictId());
+            if(null != tmp){
+                tmp.setDistrictName(district.getDistrictName());
+                tmp.setPriority(district.getPriority());
+                int i = districtMapper.updateByPrimaryKeySelective(tmp);
+                if(i>0){
+                    success = true;
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
     public District queryDistrictById(Integer id) {
         District district = null;
         if(null != id){

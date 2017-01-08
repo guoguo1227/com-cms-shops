@@ -53,6 +53,12 @@ function linkCtrl($scope,$http,angularMeta,lgDataTableService){
                             toastr.error(data.message);
                         }
                     });
+            },
+            edit : function(row){
+                $scope.linkFlagObj.addOpen = true;
+                $scope.addLinkObj = row;
+                $scope.linkFlagObj.edit = true;
+
             }
         };
 
@@ -62,7 +68,8 @@ function linkCtrl($scope,$http,angularMeta,lgDataTableService){
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
             pg.action =  '<a title="上架" ng-if="$row.status !== 1" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.online($row)">上架</a>'+
-                '<a title="下架" ng-if="$row.status == 1" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.offline($row)">下架</a>';
+                '<a title="下架" ng-if="$row.status == 1" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.offline($row)">下架</a>'+
+            '<a title="编辑"  class="btn bg-blue btn-xs shop-margin-top-3 shop-margin-left-2" ng-click="$table.edit($row)">编辑</a>';
             return pg;
         }), ['friendName','url','statusStr','action']);
     };
@@ -82,11 +89,13 @@ function linkCtrl($scope,$http,angularMeta,lgDataTableService){
     $scope.addLinkBtn = function(){
         $scope.addLinkObj = {};
         $scope.linkFlagObj.addOpen = true;
+        $scope.linkFlagObj.edit = false;
 
     }
     $scope.addFriendCancle = function(){
         $scope.linkFlagObj.addOpen = false;
     }
+    //添加
     $scope.addFriendSave = function(){
         $http.post("/shopmanage/add-friend.json",$scope.addLinkObj,angularMeta.postCfg)
             .success(function(data){
@@ -94,6 +103,19 @@ function linkCtrl($scope,$http,angularMeta,lgDataTableService){
                     $scope.searchLoad();
                     $scope.linkFlagObj.addOpen = false;
                     toastr.info("添加成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
+    }
+    //更新
+    $scope.updateFriendSave = function (){
+        $http.post("/shopmanage/update-friend.json",$scope.addLinkObj,angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.searchLoad();
+                    $scope.linkFlagObj.addOpen = false;
+                    toastr.info("编辑成功!");
                 }else{
                     toastr.error(data.message);
                 }

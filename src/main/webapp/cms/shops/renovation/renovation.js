@@ -35,6 +35,14 @@ function renovationCtrl($scope,$http,angularMeta,lgDataTableService){
             delete : function(row){
                 $scope.renovationFlagObj.deleteOpen = true;
                 $scope.deleteInfo = {id:row.finishingId};
+            },
+            edit : function(row){
+                $scope.renovationFlagObj.addOpen = true;
+                $scope.addRenovationObj = {
+                    finishingId : row.finishingId,
+                    finishingName : row.finishingName
+                };
+                $scope.renovationFlagObj.edit = true;
             }
         };
 
@@ -43,7 +51,8 @@ function renovationCtrl($scope,$http,angularMeta,lgDataTableService){
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="删除" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>';
+            pg.action = '<a title="编辑" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.edit($row)">编辑</a>'+
+                '<a title="删除" class="btn bg-red btn-xs shop-margin-top-3 shop-margin-left-2" ng-click="$table.delete($row)">删除</a>';
             return pg;
         }), ['finishingName','action']);
     };
@@ -79,6 +88,7 @@ function renovationCtrl($scope,$http,angularMeta,lgDataTableService){
     $scope.addRenovationBtn = function(){
         $scope.renovationFlagObj.addOpen = true;
         $scope.addRenovationObj = {};
+        $scope.renovationFlagObj.edit = false;
     }
     //取消添加
     $scope.addRenovationCancle = function(){
@@ -94,6 +104,22 @@ function renovationCtrl($scope,$http,angularMeta,lgDataTableService){
                     $scope.renovationFlagObj.addOpen = false;
                     $scope.searchLoad();
                     toastr.info("添加成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
+    }
+    //编辑
+    $scope.updateRenovationSave = function(){
+        if(!$scope.addRenovationObj.finishingName){
+            return toastr.info("装修类型名称不可为空")
+        }
+        $http.post("/shopmanage/update-buildFinish.json",$scope.addRenovationObj,angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.renovationFlagObj.addOpen = false;
+                    $scope.searchLoad();
+                    toastr.info("修改成功!");
                 }else{
                     toastr.error(data.message);
                 }

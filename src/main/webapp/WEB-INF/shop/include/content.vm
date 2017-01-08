@@ -231,7 +231,7 @@
                             #end
                             #if($velocityCount == 1 || $velocityCount == 4)
                                 <div class="shop-text">
-                                    <div class="shop-imgtext">
+                                    <div class="shop-imgtext" style="background:#337ab7;">
                                         <p>
                                             <span>$!{distribe}</span>
                                         </p>

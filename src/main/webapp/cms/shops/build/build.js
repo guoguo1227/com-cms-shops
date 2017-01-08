@@ -36,6 +36,14 @@ function buildCtrl($scope,$http,angularMeta,lgDataTableService){
             delete : function(row){
                 $scope.buildFlagObj.deleteOpen = true;
                 $scope.deleteInfo = {id:row.archiId};
+            },
+            edit : function(row){
+                $scope.buildFlagObj.addOpen = true;
+                $scope.addBuildObj = {
+                    archiId : row.archiId,
+                    archiName : row.archiName
+                };
+                $scope.buildFlagObj.edit = true;
             }
         };
 
@@ -44,7 +52,8 @@ function buildCtrl($scope,$http,angularMeta,lgDataTableService){
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="删除" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>';
+            pg.action = '<a title="编辑" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.edit($row)">编辑</a>'+
+                '<a title="删除" class="btn bg-red btn-xs shop-margin-top-3 shop-margin-left-2" ng-click="$table.delete($row)">删除</a>';
             return pg;
         }), ['archiName','action']);
     };
@@ -80,6 +89,7 @@ function buildCtrl($scope,$http,angularMeta,lgDataTableService){
     $scope.addBuildBtn = function(){
         $scope.buildFlagObj.addOpen = true;
         $scope.addBuildObj = {};
+        $scope.buildFlagObj.edit = false;
     }
     //取消添加
     $scope.addBuildCancle = function(){
@@ -90,6 +100,22 @@ function buildCtrl($scope,$http,angularMeta,lgDataTableService){
             return toastr.info("建筑结构名称不可为空")
         }
         $http.post("/shopmanage/add-archit.json",$scope.addBuildObj,angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.buildFlagObj.addOpen = false;
+                    $scope.searchLoad();
+                    toastr.info("添加成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
+    }
+    //编辑
+    $scope.updateBuildSave = function(){
+        if(!$scope.addBuildObj.archiName){
+            return toastr.info("建筑结构名称不可为空")
+        }
+        $http.post("/shopmanage/update-archit.json",$scope.addBuildObj,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
                     $scope.buildFlagObj.addOpen = false;

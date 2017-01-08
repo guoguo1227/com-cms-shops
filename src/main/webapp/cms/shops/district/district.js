@@ -61,6 +61,16 @@ function districtCtrl($scope,$http,angularMeta,lgDataTableService){
             delete : function(row){
                 $scope.districtFlagObj.deleteOpen = true;
                 $scope.deleteInfo = {id:row.districtId};
+            },
+            //编辑
+            edit : function(row){
+                $scope.districtFlagObj.addOpen = true;
+                $scope.districtFlagObj.edit = true;
+                $scope.addDistrict = {
+                    districtName:row.districtName,
+                    priority:row.priority,
+                    districtId : row.districtId
+                };
             }
 
         };
@@ -72,6 +82,7 @@ function districtCtrl($scope,$http,angularMeta,lgDataTableService){
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
             pg.action =  '<a title="上移" class="btn bg-blue btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.up($row)">上移</a>'+
             '<a title="下移" class="btn bg-green btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.down($row)">下移</a>'+
+            '<a title="编辑" class="btn bg-blue btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.edit($row)">编辑</a>'+
                 '<a title="删除" class="btn bg-green btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.delete($row)">删除</a>';
             return pg;
         }), ['districtName','priority','action']);
@@ -91,6 +102,7 @@ function districtCtrl($scope,$http,angularMeta,lgDataTableService){
     //添加地区弹窗
     $scope.addDistrictBtn = function(){
         $scope.districtFlagObj.addOpen = true;
+        $scope.districtFlagObj.edit = false;
         $scope.addDistrict = {};
     }
     //取消弹窗
@@ -108,6 +120,22 @@ function districtCtrl($scope,$http,angularMeta,lgDataTableService){
                     $scope.districtFlagObj.addOpen = false;
                     $scope.searchLoad();
                     toastr.info("添加成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
+    }
+    //编辑地区
+    $scope.editDistrictSave = function(){
+        if(!$scope.addDistrict.districtName){
+            return toastr.info("地区名称不可为空")
+        }
+        $http.post("/shopmanage/update-district.json",$scope.addDistrict,angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.districtFlagObj.addOpen = false;
+                    $scope.searchLoad();
+                    toastr.info("编辑成功!");
                 }else{
                     toastr.error(data.message);
                 }

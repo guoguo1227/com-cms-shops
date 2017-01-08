@@ -35,6 +35,14 @@ function supportCtrl($scope,$http,angularMeta,lgDataTableService){
             delete : function(row){
                 $scope.supportFlagObj.deleteOpen = true;
                 $scope.deleteInfo = {id:row.facilId};
+            },
+            edit : function(row){
+                $scope.supportFlagObj.addOpen = true;
+                $scope.addSupportObj = {
+                    facilId : row.facilId,
+                    facilName : row.facilName
+                };
+                $scope.supportFlagObj.edit = true;
             }
         };
 
@@ -43,7 +51,8 @@ function supportCtrl($scope,$http,angularMeta,lgDataTableService){
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="删除" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>';
+            pg.action = '<a title="编辑" class="btn bg-blue btn-xs shop-margin-top-3" ng-click="$table.edit($row)">编辑</a>'+
+                '<a title="删除" class="btn bg-red btn-xs shop-margin-top-3 shop-margin-left-2" ng-click="$table.delete($row)">删除</a>';
             return pg;
         }), ['facilName','action']);
     };
@@ -78,6 +87,7 @@ function supportCtrl($scope,$http,angularMeta,lgDataTableService){
     $scope.addSupportBtn = function(){
         $scope.supportFlagObj.addOpen = true;
         $scope.addSupportObj = {};
+        $scope.supportFlagObj.edit = false;
     }
     //取消添加
     $scope.addShoptypeCancle = function(){
@@ -93,6 +103,22 @@ function supportCtrl($scope,$http,angularMeta,lgDataTableService){
                     $scope.supportFlagObj.addOpen = false;
                     $scope.searchLoad();
                     toastr.info("添加成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
+    }
+    //编辑
+    $scope.updateShoptypeSave = function(){
+        if(!$scope.addSupportObj.facilName){
+            return toastr.info("设施名称不可为空")
+        }
+        $http.post("/shopmanage/update-buildFaci.json",$scope.addSupportObj,angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.supportFlagObj.addOpen = false;
+                    $scope.searchLoad();
+                    toastr.info("修改成功!");
                 }else{
                     toastr.error(data.message);
                 }

@@ -36,8 +36,8 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>电子商务</span> <b class="caret"></b></a>
                             <ul class="dropdown-menu shop-son-ul" style="margin-top:-10px;">
-                                <li><a href="#"><span>源味门</span></a></li>
-                                <li><a href="#"><span style="font-size: 14px;">北翼国大健康家园</span></a></li>
+                                <li><a href="https://shop111069217.taobao.com" target="_blank"><span>源味门</span></a></li>
+                                <li><a href="https://shop109552889.taobao.com" target="_blank"><span style="font-size: 14px;">北翼国大健康家园</span></a></li>
                             </ul>
                         </li>
                         <li><a href="/front/boardList.action" target="_blank"><span>北翼资讯</span></a></li>

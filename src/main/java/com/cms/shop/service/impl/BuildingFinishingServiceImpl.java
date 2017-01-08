@@ -78,6 +78,22 @@ public class BuildingFinishingServiceImpl implements BuildingFinishingService{
     }
 
     @Override
+    public boolean updateBuildingFinishing(BuildingFinishing buildingFinishing) {
+        boolean success = false;
+        if(null != buildingFinishing && null != buildingFinishing.getFinishingId()){
+            BuildingFinishing tmp = buildingFinishingMapper.selectByPrimaryKey(buildingFinishing.getFinishingId());
+            if(null != tmp ){
+                tmp.setFinishingName(buildingFinishing.getFinishingName());
+                int i = buildingFinishingMapper.updateByPrimaryKeySelective(tmp);
+                if(i>0){
+                    success = true;
+                }
+            }
+        }
+        return success;
+    }
+
+    @Override
     public boolean deleteBuildingFinishing(Integer id) {
         boolean success = false;
         if(null != id){

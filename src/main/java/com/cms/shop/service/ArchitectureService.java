@@ -20,4 +20,6 @@ public interface ArchitectureService {
     boolean deleteById(Integer id);
 
     boolean addArchitecture(Architecture architecture);
+
+    boolean updateArchitecture(Architecture architecture);
 }

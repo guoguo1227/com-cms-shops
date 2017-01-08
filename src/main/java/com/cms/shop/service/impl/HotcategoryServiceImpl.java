@@ -107,4 +107,21 @@ public class HotcategoryServiceImpl implements HotcategoryService{
         }
         return success;
     }
+
+    @Override
+    public boolean updateHotcat(Hotcategory hotcategory) {
+        boolean success = true;
+        if(null != hotcategory && null != hotcategory.getHotId()){
+            Hotcategory tmp = hotcategoryMapper.selectByPrimaryKey(hotcategory.getHotId());
+            if(null != tmp){
+                tmp.setHotName(hotcategory.getHotName());
+                tmp.setPriority(hotcategory.getPriority());
+                int i = hotcategoryMapper.updateByPrimaryKeySelective(tmp);
+                if(i>0){
+                    success = true;
+                }
+            }
+        }
+        return success;
+    }
 }

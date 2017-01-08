@@ -92,8 +92,13 @@ public class BoardServiceImpl implements BoardService{
                             }
                             String img = brdImgExtMapper.selectImgByBrdId(board.getBrdId());
                             if(!StringUtils.isBlank(img)){
-                                vo.setImg(ImageType.BOARD.getImagePath()+img);
+                                if(!img.contains(ImageType.BOARD.getImagePath())){
+                                    vo.setImg(ImageType.BOARD.getImagePath()+img);
+                                }else{
+                                    vo.setImg(img);
+                                }
                             }
+
                             boardVoList.add(vo);
                         } catch (InvocationTargetException e) {
                             e.printStackTrace();
@@ -131,6 +136,58 @@ public class BoardServiceImpl implements BoardService{
             }
         }else{
             message = "公告信息不可为空";
+        }
+        result.setSuccess(success);
+        result.setMessage(message);
+        return result;
+    }
+
+    @Override
+    public RequestResult updateBoard(Board board, String img) {
+        RequestResult result = new RequestResult();
+        boolean success = false;
+        String message = "";
+        if(null != board && null != board.getBrdId()){
+            Board tmp = boardMapper.selectByPrimaryKey(board.getBrdId());
+            if(null != tmp){
+                tmp.setBrdContent(board.getBrdContent());
+                tmp.setBrdTitle(board.getBrdTitle());
+                tmp.setBrdType(board.getBrdType());
+                int i = boardMapper.updateByPrimaryKeySelective(tmp);
+                if(i>0){
+                    success = true;
+                    if(null != board.getBrdId()){
+                        BrdImgCriteria imgCriteria = new BrdImgCriteria();
+                        imgCriteria.createCriteria().andBrdIdEqualTo(board.getBrdId());
+                        imgCriteria.setLimitStart(0);
+                        imgCriteria.setLimitEnd(1);
+                        List<BrdImg> imgList = brdImgMapper.selectByExample(imgCriteria);
+                        if(CollectionUtils.isNotEmpty(imgList)){
+                            //更新图片
+                            BrdImg imgTemp = imgList.get(0);
+                            imgTemp.setFileName(img);
+                            int j = brdImgMapper.updateByPrimaryKeySelective(imgTemp);
+                            if(j>0){
+                                logger.info("更新id为:"+board.getBrdId()+"的图片");
+                            }
+                        }else{
+                            //添加图片
+                            BrdImg brdImg = new BrdImg();
+                            brdImg.setFileName(img);
+                            brdImg.setBrdId(board.getBrdId());
+                            int j = brdImgMapper.insertSelective(brdImg);
+                            if(j>0){
+                                logger.info("新添id为:"+brdImg.getBrdId()+"的图片");
+                            }
+                        }
+
+                    }
+                }
+            }else{
+                message  = "公告不存在!";
+            }
+        }else{
+            message = "id不可为空";
         }
         result.setSuccess(success);
         result.setMessage(message);
