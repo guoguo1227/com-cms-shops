@@ -8,6 +8,7 @@ function streetCtrl($scope,$http,angularMeta,lgDataTableService){
     //初始化table
     $scope.init = function() {
         $scope.ready();
+        $scope.initDistruct();
     };
 
     $scope.ready = function(){
@@ -37,21 +38,16 @@ function streetCtrl($scope,$http,angularMeta,lgDataTableService){
                 $scope.deleteInfo = {id:row.streetId};
             },
             edit : function(row){
-                $http.post("/shopmanage/district-all.json",{},angularMeta.postCfg)
-                    .success(function(data){
-                        if(data.success){
-                            if(data.data && Array.isArray(data.data)){
-                                $scope.streetFlagObj.districtArr = data.data;
-                            }
-                        }
-                    });
-                $scope.streetFlagObj.addOpen = true;
-                $scope.streetFlagObj.edit = true;
                 $scope.addStreetObj = {
                     streetId:row.streetId,
                     streetName:row.streetName,
                     districtId:row.districtId
                 };
+                $scope.addStreetObj.districtId += "";
+
+                $scope.streetFlagObj.addOpen = true;
+                $scope.streetFlagObj.edit = true;
+
             }
         };
 
@@ -95,14 +91,7 @@ function streetCtrl($scope,$http,angularMeta,lgDataTableService){
     }
     //添加街镇弹窗
     $scope.addStreeBtn = function(){
-        $http.post("/shopmanage/district-all.json",{},angularMeta.postCfg)
-            .success(function(data){
-                if(data.success){
-                    if(data.data && Array.isArray(data.data)){
-                        $scope.streetFlagObj.districtArr = data.data;
-                    }
-                }
-            });
+
         $scope.streetFlagObj.addOpen = true;
         $scope.addStreetObj = {};
         $scope.streetFlagObj.edit = false;
@@ -149,4 +138,15 @@ function streetCtrl($scope,$http,angularMeta,lgDataTableService){
             });
     }
 
+    //查询所属区域
+    $scope.initDistruct = function(){
+        $http.post("/shopmanage/district-all.json",{},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    if(data.data && Array.isArray(data.data)){
+                        $scope.streetFlagObj.districtArr = data.data;
+                    }
+                }
+            });
+    }
 }

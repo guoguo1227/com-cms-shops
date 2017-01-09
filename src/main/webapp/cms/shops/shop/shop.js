@@ -172,8 +172,8 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                 '<a title="设置好铺" class="btn bg-orange btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.setFire($row)">设置旺铺</a>'+
             '<a title="上架" ng-if="$row.shopStatus == 0 || $row.shopStatus == 2" class="btn bg-orange btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.online($row)">上架</a>'+
             '<a title="下架" ng-if="$row.shopStatus == 1" class="btn bg-orange btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.offline($row)">下架</a>'+
-            '<a title="设置简称" class="btn bg-info btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.setShortRoad($row)">设置简称</a>'+
-            '<a title="查看" class="btn bg-green btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.detail($row)">查看</a>';
+            '<a title="设置简称" class="btn bg-info btn-xs shop-margin-top-3" ng-click="$table.setShortRoad($row)">设置简称</a>'+
+            '<a title="编辑" class="btn bg-green btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.detail($row)">编辑</a>';
 
             return pg;
         }), ['shop.shopName','districtStr','shop.road','shopImg1','shopImg2','shop.floor','shopSquareStr','buildingFinishing','shop.createDate','shop.publisher','shopStatusStr','shopTypeStr','action']);
@@ -301,7 +301,8 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
 
     //商铺详情
     $scope.showDetail = function(data){
-        $scope.shopListFlag = false;
+        $scope.initUE();
+
         $scope.addshop = data;
 
         $scope.addshop.hotId += "";
@@ -311,7 +312,6 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         $scope.addshop.archiId += "";
         $scope.addshop.depositType += "";
         $scope.addshop.rentType += "";
-        //  $scope.addshop.streetId += "";
 
         $scope.shopImage1 = "";
         $scope.shopImage2 = "";
@@ -325,8 +325,10 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
 
         $scope.createDetailMap($scope.addshop);
 
+        //查询街道
         $scope.changeDistrict();
         $scope.addshop.streetId += "";
+
         $http.post("/shopmanage/archit-all.json",{},angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
@@ -335,16 +337,21 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                     }
                 }
             });
-
-        $scope.initUE();
         if($scope.addshop.description){
-            $scope.ue.setContent($scope.addshop.description);
+            $scope.shopue.addListener("ready", function () {
+                // editor准备好之后才可以使用
+                $scope.shopue.setContent($scope.addshop.description);
+                $scope.shopFlagObj.uelistener = true;
+            });
         }
-
+        if($scope.shopFlagObj.uelistener){
+            $scope.shopue.setContent($scope.addshop.description);
+        }
+        $scope.shopListFlag = false;
     }
     $scope.initUE = function(){
         //实例化编辑器
-        $scope.ue = UE.getEditor('shopContent', {
+        $scope.shopue = UE.getEditor('shopContent', {
             toolbars: [
                 ['fullscreen','source','undo','redo','formatmatch','indent','justifyleft','justifyright','justifycenter','justifyjustify','background', 'link',  'fontfamily','fontsize','forecolor','bold','backcolor','italic','underline','inserttable','deletetable','insertrow','insertcol','simpleupload','insertimage','charts']
             ],
@@ -352,7 +359,6 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             autoFloatEnabled: true
         });
     }
-
     $scope.createMap = function(){
         // 百度地图API功能
         $scope.map = new BMap.Map("allmap");
@@ -442,6 +448,10 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                 if(data.success){
                     if(data.data && Array.isArray(data.data)){
                         $scope.shopFlagObj.addStreetArr = data.data;
+                        if($scope.addshop.streetId){
+                            $scope.addshop.streetId += "";
+                        }
+                        console.log($scope.addshop.streetId)
                     }else{
                         $scope.shopFlagObj.addStreetArr =[];
                     }
@@ -522,7 +532,7 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             return toastr.info("请先上传图片1!")
         }
         //描述
-        $scope.addshop.description = $scope.ue.getContentTxt();
+        $scope.addshop.description = $scope.shopue.getContentTxt();
         console.log($scope.addshop)
 
         $http.post("/shop/add.json",$scope.addshop,angularMeta.postCfg)

@@ -235,9 +235,6 @@
                     <div class="col-xs-8" >
                         <textarea name = "content" id = "shopContent" ></textarea>
                     </div>
-                    <!--<div class="col-xs-8" ng-if="shopFlagObj.detailFlag" >
-                        <textarea class="textarea" name="investment"  ng-model="shopDetailObj.description"  style="width: 100%; height: 60px; font-size: 14px; line-height: 18px; border: 1px solid rgb(221, 221, 221); padding: 10px;"></textarea>
-                    </div>-->
                 </div>
                 <table class="table table-hover">
                     <tr>
@@ -481,7 +478,7 @@
                                 <img src="{{shopDetailObj.img2}}" style="height:160px;"/>
                             </div>
                         </div>
-                        <div class="row col-xs-12 shop-margin-top-10" ng-if="!shopFlagObj.detailFlag">
+                        <div class="row col-xs-12 shop-margin-top-10">
                             <label class="col-sm-2 control-label">上传商铺图片:</label>
                             <div class="">
                                 <div>
@@ -522,6 +519,7 @@
                             <input type="text" name="road" class="form-control" ng-model="updateShopObj.road" >
                         </div>
                     </div>
+
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-default " ng-click="updateRoadCancle()">关闭</button>

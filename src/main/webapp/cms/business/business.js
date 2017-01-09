@@ -8,11 +8,12 @@ function businessrCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
     //初始化table
     $scope.init = function() {
         $scope.ready();
+        $scope.initUE();
         $(".fancybox").fancybox({
             openEffect	: 'none',
             closeEffect	: 'none'
         });
-        $scope.initUE();
+
     };
 
     $scope.ready = function(){
@@ -111,7 +112,7 @@ function businessrCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         $scope.businessFlagObj.addOpen = true;
         $scope.addBusinessObj = {};
 
-        $scope.initUE();
+       // $scope.initUE();
     }
 
     $scope.initUE = function(){
