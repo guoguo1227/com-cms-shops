@@ -65,7 +65,9 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                 $scope.boardFlagObj.addOpen = true;
                 $scope.boardFlagObj.edit = true;
                 if(row.brdContent){
-                    $scope.ue.setContent(row.brdContent);
+                    if($scope.boardFlagObj.uelistener){
+                        $scope.boardue.setContent(row.brdContent);
+                    }
                 }
             }
         };
@@ -100,9 +102,10 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         $scope.addBoardObj = {};
         $scope.boardFlagObj.addOpen = true;
         $scope.boardFlagObj.edit = false;
-
-        $scope.ue.setContent("");
         //$scope.initUE();
+        if($scope.boardFlagObj.uelistener){
+           $scope.boardue.setContent("");
+        }
     }
     $scope.addBoardCancle = function(){
         $scope.boardFlagObj.addOpen = false;
@@ -118,7 +121,7 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         if(!$scope.addBoardObj.img){
             return toastr.info("图片不可为空!")
         }
-        $scope.addBoardObj.brdContent = $scope.ue.getContentTxt();
+        $scope.addBoardObj.brdContent = $scope.boardue.getContentTxt();
         $http.post("/board/add.json",$scope.addBoardObj,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
@@ -145,12 +148,18 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
     }
     $scope.initUE = function(){
         //实例化编辑器
-        $scope.ue = UE.getEditor('boardContent', {
+        $scope.boardue = UE.getEditor('boardContent', {
             toolbars: [
                 ['fullscreen','source','undo','redo','formatmatch','indent','justifyleft','justifyright','justifycenter','justifyjustify','background', 'link',  'fontfamily','fontsize','forecolor','bold','backcolor','italic','underline','inserttable','deletetable','insertrow','insertcol','simpleupload','insertimage','charts']
             ],
             autoHeightEnabled: true,
             autoFloatEnabled: true
+        });
+
+        $scope.boardue.addListener("ready", function () {
+            // editor准备好之后才可以使用
+            $scope.boardue.setContent("");
+            $scope.boardFlagObj.uelistener = true;
         });
     }
     //取消删除

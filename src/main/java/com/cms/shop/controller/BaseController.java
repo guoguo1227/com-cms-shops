@@ -29,6 +29,8 @@ public class BaseController {
     private SysUserService sysUserService;
 
     public Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+    public Gson gsonDate = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+
     @InitBinder
     public void initBinder(WebDataBinder webDataBinder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

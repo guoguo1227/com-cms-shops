@@ -48,6 +48,18 @@ public class ShopImgServiceIMpl implements ShopImgService{
     }
 
     @Override
+    public boolean updateShopImg(ShopImg img) {
+        boolean success = false;
+        if(null != img){
+            int i = shopImgMapper.updateByPrimaryKey(img);
+            if(i>0){
+                success = true;
+            }
+        }
+        return success;
+    }
+
+    @Override
     public List<ShopImg> getImgListByShopId(Integer id) {
         List<ShopImg> list = null;
         if(null != id){

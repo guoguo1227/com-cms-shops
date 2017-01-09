@@ -81,7 +81,7 @@ public class ShopController extends BaseController{
                 result.setData(ext);
             }
         }
-        return gson.toJson(result);
+        return gsonDate.toJson(result);
     }
 
     /**

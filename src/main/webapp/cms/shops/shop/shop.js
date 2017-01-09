@@ -68,7 +68,23 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                     }
                 }
             });
+        $http.post("/shopmanage/archit-all.json",{},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    if(data.data && Array.isArray(data.data)){
+                        $scope.shopFlagObj.architArr = data.data;
+                    }
+                }
+            });
 
+        $http.post("/shopmanage/buildFaciAll.json",{},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    if(data.data && Array.isArray(data.data)){
+                        $scope.shopFlagObj.buildFaciArr = data.data;
+                    }
+                }
+            });
     }
     $scope.searchLoad = function(page){
         if(page){
@@ -160,7 +176,7 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
 
         };
 
-        var headerArray = ['商铺名称','所属地区','道路简称','图片1','图片2','所在楼层','租赁面积','装修情况','发布日期','发布人','状态','类型','基本操作'];
+        var headerArray = ['商铺名称','所属地区','道路简称','图片1','图片2','所在楼层','租赁面积','装修情况','发布日期','发布人','类型','基本操作'];
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
         pageData = $scope.formatShopPageData(pageData);
 
@@ -176,7 +192,7 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             '<a title="编辑" class="btn bg-green btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.detail($row)">编辑</a>';
 
             return pg;
-        }), ['shop.shopName','districtStr','shop.road','shopImg1','shopImg2','shop.floor','shopSquareStr','buildingFinishing','shop.createDate','shop.publisher','shopStatusStr','shopTypeStr','action']);
+        }), ['shop.shopName','districtStr','shop.road','shopImg1','shopImg2','shop.floor','shopSquareStr','buildingFinishing','shop.createDate','shop.publisher','shopTypeStr','action']);
     };
 
     //切换页面
@@ -282,16 +298,11 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                     }
                 }
             });
-        $http.post("/shopmanage/buildFaciAll.json",{},angularMeta.postCfg)
-            .success(function(data){
-                if(data.success){
-                    if(data.data && Array.isArray(data.data)){
-                        $scope.shopFlagObj.buildFaciArr = data.data;
-                    }
-                }
-            });
-        $scope.initUE();
 
+        $scope.initUE();
+        if($scope.shopFlagObj.uelistener){
+            $scope.shopue.setContent("");
+        }
         $scope.createMap();
     }
 
@@ -328,15 +339,7 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         //查询街道
         $scope.changeDistrict();
         $scope.addshop.streetId += "";
-
-        $http.post("/shopmanage/archit-all.json",{},angularMeta.postCfg)
-            .success(function(data){
-                if(data.success){
-                    if(data.data && Array.isArray(data.data)){
-                        $scope.shopFlagObj.architArr = data.data;
-                    }
-                }
-            });
+        $scope.initCheckbok();
         if($scope.addshop.description){
             $scope.shopue.addListener("ready", function () {
                 // editor准备好之后才可以使用
@@ -439,6 +442,23 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         type.checked = !type.checked;
         console.log($scope.addshop.facility)
     },
+
+     //配套设施初始化功能
+     $scope.initCheckbok = function(){
+         if(Array.isArray($scope.shopFlagObj.buildFaciArr)){
+             if($scope.addshop.facility){
+                 var facArr = $scope.addshop.facility.split(",");
+                 angular.forEach($scope.shopFlagObj.buildFaciArr, function(data,index,array){
+                     var facilId = data.facilId;
+                     var index = $.inArray(facilId,facArr);
+                     if(index>0){
+                         array[index].checked = true; //选中
+                         console.log(array)
+                     }
+                 });
+             }
+         }
+     }
     /**
      * 选择地区
      */
@@ -451,7 +471,6 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                         if($scope.addshop.streetId){
                             $scope.addshop.streetId += "";
                         }
-                        console.log($scope.addshop.streetId)
                     }else{
                         $scope.shopFlagObj.addStreetArr =[];
                     }
@@ -495,7 +514,7 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         if(!$scope.addshop.lng){
             return toastr.info("请点击地图选取坐标!")
         }
-        if(!$scope.addshop.onsellDate){
+        /*if(!$scope.addshop.onsellDate){
             return toastr.info("上架时间不可为空!")
         }else{
             $scope.addshop.onsellDate += " 00:00:00";
@@ -504,7 +523,7 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             return toastr.info("下架时间不可为空!")
         }else{
             $scope.addshop.offsellDate += " 23:59:59";
-        }
+        }*/
         if(!$scope.addshop.typeId){
             return toastr.info("物业性质不可为空!")
         }else{
@@ -540,7 +559,7 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                 if(data.success){
                     $scope.goback();
                     $scope.searchLoad();
-                    toastr.info("添加成功!");
+                    toastr.info("操作成功!");
                 }else{
                     toastr.error(data.message);
                 }

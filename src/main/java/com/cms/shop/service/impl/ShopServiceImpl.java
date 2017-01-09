@@ -431,42 +431,130 @@ public class ShopServiceImpl implements ShopService {
         boolean success = false;
         String message = "";
         if(null != ext  && !StringUtils.isBlank(ext.getShopName())){
-            Shop shop = new Shop();
-            try {
-                BeanUtilExt.copyProperties(shop,ext);
-                shop.setCreateDate(new Date());
-                shop.setAuditStatus(CheckStatusEnum.AUDIT.getKey());
-                shop.setEditTag(ShopConstant.EDIT_TAG_LOCK);
-                shop.setType(ShopTypeEnum.COMMON.getKey());
-                //todo,测试
-                shop.setShopStatus(OnlineStatusEnum.ONLINE.getKey());
-                int i = shopMapper.insertSelective(shop);
-                if(i>0){
-                    ShopImg img = new ShopImg();
-                    if(!StringUtils.isBlank(ext.getImg1())){
-                        img.setShopId(shop.getId());
-                        img.setNewImgName(ext.getImg1());
-                        shopImgService.addShopImg(img);
-                    }
-                    if(!StringUtils.isBlank(ext.getImg2())){
-                        img.setShopId(shop.getId());
-                        img.setNewImgName(ext.getImg2());
-                        shopImgService.addShopImg(img);
-                    }
-                    success = true;
-                }
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
+            if(null != ext.getId()){
+                //更新
+                success = update(ext);
+            }else{
+                //添加
+                success = save(ext);
             }
-
         }else{
             message = "商铺名称不能为空";
         }
         result.setSuccess(success);
         result.setMessage(message);
         return result;
+    }
+    private boolean update(ShopExt ext){
+        boolean success = false;
+        if(null != ext && null != ext.getId()){
+            Shop shop = shopMapper.selectByPrimaryKey(ext.getId());
+            if(null != shop){
+                /*shop.setShopName(ext.getShopName());
+                shop.setHotId(ext.getHotId());
+                shop.setShopName(ext.getShopNo());
+                shop.setDistrictId(ext.getDistrictId());
+                shop.setStreetId(ext.getStreetId());
+                shop.setPublisher(ext.getPublisher());
+                //上架时间，下架时间 已弃用
+
+                shop.setLocation(ext.getLocation());
+                shop.setLng(ext.getLng());
+                shop.setLat(ext.getLat());
+                shop.setZoom(ext.getZoom());
+                shop.setDescription(ext.getDescription());
+                shop.setFloor(ext.getFloor());*/
+                try {
+                    BeanUtilExt.copyProperties(shop,ext);
+                    int i = shopMapper.updateByPrimaryKeySelective(shop);
+                    if(i>0){
+                        success = true;
+                        List<ShopImg> imgList = shopImgService.getImgListByShopId(shop.getId());
+                        if(CollectionUtils.isNotEmpty(imgList)){
+                            if(imgList.size()>=2){
+                                ShopImg img1 = imgList.get(0);
+                                ShopImg img2 = imgList.get(1);
+                                img1.setNewImgName(ext.getImg1());
+                                img2.setNewImgName(ext.getImg2());
+                                shopImgService.updateShopImg(img1);
+                                shopImgService.updateShopImg(img2);
+                            }else{
+                                ShopImg img1 = imgList.get(0);
+                                String addImg = ext.getImg2();
+                                if(null != img1){
+                                    if(img1.getNewImgName().equals(ext.getImg1())){
+                                        addImg = ext.getImg2();
+                                    }else if(img1.getNewImgName().equals(ext.getImg2())){
+                                        addImg = ext.getImg1();
+                                    }else{
+                                        img1.setNewImgName(ext.getImg1());
+                                        shopImgService.updateShopImg(img1);
+                                    }
+                                    ShopImg img = new ShopImg();
+                                    if(!StringUtils.isBlank(addImg)){
+                                        img.setShopId(shop.getId());
+                                        img.setNewImgName(addImg);
+                                        shopImgService.addShopImg(img);
+                                    }
+                                }
+                            }
+                        }else{
+                            //添加2张图片
+                            ShopImg img = new ShopImg();
+                            if(!StringUtils.isBlank(ext.getImg1())){
+                                img.setShopId(shop.getId());
+                                img.setNewImgName(ext.getImg1());
+                                shopImgService.addShopImg(img);
+                            }
+                            if(!StringUtils.isBlank(ext.getImg2())){
+                                img.setShopId(shop.getId());
+                                img.setNewImgName(ext.getImg2());
+                                shopImgService.addShopImg(img);
+                            }
+                        }
+                    }
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+        return success;
+    }
+    private boolean save(ShopExt ext){
+        boolean success = false;
+        Shop shop = new Shop();
+        try {
+            BeanUtilExt.copyProperties(shop,ext);
+            shop.setCreateDate(new Date());
+            shop.setAuditStatus(CheckStatusEnum.AUDIT.getKey());
+            shop.setEditTag(ShopConstant.EDIT_TAG_LOCK);
+            shop.setType(ShopTypeEnum.COMMON.getKey());
+            //todo,测试
+            shop.setShopStatus(OnlineStatusEnum.ONLINE.getKey());
+            int i = shopMapper.insertSelective(shop);
+            if(i>0){
+                ShopImg img = new ShopImg();
+                if(!StringUtils.isBlank(ext.getImg1())){
+                    img.setShopId(shop.getId());
+                    img.setNewImgName(ext.getImg1());
+                    shopImgService.addShopImg(img);
+                }
+                if(!StringUtils.isBlank(ext.getImg2())){
+                    img.setShopId(shop.getId());
+                    img.setNewImgName(ext.getImg2());
+                    shopImgService.addShopImg(img);
+                }
+                success = true;
+            }
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return  success;
     }
 
     @Override
