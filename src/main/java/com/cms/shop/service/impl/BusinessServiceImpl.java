@@ -9,12 +9,14 @@ import com.cms.shop.model.base.BusinessCriteria;
 import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.model.ext.RequestResult;
 import com.cms.shop.service.BusinessService;
+import com.cms.shop.utils.BeanUtilExt;
 import com.cms.shop.utils.Page;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.List;
 
@@ -106,16 +108,49 @@ public class BusinessServiceImpl implements BusinessService {
     public RequestResult addBusiness(Business business) {
         RequestResult result = new RequestResult();
         boolean success = false;
+        Date now = new Date();
         String message = "";
         if(null != business){
-            business.setCreateDate(new Date());
-            business.setBizStatus(OnlineStatusEnum.WAIT.getKey());
-            //默认待审核
-            business.setAudStatus(CheckStatusEnum.AUDIT.getKey());
-            int i = businessMapper.insertSelective(business);
-            if(i>0){
-                success = true;
+            if(null != business.getBizId()){
+                //编辑
+                Business tmp = businessMapper.selectByPrimaryKey(business.getBizId());
+                if(null != tmp){
+                    try {
+                        BeanUtilExt.copyProperties(tmp,business);
+                        if(null != tmp.getOnsellDate()){
+                            //开始时间<now
+                            if(tmp.getOnsellDate().before(now)){
+                                tmp.setBizStatus(OnlineStatusEnum.ONLINE.getKey()); //上架
+                                if(null != tmp.getOffsellDate() && tmp.getOffsellDate().before(now)){
+                                    tmp.setBizStatus(OnlineStatusEnum.OFFLINE.getKey()); //下架
+                                }
+                            }else{
+                                //开始时间>now 结束时间为空
+                                tmp.setBizStatus(OnlineStatusEnum.WAIT.getKey()); //待上架
+                            }
+                        }
+                        int i = businessMapper.updateByPrimaryKeySelective(tmp);
+                        if(i>0){
+                            success = true;
+                        }
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }else{
+                //添加
+                business.setCreateDate(new Date());
+                business.setBizStatus(OnlineStatusEnum.WAIT.getKey());
+                //默认待审核
+                business.setAudStatus(CheckStatusEnum.AUDIT.getKey());
+                int i = businessMapper.insertSelective(business);
+                if(i>0){
+                    success = true;
+                }
             }
+
         }else{
             message = "招商项目不可为空";
         }

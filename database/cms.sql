@@ -21,3 +21,24 @@ CREATE TABLE `investment` (
   `description` varchar(3000) DEFAULT NULL COMMENT '描述',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=443 DEFAULT CHARSET=utf8 COMMENT='招商热线';
+
+CREATE TABLE `shoppv` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` int(6) DEFAULT NULL COMMENT '类型',
+  `relate_id` int(11) DEFAULT NULL COMMENT '关联id',
+  `relate_type` int(6) DEFAULT NULL COMMENT '关联类型',
+  `create_Date` datetime DEFAULT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `aboutme` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` int(6) DEFAULT NULL COMMENT '类型',
+  `name` varchar(100) NOT NULL COMMENT '名称',
+  `title` varchar(100) NOT NULL COMMENT '标题',
+  `description` varchar(3000) DEFAULT NULL COMMENT '描述',
+  `picture` varchar(100) DEFAULT NULL COMMENT '图片',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+

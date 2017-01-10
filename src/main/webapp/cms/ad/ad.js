@@ -86,7 +86,7 @@ function adCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
 
         });
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.img = "<div class='thumbnail' style='height:180px;'><a class='fancybox' rel='group' href={{$row.newPicName}}><img  src={{$row.newPicName}}  style='width: 100%;'/></a></div>";
+            pg.img = "<div class='thumbnail' style='height:180px;'><a class='fancybox' rel='group' href={{$row.newPicName}}><img  src={{$row.newPicName}}  style='width: 100%;height:180px;'/></a></div>";
             pg.link="<a href='{{$row.url}}' target='_blank'>{{$row.url}}</a>"
             pg.action =
                 '<a title="编辑" class="btn bg-green btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.edit($row)">编辑</a>'+

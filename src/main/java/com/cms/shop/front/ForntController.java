@@ -2,6 +2,7 @@ package com.cms.shop.front;
 
 import com.cms.shop.controller.BaseController;
 import com.cms.shop.enums.CheckStatusEnum;
+import com.cms.shop.enums.ShopPVEnum;
 import com.cms.shop.enums.ShopStatusEnum;
 import com.cms.shop.enums.ShopTypeEnum;
 import com.cms.shop.model.base.*;
@@ -64,6 +65,13 @@ public class ForntController extends BaseController{
 
     @Autowired
     private AdvertService advertService;
+
+    @Autowired
+    private StatisticService statisticService;
+
+    @Autowired
+    private AboutmeService aboutmeService;
+
     /**
      * 多条件搜索商铺
      * @return
@@ -152,7 +160,7 @@ public class ForntController extends BaseController{
      * @return
      */
     @RequestMapping("detail")
-    public String detail(SearchCondition condition,ModelMap modelMap){
+    public String detail(final SearchCondition condition,ModelMap modelMap){
 
         ShopVo vo = null;
         List<ShopImg> imgList = null;
@@ -177,6 +185,18 @@ public class ForntController extends BaseController{
         if(CollectionUtils.isNotEmpty(advertList)){
             advert = advertList.get(0);
         }
+
+        //添加点击数
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ShopPv pv = new ShopPv();
+                pv.setRelateId(condition.getId());
+                pv.setType(ShopPVEnum.SHOP.getKey());
+                statisticService.addShopPV(pv);
+            }
+        });
+        thread.start();
 
         modelMap.addAttribute("keywordList",keywordList);
         modelMap.addAttribute("shop",vo);
@@ -328,11 +348,8 @@ public class ForntController extends BaseController{
     @RequestMapping("aboutme")
     public String aboutme(SearchCondition condition,ModelMap modelMap){
 
-        List<Business> businessList = new ArrayList<>();
-        Page<Business> page = businessService.queryPageByCondition(condition);
-        if(null != page && CollectionUtils.isNotEmpty(page.getPageData())){
-            businessList = page.getPageData();
-        }
+        List<Aboutme> aboutmeList = aboutmeService.queryAllList(condition);
+
         List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD);
         List<District> districtList = districtService.queryAll();
         List<Keyword> keywordList = keywordService.queryHotKeyWord();
@@ -351,10 +368,45 @@ public class ForntController extends BaseController{
         modelMap.addAttribute("keywordList",keywordList);
         modelMap.addAttribute("advert",advert);
 
-        modelMap.addAttribute("businessList",businessList);
+        modelMap.addAttribute("aboutmeList",aboutmeList);
         modelMap.addAttribute("goodShopList",goodShopList);
 
         return "aboutme";
+    }
+
+    /**
+     * 关于我们
+     * @param condition
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping("aboutme-detail")
+    public String aboutmeDetail(SearchCondition condition,ModelMap modelMap){
+
+        Aboutme aboutme = aboutmeService.queryById(condition.getId());
+
+        List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD);
+        List<District> districtList = districtService.queryAll();
+        List<Keyword> keywordList = keywordService.queryHotKeyWord();
+
+        Advert advert = null;
+        condition.setLimit(1);
+        condition.setType(7); //位置7
+        List<Advert> advertList = advertService.queryOnlineList(condition);
+        if(CollectionUtils.isNotEmpty(advertList)){
+            advert = advertList.get(0);
+        }
+
+        Flash flash = flashService.queryFlash();
+        modelMap.addAttribute("flash",flash);
+        modelMap.addAttribute("districtList",districtList);//地区
+        modelMap.addAttribute("keywordList",keywordList);
+        modelMap.addAttribute("advert",advert);
+        modelMap.addAttribute("aboutme",aboutme);
+
+        modelMap.addAttribute("goodShopList",goodShopList);
+
+        return "aboutmeDetail";
     }
 
     /**
@@ -395,5 +447,18 @@ public class ForntController extends BaseController{
         return "manage";
     }
 
-
+    /**
+     * 点击
+     * @param type
+     * @return
+     */
+    @RequestMapping("click")
+    public String click(Integer type){
+        if(null != type){
+            ShopPv pv = new ShopPv();
+            pv.setType(type);
+            statisticService.addShopPV(pv);
+        }
+        return "index";
+    }
 }

@@ -49,7 +49,7 @@
     <lg-modal open = "businessFlagObj.addOpen">
         <div class="modal-header">
             <h4 class="modal-title" ng-if="!businessFlagObj.detailFlag">添加招商项目</h4>
-            <h4 class="modal-title" ng-if="businessFlagObj.detailFlag">查看招商项目</h4>
+            <h4 class="modal-title" ng-if="businessFlagObj.detailFlag">编辑招商项目</h4>
         </div>
         <div class="modal-body">
             <form class="form-horizontal">
@@ -92,7 +92,8 @@
                         <div class="col-sm-6" ng-if="businessFlagObj.detailFlag">
                             <img src="{{addBusinessObj.fileName}}" style="width:150px;height: 150px;" >
                         </div>
-                        <div class="col-sm-6" ng-if="!businessFlagObj.detailFlag">
+                        <label class="col-sm-4"></label>
+                        <div class="col-sm-6">
                             <input type="file" ngf-select="" ng-model="fileName" name="file" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" required="">
                             <button type="button" class="shop-margin-top-10 btn-success"  ng-click="uploadImage(fileName,1)">上传图片</button>
                         </div>
@@ -102,7 +103,8 @@
                         <div class="col-sm-6" ng-if="businessFlagObj.detailFlag">
                             <img src="{{addBusinessObj.fileName2}}" style="width:150px;height: 150px;">
                         </div>
-                        <div class="col-sm-6" ng-if="!businessFlagObj.detailFlag">
+                        <label class="col-sm-4"></label>
+                        <div class="col-sm-6">
                             <input type="file" ngf-select="" ng-model="fileName2" name="file" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" required="">
                             <button type="button" class="shop-margin-top-10 btn-success"  ng-click="uploadImage(fileName2,2)">上传图片</button>
                         </div>
@@ -119,6 +121,7 @@
         <div class="modal-footer">
             <button class="btn btn-default" ng-click="addBusinessCancle()">取消</button>
             <button ng-if="!businessFlagObj.detailFlag" class="btn btn-primary pull-right" ng-click="adBusinessSave()">保存</button>
+            <button ng-if="businessFlagObj.detailFlag" class="btn btn-primary pull-right" ng-click="adBusinessSave()">修改</button>
         </div>
     </lg-modal>
 </div>

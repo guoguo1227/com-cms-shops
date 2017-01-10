@@ -8,6 +8,7 @@ function businessrCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
     //初始化table
     $scope.init = function() {
         $scope.ready();
+
         $scope.initUE();
         $(".fancybox").fancybox({
             openEffect	: 'none',
@@ -40,12 +41,23 @@ function businessrCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         $scope.tableData = {
             //查看详情
             openDetail : function(row){
-                $scope.addBusinessObj = row;
+                $scope.addBusinessObj = {
+                    bizId : row.bizId,
+                    bizName : row.bizName,
+                    publisher : row.publisher,
+                    onsellDate : row.onsellDate,
+                    offsellDate : row.offsellDate,
+                    bizContent : row.bizContent,
+                    fileName : row.fileName,
+                    fileName2 : row.fileName
+                };
                 $scope.businessFlagObj.addOpen = true;
                 $scope.businessFlagObj.detailFlag = true;
 
                 if($scope.addBusinessObj.bizContent){
-                    $scope.ue.setContent($scope.addBusinessObj.bizContent);
+                    if($scope.businessFlagObj.uelistener){
+                        $scope.businessue.setContent($scope.addBusinessObj.bizContent);
+                    }
                 }
             },
             pass : function(row){
@@ -85,12 +97,12 @@ function businessrCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         });
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="查看" class="btn bg-blue btn-xs shop-margin-top-3 shop-margin-left-2" ng-click="$table.openDetail($row)">查看</a>'+
+            pg.action =  '<a title="编辑" class="btn bg-blue btn-xs shop-margin-top-3 shop-margin-left-2" ng-click="$table.openDetail($row)">编辑</a>'+
             '<a title="审核通过"  ng-if="$row.audStatus == 0" class="btn bg-green btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.pass($row)">审核通过</a>'+
             '<a title="审核不通过" ng-if="$row.audStatus == 0" class="btn bg-orange btn-xs shop-margin-left-3 shop-margin-top-3" ng-click="$table.unpass($row)">审核不通过</a>';
 
-            pg.fileNameImg = "<div class='thumbnail' style='max-height:180px;'><a class='fancybox' rel='group' href={{$row.fileName}}><img  src={{$row.fileName}}  style='width: 100%;height: 100%;'/></a></div>";
-            pg.fileNameImg2 = "<div class='thumbnail' style='max-height:180px;'><a class='fancybox' rel='group' href={{$row.fileName2}}><img  src={{$row.fileName2}}  style='width: 100%;height: 100%;'/></a></div>";
+            pg.fileNameImg = "<div class='thumbnail' style='max-height:180px;'><a class='fancybox' rel='group' href={{$row.fileName}}><img  src={{$row.fileName}}  style='width: 100%;max-height: 180px;'/></a></div>";
+            pg.fileNameImg2 = "<div class='thumbnail' style='max-height:180px;'><a class='fancybox' rel='group' href={{$row.fileName2}}><img  src={{$row.fileName2}}  style='width: 100%;max-height: 180px;'/></a></div>";
 
             return pg;
         }), ['bizName','fileNameImg','fileNameImg2','statusStr','onsellDate','offsellDateStr','bizStatusStr','publisher','createDate','action']);
@@ -111,18 +123,31 @@ function businessrCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
     $scope.addBusinessBtn = function(){
         $scope.businessFlagObj.addOpen = true;
         $scope.addBusinessObj = {};
+        $scope.businessFlagObj.detailFlag = false;
 
+        if($scope.businessFlagObj.uelistener){
+            $scope.businessue.setContent("");
+        }
        // $scope.initUE();
     }
 
     $scope.initUE = function(){
+        //之前的编辑器可能已经损坏,先销毁
+       // UE.delEditor('businessContent');
+        console.log("成功销毁")
         //实例化编辑器
-        $scope.ue = UE.getEditor('businessContent', {
+        $scope.businessue = UE.getEditor('businessContent', {
             toolbars: [
                 ['fullscreen','source','undo','redo','formatmatch','indent','justifyleft','justifyright','justifycenter','justifyjustify','background', 'link',  'fontfamily','fontsize','forecolor','bold','backcolor','italic','underline','inserttable','deletetable','insertrow','insertcol','simpleupload','insertimage','charts']
             ],
             autoHeightEnabled: true,
             autoFloatEnabled: true
+        });
+        $scope.businessue.addListener("ready ", function () {
+            console.log('编辑器1实例化完成')
+            // editor准备好之后才可以使用
+            $scope.businessue.setContent("");
+            $scope.businessFlagObj.uelistener = true;
         });
     }
 
@@ -157,7 +182,7 @@ function businessrCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             return toastr.info("项目图片不可为空!")
         }
         //描述
-        $scope.addBusinessObj.bizContent = $scope.ue.getContentTxt();
+        $scope.addBusinessObj.bizContent = $scope.businessue.getContent();
         if(!$scope.addBusinessObj.bizContent){
             return toastr.info("项目内容不可为空!")
         }

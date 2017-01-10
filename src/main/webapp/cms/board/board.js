@@ -60,8 +60,14 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                     });
             },
             update : function(row){
-                $scope.addBoardObj = row;
-                $scope.addBoardObj.brdType += '';
+                $scope.addBoardObj = {
+                    brdId : row.brdId,
+                    brdType : row.brdType,
+                    brdTitle : row.brdTitle,
+                    boardContent : row.boardContent,
+                    img : row.img
+                };
+                $scope.addBoardObj.brdType += "";
                 $scope.boardFlagObj.addOpen = true;
                 $scope.boardFlagObj.edit = true;
                 if(row.brdContent){
@@ -72,18 +78,20 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             }
         };
 
-        var headerArray = ['公告名称','公告类型','广告状态','创建人','创建日期','操作'];
+        var headerArray = ['公告名称','公告类型','公告图片','广告状态','创建人','创建日期','操作'];
         lgDataTableService.setWidth($scope.tableData, undefined, [4,8],true);
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
         pageData = $scope.formatPageData(pageData);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
+            pg.boardImg = "<div class='thumbnail' style='height:160px;'><a class='fancybox' rel='group' href={{$row.img}}><img  src={{$row.img}}   style='height:160px;'/></a></div>";
+
             pg.action = '<a title="删除" class="btn bg-red btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>'+
             '<a title="审核通过" ng-if="$row.brdStatus != 1" class="btn bg-green btn-xs shop-margin-top-3 shop-margin-left-2" ng-click="$table.pass($row)">审核通过</a>'+
             '<a title="审核不通过" ng-if="$row.brdStatus == 1" class="btn bg-orange btn-xs shop-margin-top-3 shop-margin-left-2" ng-click="$table.unpass($row)">审核不通过</a>'+
             '<a title="编辑" class="btn bg-blue btn-xs shop-margin-top-3 shop-margin-left-2" ng-click="$table.update($row)">编辑</a>';
             return pg;
-        }), ['brdTitle','brdTypeStr','brdStatusStr','userName','createDate','action']);
+        }), ['brdTitle','brdTypeStr','boardImg','brdStatusStr','userName','createDate','action']);
     };
 
     //切换页面
@@ -121,7 +129,7 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         if(!$scope.addBoardObj.img){
             return toastr.info("图片不可为空!")
         }
-        $scope.addBoardObj.brdContent = $scope.boardue.getContentTxt();
+        $scope.addBoardObj.brdContent = $scope.boardue.getContent();
         $http.post("/board/add.json",$scope.addBoardObj,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
@@ -135,6 +143,16 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
     }
     //更新公告
     $scope.updateBoardSave = function(){
+        if(!$scope.addBoardObj.brdTitle){
+            return toastr.info("标题不可为空!")
+        }
+        if(!$scope.addBoardObj.brdType){
+            return toastr.info("类型不可为空!")
+        }
+        if(!$scope.addBoardObj.img){
+            return toastr.info("图片不可为空!")
+        }
+        $scope.addBoardObj.brdContent = $scope.boardue.getContent();
         $http.post("/board/update.json",$scope.addBoardObj,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
@@ -147,6 +165,8 @@ function boardCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             });
     }
     $scope.initUE = function(){
+        //之前的编辑器可能已经损坏,先销毁
+        //UE.delEditor('boardContent');
         //实例化编辑器
         $scope.boardue = UE.getEditor('boardContent', {
             toolbars: [

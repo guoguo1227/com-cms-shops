@@ -551,7 +551,7 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             return toastr.info("请先上传图片1!")
         }
         //描述
-        $scope.addshop.description = $scope.shopue.getContentTxt();
+        $scope.addshop.description = $scope.shopue.getContent();
         console.log($scope.addshop)
 
         $http.post("/shop/add.json",$scope.addshop,angularMeta.postCfg)

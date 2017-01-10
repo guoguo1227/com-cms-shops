@@ -13,7 +13,8 @@ public enum  ImageType {
     CUSTOMER(ImageTypeConstants.CUSTOMER_CODE,"/upload/customer/"),
     PARTNER(ImageTypeConstants.PARTNER_CODE,"/upload/partner/"),
     SHOPPIC(ImageTypeConstants.SHOPPIC_CODE,"/upload/shopPic/"),
-    FLASH(ImageTypeConstants.FLASH_CODE,"/flash/");
+    FLASH(ImageTypeConstants.FLASH_CODE,"/flash/"),
+    ABOUNTME(ImageTypeConstants.ABOUTME_CODE,"/aboutme/");
 
     Integer code;
     String imagePath;
@@ -36,6 +37,8 @@ public enum  ImageType {
                 return SHOPPIC.getImagePath();
             case 8:
                 return FLASH.getImagePath();
+            case 9:
+                return ABOUNTME.getImagePath();
             default:
                 return "upload";
         }
@@ -72,6 +75,7 @@ public enum  ImageType {
         public static final Integer PARTNER_CODE = 6; //图片上传路径
         public static final Integer SHOPPIC_CODE = 7; //图片上传路径
         public static final Integer FLASH_CODE = 8; //图片上传路径
+        public static final Integer ABOUTME_CODE = 9; //图片上传路径
 
     }
 }

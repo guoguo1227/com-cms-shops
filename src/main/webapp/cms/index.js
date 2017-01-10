@@ -26,7 +26,7 @@ var app = angular.module('MainApp', ['lg.platform','lg.datatable',
     'commentApp','adApp','adaptApp','buildApp','checkApp',
     'districtApp','flashApp','investmentApp',
     'linkApp','propertyApp','renovationApp','replyApp','reportApp',
-    'shopApp','hotcatApp','supportApp','streetApp','boardApp','partnerApp','businessApp','userLoginApp','searchApp'
+    'shopApp','hotcatApp','supportApp','streetApp','boardApp','partnerApp','businessApp','userLoginApp','searchApp','statisticApp','aboutmeApp'
     ]).
     controller('MainCtrl', ['$scope', '$location','lgDataTableService', function($scope, $location,dtService) {
     }]);

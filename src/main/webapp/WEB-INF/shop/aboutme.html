@@ -9,7 +9,7 @@
     <div class="container">
         <div class="row col-xs-12" style="height: 200px;">
             <div class="panel panel-default">
-                <div class="panel-heading">
+                <div class="panel-heading shop-ad-click">
                     <img src="$!advert.newPicName" style="height: 200px;width:100%;" />
                 </div>
             </div>
@@ -27,29 +27,23 @@
                         </div>
                         <div class="col-lg-9 panel-body">
                             <div class="panel-body">
-                                <div class="row box" style="border-bottom: 5px solid red;">
-                                    <center><h3>启动项目</h3></center>
-                                </div>
-                                <!--<div class="row box thumbnail" style="border-bottom: 5px solid red;">
-                                    <img src="/static/ui/images/1.jpg" style="height: 500px;width: 100%;">
-                                </div>-->
-                                #foreach($business in $!businessList)
-                                #if($velocityCount <9)
-                                <div class="row box thumbnail">
-                                    <img src="$!business.fileName" style="height: 500px;width: 100%;">
-                                    <div class="row panel-body" style="margin-top: -20px;">
-                                        <div style="position:absolute; z-index:2;height: 60px;background-color: darkorange;margin-top: -30px;font-size: 35px;">
-                                            　$!{business.bizName}
-                                        </div>
-                                        <div class=" panel-body">
-                                            <div class="modal-footer shop-margin-top-10">
-                                                <span>$!{business.bizContent}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                #end
-                                #end
+
+                                <table class="table table-bordered">
+                                    <tbody>
+                                    #foreach($abooutme in $!aboutmeList)
+                                    <tr>
+                                        <td style="width: 200px;height: 175px;">
+                                            <a href="/front/aboutme-detail.action?id=$!abooutme.id"  class="thumbnail"><img src="$!abooutme.picture" alt="" style="width: 200px;height: 175px;"></a></td>
+                                        <td>
+                                            <p><h4><font style="color:#4285f4;">$!{abooutme.name}</font></h4></p>
+                                            <p style="margin-left: 10px;">$!{abooutme.title}</p>
+                                            <p style="float:right;">$!date.format('yyyy-MM-dd HH:mm:ss ',$!abooutme.createTime)</p>
+                                        </td>
+                                    </tr>
+                                    #end
+                                    </tbody>
+                                </table>
+
                                 <div class="row panel-body" style="border-top: 5px solid red;">
                                     #parse("\include\commet.vm")
                                 </div>

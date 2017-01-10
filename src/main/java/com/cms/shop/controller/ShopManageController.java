@@ -65,6 +65,12 @@ public class ShopManageController extends BaseController{
     @Autowired
     private QAService qaService;
 
+    @Autowired
+    private StatisticService statisticService;
+
+    @Autowired
+    private AboutmeService aboutmeService;
+
     @RequestMapping("architPage")
     @ResponseBody
     public String queryArchitPage(SearchCondition condition){
@@ -1199,4 +1205,57 @@ public class ShopManageController extends BaseController{
         return gson.toJson(result);
     }
 
+    /**
+     * 报表
+     * @param condition
+     * @return
+     */
+    @RequestMapping("statistic")
+    @ResponseBody
+    public String queryStatistic(SearchCondition condition){
+        Object[] obj = null;
+        if(null != condition){
+           obj =  statisticService.queryListByCondition(condition);
+        }
+        return gson.toJson(obj);
+    }
+
+    /**
+     * 获取关于我们列表
+     * @param condition
+     * @return
+     */
+    @RequestMapping("aboutme-list")
+    @ResponseBody
+    public String queryAboutmeList(SearchCondition condition){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != condition){
+            List<Aboutme> list = aboutmeService.queryAllList(condition);
+            if(CollectionUtils.isNotEmpty(list)){
+                result.setData(list);
+                result.setSuccess(true);
+            }
+        }
+        return gson.toJson(result);
+    }
+    /**
+     * 更新关于我们
+     * @param aboutme
+     * @return
+     */
+    @RequestMapping("aboutme-update")
+    @ResponseBody
+    public String updateAboutmeList(Aboutme aboutme){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != aboutme && null != aboutme.getId()){
+            result = aboutmeService.updateAboutme(aboutme);
+        }else{
+            result.setMessage("关于我们不可为空!");
+        }
+        return gson.toJson(result);
+    }
 }

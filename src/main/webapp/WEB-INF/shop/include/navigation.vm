@@ -35,17 +35,60 @@
                         <li><a href="/front/search-shop.action?type=2" target="_blank"><span>精选好铺</span></a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>电子商务</span> <b class="caret"></b></a>
-                            <ul class="dropdown-menu shop-son-ul" style="margin-top:-10px;">
+                            <ul class="dropdown-menu shop-son-ul shop-business-ul" style="margin-top:-10px;">
                                 <li><a href="https://shop111069217.taobao.com" target="_blank"><span>源味门</span></a></li>
                                 <li><a href="https://shop109552889.taobao.com" target="_blank"><span style="font-size: 14px;">北翼国大健康家园</span></a></li>
                             </ul>
                         </li>
                         <li><a href="/front/boardList.action" target="_blank"><span>北翼资讯</span></a></li>
                         <li><a href="/front/manage.action" target="_blank"><span>物业管理</span></a></li>
-                        <li><a href="/front/aboutme.action" target="_blank"><span>关于我们</span></a></li>
+                        <li class="dropdown">
+                            <a  href="/front/aboutme.action" target="_blank" ><span>关于我们</span> <b class="caret"></b></a>
+                            <ul class="dropdown-menu shop-son-ul" style="margin-top:-10px;">
+                                <li><a href="/front/aboutme-detail.action?id=1" target="_blank"><span>企业概况</span></a></li>
+                                <li><a href="/front/aboutme-detail.action?id=2" target="_blank"><span>组织架构</span></a></li>
+                                <li><a href="/front/aboutme-detail.action?id=3" target="_blank"><span>领导团队</span></a></li>
+                                <li><a href="/front/aboutme-detail.action?id=4" target="_blank"><span>业务领域</span></a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </nav>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.shop-business-ul').click(function(){
+            $.post("front/click.action",
+                    {
+                        type:2
+                    },
+                    function(data,status){
+                        console.log("添加电子商务点击数");
+                    });
+        });
+
+        $('.shop-ad-click').click(function(){
+            $.post("front/click.action",
+                    {
+                        type:3
+                    },
+                    function(data,status){
+                        console.log("添加广告点击数");
+                    });
+        });
+
+        $('.shop-qq-click').click(function(){
+            $.post("front/click.action",
+                    {
+                        type:4
+                    },
+                    function(data,status){
+                        console.log("添加qq点击数");
+                    });
+        });
+    });
+
+</script>
