@@ -7,13 +7,13 @@
 <div class="content" ng-app="myApp" ng-controller="myCtrl" ng-init="init()">
     #parse("\include\navigation.vm")
     <div class="container">
-        <div class="row col-xs-12" style="height: 200px;">
+        <!--<div class="row col-xs-12" style="height: 200px;">
             <div class="panel panel-default">
                 <div class="panel-heading shop-ad-click">
                     <img src="$!advert.newPicName" style="height: 200px;width:100%;" />
                 </div>
             </div>
-        </div>
+        </div>-->
         <div class="row col-xs-12 shop-margin-top-30">
             #parse("\include\search.vm")
         </div>
@@ -31,8 +31,8 @@
                             <div class="panel-body">
                                 <div class="row">
                                     #foreach($board in $boardList)
-                                    <div class="shop-margin-left-10 " style="height: 60px;">
-                                        <span style="font-size: 20px;line-height: 60px;"><a class="shop-margin-left-20 shop-color-black"  href="/front/boardDetail.action?id=$!board.brdId" target="_blank">$!{board.brdTitle}</a></span>
+                                    <div class="shop-margin-left-10 " style="height: 45px;">
+                                        <span style="font-size: 20px;line-height: 45px;"><a class="shop-margin-left-20 shop-color-black"  href="/front/boardDetail.action?id=$!board.brdId" target="_blank">$!{board.brdTitle}</a></span>
                                         <span class="shop-fright shop-margin-right-10 shop-margin-top-20 shop-color-gray">$!date.format('yyyy-MM-dd HH:mm:ss ',$!board.createDate)</span>
                                     </div>
                                     #end

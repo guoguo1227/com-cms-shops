@@ -43,9 +43,7 @@
                         </div>
                     </li>
                 #end
-
             </ul>
-
 
         </div>
         
@@ -117,7 +115,7 @@
                 </div>
 
             </div>
-            <div class="col-lg-7 panel panel-default shop-margin-left-10" style="height: 270px;width: 64%;">
+            <div class="col-lg-7 panel panel-default shop-margin-left-10" style="height: 270px;width: 65%;">
                 <div class="panel-heading shop-font14" style="background-color: white;"><span><font style="color:#333;font-size: 22px;"><strong>▌<strong></strong></font></span><span class="shop-font shop-spacing3" style="color:#333;">商铺热门筛选</span></div>
                 <div class="panel-body shop-select-font">
                     #foreach($hotcat in $!hotAllList)
@@ -174,21 +172,23 @@
                     </a>
                 </div>
             </div>
-            <div class="col-lg-2 panel panel-default shop-margin-left-10" style="height: 270px;width: 14%;">
+            <div class="col-lg-2 panel panel-default shop-margin-left-10" style="height: 270px;width: 13%;">
                 <div class="col-lg-12 panel-body shop-contact">
                     <button class="col-lg-12 thumbnail shop-border-none" data-toggle="modal" data-target="#businessModel" style="height: 60px;">
                         <div class="panel-default">
-                            <img src="/static/ui/images/phone.png" style="height: 25px;"><p><font color="red">招商热线</font></p>
+                            <img src="/static/ui/images/phone.png" style="height: 22px;"><p><font color="red">招商热线</font></p>
                         </div>
                     </button>
                     <div class="panel-default col-lg-12 thumbnail shop-border-none shop-qq-click" style="height: 60px;">
                         <a class="buy" href="http://wpa.qq.com/msgrd?V=1&amp;uin=2046303590&amp;Site=beiyishop&amp;Menu=yes" target="_blank" title="在线客服">
-                            <img src="/static/ui/images/qq.png" style="height: 25px;" ><p><font color="red">在线客服</font></p>
+                            <img src="/static/ui/images/qq.png" style="height: 22px;" >
+                            <p><font color="red">&nbsp;&nbsp;在线客服</font></p>
                         </a>
                     </div>
                     <button class="col-lg-12 thumbnail shop-border-none" data-toggle="modal" data-target="#myModal" style="height: 60px;">
                         <div class="panel-default">
-                            <img src="/static/ui/images/servicer.png" style="height: 25px;"><p><font color="red">给我留言</font></p>
+                            <img src="/static/ui/images/servicer.png" style="height: 22px;">
+                            <p><font color="red">给我留言</font></p>
                         </div>
                     </button>
                 </div>

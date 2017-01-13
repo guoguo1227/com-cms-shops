@@ -15,36 +15,35 @@
                 <div class="col-lg-4 panel panel-default" >
                     <div id="boardCarousel" class="row carousel slide pad_010 b_k" data-ride="carousel" style="height: 350px;margin-left:10px;">
                         <!-- 轮播（Carousel）项目 -->
-                        <div class="row carousel-inner bor_btm" style="height: 310px;">
+                        <div class="row carousel-inner bor_btm" style="height: 340px;">
                             #foreach($imgBoard in $imgBoardList)
                                 #if($!velocityCount == 1)
-                                    <div class="item active shop-good-list" >
-                                        <a class="" href="/front/boardDetail.action?id=$imgBoard.brdId" target="_blank">
-                                            <img src="$!imgBoard.img"  style="height: 280px;width:100%;">
-                                        </a>
-                                        <hr style="border-bottom: 5px solid #ee1d14;margin-top:2px;margin-bottom: 2px;margin-left:-26px;">
-                                        <div class="caption">
-                                            #set($imgboardTitle=$imgBoard.brdTitle)
-
-                                            #if($!imgboardTitle.length()>14)
-                                                #set($imgboardTitle=$imgboardTitle.substring(0,14))
-                                            #end
-                                            <span class="shop-imgBoard-title">$!{imgboardTitle}</span>
+                                    <div class="item active shop-good-list shop-margin-top-15" >
+                                           #set($imgboardTitle=$imgBoard.brdTitle)
+                                           #if($!imgboardTitle.length()>14)
+                                               #set($imgboardTitle=$imgboardTitle.substring(0,14))
+                                           #end
+                                        <div class="shop-panel-heading" style="background-color: white;line-height: 2;font-size: 20px;bottom:10px;"><span style="font-size: 20px;letter-spacing: 3px;color: #646464;line-height: 20px;">$!{imgboardTitle}</span></div>
+                                        <div class="shop-margin-top-10">
+                                            <a class="" href="/front/boardDetail.action?id=$imgBoard.brdId" target="_blank">
+                                                <img src="$!imgBoard.img"  style="height: 290px;width:100%;">
+                                            </a>
                                         </div>
+
                                     </div>
                                 #else
-                                    <div class="item shop-good-list">
-                                        <a class="" href="/front/boardDetail.action?id=$imgBoard.brdId" target="_blank">
-                                            <img src="$!imgBoard.img"  style="height: 280px;width:100%;">
-                                        </a>
-                                        <hr style="border-bottom: 5px solid #ee1d14;margin-top:2px;margin-bottom: 2px;margin-left:-26px;">
+                                    <div class="item shop-good-list shop-margin-top-15">
                                         <div class="caption">
                                             #set($imgboardTitle=$imgBoard.brdTitle)
-
                                             #if($!imgboardTitle.length()>14)
                                                 #set($imgboardTitle=$imgboardTitle.substring(0,14))
                                             #end
-                                            <span class="shop-imgBoard-title">$!{imgboardTitle}</span>
+                                            <div class="shop-panel-heading" style="background-color: white;line-height: 2;font-size: 20px;"><span style="font-size: 20px;letter-spacing: 3px;color: #646464;line-height: 20px;">$!{imgboardTitle}</span></div>
+                                        </div>
+                                        <div class="shop-margin-top-10">
+                                            <a class="" href="/front/boardDetail.action?id=$imgBoard.brdId" target="_blank">
+                                                <img src="$!imgBoard.img"  style="height: 290px;width:100%;">
+                                            </a>
                                         </div>
                                     </div>
                                 #end
@@ -53,14 +52,14 @@
 
                         </div>
 
-                        <div class="row " style="height: 10px;">
+                        #*<div class="row " style="height: 10px;">
                             <ol class="carousel-indicators" style="bottom: 0px;">
                                 <li style="border: 1px solid #7c7c7c;" data-target="#boardCarousel" data-slide-to="0" class="active"></li>
                                 <li style="border: 1px solid #7c7c7c;" data-target="#boardCarousel" data-slide-to="1"></li>
                                 <li style="border: 1px solid #7c7c7c;" data-target="#boardCarousel" data-slide-to="2"></li>
                                 <li style="border: 1px solid #7c7c7c;" data-target="#boardCarousel" data-slide-to="3"></li>
                             </ol>
-                        </div>
+                        </div>*#
 
                         <!-- 轮播（Carousel）导航 -->
                     </div>
@@ -69,13 +68,13 @@
 
                 <div class="col-lg-4 panel panel-default shop-margin-left-10" style="height:350px;width: 32%;">
                     <div class="panel-body">
-                        <div class="shop-panel-heading" style="background-color: white;line-height: 2"><span class="shop-font-news shop-margin-bottom-5">北翼要闻</span></div>
-                        <div class="col-lg-4 shop-margin-top-30" style="height:25px;width: 39%;">
+                        <div class="shop-panel-heading" style="background-color: white;line-height: 2"><span class="shop-font-news shop-margin-bottom-5">北翼要闻<a href="/front/boardList.action?type=5" target="_blank" class="shop-fright"><font color="#999" style="font-size: 16px;">更多</font></a></span></div>
+                        #*<div class="col-lg-4 shop-margin-top-30" style="height:25px;width: 39%;">
                             <a class="shop-font-time" href="#" style="margin-left: 2px;">$!date.format('MM月dd日',$!today)</a>
                         </div>
                         <div class="col-lg-8 shop-margin-top-15" style="height:40px;width:60%;background-size:100% 100%;background-image: url('/static/ui/images/more1.png')" >
                             <a href="/front/boardList.action?type=5" target="_blank" class="shop-margin-top-10 shop-fright"><font color="white">more</font></a>
-                        </div>
+                        </div>*#
                         <div class="row col-lg-12 shop-margin-top-10" style="width:115%;">
                             <ul class="shop-news shop-margin-top-10">
                                 #foreach($news in $!newsBoardList)
@@ -94,13 +93,13 @@
                 <div class="col-lg-4 panel panel-default shop-margin-left-10" style="height:350px;width: 32%;">
                     <!-- <div class="panel-heading">广告位3</div> -->
                     <div class="panel-body panel-default">
-                        <div class="shop-panel-heading" style="background-color: white;line-height: 2"><span class="shop-font-news">商家动态</span></div>
-                            <div class="col-lg-4 shop-margin-top-30" style="height:25px;width: 39%;">
+                        <div class="shop-panel-heading" style="background-color: white;line-height: 2"><span class="shop-font-news">商家动态<a href="/front/boardList.action?type=6" target="_blank" class="shop-fright"><font color="#999" style="font-size: 16px;">更多</font></a></span></div>
+                           #* <div class="col-lg-4 shop-margin-top-30" style="height:25px;width: 39%;">
                                 <a class="shop-font-time" href="#" style="margin-left: 2px;">$!date.format('MM月dd日',$!today)</a>
                             </div>
                             <div class="col-lg-8 shop-margin-top-15" style="height:40px;width:60%;background-size:100% 100%;background-image: url('/static/ui/images/more1.png')" >
                                 <a href="/front/boardList.action?type=6" target="_blank" class="shop-margin-top-10 shop-fright"><font color="white">more</font></a>
-                            </div>
+                            </div>*#
                             <div class="row col-lg-12 shop-margin-top-5" style="width:115%;">
                                 <ul class="shop-news shop-margin-top-10">
                                     #foreach($business in $!businessBoardList)
@@ -120,7 +119,7 @@
             <div class="row" style="height: 400px;">
                 <center><span class="shop-model-title">热招旺铺</span></center>
                 <center class="shop-model-content">招商直通 · 尽享优惠</center>
-                <span class="shop-fright shop-margin-right-10"><a class="shop-model-content shop-margin-right-5" href="/front/search-shop.action?type=3" target="_blank">更多商铺</a></span>
+                <span class="shop-fright shop-margin-right-10"><a class="shop-model-content shop-margin-right-5" href="/front/search-shop.action?type=3" target="_blank">更多</a></span>
                 <br>
                 <div class="col-sm-12 col-lg-12 ">
                     <div class="row">
@@ -153,22 +152,10 @@
                                    #end
                                <div class="col-lg-6 thumbnail">
                                     <a href="/front/detail.action?id=$!firShop.shop.id" target="_blank"><img  src="$!firShop.filePath" style="height:90px;"></a>
-                                    #if($velocityCount <4)
-                                        <div class="caption mr_zhe_p2">
-                                            <span class="shop-hot-title-small">$!{roadName2}</span>
-                                            <span class="shop-fright shop-hot-area-small">$!{firShop.shop.squareMetres}㎡</span>
-                                        </div>
-                                    #elseif($velocityCount ==4)
-                                        <div class="caption mr_zhe_p">
-                                            <span class="shop-hot-title-small">$!{roadName2}</span>
-                                            <span class="shop-fright shop-hot-area-small">$!{firShop.shop.squareMetres}㎡</span>
-                                        </div>
-                                    #else
-                                        <div class="caption mr_zhe_p5">
-                                            <span class="shop-hot-title-small">$!{roadName2}</span>
-                                            <span class="shop-fright shop-hot-area-small">$!{firShop.shop.squareMetres}㎡</span>
-                                        </div>
-                                    #end
+                                   <div class="caption mr_zhe_p">
+                                       <span class="shop-hot-title-small">$!{roadName2}</span>
+                                       <span class="shop-fright shop-hot-area-small">$!{firShop.shop.squareMetres}㎡</span>
+                                   </div>
                                </div>
                                #end
                             #end
@@ -184,7 +171,7 @@
                                     #end
                                     <div class="col-xs-12 thumbnail">
                                         <a href="/front/detail.action?id=$!firShop.shop.id" target="_blank"><img src="$!firShop.filePath" alt="" style="height:250px;"></a>
-                                        <div class="caption mr_zhe_p2">
+                                        <div class="caption mr_zhe_p">
                                             <span class="shop-hot-title">$!{roadName3}</span>
                                             <span class="shop-fright shop-hot-area">$!{firShop.shop.squareMetres}㎡</span>
                                         </div>
@@ -207,7 +194,7 @@
             <div class="row">
                 <center><span class="shop-model-title">精选好铺</span></center>
                 <center class="shop-model-content">优先掌握 · 抢占先机</center>
-                <span class="shop-fright"><a class="shop-model-content shop-margin-right-5" href="/front/search-shop.action?type=2" target="_blank">更多商铺</a></span>
+                <span class="shop-fright"><a class="shop-model-content shop-margin-right-5" href="/front/search-shop.action?type=2" target="_blank">更多</a></span>
                 <br>
                 <div class="row col-lg-12" style="width:106%;">
                     #foreach($goodShop in $!goodShopList)
@@ -229,33 +216,13 @@
                             #elseif($!distribe.length()==0)
                                 #set($distribe=$goodShop.shop.shopName)
                             #end
-                            #if($velocityCount == 1 || $velocityCount == 4)
-                                <div class="shop-text">
-                                    <div class="shop-imgtext" style="background:#337ab7;">
-                                        <p>
-                                            <span>$!{distribe}</span>
-                                        </p>
-                                    </div>
+                            <div class="shop-text">
+                                <div class="shop-imgtext" style="background:#337ab7;">
+                                    <p>
+                                        <span>$!{distribe}</span>
+                                    </p>
                                 </div>
-                            #elseif($velocityCount == 2 || $velocityCount == 5)
-                                <div class="shop-text" style="background:#bec000;">
-                                    <div class="shop-imgtext">
-                                        <p>
-                                            <span>$!{distribe}</span>
-                                        </p>
-                                    </div>
-                                </div>
-
-                            #else
-                                <div class="shop-text" style="background:#e84f5e;">
-                                    <div class="shop-imgtext">
-                                        <p>
-                                            <span>$!{distribe}</span>
-                                        </p>
-                                    </div>
-                                </div>
-
-                            #end
+                            </div>
 
                             <a href="/front/detail.action?id=$!goodShop.shop.id" target="_blank" class="now">&nbsp;</a>
 
@@ -272,7 +239,10 @@
 <div class="row col-xs-12" style="margin-top:-12px;">
     <div class="panel panel-default">
         <div class="panel-heading"  style="height: 280px;">
+            <center><span class="shop-model-title"><font style="color:rgb(193, 14, 14)">精品项目</font></span></center>
+#*
             <center><h3><font style="color:rgb(193, 14, 14)">精品项目</font></h3></center>
+*#
             <hr style="border: 5px solid rgb(193, 14, 14);margin-top:2px;margin-bottom: 2px;width:97%;">
             <div class="row col-xs-12 friend">
                 <div id="shopslide">

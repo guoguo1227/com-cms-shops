@@ -293,7 +293,7 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public List<ShopVo> getOnList(ShopTypeEnum type) {
+    public List<ShopVo> getOnList(ShopTypeEnum type,Integer limit) {
 
         List<ShopVo> voList = new ArrayList<>();
         ShopCriteria criteria = new ShopCriteria();
@@ -302,6 +302,9 @@ public class ShopServiceImpl implements ShopService {
         criteria.setOrderByClause(" ID desc ");
         criteria.setLimitStart(0);
         criteria.setLimitEnd(6);
+        if(null != limit){
+            criteria.setLimitEnd(limit);
+        }
         List<Shop> shopList = shopMapper.selectByExample(criteria);
         if(CollectionUtils.isNotEmpty(shopList)){
             for(Shop shop : shopList) {

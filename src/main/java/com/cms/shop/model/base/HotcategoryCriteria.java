@@ -318,6 +318,66 @@ public class HotcategoryCriteria implements BaseCriteria {
             addCriterion("priority not between", value1, value2, "priority");
             return (Criteria) this;
         }
+
+        public Criteria andPriority2IsNull() {
+            addCriterion("priority2 is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriority2IsNotNull() {
+            addCriterion("priority2 is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriority2EqualTo(Integer value) {
+            addCriterion("priority2 =", value, "priority2");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriority2NotEqualTo(Integer value) {
+            addCriterion("priority2 <>", value, "priority2");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriority2GreaterThan(Integer value) {
+            addCriterion("priority2 >", value, "priority2");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriority2GreaterThanOrEqualTo(Integer value) {
+            addCriterion("priority2 >=", value, "priority2");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriority2LessThan(Integer value) {
+            addCriterion("priority2 <", value, "priority2");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriority2LessThanOrEqualTo(Integer value) {
+            addCriterion("priority2 <=", value, "priority2");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriority2In(List<Integer> values) {
+            addCriterion("priority2 in", values, "priority2");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriority2NotIn(List<Integer> values) {
+            addCriterion("priority2 not in", values, "priority2");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriority2Between(Integer value1, Integer value2) {
+            addCriterion("priority2 between", value1, value2, "priority2");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriority2NotBetween(Integer value1, Integer value2) {
+            addCriterion("priority2 not between", value1, value2, "priority2");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria implements Serializable {

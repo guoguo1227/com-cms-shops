@@ -20,6 +20,10 @@ public interface HotcategoryService {
 
     List<HotcategoryVo> queryHotNac();
 
+    List<Hotcategory> queryDetailHot();
+
+    List<Hotcategory> querySearchHot();
+
     boolean deleteById(Integer id);
 
     boolean addHotcate(Hotcategory hotcategory);

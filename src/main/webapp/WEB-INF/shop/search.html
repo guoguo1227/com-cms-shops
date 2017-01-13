@@ -7,13 +7,13 @@
 <div class="content" ng-app="myApp" ng-controller="myCtrl" ng-init="init()">
     #parse("\include\navigation.vm")
     <div class="container">
-        <div class="row col-xs-12" style="height: 200px;">
+       <!-- <div class="row col-xs-12" style="height: 200px;">
             <div class="panel panel-default">
                 <div class="panel-heading shop-ad-click">
                     <img src="$!advert.newPicName" style="height: 200px;width:100%;" />
                 </div>
             </div>
-        </div>
+        </div>-->
         <div class="row col-xs-12 shop-margin-top-30">
             #parse("\include\search.vm")
         </div>
@@ -72,7 +72,15 @@
                             </div>
                         </div>
                         <div class="col-lg-3 panel-box" style="margin-top:-26px;">
-                            <div style="background-color: white;marigin-top:-5px;margin-bottom:10px;margin-left:14px;font-size: 24px;color:red;"><span>精选好铺</span></div>
+                            <div style="background-color: white;marigin-top:-5px;margin-bottom:10px;margin-left:14px;font-size: 24px;color:red;">
+                                #if($!{shoptype})
+                                  #if($!{shoptype} == 3)
+                                     <span>精选好铺</span>
+                                  #else
+                                     <span>热招旺铺</span>
+                                   #end
+                                #end
+                            </div>
                            <!-- <div class="panel-body" style="margin-top:-14px;">
                                 #foreach($goodShop in $!goodShopList)
                                 <div class="thumbnail">

@@ -4,6 +4,7 @@ ALTER table  shop add road varchar(100) NOT NULL COMMENT '道路缩写';
 ALTER table  advert add priority int(10) DEFAULT '1' COMMENT '优先级';
 
 ALTER table  hotcategory add priority int(10) DEFAULT '1' COMMENT '优先级';
+ALTER table  hotcategory add priority2 int(10) DEFAULT '1' COMMENT '优先级2';
 
 CREATE TABLE `keyword` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

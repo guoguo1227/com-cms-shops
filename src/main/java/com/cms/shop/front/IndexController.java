@@ -61,6 +61,7 @@ public class IndexController extends BaseController{
 
     @Autowired
     private FriendService friendService;
+
     /**
      * 首页
      * @return
@@ -71,11 +72,11 @@ public class IndexController extends BaseController{
         List<Partner> partnerList =  partnerService.getOnList();
 
         List<Business> businessList = businessService.getOnList();
-        List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD);
-        List<ShopVo> fireShopList = shopService.getOnList(ShopTypeEnum.FIRE);
+        List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD,6);
+        List<ShopVo> fireShopList = shopService.getOnList(ShopTypeEnum.FIRE,6);
 
         SearchCondition condition = new SearchCondition();
-        condition.setLimit(6);
+        condition.setLimit(9);
         List<Board> newsBoardList = boardService.queryOnList(BoardTypeEnum.NEWS,condition);
         List<Board> businessBoardList = boardService.queryOnList(BoardTypeEnum.BUSINESS,condition);
 
@@ -84,8 +85,7 @@ public class IndexController extends BaseController{
         List<BoardVo> imgBoardList = boardService.queryVoOnList(null, condition);
 
         List<HotcategoryVo> hotcategoryList = hotcategoryService.queryHotNac();
-
-        List<Hotcategory> hotAllList = hotcategoryService.queryAll();
+        List<Hotcategory> hotAllList = hotcategoryService.querySearchHot();
 
         List<District> districtList = districtService.queryAll();
 

@@ -85,6 +85,28 @@ public class HotcategoryServiceImpl implements HotcategoryService{
     }
 
     @Override
+    public List<Hotcategory> queryDetailHot() {
+        HotcategoryCriteria criteria = new HotcategoryCriteria();
+        criteria.setOrderByClause(" priority desc ");
+        criteria.setLimitStart(0);
+        criteria.setLimitEnd(6);
+        List<Hotcategory> hotcategoryList= hotcategoryMapper.selectByExample(criteria);
+
+        return hotcategoryList;
+    }
+
+    @Override
+    public List<Hotcategory> querySearchHot() {
+        HotcategoryCriteria criteria = new HotcategoryCriteria();
+        criteria.setOrderByClause(" priority2 desc ");
+        criteria.setLimitStart(0);
+        criteria.setLimitEnd(8);
+        List<Hotcategory> hotcategoryList= hotcategoryMapper.selectByExample(criteria);
+
+        return hotcategoryList;
+    }
+
+    @Override
     public boolean deleteById(Integer id) {
         boolean success = false;
         if(null != id){

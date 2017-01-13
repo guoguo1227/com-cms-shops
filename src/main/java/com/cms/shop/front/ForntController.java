@@ -8,6 +8,7 @@ import com.cms.shop.enums.ShopTypeEnum;
 import com.cms.shop.model.base.*;
 import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.model.ext.BoardVo;
+import com.cms.shop.model.ext.HotcategoryVo;
 import com.cms.shop.model.ext.ShopVo;
 import com.cms.shop.service.*;
 import com.cms.shop.utils.Page;
@@ -115,7 +116,17 @@ public class ForntController extends BaseController{
             pageSize = shopVoPage.getPageSize();
         }
         List<Hotcategory> hotcategoryList = hotcategoryService.queryAll();
-        List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD);
+        //旺铺
+        List<ShopVo> goodShopList = null;
+        Integer type  = condition.getType();
+        if(null == type){
+            type = 3;
+        }
+        if(null != condition.getType() && condition.getType().equals(2)){
+            goodShopList = shopService.getOnList(ShopTypeEnum.FIRE,6);
+        }else{
+            goodShopList = shopService.getOnList(ShopTypeEnum.GOOD,6);
+        }
         List<District> districtList = districtService.queryAll();
         List<Keyword> keywordList = keywordService.queryHotKeyWord();
 
@@ -149,6 +160,7 @@ public class ForntController extends BaseController{
         modelMap.addAttribute("goodShopList",goodShopList);
         modelMap.addAttribute("hotcategoryList",hotcategoryList);//商铺类型
         modelMap.addAttribute("searchContent",condition.getSearchContent());
+        modelMap.addAttribute("shoptype",condition.getType());
 
         return "search";
     }
@@ -172,7 +184,7 @@ public class ForntController extends BaseController{
 
             imgList = shopImgService.getImgListByShopId(condition.getId());
         }
-        List<Hotcategory> hotcategoryList = hotcategoryService.queryAll();
+        List<Hotcategory> hotcategoryList = hotcategoryService.queryDetailHot();
         List<District> districtList = districtService.queryAll();
 
         List<Keyword> keywordList = keywordService.queryHotKeyWord();
@@ -225,7 +237,7 @@ public class ForntController extends BaseController{
                 business = page.getPageData().get(0);
             }
         }
-        List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD);
+        List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD,6);
         List<District> districtList = districtService.queryAll();
         List<Keyword> keywordList = keywordService.queryHotKeyWord();
         Flash flash = flashService.queryFlash();
@@ -267,6 +279,7 @@ public class ForntController extends BaseController{
         if(null != condition.getCurrentPage()){
             currentPage = condition.getCurrentPage();
         }
+        condition.setLimit(20);
         condition.setCheckStatus(CheckStatusEnum.PASS.getKey());
         Page<BoardVo> page = boardService.queryPageByCondition(condition);
         if(null != page && CollectionUtils.isNotEmpty(page.getPageData())){
@@ -275,7 +288,7 @@ public class ForntController extends BaseController{
             totalPage = page.getTotalPage();
             pageSize = page.getPageSize();
         }
-        List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD);
+        List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD,3);
         List<District> districtList = districtService.queryAll();
         List<Keyword> keywordList = keywordService.queryHotKeyWord();
         Flash flash = flashService.queryFlash();
@@ -317,7 +330,7 @@ public class ForntController extends BaseController{
         if(null != page && CollectionUtils.isNotEmpty(page.getPageData())){
             board = page.getPageData().get(0);
         }
-        List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD);
+        List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD,6);
         List<District> districtList = districtService.queryAll();
         List<Keyword> keywordList = keywordService.queryHotKeyWord();
 
@@ -350,7 +363,7 @@ public class ForntController extends BaseController{
 
         List<Aboutme> aboutmeList = aboutmeService.queryAllList(condition);
 
-        List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD);
+        List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD,6);
         List<District> districtList = districtService.queryAll();
         List<Keyword> keywordList = keywordService.queryHotKeyWord();
 
@@ -385,7 +398,7 @@ public class ForntController extends BaseController{
 
         Aboutme aboutme = aboutmeService.queryById(condition.getId());
 
-        List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD);
+        List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD,6);
         List<District> districtList = districtService.queryAll();
         List<Keyword> keywordList = keywordService.queryHotKeyWord();
 
@@ -423,7 +436,7 @@ public class ForntController extends BaseController{
         if(null != page && CollectionUtils.isNotEmpty(page.getPageData())){
             businessList = page.getPageData();
         }
-        List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD);
+        List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD,6);
         List<District> districtList = districtService.queryAll();
         List<Keyword> keywordList = keywordService.queryHotKeyWord();
 

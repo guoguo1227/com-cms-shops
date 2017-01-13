@@ -185,7 +185,7 @@
     text-align: left;
     line-height: 37px;
     margin-left: -92px;
-    font-family: 黑体;
+    font-family:黑体;
     font-size: 16px;
     color: #000;
 }
@@ -226,7 +226,7 @@
 .shop-contact p {
     color:#f2000a;
     font-family: 黑体;
-    font-size: 20px;
+    font-size: 16px;
 }
 .shop-select-font button{
     font-family: 黑体;
@@ -381,13 +381,13 @@
 }
 .shop-friendlink span{
     font-family: 黑体;
-    font-size: 20px;
+    font-size: 18px;
     color: #717070;
     letter-spacing: 4px;
 }
 .shop-friendlink p{
     font-family: 黑体;
-    font-size: 16px;
+    font-size: 15px;
     color: #727171;
 }
 .shop-search-btn{

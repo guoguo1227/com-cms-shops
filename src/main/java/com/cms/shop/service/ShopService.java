@@ -29,7 +29,7 @@ public interface ShopService {
 
     Page<ShopVo> queryCheckListBySearchCondition(SearchCondition condition);
 
-    List<ShopVo> getOnList(ShopTypeEnum type);
+    List<ShopVo> getOnList(ShopTypeEnum type,Integer limit);
 
     Shop queryShopById(Integer id);
 

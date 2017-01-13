@@ -9,6 +9,8 @@ public class Hotcategory implements BaseBean {
 
     private Integer priority;
 
+    private Integer priority2;
+
     public Integer getHotId() {
         return hotId;
     }
@@ -33,6 +35,14 @@ public class Hotcategory implements BaseBean {
         this.priority = priority;
     }
 
+    public Integer getPriority2() {
+        return priority2;
+    }
+
+    public void setPriority2(Integer priority2) {
+        this.priority2 = priority2;
+    }
+
     /** 
      * 拷贝，将对象中的字段全部拷贝到子对象中
      * @param bean 接收对象的子类
@@ -42,6 +52,7 @@ public class Hotcategory implements BaseBean {
         bean.setHotId(getHotId());
         bean.setHotName(getHotName());
         bean.setPriority(getPriority());
+        bean.setPriority2(getPriority2());
         return bean;
     }
 
@@ -54,6 +65,7 @@ public class Hotcategory implements BaseBean {
         	"hotId:" + getHotId() + 
         	", hotName:" + getHotName() + 
         	", priority:" + getPriority() + 
+        	", priority2:" + getPriority2() + 
         "}";
     }
 }

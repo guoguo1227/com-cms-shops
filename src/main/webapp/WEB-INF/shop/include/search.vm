@@ -5,7 +5,7 @@
         <form class="navbar-form navbar-left" role="search">
             <div class="form-group">
                 <input type="text" style="width: 611px;margin-left:-30px;" class="form-control shop-font18" id="searchContent" placeholder="请输入关键字" ng-keyup="myKeyup($event)" value="$!{searchContent}">
-                <button type="button" style="width:120px;border-radius:3px;background-color: #dd2418" class="btn btn-danger btn-flat" ng-click="searchLoad()">搜索</button>
+                <button type="button" style="width:120px;border-radius:3px;background-color: #999;color:#f3000d;" class="btn btn-danger btn-flat" ng-click="searchLoad()"><strong>搜索</strong></button>
                 &nbsp;&nbsp;
                 <span class=" shop-font-small">热门搜索:</span>
                 #foreach($keyword in $!keywordList)
