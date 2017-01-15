@@ -8,9 +8,7 @@ import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.model.ext.RequestResult;
 import com.cms.shop.model.ext.ShopExt;
 import com.cms.shop.model.ext.ShopVo;
-import com.cms.shop.service.ShopImgService;
-import com.cms.shop.service.ShopService;
-import com.cms.shop.service.ShopTypeService;
+import com.cms.shop.service.*;
 import com.cms.shop.utils.BeanUtilExt;
 import com.cms.shop.utils.Page;
 import org.apache.commons.collections.CollectionUtils;
@@ -53,7 +51,7 @@ public class ShopServiceImpl implements ShopService {
     private ShopTypeService shopTypeService;
 
     @Autowired
-    private HotcategoryMapper hotcategoryMapper;
+    private HotcategoryService hotcategoryService;
 
     @Autowired
     private InvestmentMapper investmentMapper;
@@ -62,7 +60,7 @@ public class ShopServiceImpl implements ShopService {
     private BuildingFacilityMapper buildingFacilityMapper;
 
     @Autowired
-    private BuildingOccupancyMapper buildingOccupancyMapper;
+    private BuildingOccupancyService buildingOccupancyService;
 
     @Override
     public Page<ShopVo> queryListBySearchCondition(SearchCondition condition) {
@@ -201,7 +199,7 @@ public class ShopServiceImpl implements ShopService {
                             }
                         }
                         if(null != shop.getOcpyId()){
-                            BuildingOccupancy buildingOccupancy = buildingOccupancyMapper.selectByPrimaryKey(shop.getOcpyId());
+                            BuildingOccupancy buildingOccupancy = buildingOccupancyService.queryOccupyById(shop.getOcpyId());
                             if(null != buildingOccupancy){
                                 shopVo.setBuildingOccupancy(buildingOccupancy.getOcpyName());
                             }
@@ -217,6 +215,14 @@ public class ShopServiceImpl implements ShopService {
                                 e.printStackTrace();
                             }
                         }
+                        //类型
+                        if(null != shop.getHotId()){
+                            Hotcategory hot = hotcategoryService.queryById(shop.getHotId());
+                            if(null != hot){
+                                shopVo.setHotcatStr(hot.getHotName());
+                            }
+                        }
+
                         shopVo.setDeposit(despositStr);
                         shopVoList.add(shopVo);
                     }

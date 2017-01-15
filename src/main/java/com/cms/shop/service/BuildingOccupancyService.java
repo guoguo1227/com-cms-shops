@@ -15,6 +15,8 @@ public interface BuildingOccupancyService {
 
     Page<BuildingOccupancy> queryPageByCondition(SearchCondition condition);
 
+    BuildingOccupancy queryOccupyById(Integer id);
+
     boolean deleteById(Integer id);
 
     boolean addOccupancy(BuildingOccupancy buildingOccupancy);

@@ -16,6 +16,8 @@ public interface HotcategoryService {
 
     Page<Hotcategory> queryPageByCondition(SearchCondition condition);
 
+    Hotcategory queryById(Integer id);
+
     List<Hotcategory> queryAll();
 
     List<HotcategoryVo> queryHotNac();

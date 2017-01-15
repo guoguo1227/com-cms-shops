@@ -47,6 +47,15 @@ public class BuildingOccupancyServiceImpl implements BuildingOccupancyService {
     }
 
     @Override
+    public BuildingOccupancy queryOccupyById(Integer id) {
+        BuildingOccupancy buildingOccupancy = null;
+        if(null != id){
+            buildingOccupancy = buildingOccupancyMapper.selectByPrimaryKey(id);
+        }
+        return buildingOccupancy;
+    }
+
+    @Override
     public boolean deleteById(Integer id) {
         boolean success = false;
         if(null != id){

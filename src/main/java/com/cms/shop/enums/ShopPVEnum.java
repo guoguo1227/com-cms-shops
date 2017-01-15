@@ -8,7 +8,8 @@ public enum ShopPVEnum {
     SHOP(1, "商铺"),
     BUSINESS(2, "电子商务"),
     AD(3, "广告"),
-    QQ(4, "在线客服");
+    QQ(4, "在线客服"),
+    SITE(5,"网站");
 
     private Integer key;
 

@@ -3,12 +3,10 @@ package com.cms.shop.front;
 import com.cms.shop.controller.BaseController;
 import com.cms.shop.enums.CheckStatusEnum;
 import com.cms.shop.enums.ShopPVEnum;
-import com.cms.shop.enums.ShopStatusEnum;
 import com.cms.shop.enums.ShopTypeEnum;
 import com.cms.shop.model.base.*;
 import com.cms.shop.model.condition.SearchCondition;
 import com.cms.shop.model.ext.BoardVo;
-import com.cms.shop.model.ext.HotcategoryVo;
 import com.cms.shop.model.ext.ShopVo;
 import com.cms.shop.service.*;
 import com.cms.shop.utils.Page;
@@ -20,9 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -149,6 +145,17 @@ public class ForntController extends BaseController{
         if(CollectionUtils.isNotEmpty(advertList)){
             advert = advertList.get(0);
         }
+
+        //添加点击数
+        Thread thread1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ShopPv pv = new ShopPv();
+                pv.setType(ShopPVEnum.SITE.getKey());
+                statisticService.addShopPV(pv);
+            }
+        });
+        thread1.start();
         modelMap.addAttribute("districtList", districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
         modelMap.addAttribute("advert",advert);
@@ -251,6 +258,16 @@ public class ForntController extends BaseController{
             advert = advertList.get(0);
         }
 
+        //添加点击数
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ShopPv pv = new ShopPv();
+                pv.setType(ShopPVEnum.SITE.getKey());
+                statisticService.addShopPV(pv);
+            }
+        });
+        thread.start();
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
         modelMap.addAttribute("advert",advert);
@@ -302,6 +319,17 @@ public class ForntController extends BaseController{
             advert = advertList.get(0);
         }
 
+        //添加点击数
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ShopPv pv = new ShopPv();
+                pv.setType(ShopPVEnum.SITE.getKey());
+                statisticService.addShopPV(pv);
+            }
+        });
+        thread.start();
+
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
         modelMap.addAttribute("advert",advert);
@@ -343,6 +371,17 @@ public class ForntController extends BaseController{
         if(CollectionUtils.isNotEmpty(advertList)){
             advert = advertList.get(0);
         }
+
+        //添加点击数
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ShopPv pv = new ShopPv();
+                pv.setType(ShopPVEnum.SITE.getKey());
+                statisticService.addShopPV(pv);
+            }
+        });
+        thread.start();
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
         modelMap.addAttribute("advert",advert);
@@ -376,6 +415,17 @@ public class ForntController extends BaseController{
         }
 
         Flash flash = flashService.queryFlash();
+
+        //添加点击数
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ShopPv pv = new ShopPv();
+                pv.setType(ShopPVEnum.SITE.getKey());
+                statisticService.addShopPV(pv);
+            }
+        });
+        thread.start();
         modelMap.addAttribute("flash",flash);
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
@@ -398,7 +448,7 @@ public class ForntController extends BaseController{
 
         Aboutme aboutme = aboutmeService.queryById(condition.getId());
 
-        List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD,6);
+        List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD,3);
         List<District> districtList = districtService.queryAll();
         List<Keyword> keywordList = keywordService.queryHotKeyWord();
 
@@ -410,6 +460,16 @@ public class ForntController extends BaseController{
             advert = advertList.get(0);
         }
 
+        //添加点击数
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ShopPv pv = new ShopPv();
+                pv.setType(ShopPVEnum.SITE.getKey());
+                statisticService.addShopPV(pv);
+            }
+        });
+        thread.start();
         Flash flash = flashService.queryFlash();
         modelMap.addAttribute("flash",flash);
         modelMap.addAttribute("districtList",districtList);//地区
@@ -431,12 +491,8 @@ public class ForntController extends BaseController{
     @RequestMapping("manage")
     public String manage(SearchCondition condition,ModelMap modelMap){
 
-        List<Business> businessList = new ArrayList<>();
-        Page<Business> page = businessService.queryPageByCondition(condition);
-        if(null != page && CollectionUtils.isNotEmpty(page.getPageData())){
-            businessList = page.getPageData();
-        }
-        List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD,6);
+        Manage manage = aboutmeService.queryManageOnline();
+        List<ShopVo> goodShopList = shopService.getOnList(ShopTypeEnum.GOOD,3);
         List<District> districtList = districtService.queryAll();
         List<Keyword> keywordList = keywordService.queryHotKeyWord();
 
@@ -449,12 +505,23 @@ public class ForntController extends BaseController{
         }
 
         Flash flash = flashService.queryFlash();
+        //添加点击数
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ShopPv pv = new ShopPv();
+                pv.setType(ShopPVEnum.SITE.getKey());
+                statisticService.addShopPV(pv);
+            }
+        });
+        thread.start();
+
         modelMap.addAttribute("flash",flash);
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
         modelMap.addAttribute("advert",advert);
 
-        modelMap.addAttribute("businessList",businessList);
+        modelMap.addAttribute("manage",manage);
         modelMap.addAttribute("goodShopList",goodShopList);
 
         return "manage";

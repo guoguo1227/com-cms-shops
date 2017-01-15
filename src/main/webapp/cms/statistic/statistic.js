@@ -34,13 +34,13 @@ function statisticCtrl($scope,$http,angularMeta,lgDataTableService){
 
         };
 
-        var headerArray = ['时间','商铺点击总数(好铺|旺铺)','电子商务点击数','广告点击数','在线客服点击数','留言总数'];
+        var headerArray = ['时间','网站总点击数','商铺点击总数(好铺|旺铺)','电子商务点击数','广告点击数','在线客服点击数','留言总数'];
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
         pageData = $scope.formatMonthPageData(pageData);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
             return pg;
-        }), ['dateStr','shopClickTotalStr','businessClick','adClick','qqClick','qaClick']);
+        }), ['dateStr','totalStr','shopClickTotalStr','businessClick','adClick','qqClick','qaClick']);
     };
 
     //初始化表格数据
@@ -49,13 +49,13 @@ function statisticCtrl($scope,$http,angularMeta,lgDataTableService){
 
         };
 
-        var headerArray = ['时间','商铺点击总数(好铺|旺铺)','电子商务点击数','广告点击数','在线客服点击数','留言总数'];
+        var headerArray = ['时间','网站总点击数','商铺点击总数(好铺|旺铺)','电子商务点击数','广告点击数','在线客服点击数','留言总数'];
         lgDataTableService.setHeadWithArrays($scope.weekTableData, [headerArray]);
         pageData = $scope.formatWeekPageData(pageData);
 
         lgDataTableService.setBodyWithObjects($scope.weekTableData, _.map(pageData, function(pg) {
             return pg;
-        }), ['dateStr','shopClickTotalStr','businessClick','adClick','qqClick','qaClick']);
+        }), ['dateStr','totalStr','shopClickTotalStr','businessClick','adClick','qqClick','qaClick']);
     };
 
     //格式化表格数据
@@ -63,7 +63,6 @@ function statisticCtrl($scope,$http,angularMeta,lgDataTableService){
 
         if(pageData != undefined && pageData != "" && pageData.length>0){
             for(var i in pageData){
-                //注册账号激活状态
                 pageData[i].shopClickTotalStr = pageData[i].shopClickTotal;
                 if(pageData[i].shopClickTotal){
                     pageData[i].shopClickTotalStr += "("+pageData[i].shopGoodClick+" | "+pageData[i].shopFireClick+")";
@@ -71,6 +70,12 @@ function statisticCtrl($scope,$http,angularMeta,lgDataTableService){
                 pageData[i].dateStr = "";
                 if(pageData[i].date){
                     pageData[i].dateStr = pageData[i].date+"月";
+                }
+                pageData[i].totalStr = "";
+                if(pageData[i].total){
+                    pageData[i].totalStr = Number(pageData[i].total) +  Number(pageData[i].shopClickTotal) + Number(pageData[i].businessClick) + Number(pageData[i].adClick) + Number(pageData[i].qqClick) ;
+                }else{
+                    pageData[i].totalStr = Number(pageData[i].shopClickTotal) + Number(pageData[i].businessClick) + Number(pageData[i].adClick) + Number(pageData[i].qqClick) ;
                 }
             }
         }
@@ -81,7 +86,6 @@ function statisticCtrl($scope,$http,angularMeta,lgDataTableService){
 
         if(pageData != undefined && pageData != "" && pageData.length>0){
             for(var i in pageData){
-                //注册账号激活状态
                 pageData[i].shopClickTotalStr = pageData[i].shopClickTotal;
                 if(pageData[i].shopClickTotal){
                     pageData[i].shopClickTotalStr += "("+pageData[i].shopGoodClick+" | "+pageData[i].shopFireClick+")";
@@ -91,6 +95,12 @@ function statisticCtrl($scope,$http,angularMeta,lgDataTableService){
                     var tmp = pageData[i].date.substr(0,4);
                     var nav = pageData[i].date.substr(4,pageData[i].date.length);
                     pageData[i].dateStr = tmp+"年-第"+nav+"周";
+                }
+                pageData[i].totalStr = "";
+                if(pageData[i].total){
+                    pageData[i].totalStr = Number(pageData[i].total) +  Number(pageData[i].shopClickTotal) + Number(pageData[i].businessClick) + Number(pageData[i].adClick) + Number(pageData[i].qqClick) ;
+                }else{
+                    pageData[i].totalStr = Number(pageData[i].shopClickTotal) + Number(pageData[i].businessClick) + Number(pageData[i].adClick) + Number(pageData[i].qqClick) ;
                 }
             }
         }

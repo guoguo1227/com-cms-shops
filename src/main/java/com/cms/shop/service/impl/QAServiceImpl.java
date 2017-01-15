@@ -123,7 +123,7 @@ public class QAServiceImpl implements QAService{
         boolean success = false;
         String message = "";
         if(null != qa && !StringUtils.isBlank(qa.getAskerName())){
-            qa.setAuditStatus(CheckStatusEnum.AUDIT.getKey());
+            qa.setAuditStatus(CheckStatusEnum.PASS.getKey());
             qa.setCreateDate(new Date());
             int i = qaMapper.insertSelective(qa);
             if(i>0){
@@ -131,6 +131,24 @@ public class QAServiceImpl implements QAService{
             }
         }else{
             message = "留言内容和企业名称不可为空";
+        }
+        result.setSuccess(success);
+        result.setMessage(message);
+        return result;
+    }
+
+    @Override
+    public RequestResult delete(Integer id) {
+        RequestResult result = new RequestResult();
+        boolean success = false;
+        String message = "";
+        if(null != id){
+            int i = qaMapper.deleteByPrimaryKey(id);
+            if(i>0){
+                success = true;
+            }
+        }else{
+            message = "id不可为空";
         }
         result.setSuccess(success);
         result.setMessage(message);

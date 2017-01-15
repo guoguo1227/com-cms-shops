@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.org.mozilla.javascript.internal.NativeArray;
 
 import java.util.*;
 
@@ -57,6 +58,7 @@ public class StatisticServiceImpl implements StatisticService {
         List<ShopPvExt> shopAdList = new ArrayList<>();
         List<ShopPvExt> shopQQList = new ArrayList<>();
         List<ShopPvExt> shopQAList = new ArrayList<>();
+        List<ShopPvExt> shopTotalList = new ArrayList<>();
         //月
         if(condition.getType() == 1){
             shopClickTotal = shopPvExtMapper.queryClickMonthByType(ShopPVEnum.SHOP.getKey());
@@ -68,9 +70,11 @@ public class StatisticServiceImpl implements StatisticService {
             //广告点击数
             shopAdList = shopPvExtMapper.queryClickMonthByType(ShopPVEnum.AD.getKey());
             //在线客服
-            shopQQList = shopPvExtMapper.queryQaMonthByType();
+            shopQQList = shopPvExtMapper.queryClickMonthByType(ShopPVEnum.QQ.getKey());
             //留言
             shopQAList = shopPvExtMapper.queryQaMonthByType();
+            //总数
+            shopTotalList = shopPvExtMapper.queryClickMonthByType(ShopPVEnum.SITE.getKey());
         }else if(condition.getType() == 2){
             //周
             //商铺点击数
@@ -83,9 +87,11 @@ public class StatisticServiceImpl implements StatisticService {
             //广告点击数
             shopAdList = shopPvExtMapper.queryClickWeekByType(ShopPVEnum.AD.getKey());
             //在线客服
-            shopQQList = shopPvExtMapper.queryQaWeekByType();
+            shopQQList = shopPvExtMapper.queryClickWeekByType(ShopPVEnum.QQ.getKey());
             //留言
             shopQAList = shopPvExtMapper.queryQaWeekByType();
+            //总数
+            shopTotalList = shopPvExtMapper.queryClickWeekByType(ShopPVEnum.SITE.getKey());
         }
 
         if(CollectionUtils.isNotEmpty(shopClickTotal)){
@@ -168,6 +174,21 @@ public class StatisticServiceImpl implements StatisticService {
         }
         if(CollectionUtils.isNotEmpty(shopQAList)){
             for(ShopPvExt ext : shopQAList){
+                Statistic statistic = map.get(ext.getDate());
+                if(null != statistic) {
+                    statistic.setTotoal(ext.getCount().toString());
+                }else{
+                    statistic = new Statistic();
+                    statistic.setDate(ext.getDate());
+                    statistic.setTotoal(ext.getCount().toString());
+                }
+                //更新
+                map.put(ext.getDate(),statistic);
+            }
+        }
+        //总数
+        if(CollectionUtils.isNotEmpty(shopTotalList)){
+            for(ShopPvExt ext : shopTotalList){
                 Statistic statistic = map.get(ext.getDate());
                 if(null != statistic) {
                     statistic.setQaClick(ext.getCount().toString());

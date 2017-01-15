@@ -2,6 +2,7 @@ package com.cms.shop.front;
 
 import com.cms.shop.controller.BaseController;
 import com.cms.shop.enums.BoardTypeEnum;
+import com.cms.shop.enums.ShopPVEnum;
 import com.cms.shop.enums.ShopTypeEnum;
 import com.cms.shop.model.base.*;
 import com.cms.shop.model.condition.SearchCondition;
@@ -62,6 +63,11 @@ public class IndexController extends BaseController{
     @Autowired
     private FriendService friendService;
 
+    @Autowired
+    private AboutmeService aboutmeService;
+
+    @Autowired
+    private StatisticService statisticService;
     /**
      * 首页
      * @return
@@ -106,6 +112,18 @@ public class IndexController extends BaseController{
         //招商热线
         Investment investment = shopService.queryInvestment();
 
+        List<Aboutme> aboutmeList =  aboutmeService.queryAllList(condition);
+
+        //添加点击数
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ShopPv pv = new ShopPv();
+                pv.setType(ShopPVEnum.SITE.getKey());
+                statisticService.addShopPV(pv);
+            }
+        });
+        thread.start();
         modelMap.addAttribute("partnerList",partnerList); //合作伙伴
         modelMap.addAttribute("businessList",businessList); //招商项目
         modelMap.addAttribute("goodShopList",goodShopList); //精选好铺
@@ -123,6 +141,7 @@ public class IndexController extends BaseController{
         modelMap.addAttribute("advertTopList",advertTopList); //广告
         modelMap.addAttribute("friendList",friendList); //友情链接
         modelMap.addAttribute("investment",investment); //招商热线
+        modelMap.addAttribute("aboutmeList",aboutmeList); //关于我们
         return "index";
     }
 }

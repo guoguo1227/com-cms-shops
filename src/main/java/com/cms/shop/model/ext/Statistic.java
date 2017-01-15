@@ -19,6 +19,15 @@ public class Statistic implements Comparable{
 
     private String qqClick = "0";
     private String qaClick = "0";
+    private String totoal = "0";
+
+    public String getTotoal() {
+        return totoal;
+    }
+
+    public void setTotoal(String totoal) {
+        this.totoal = totoal;
+    }
 
     public String getQaClick() {
         return qaClick;

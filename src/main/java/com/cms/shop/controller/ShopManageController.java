@@ -9,6 +9,7 @@ import com.cms.shop.service.*;
 import com.cms.shop.utils.Page;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.quartz.management.ManagementServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -1255,6 +1256,46 @@ public class ShopManageController extends BaseController{
             result = aboutmeService.updateAboutme(aboutme);
         }else{
             result.setMessage("关于我们不可为空!");
+        }
+        return gson.toJson(result);
+    }
+
+
+    /**
+     * 获取关于物业管理
+     * @param condition
+     * @return
+     */
+    @RequestMapping("manage-list")
+    @ResponseBody
+    public String queryManageList(SearchCondition condition){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != condition){
+            List<Manage> list = aboutmeService.queryManageList(condition);
+            if(CollectionUtils.isNotEmpty(list)){
+                result.setData(list);
+                result.setSuccess(true);
+            }
+        }
+        return gson.toJson(result);
+    }
+    /**
+     * 更新物业管理
+     * @param manage
+     * @return
+     */
+    @RequestMapping("manage-update")
+    @ResponseBody
+    public String updateManageList(Manage manage){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != manage && null != manage.getId()){
+            result = aboutmeService.updateManage(manage);
+        }else{
+            result.setMessage("物业管理不可为空!");
         }
         return gson.toJson(result);
     }

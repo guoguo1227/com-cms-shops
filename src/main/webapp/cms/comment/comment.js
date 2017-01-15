@@ -56,10 +56,16 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService){
                             toastr.error(data.message);
                         }
                     });
+            },
+            delete : function(row){
+                $scope.commentFlagObj.deleteOpen = true;
+                $scope.deleteCommentInfo = {
+                    id : row.qa.qaId
+                }
             }
         };
 
-        var headerArray = ['商铺名称','所属地区','留言人','留言日期','留言内容','留言人手机','留言人邮箱','留言人地址','审核状态','操作'];
+        var headerArray = ['商铺名称','所属地区','留言人','留言日期','留言内容','留言人手机','留言人邮箱','留言人地址','操作'];
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
         $scope.formatCommentPageData(pageData);
         lgDataTableService.config($scope.tableData,{
@@ -70,10 +76,9 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService){
 
         });
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="审核通过"  ng-if="$row.qa.auditStatus == 0" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.pass($row)">通过</a>'+
-            '<a title="审核不通过"  ng-if="$row.qa.auditStatus == 0" class="btn bg-orange btn-xs shop-margin-top-3" ng-click="$table.unpass($row)">不通过</a>';
+            pg.action =  '<a title="删除" class="btn bg-green btn-xs shop-margin-top-3" ng-click="$table.delete($row)">删除</a>';
             return pg;
-        }), ['shopName','distruct','qa.askerName','qa.createDate','qa.content','qa.askerPhone','qa.askerMail','qa.askerLoc','auditStatusStr','action']);
+        }), ['shopName','distruct','qa.askerName','qa.createDate','qa.content','qa.askerPhone','qa.askerMail','qa.askerLoc','action']);
     };
 
     //切换页面
@@ -87,13 +92,30 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService){
         $scope.searchLoad();
     }
 
+    //删除取消
+    $scope.deleteCancle = function(){
+        $scope.commentFlagObj.deleteOpen = false;
+    }
+    //删除
+    $scope.deleteSave = function(){
+        $http.post("/comment/delete.json",{id:$scope.deleteCommentInfo.id},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.commentFlagObj.deleteOpen = false;
+                    $scope.searchLoad();
+                    toastr.info("删除成功!");
+                }else{
+                    toastr.error(data.message);
+                }
+            });
+    }
     //格式化表格数据
     $scope.formatCommentPageData = function(pageData){
 
         if(pageData != undefined && pageData != "" && pageData.length>0){
             for(var i in pageData){
                 //注册账号激活状态
-                if(pageData[i].qa){
+               /* if(pageData[i].qa){
                     pageData[i].auditStatusStr = "";
                     if(pageData[i].qa.auditStatus == 0){
                         pageData[i].auditStatusStr = "<span>未审核</span>";
@@ -102,7 +124,7 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService){
                     }else if(pageData[i].qa.auditStatus == 2){
                         pageData[i].auditStatusStr = "<span><font color='red'>审核未通过</font></span>";
                     }
-                }
+                }*/
                 if(!pageData[i].shopName){
                     pageData[i].shopName = "无";
                 }

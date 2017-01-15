@@ -52,6 +52,7 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                     }
                 }
             });
+       /*
         $http.post("/shopmanage/buildFinish-all.json",{},angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
@@ -65,6 +66,14 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                 if(data.success){
                     if(data.data && Array.isArray(data.data)){
                         $scope.shopFlagObj.shoptypeArr = data.data;
+                    }
+                }
+            });*/
+        $http.post("/shopmanage/hotcate-all.json",{},angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    if(data.data && Array.isArray(data.data)){
+                        $scope.shopFlagObj.hotcateArr = data.data;
                     }
                 }
             });
@@ -176,13 +185,13 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
 
         };
 
-        var headerArray = ['商铺名称','所属地区','道路简称','图片1','图片2','所在楼层','租赁面积','装修情况','发布日期','发布人','类型','基本操作'];
+        var headerArray = ['商铺名称','所属地区','道路简称','图片1','图片2','商铺分类','建筑面积','发布日期','发布人','类型','基本操作'];
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
         pageData = $scope.formatShopPageData(pageData);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.shopImg1 = "<div class='thumbnail' style='height:160px;'><a class='fancybox' rel='group' href={{$row.img1}}><img  src={{$row.img1}}   style='height:160px;'/></a></div>";
-            pg.shopImg2 = "<div class='thumbnail' style='height:160px;'><a class='fancybox' rel='group' href={{$row.img2}}><img  src={{$row.img2}}   style='height:160px;'/></a></div>";
+            pg.shopImg1 = "<div class='thumbnail' style='max-height:130px;max-width:150px;'><a class='fancybox' rel='group' href={{$row.img1}}><img  src={{$row.img1}}   style='max-height:120px;max-width:150px;'/></a></div>";
+            pg.shopImg2 = "<div class='thumbnail' style='max-height:130px;max-width:150px;'><a class='fancybox' rel='group' href={{$row.img2}}><img  src={{$row.img2}}   style='max-height:120px;max-width:150px;'/></a></div>";
 
             pg.action =  '<a title="设置旺铺" class="btn bg-red btn-xs shop-margin-top-3" ng-click="$table.setGood($row)">设置好铺</a>'+
                 '<a title="设置好铺" class="btn bg-orange btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.setFire($row)">设置旺铺</a>'+
@@ -192,7 +201,7 @@ function shopCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             '<a title="编辑" class="btn bg-green btn-xs shop-margin-top-3 shop-margin-left-3" ng-click="$table.detail($row)">编辑</a>';
 
             return pg;
-        }), ['shop.shopName','districtStr','shop.road','shopImg1','shopImg2','shop.floor','shopSquareStr','buildingFinishing','shop.createDate','shop.publisher','shopTypeStr','action']);
+        }), ['shop.shopName','districtStr','shop.road','shopImg1','shopImg2','hotcatStr','shop.squareMetres','shop.createDate','shop.publisher','shopTypeStr','action']);
     };
 
     //切换页面

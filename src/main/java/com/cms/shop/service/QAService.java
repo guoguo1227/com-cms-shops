@@ -19,4 +19,6 @@ public interface QAService {
 
     RequestResult add(Qa qa);
 
+    RequestResult delete(Integer id);
+
 }

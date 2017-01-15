@@ -1,22 +1,4 @@
 <div class="col-xs-12" id="commentApp"  ng-app="commentApp"  ng-controller="commentCtrl" ng-init="init()">
-    <form  role="form">
-        <div class="form-group row input-group-sm">
-            <div class="col-xs-3" style="width:21%">
-                <div class="input-group input-group-sm">
-                    <div class="input-group-btn">
-                        <button title="留言审核状态" type="button" class="btn btn-default">留言审核状态</button>
-                    </div>
-                    <select class="form-control" name = "status" ng-model="search.checkStatus" ng-change="searchLoad(0)">
-                        <option value="">请选择</option>
-                        <option value=0>待审核</option>
-                        <option value=1>审核通过</option>
-                        <option value=2>审核未通过</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </form>
-
     <div class="box">
         <div class="box-header with-border">
             <h3 class="box-title">留言列表</h3>
@@ -30,6 +12,28 @@
             </lg-paginator>
         </div>
     </div>
+
+    <!--删除确认窗口-->
+    <lg-modal open="commentFlagObj.deleteOpen">
+        <div class="modal-header">
+            <h4 class="modal-title">删除留言</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="box-body">
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <label>确认删除该留言?</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default " ng-click="deleteCancle()">关闭</button>
+                    <button class="btn btn-info pull-right" ng-click="deleteSave()">确定</button>
+                </div>
+            </form>
+        </div>
+    </lg-modal>
 
     <lg-modal open = "commentFlagObj.showDetail">
         <div class="modal-header">

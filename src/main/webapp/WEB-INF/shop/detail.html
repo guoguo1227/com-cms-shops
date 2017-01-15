@@ -53,15 +53,22 @@
                         </div>
                         <div class="col-lg-9 panel panel-default shop-border-none">
                             <div class="box ">
-                                <div class="row box" style="height: 85px;text-align: center;">
+                                <div class="row box" style="height: 70px;text-align: center;">
                                     <p id="shopName" class="shop-detail-title">$!{shop.shop.shopName}</p>
                                 </div>
-                                <div class="row box" style="border-top: 15px solid red;border-bottom: 15px solid red;">
+                                <div class="row box" style="border-top: 5px solid #777;border-bottom: 5px solid #777;">
                                     #foreach($shopImg in $!imgList)
                                       #if($!velocityCount <3)
-                                        <div class="col-xs-6 thumbnail">
-                                          <img src="$!shopImg.newImgName" style="height: auto;width: 100%;max-height: 400px;">
-                                        </div>
+                                        #if($imgList.size()==1 )
+                                            <div class="col-xs-12 thumbnail">
+                                                <img src="$!shopImg.newImgName" style="height: auto;width: 100%;max-height: 400px;">
+                                            </div>
+                                        #else
+                                            <div class="col-xs-6 thumbnail">
+                                                <img src="$!shopImg.newImgName" style="height: auto;width: 100%;max-height: 400px;">
+                                            </div>
+                                        #end
+
                                       #end
                                     #end
                                 </div>
@@ -70,17 +77,17 @@
                                             <div class="panel-body ">
                                                 <table class="table table-bordered shop-detail-tb shop-border-none">
                                                 <tbody>
-                                                    <tr><td><span>所在地区:</span><span> $!{shop.districtStr}</span><td><span>保证金: </span><span> $!{shop.deposit}</span></td></tr>
-                                                    <tr><td><span id="shopLoc">商铺地址:</span><span>  $!{shop.shop.location}</span></td><td><span>租金:</span><span>  $!{shop.priceSe}</span></td></tr>
-                                                    <tr><td><span>适宜业态:</span><span>  $!{shop.buildingOccupancy}</span></td><td><span>招商电话:</span><span>  $!{shop.shop.linkmanPhone}</span></td></tr>
-                                                    <tr><td><span>所在楼层:</span><span>  $!{shop.shop.floor}</span></td></tr>
+                                                    <tr><td><span>所在地区:</span><span> $!{shop.districtStr}</span><td><span>商铺类型: </span><span> $!{shop.hotcatStr}</span></td></tr>
+                                                    <tr><td><span id="shopLoc">详细地址:</span><span>  $!{shop.shop.location}</span></td><td><span>所在楼层:</span><span> $!{shop.shop.floor}层</span></td></tr>
+                                                    <tr><td><span>建筑面积:</span><span>  $!{shop.shop.squareMetres}平方米</span></td><td><span>场地面积:</span><span>  $!{shop.shop.yardSquare}平方米</span></td></tr>
+                                                    <tr><td><span>适宜业态:</span><span>  $!{shop.buildingOccupancy}</span></td><td><span>配套设施:</span><span>  $!{shop.facility}</span></td></tr>
                                                     <tr><td><span>发布日期:</span><span> $!date.format('yyyy-MM-dd HH:mm:ss ',$!shop.shop.createDate)</span></td></tr>
                                                 </tbody>
                                                 </table>
                                             </div>
                                         </div>
                                 </div>
-                                <div class="row box" style="border-top: 15px solid red;min-height: 100px;">
+                                <div class="row box" style="border-top: 5px solid #777;min-height: 100px;">
                                     <div class="col-xs-2 panel panel-default shop-border-none">
                                         <input type="hidden" id="lng" value="$!{shop.shop.lng}"/>
                                         <input type="hidden" id="lat" value="$!{shop.shop.lat}"/>
@@ -93,7 +100,7 @@
                                     </div>
 
                                 </div>
-                                <div class="row box" style="border-top: 5px solid red;">
+                                <div class="row box" style="border-top: 5px solid #777;">
                                     #parse("\include\commet.vm")
                                 </div>
                         </div>

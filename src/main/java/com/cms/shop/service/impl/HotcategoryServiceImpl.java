@@ -52,6 +52,15 @@ public class HotcategoryServiceImpl implements HotcategoryService{
     }
 
     @Override
+    public Hotcategory queryById(Integer id) {
+        Hotcategory hot = null;
+        if(null != id){
+            hot = hotcategoryMapper.selectByPrimaryKey(id);
+        }
+        return hot;
+    }
+
+    @Override
     public List<Hotcategory> queryAll() {
         HotcategoryCriteria criteria = new HotcategoryCriteria();
         criteria.setOrderByClause(" priority desc ");

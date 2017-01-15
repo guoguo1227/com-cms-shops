@@ -12,40 +12,40 @@ import java.util.List;
 public interface ShopPvExtMapper {
 
     @Select("select DATE_FORMAT(b.create_Date,'%Y%u') date,b.type,count(*) count from  shoppv b\n"+
-            "WHERE b.type=#{type}\n"+
+            "WHERE b.type=#{type} and b.create_Date>'2017-01-01'\n"+
             "GROUP BY date\n"+
             "ORDER BY b.create_Date;\n")
     public List<ShopPvExt> queryClickWeekByType(@Param("type") Integer type);
 
 
     @Select("select DATE_FORMAT(b.create_Date,'%Y%u') date,b.type,count(*) count from  shoppv b\n"+
-            "WHERE b.type=#{type} and relate_type = #{relateType} \n"+
+            "WHERE b.type=#{type} and b.relate_type = #{relateType} and b.create_Date>'2017-01-01'\n"+
             "GROUP BY date\n"+
             "ORDER BY b.create_Date;\n")
     public List<ShopPvExt> queryClickWeekByTypeAndRelate(@Param("type") Integer type,@Param("relateType") Integer relateType);
 
 
-    @Select("select DATE_FORMAT(b.CREATE_DATE,'%Y%u') date,5,count(*) count from  qa b\n"+
+    @Select("select DATE_FORMAT(b.CREATE_DATE,'%Y%u') date,5,count(*) count from qa b where b.CREATE_DATE>'2017-01-01'\n"+
             "GROUP BY date\n"+
             "ORDER BY b.CREATE_DATE;\n")
     public List<ShopPvExt> queryQaWeekByType();
 
 
-    @Select("select DATE_FORMAT(b.create_Date,'%m') date,b.type,count(*) count from  shoppv b\n"+
-            "WHERE b.type=#{type}\n"+
+    @Select("select DATE_FORMAT(b.create_Date,'%m') date,b.type,count(*) count from shoppv b \n"+
+            "WHERE b.type=#{type} and b.create_Date>'2017-01-01'\n"+
             "GROUP BY date\n"+
             "ORDER BY b.create_Date;\n")
     public List<ShopPvExt> queryClickMonthByType(@Param("type") Integer type);
 
 
-    @Select("select DATE_FORMAT(b.create_Date,'%m') date,b.type,count(*) count from  shoppv b\n"+
-            "WHERE b.type=#{type} and relate_type = #{relateType} \n"+
+    @Select("select DATE_FORMAT(b.create_Date,'%m') date,b.type,count(*) count from  shoppv b \n"+
+            "WHERE b.type=#{type} and relate_type = #{relateType} and b.create_Date>'2017-01-01'\n"+
             "GROUP BY date\n"+
             "ORDER BY b.create_Date;\n")
     public List<ShopPvExt> queryClickMonthByTypeAndRelate(@Param("type") Integer type,@Param("relateType") Integer relateType);
 
 
-    @Select("select DATE_FORMAT(b.CREATE_DATE,'%m') date,5,count(*) count from  qa b\n"+
+    @Select("select DATE_FORMAT(b.CREATE_DATE,'%m') date,5,count(*) count from qa b where b.CREATE_DATE>'2017-01-01'\n"+
             "GROUP BY date\n"+
             "ORDER BY b.CREATE_DATE;\n")
     public List<ShopPvExt> queryQaMonthByType();
