@@ -58,6 +58,7 @@
                 <div id="qrcodeCarousel" class="carousel slide pad_010 b_k" data-ride="carousel" style="height: 270px;">
                     <!-- 轮播（Carousel）项目 -->
                     <div class="col-sm-12 col-lg-12 shop-margin-top-2" >
+                       #*<img src="/static/ui/images/beiyitext.png" style="width:95%;">*#
                         <p style="margin-left:0px;margin-top:5px;text-align: center;"><font style="font-size: 19px;color:#ec0011;font-family: 黑体;letter-spacing: 20px;"><strong>北翼商铺</strong></font></p>
                         <p style="margin-top:-10px;margin-left:0px;text-align: center;"><font style="font-size: 19px;color:#ec0011;font-family: 黑体;letter-spacing: 20px;"><strong>创造财富</strong></font></p>
                     </div>

@@ -43,3 +43,13 @@ CREATE TABLE `aboutme` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
+CREATE TABLE `manage` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` int(6) DEFAULT NULL COMMENT '类型',
+  `name` varchar(100) NOT NULL COMMENT '名称',
+  `title` varchar(100) NOT NULL COMMENT '标题',
+  `description` varchar(3000) DEFAULT NULL COMMENT '描述',
+  `picture` varchar(100) DEFAULT NULL COMMENT '图片',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
