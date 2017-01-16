@@ -82,7 +82,7 @@ public class IndexController extends BaseController{
         List<ShopVo> fireShopList = shopService.getOnList(ShopTypeEnum.FIRE,6);
 
         SearchCondition condition = new SearchCondition();
-        condition.setLimit(9);
+        condition.setLimit(8);
         List<Board> newsBoardList = boardService.queryOnList(BoardTypeEnum.NEWS,condition);
         List<Board> businessBoardList = boardService.queryOnList(BoardTypeEnum.BUSINESS,condition);
 

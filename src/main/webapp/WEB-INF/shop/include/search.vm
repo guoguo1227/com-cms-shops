@@ -5,13 +5,13 @@
         <form class="navbar-form navbar-left" role="search">
             <div class="form-group">
                 <input type="text" style="width: 611px;margin-left:-30px;" class="form-control shop-font18" id="searchContent" placeholder="请输入关键字" ng-keyup="myKeyup($event)" value="$!{searchContent}">
-                <button type="button" style="width:120px;border-radius:3px;background-color: #999;color:#f3000d;" class="btn btn-danger btn-flat" ng-click="searchLoad()"><strong>搜索</strong></button>
+                <button type="button" style="width:120px;border-radius:3px; background-color:rgba(159,159,159,0.2);color:#f3000d;border: 1px solid #777;" class="btn btn-danger btn-flat" ng-click="searchLoad()"><font style="color: #f3000d;">搜索</font></button>
                 &nbsp;&nbsp;
-                <span class=" shop-font-small">热门搜索:</span>
+                <span class=" shop-font-small"><font>热门搜索:</font></span>
                 #foreach($keyword in $!keywordList)
                     #set($word = $keyword.word)
-                    #if($!word.length()>6)
-                        #set($word=$word.substring(0,6))
+                    #if($!word.length()>7)
+                        #set($word=$word.substring(0,7))
                     #end
                     <span class="shop-margin-left-10 shop-font-small">$!{word}</span>
                 #end

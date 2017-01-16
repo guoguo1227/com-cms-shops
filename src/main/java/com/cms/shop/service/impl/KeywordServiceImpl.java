@@ -48,6 +48,8 @@ public class KeywordServiceImpl implements KeywordService{
                     Integer count  = word.getCount();
                     if(count > Integer.MAX_VALUE-1){
                         count = Integer.MAX_VALUE;
+                    }else{
+                        count += 1;
                     }
                     word.setCount(count);
                     word.setUpdatetime(now);

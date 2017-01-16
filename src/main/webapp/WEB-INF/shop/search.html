@@ -19,17 +19,17 @@
         </div>
         <!-- 商铺列表 -->
         <div class="row col-xs-12">
-            <div class="panel panel-default" style="margin-top:-10px;">
+            <div class="panel panel-body" style="margin-top:-10px;">
                 <div class="panel-box">
-                    <div class="breadcrumb">
+                    <div class="panel-body">
                         <p class="shop-font">根据您的搜索条件,查询到$!{total}条结果</p>
                     </div>
                     <div class="row panel-box">
-                        <div class="col-lg-9 panel-body" style="border-right: 5px solid red;margin-top:-25px;">
+                        <div class="col-lg-9 col-sm-9 panel-body" style="border-right: 5px solid red;margin-top:-25px;">
                             <div class="panel-body" style="margin-top:-30px;">
                                 <div class="row box">
                                     #foreach($shop in $shopList)
-                                    <div class="col-lg-3 thumbnail">
+                                    <div class="col-lg-3 col-sm-3 thumbnail">
                                         <a href="/front/detail.action?id=$!shop.shop.id" target="_blank">
                                             <img src="$!shop.filePath" alt="" style="height: 125px;">
                                         </a>
@@ -71,7 +71,7 @@
 
                             </div>
                         </div>
-                        <div class="col-lg-3 panel-box" style="margin-top:-26px;">
+                        <div class="col-lg-3 col-sm-3 panel-box" style="margin-top:-26px;">
                             <div style="background-color: white;marigin-top:-5px;margin-bottom:10px;margin-left:14px;font-size: 24px;color:red;">
                                 #if($!{shoptype})
                                   #if($!{shoptype} == 3)

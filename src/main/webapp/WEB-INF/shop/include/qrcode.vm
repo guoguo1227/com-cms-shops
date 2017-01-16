@@ -1,5 +1,5 @@
 <!-- 二维码 -->
-<div class="panel panel-default shop-border-none shop-margin-top-10">
+<div class="panel panel-default shop-border-none shop-margin-top-10" style="overflow-x:scroll;">
     <div class="item active" style="height: 250px;">
         <div class="col-sm-12 col-lg-12">
             <p class="shop-margin-left-30"><font color="red" style="font-size: 20px;">北&nbsp;&nbsp;&nbsp;&nbsp;翼&nbsp;&nbsp;&nbsp;&nbsp;商&nbsp;&nbsp;&nbsp;&nbsp;铺</font></p>

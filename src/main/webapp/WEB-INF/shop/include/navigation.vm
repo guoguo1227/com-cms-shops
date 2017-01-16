@@ -45,10 +45,9 @@
                         <li class="dropdown">
                             <a  href="/front/aboutme.action" target="_blank" ><span>关于我们</span> <b class="caret"></b></a>
                             <ul class="dropdown-menu shop-son-ul" style="margin-top:-10px;">
-                                <li><a href="/front/aboutme-detail.action?id=1" target="_blank"><span>企业概况</span></a></li>
-                                <li><a href="/front/aboutme-detail.action?id=2" target="_blank"><span>组织架构</span></a></li>
-                                <li><a href="/front/aboutme-detail.action?id=3" target="_blank"><span>领导团队</span></a></li>
-                                <li><a href="/front/aboutme-detail.action?id=4" target="_blank"><span>业务领域</span></a></li>
+                                #foreach($aboutme in $!aboutmeList)
+                                    <li><a href="/front/aboutme-detail.action?id=$!aboutme.id" target="_blank"><span>$!{aboutme.name}</span></a></li>
+                                #end
                             </ul>
                         </li>
                     </ul>

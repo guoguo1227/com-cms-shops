@@ -53,14 +53,14 @@
 <div class="row col-xs-12">
     <div class="panel panel-default">
         <div class="row panel-heading">
-            <div class="col-lg-3 panel panel-default" style="height: 270px;width:20%;">
+            <div class="col-lg-3 col-sm-3 panel panel-default" style="height: 270px;width:20%;">
 
                 <div id="qrcodeCarousel" class="carousel slide pad_010 b_k" data-ride="carousel" style="height: 270px;">
                     <!-- 轮播（Carousel）项目 -->
                     <div class="col-sm-12 col-lg-12 shop-margin-top-2" >
-                       #*<img src="/static/ui/images/beiyitext.png" style="width:95%;">*#
-                        <p style="margin-left:0px;margin-top:5px;text-align: center;"><font style="font-size: 19px;color:#ec0011;font-family: 黑体;letter-spacing: 20px;"><strong>北翼商铺</strong></font></p>
-                        <p style="margin-top:-10px;margin-left:0px;text-align: center;"><font style="font-size: 19px;color:#ec0011;font-family: 黑体;letter-spacing: 20px;"><strong>创造财富</strong></font></p>
+                       <img src="/static/ui/images/abab.png" style="width:95%;z-index:100;margin-left:0px;margin-top:5px;margin-bottom:5px;text-align: center;">
+                      #*  <p style="margin-left:0px;margin-top:5px;text-align: center;"><font style="font-size: 19px;color:#ec0011;font-family: 黑体;letter-spacing: 20px;"><strong>北翼商铺</strong></font></p>
+                        <p style="margin-top:-10px;margin-left:0px;text-align: center;"><font style="font-size: 19px;color:#ec0011;font-family: 黑体;letter-spacing: 20px;"><strong>创造财富</strong></font></p>*#
                     </div>
                     <div class="carousel-inner bor_btm" style="height: 250px;margin-left:-10px;">
                         <div class="item active" style="height: 250px;">
@@ -116,12 +116,12 @@
                 </div>
 
             </div>
-            <div class="col-lg-7 panel panel-default shop-margin-left-10" style="height: 270px;width: 65%;">
+            <div class="col-lg-7 col-sm-7 panel panel-default shop-margin-left-10" style="height: 270px;width: 66%;">
                 <div class="panel-heading shop-font14" style="background-color: white;"><span><font style="color:#333;font-size: 22px;"><strong>▌<strong></strong></font></span><span class="shop-font shop-spacing3" style="color:#333;">商铺热门筛选</span></div>
                 <div class="panel-body shop-select-font">
                     #foreach($hotcat in $!hotAllList)
                         <a href="/front/search-shop.action?hotId=$!hotcat.hotId" target="_blank">
-                            <button type="button" class="btn btn-default  shop-color-gray">$!{hotcat.hotName}</button>
+                            <button type="button" class="btn btn-default  shop-color-gray" style="margin-right: 25px;">$!{hotcat.hotName}</button>
                         </a>
                     #end
                     <hr style="margin-top: 1px;margin-bottom: 1px;color:#ffffff;">
@@ -173,19 +173,19 @@
                     </a>
                 </div>
             </div>
-            <div class="col-lg-2 panel panel-default shop-margin-left-10" style="height: 270px;width: 13%;">
+            <div class="col-lg-2 col-sm-2 panel panel-default shop-margin-left-10" style="height: 270px;width: 12%;>
                 <div class="col-lg-12 panel-body shop-contact">
                     <button class="col-lg-12 thumbnail shop-border-none" data-toggle="modal" data-target="#businessModel" style="height: 60px;">
                         <div class="panel-default">
                             <img src="/static/ui/images/phone.png" style="height: 22px;"><p><font color="red">招商热线</font></p>
                         </div>
                     </button>
-                    <div class="panel-default col-lg-12 thumbnail shop-border-none shop-qq-click" style="height: 60px;">
+                    <button class="panel-default col-lg-12 thumbnail shop-border-none shop-qq-click" style="height: 60px;">
                         <a class="buy" href="http://wpa.qq.com/msgrd?V=1&amp;uin=2046303590&amp;Site=beiyishop&amp;Menu=yes" target="_blank" title="在线客服">
                             <img src="/static/ui/images/qq.png" style="height: 22px;" >
-                            <p><font color="red">&nbsp;&nbsp;在线客服</font></p>
+                            <p><font color="red">在线客服</font></p>
                         </a>
-                    </div>
+                    </button>
                     <button class="col-lg-12 thumbnail shop-border-none" data-toggle="modal" data-target="#myModal" style="height: 60px;">
                         <div class="panel-default">
                             <img src="/static/ui/images/servicer.png" style="height: 22px;">
