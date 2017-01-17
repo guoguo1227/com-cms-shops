@@ -68,7 +68,7 @@
                                 <img  src="/static/ui/images/grcode1.jpg" style="height: 160px;width:111%;margin-left: -4px;">
                             </div>
                             <div class="col-sm-12 col-lg-12 shop-margin-left-10" style="text-align: center;">
-                                <span style="font-size: 18px;font-family: 黑体;letter-spacing: 13px;"><font>北翼商铺网</font></span>
+                                <span style="font-size: 18px;font-family: 黑体;letter-spacing: 13px;z-index: 100; "><font>北翼商铺网</font></span>
                             </div>
                         </div>
                         <div class="item" style="height: 250px;">
@@ -116,7 +116,7 @@
                 </div>
 
             </div>
-            <div class="col-lg-7 col-sm-7 panel panel-default shop-margin-left-10" style="height: 270px;width: 66%;">
+            <div class="col-lg-7 col-sm-7 panel panel-default shop-margin-left-10" style="height: 270px;width: 65%;overflow: auto;">
                 <div class="panel-heading shop-font14" style="background-color: white;"><span><font style="color:#333;font-size: 22px;"><strong>▌<strong></strong></font></span><span class="shop-font shop-spacing3" style="color:#333;">商铺热门筛选</span></div>
                 <div class="panel-body shop-select-font">
                     #foreach($hotcat in $!hotAllList)
@@ -173,23 +173,23 @@
                     </a>
                 </div>
             </div>
-            <div class="col-lg-2 col-sm-2 panel panel-default shop-margin-left-10" style="height: 270px;width: 12%;>
+            <div class="col-lg-2 col-sm-2 panel panel-default shop-margin-left-10" style="height: 270px;width: 12%;">
                 <div class="col-lg-12 panel-body shop-contact">
                     <button class="col-lg-12 thumbnail shop-border-none" data-toggle="modal" data-target="#businessModel" style="height: 60px;">
                         <div class="panel-default">
-                            <img src="/static/ui/images/phone.png" style="height: 22px;"><p><font color="red">招商热线</font></p>
+                            <img src="/static/ui/images/phone.png" style="height: 22px;"><p style="color:#ff0000;font-size: 1em;">招商热线</p>
                         </div>
                     </button>
                     <button class="panel-default col-lg-12 thumbnail shop-border-none shop-qq-click" style="height: 60px;">
                         <a class="buy" href="http://wpa.qq.com/msgrd?V=1&amp;uin=2046303590&amp;Site=beiyishop&amp;Menu=yes" target="_blank" title="在线客服">
                             <img src="/static/ui/images/qq.png" style="height: 22px;" >
-                            <p><font color="red">在线客服</font></p>
+                            <p style="color:#ff0000;font-size: 1em;">在线客服</p>
                         </a>
                     </button>
                     <button class="col-lg-12 thumbnail shop-border-none" data-toggle="modal" data-target="#myModal" style="height: 60px;">
                         <div class="panel-default">
                             <img src="/static/ui/images/servicer.png" style="height: 22px;">
-                            <p><font color="red">给我留言</font></p>
+                            <p style="color:#ff0000;font-size: 1em;">给我留言</p>
                         </div>
                     </button>
                 </div>

@@ -11,7 +11,7 @@
                 #end
             </div>
             <!-- 三个详情栏 -->
-            <div class="row">
+            <div class="row" style=" display: flex;display: -webkit-flex;flex-flow: row;-ms-flex-flow: row;-webkit-flex-flow: row;">
                 <div class="col-lg-4 col-sm-4 panel panel-default" >
                     <div id="boardCarousel" class="row carousel slide pad_010 b_k" data-ride="carousel" style="height: 350px;margin-left:10px;">
                         <!-- 轮播（Carousel）项目 -->
@@ -53,7 +53,7 @@
 
                 </div>
 
-                <div class="col-lg-4 col-sm-4 panel panel-default shop-margin-left-10" style="height:350px;width: 32%;">
+                <div class="col-lg-4 col-sm-4 panel panel-default shop-margin-left-10" style="height:350px;width: 32%;overflow: auto;">
                     <div class="panel-body">
                         <div class="shop-panel-heading" style="background-color: white;line-height: 2"><span class="shop-font-news shop-margin-bottom-5">北翼要闻<a href="/front/boardList.action?type=5" target="_blank" class="shop-fright"><font color="#999" style="font-size: 15px;">更多</font></a></span></div>
                         #*<div class="col-lg-4 shop-margin-top-30" style="height:25px;width: 39%;">
@@ -77,7 +77,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-sm-4 panel panel-default shop-margin-left-10" style="height:350px;width: 31%;">
+                <div class="col-lg-4 col-sm-4 panel panel-default shop-margin-left-10" style="height:350px;overflow: auto;flex: 1;-moz-box-flex: 1;-ms-flex: 1;-webkit-flex: 1;">
                     <!-- <div class="panel-heading">广告位3</div> -->
                     <div class="panel-body panel-default">
                         <div class="shop-panel-heading" style="background-color: white;line-height: 2"><span class="shop-font-news">商家动态<a href="/front/boardList.action?type=6" target="_blank" class="shop-fright"><font color="#999" style="font-size: 15px;">更多</font></a></span></div>
