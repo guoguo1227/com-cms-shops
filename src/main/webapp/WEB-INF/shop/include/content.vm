@@ -108,8 +108,8 @@
                 <center class="shop-model-content">招商直通 · 尽享优惠</center>
                 <span class="shop-fright shop-margin-right-10"><a class="shop-model-content shop-margin-right-5" href="/front/search-shop.action?type=3" target="_blank">更多</a></span>
                 <br>
-                <div class="col-sm-12 col-lg-12 ">
-                    <div class="row">
+                <div class="row panel-body">
+                    <div class="row" style="display: flex;display: -webkit-flex;flex-flow: row;-ms-flex-flow: row;-webkit-flex-flow: row;">
                         <div class="col-lg-4 col-sm-4" style="height: 300px;">
                             #foreach($firShop in $!fireShopList)
                                 #if($velocityCount == 1)
@@ -129,7 +129,7 @@
                             #end
                         </div>
 
-                        <div class="col-lg-4 col-sm-4 row">
+                        <div class="col-lg-4 col-sm-4 row" style="width: 32%;overflow: auto;">
                             #foreach($firShop in $!fireShopList)
                                #if($velocityCount > 1 && $velocityCount !=6)
                                    #set($roadName2 = $!firShop.shop.road)
@@ -148,7 +148,7 @@
                             #end
                         </div>
 
-                        <div class="col-lg-4 col-sm-4">
+                        <div class="col-lg-4 col-sm-4" style="flex: 1;-moz-box-flex: 1;-ms-flex: 1;-webkit-flex: 1;">
                             #foreach($firShop in $!fireShopList)
                                 #if($velocityCount == 6)
                                     #set($roadName3 = $!firShop.shop.road)
@@ -206,7 +206,7 @@
                             <div class="shop-text">
                                 <div class="shop-imgtext" style="background:#f0ad4e;">
                                     <p>
-                                        <span>$!{distribe}</span>
+                                        <span style="font-size: 18px;">$!{distribe}</span>
                                     </p>
                                 </div>
                             </div>

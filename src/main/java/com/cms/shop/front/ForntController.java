@@ -156,6 +156,10 @@ public class ForntController extends BaseController{
             }
         });
         thread1.start();
+
+        List<Aboutme> aboutmeList =  aboutmeService.queryAllList(condition);
+        modelMap.addAttribute("aboutmeList",aboutmeList); //关于我们
+
         modelMap.addAttribute("districtList", districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
         modelMap.addAttribute("advert",advert);
@@ -217,6 +221,9 @@ public class ForntController extends BaseController{
         });
         thread.start();
 
+        List<Aboutme> aboutmeList =  aboutmeService.queryAllList(condition);
+        modelMap.addAttribute("aboutmeList",aboutmeList); //关于我们
+
         modelMap.addAttribute("keywordList",keywordList);
         modelMap.addAttribute("shop",vo);
         modelMap.addAttribute("advert",advert);
@@ -268,6 +275,9 @@ public class ForntController extends BaseController{
             }
         });
         thread.start();
+
+        List<Aboutme> aboutmeList =  aboutmeService.queryAllList(condition);
+        modelMap.addAttribute("aboutmeList",aboutmeList); //关于我们
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
         modelMap.addAttribute("advert",advert);
@@ -330,6 +340,8 @@ public class ForntController extends BaseController{
         });
         thread.start();
 
+        List<Aboutme> aboutmeList =  aboutmeService.queryAllList(condition);
+        modelMap.addAttribute("aboutmeList",aboutmeList); //关于我们
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
         modelMap.addAttribute("advert",advert);
@@ -382,6 +394,8 @@ public class ForntController extends BaseController{
             }
         });
         thread.start();
+        List<Aboutme> aboutmeList =  aboutmeService.queryAllList(condition);
+        modelMap.addAttribute("aboutmeList",aboutmeList); //关于我们
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
         modelMap.addAttribute("advert",advert);
@@ -426,6 +440,7 @@ public class ForntController extends BaseController{
             }
         });
         thread.start();
+
         modelMap.addAttribute("flash",flash);
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
@@ -470,6 +485,9 @@ public class ForntController extends BaseController{
             }
         });
         thread.start();
+
+        List<Aboutme> aboutmeList =  aboutmeService.queryAllList(condition);
+        modelMap.addAttribute("aboutmeList",aboutmeList); //关于我们
         Flash flash = flashService.queryFlash();
         modelMap.addAttribute("flash",flash);
         modelMap.addAttribute("districtList",districtList);//地区
@@ -516,6 +534,8 @@ public class ForntController extends BaseController{
         });
         thread.start();
 
+        List<Aboutme> aboutmeList =  aboutmeService.queryAllList(condition);
+        modelMap.addAttribute("aboutmeList",aboutmeList); //关于我们
         modelMap.addAttribute("flash",flash);
         modelMap.addAttribute("districtList",districtList);//地区
         modelMap.addAttribute("keywordList",keywordList);
